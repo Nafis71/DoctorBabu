@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Profile"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@drawable/background"
+        android:padding="10dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/profile_picture"
+            app:shapeAppearanceOverlay="@style/circular"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:id="@+id/signOut"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="260dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/signout" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="80dp"
+            android:layout_toEndOf="@+id/profilePicture"
+            android:fontFamily="@font/roboto"
+            android:includeFontPadding="false"
+            android:text="Nafis Hasan Tonmoy"
+            android:textSize="16sp" />
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_back"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+
+            />
+
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userName"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/profilePicture"
+            android:fontFamily="@font/roboto"
+            android:includeFontPadding="false"
+            android:text="nhtonmoy2@gmail.com"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/verifyStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/oswald"
+            android:text="Email Verified"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/tickSign"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/verifyStatus"
+            android:src="@drawable/verified" />
+
+        <ImageView
+            android:id="@+id/notVerified"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/verifyStatus"
+            android:src="@drawable/not_verified"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-46dp"
+        android:padding="5dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/budgetImg"
+                    android:layout_width="36dp"
+                    android:layout_height="33dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/budget" />
+
+                <TextView
+                    android:id="@+id/moneyAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/budgetImg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:text="15000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/moneyAmount"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:text="Budget"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="101dp">
+
+                <ImageView
+                    android:id="@+id/appointmentDoneImg"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/appointment_done" />
+
+                <TextView
+                    android:id="@+id/appointmentDone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appointmentDoneImg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:text="34"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appointmentDone"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:text="Done"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/appointmentPendingImg"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/appointment_pending" />
+
+                <TextView
+                    android:id="@+id/appointmentPending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appointmentPendingImg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:text="5"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appointmentPending"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:text="Pending"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/phoneicon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toEndOf="@id/phoneicon"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Phone Number"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/userPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/phoneicon"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="01906729575"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/AddressIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@drawable/location" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toEndOf="@id/AddressIcon"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Address"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/userAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/AddressIcon"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Mirpur-2,Rupnagar Abashik"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ageImg"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@drawable/age" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toEndOf="@id/ageImg"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Age"
+                    android:textSize="14sp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/userAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ageImg"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="26"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ageImg"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_toEndOf="@id/userAge"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="years old"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/editProfile"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:onClick="edit"
+            android:text="Edit Profile"
+            android:textStyle="bold"
+            app:backgroundTint="#2C3E50"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

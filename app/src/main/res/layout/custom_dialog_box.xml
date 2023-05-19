@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:padding="20dp"
+    android:animateLayoutChanges="true"
+    android:outlineAmbientShadowColor="@color/black"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:src ="@drawable/cloud_done"
+        android:background="#fff"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <TextView
+            android:id = "@+id/dialogStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_dialog_registration_successfull"
+            android:textStyle="bold"
+            android:textColor="@color/green_shade_2"
+            android:textSize="16sp"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:fontFamily="@font/poppins"
+            />
+
+        <TextView
+            android:id = "@+id/dialogText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="@string/custom_dialog_email_sent"
+            android:textAlignment="center"
+            android:textColor="#B7000000"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id = "@+id/dialogText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="@string/custom_dialog_email_verification"
+            android:textColor="#B7000000"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dialogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="@string/custom_dialog_okay_button" />
+    </LinearLayout>
+
+</LinearLayout>

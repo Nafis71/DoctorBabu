@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Doctor Babu</string>
+    <string name="custom_dialog_email_verification">Please verify your email address!</string>
+    <string name="custom_dialog_email_sent">An email has been sent to your mail</string>
+    <string name="custom_dialog_registration_successfull">Registration Successful!</string>
+    <string name="custom_dialog_okay_button">Okay</string>
+    <string name="nav_home_title">Home</string>
+    <string name="nav_doctor_title">Find Doctor</string>
+    <string name="nav_profile_title">Profile</string>
+    <string name="nav_history_title">History</string>
+    <string name="hello_home_fragment">This is home fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_doctor_fragment">This is doctor fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_prescription_history_fragment">This is history fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_profile_fragment">This is profile fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

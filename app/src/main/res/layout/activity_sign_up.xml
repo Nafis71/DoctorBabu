@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:padding="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="97dp"
+            android:layout_height="107dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/signup"
+            android:transitionName="imageTransition"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/oswald"
+        android:text="Sign up"
+        android:textAlignment="viewStart"
+        android:textColor="#B7101010"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:transitionName="textTransition1"/>
+    <TextView android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:layout_marginStart="5dp"
+        android:text="One step closer to a healthy life"
+        android:textAlignment="viewStart"
+        android:textColor="#9A101010"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:transitionName="textTransition2"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id ="@+id/fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Full Name"
+                android:autofillHints="name"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/card"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPersonName"
+                    android:transitionName="usernameTransition"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Enter Email"
+                app:hintAnimationEnabled="true"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:drawableStart="@drawable/email"
+                    android:drawablePadding="10dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Enter Phone Number"
+                app:counterEnabled="true"
+                app:counterMaxLength="11"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:transitionName="usernameTransition"
+                    android:drawableStart="@drawable/phone"
+                    android:drawablePadding="10dp"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Password"
+                app:passwordToggleEnabled="true"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:transitionName="passwordTransition"
+                    android:drawableStart="@drawable/password"
+                    android:drawablePadding="10dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/confirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Confirm Password"
+                app:passwordToggleEnabled="true"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:transitionName="passwordTransition"
+                    android:drawableStart="@drawable/confirm_password"
+                    android:drawablePadding="10dp"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/signUp"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="5dp"
+                android:onClick="register"
+                android:text="Sign Up"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:background="@drawable/custom_button_back"
+                android:transitionName="signinTransition"
+                app:backgroundTint="#273746 " />
+
+            <Button
+                android:id="@+id/signIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="#00000000"
+                android:elevation="0dp"
+                android:fontFamily="@font/poppins"
+                android:onClick="callSignIn"
+                android:text="Already have an account? Sign in"
+                android:textColor="@color/black"
+                android:textSize="13.5sp"
+                android:textStyle="bold"
+                android:transitionName="signupTransition" />
+            <ProgressBar
+                android:id="@+id/progressCircular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/progress_back"
+                android:visibility="gone"
+
+
+                />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</LinearLayout>

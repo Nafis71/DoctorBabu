@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfile"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:onClick="back"
+        android:src="@drawable/back" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id = "@+id/profilePicture"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/profile_picture"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="115dp"
+        app:shapeAppearanceOverlay="@style/circular"
+        />
+
+
+    <ImageView
+        android:id ="@+id/editPicture"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-30dp"
+        android:layout_marginTop="126dp"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:src="@drawable/camera"
+        android:onClick="browse"/>
+
+
+</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="38dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                android:hint="Full Name"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/card"
+                    android:drawablePadding="8dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                android:hint="Address"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/location"
+                    android:drawablePadding="8dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                android:hint="Phone Number"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/phone"
+                    android:drawablePadding="8dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                android:hint = "Age"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/age"
+                    android:drawablePadding="8dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                android:hint = "Height (in cm)"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/height"
+                    android:drawablePadding="8dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                android:hint = "Weight (in kg)"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/weight"
+                    android:drawablePadding="8dp">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id ="@+id/genderImg"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:src = "@drawable/gender"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    />
+                <TextView
+                    android:id="@+id/txt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender: "
+                    android:textSize="16sp"
+                    android:layout_toEndOf="@+id/genderImg"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    />
+                <RadioGroup
+                    android:id="@+id/radioG"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/txt1"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id = "@+id/male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:onClick="checkButton"
+                    />
+                    <RadioButton
+                        android:id = "@+id/female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:onClick="checkButton"
+                        />
+                </RadioGroup>
+            </RelativeLayout>
+        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:cornerRadius="15dp"
+            app:elevation="15dp"
+            android:text="UPDATE"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="75dp"
+            android:layout_alignParentStart="true"
+            app:backgroundTint="#2C3E50"
+            android:onClick="firebaseUpdateData"
+            >
+        </com.google.android.material.button.MaterialButton>
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_back"
+            android:layout_below="@+id/update"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="165dp"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
