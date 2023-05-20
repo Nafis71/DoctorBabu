@@ -30,7 +30,7 @@ public class Profile extends Fragment {
 
     FirebaseAuth auth;
     FirebaseUser user;
-    TextView email,phone,verificationStatus,fullName,address;
+    TextView email,phone,verificationStatus,fullName,address,age;
     ImageView userprofilePicture,verifyTickSign,notVerifyImg;
     Button editProfile;
     ProgressBar loadingCircle;
@@ -76,6 +76,7 @@ public class Profile extends Fragment {
         phone = (TextView) getView().findViewById(R.id.userPhone);
         address = (TextView) getView().findViewById(R.id.userAddress);
         fullName = (TextView) getView().findViewById(R.id.userName);
+        age = (TextView) getView().findViewById(R.id.userAge);
         email.setText(user.getEmail());
         if(!user.isEmailVerified())
         {
@@ -110,6 +111,7 @@ public class Profile extends Fragment {
                         fullName.setText(String.valueOf(snapshot.child("fullName").getValue()));
                         phone.setText(String.valueOf(snapshot.child("phone").getValue()));
                         address.setText(String.valueOf(snapshot.child("address").getValue()));
+                        age.setText(String.valueOf(snapshot.child("age").getValue()));
                         String photoUrl = String.valueOf(snapshot.child("photoUrl").getValue());
                         if(!photoUrl.equals("null"))
                         {

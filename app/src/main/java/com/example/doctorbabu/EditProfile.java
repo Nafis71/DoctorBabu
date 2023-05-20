@@ -160,21 +160,18 @@ public class EditProfile extends AppCompatActivity {
         else
         {
             loadingCircle.setVisibility(View.VISIBLE);
-            profileEditUserHelper userData = new profileEditUserHelper(address,age,email,fullname,gender,height,phone,weight);
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
             DatabaseReference reference = database.getReference("users");
-            reference.child(uid).setValue(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    loadingCircle.setVisibility(View.GONE);
-                    alertDialog();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditProfile.this, "Failed to update", Toast.LENGTH_SHORT).show();
-                }
-            });
+            reference.child(uid).child("address").setValue(address);
+            reference.child(uid).child("age").setValue(age);
+            reference.child(uid).child("email").setValue(email);
+            reference.child(uid).child("fullName").setValue(fullname);
+            reference.child(uid).child("gender").setValue(gender);
+            reference.child(uid).child("height").setValue(height);
+            reference.child(uid).child("phone").setValue(phone);
+            reference.child(uid).child("weight").setValue(weight);
+            loadingCircle.setVisibility(View.GONE);
+            alertDialog();
         }
     }
 
@@ -294,5 +291,6 @@ public class EditProfile extends AppCompatActivity {
                         dialogInterface.cancel();
                     }
                 });
+        dialog.create().show();
     }
 }

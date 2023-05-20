@@ -18,6 +18,7 @@ public class Dashboard extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     BottomNavigationView bottomNavigation;
+    private Home home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class Dashboard extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        home =  new Home();
         bottomNavigation = findViewById(R.id.bottomView);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -38,32 +40,40 @@ public class Dashboard extends AppCompatActivity {
                 int count = 0;
                 if(id == R.id.nav_home)
                 {
-                    loadFragment(new Home());
+                    loadFragment(new Home(),false);
                 }
                 else if(id == R.id.nav_doctor)
                 {
-                    loadFragment(new Doctor());
+                    loadFragment(new Doctor(),false);
                 }
                 else if(id == R.id.nav_history)
                 {
-                    loadFragment(new PrescriptionHistory());
+                    loadFragment(new PrescriptionHistory(),false);
                 }
                 else
                 {
-                    loadFragment(new Profile());
+                    loadFragment(new Profile(),true);
                 }
                 return true;
             }
         });
         bottomNavigation.setSelectedItemId(R.id.nav_profile);
     }
-    public void loadFragment(Fragment fragment)
+    public void loadFragment(Fragment fragment,boolean flag)
     {
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.replace(R.id.container,fragment);
-        ft.addToBackStack(null);
+        FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        if(flag)
+        {
+            ft.add(R.id.container,fragment);
+        }
+        else
+        {
+            ft.replace(R.id.container,fragment);
+            ft.addToBackStack("fragment");
+        }
         ft.commit();
+
     }
 }
