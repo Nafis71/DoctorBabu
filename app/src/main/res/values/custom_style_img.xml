@@ -6,4 +6,7 @@
     <style name="corner">
         <item name="cornerSize">25dp</item>
     </style>
+    <style name="color">
+        <item name="colorAccent">@color/black</item>
+    </style>
 </resources>
