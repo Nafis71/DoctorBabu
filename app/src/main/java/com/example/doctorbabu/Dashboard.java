@@ -62,7 +62,7 @@ public class Dashboard extends AppCompatActivity {
     public void loadFragment(Fragment fragment,boolean flag)
     {
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true);
+        FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         if(flag)
         {
@@ -71,7 +71,6 @@ public class Dashboard extends AppCompatActivity {
         else
         {
             ft.replace(R.id.container,fragment);
-            ft.addToBackStack("fragment");
         }
         ft.commit();
 

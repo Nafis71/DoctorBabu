@@ -19,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Databases.profileEditUserHelper;
 import com.example.doctorbabu.Databases.userHelper;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -34,7 +36,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 import java.io.InputStream;
 
 public class EditProfile extends AppCompatActivity {
@@ -228,7 +229,8 @@ public class EditProfile extends AppCompatActivity {
                         String photoUrl = String.valueOf(snapShot.child("photoUrl").getValue());
                         if(!photoUrl.equals("null"))
                         {
-                            Picasso.get().load(photoUrl).into(profileImage); //loading image from firebase using picasso tool.
+                            Glide.with(EditProfile.this).load(photoUrl).into(profileImage);
+                             //loading image from firebase using glide tool.
                         }
                         else
                         {

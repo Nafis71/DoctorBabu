@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,7 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 public class Profile extends Fragment {
 
@@ -73,10 +73,10 @@ public class Profile extends Fragment {
         verifyTickSign = (ImageView) getView().findViewById(R.id.tickSign);
         notVerifyImg = (ImageView) getView().findViewById(R.id.notVerified);
         editProfile = (Button) getView().findViewById(R.id.editProfile);
-        phone = (TextView) getView().findViewById(R.id.userPhone);
-        address = (TextView) getView().findViewById(R.id.userAddress);
         fullName = (TextView) getView().findViewById(R.id.userName);
-        age = (TextView) getView().findViewById(R.id.userAge);
+//        phone = (TextView) getView().findViewById(R.id.userPhone);
+//        address = (TextView) getView().findViewById(R.id.userAddress);
+//        age = (TextView) getView().findViewById(R.id.userAge);
         email.setText(user.getEmail());
         if(!user.isEmailVerified())
         {
@@ -108,14 +108,14 @@ public class Profile extends Fragment {
                     if(task.getResult().exists())
                     {
                         DataSnapshot snapshot = task.getResult();
-                        fullName.setText(String.valueOf(snapshot.child("fullName").getValue()));
-                        phone.setText(String.valueOf(snapshot.child("phone").getValue()));
-                        address.setText(String.valueOf(snapshot.child("address").getValue()));
-                        age.setText(String.valueOf(snapshot.child("age").getValue()));
+                          fullName.setText(String.valueOf(snapshot.child("fullName").getValue()));
+//                        phone.setText(String.valueOf(snapshot.child("phone").getValue()));
+//                        address.setText(String.valueOf(snapshot.child("address").getValue()));
+//                        age.setText(String.valueOf(snapshot.child("age").getValue()));
                         String photoUrl = String.valueOf(snapshot.child("photoUrl").getValue());
                         if(!photoUrl.equals("null"))
                         {
-                            Picasso.get().load(photoUrl).into(userprofilePicture);
+                            Glide.with(getContext()).load(photoUrl).into(userprofilePicture);
                             userprofilePicture.setVisibility(View.VISIBLE);
                         }
                         else

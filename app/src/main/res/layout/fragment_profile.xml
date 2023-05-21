@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Profile"
-    android:background="@drawable/background">
+    android:background="#F4F6F7"
+    tools:context=".Profile">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,6 +22,7 @@
             app:srcCompat="@drawable/profile_picture"
             app:shapeAppearanceOverlay="@style/circular"
             android:visibility="invisible"
+            app:layout_constraintDimensionRatio="1:1"
             />
 
         <ImageView
@@ -107,59 +108,60 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+            app:cardElevation="7dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/budgetImg"
-                    android:layout_width="36dp"
-                    android:layout_height="33dp"
+                    android:id="@+id/rewardImg"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/budget" />
+                    android:src="@drawable/reward" />
 
                 <TextView
-                    android:id="@+id/moneyAmount"
+                    android:id="@+id/rewardAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/budgetImg"
+                    android:layout_below="@+id/rewardImg"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="15000"
+                    android:text="25"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/moneyAmount"
+                    android:layout_below="@+id/rewardAmount"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="Budget"
-                    android:textSize="16sp"
+                    android:text="Reward Points"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+            app:cardElevation="7dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -193,20 +195,21 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="Done"
-                    android:textSize="16sp"
+                    android:text="Appointment Done"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
+            app:cardElevation="7dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -240,13 +243,16 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="Pending"
-                    android:textSize="16sp"
+                    android:text="Appointment Pending"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -258,170 +264,123 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <RelativeLayout
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/phoneicon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/phone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/personalHistory"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_toEndOf="@id/phoneicon"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Phone Number"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/userPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/phoneicon"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="01906729575"
-                    android:textSize="14sp" />
-
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dp">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="#FEFEFE"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/AddressIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:src="@drawable/location" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_toEndOf="@id/AddressIcon"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Address"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/userAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/AddressIcon"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Mirpur-2,Rupnagar Abashik"
-                    android:textSize="14sp" />
-
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dp">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            app:cardBackgroundColor="#FEFEFE"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/ageImg"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:src="@drawable/age" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_toEndOf="@id/ageImg"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Age"
-                    android:textSize="14sp"
-
+                    android:drawableEnd="@drawable/edit"
+                    android:editable="false"
+                    android:inputType=""
+                    android:padding="12dp"
+                    android:text="Personal History"
+                    android:textSize="16sp"
+                    android:backgroundTint="#5499C7"
                     />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/personalHistoryInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No Information Added"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="10dp"
+                        />
+                      <com.google.android.material.button.MaterialButton
+                          android:id="@+id/addPersonalHistory"
+                          android:layout_width="58dp"
+                          android:layout_height="35dp"
+                          android:text="Add"
+                          android:textSize="10sp"
+                          app:backgroundTint="#5499C7"
+                          app:cornerRadius="28dp"
+                          />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/userAge"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/pasMedicalHistory"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ageImg"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="26"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:drawableEnd="@drawable/edit"
+                    android:editable="false"
+                    android:padding="12dp"
+                    android:text="Past Medical History"
+                    android:textSize="16sp"
+                    android:backgroundTint="#5499C7"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ageImg"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@id/userAge"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="years old"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/pastMedicalHistoryInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Information Added"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="10dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addMedicalHistory"
+                        android:layout_width="58dp"
+                        android:layout_height="35dp"
+                        android:text="Add"
+                        android:textSize="10sp"
+                        app:backgroundTint="#5499C7"
+                        app:cornerRadius="28dp"
+                        />
+                </LinearLayout>
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/bloodGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/edit"
+                    android:editable="false"
+                    android:padding="12dp"
+                    android:text="Blood Group"
+                    android:textSize="16sp"
+                    android:backgroundTint="#5499C7"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/bloodGroupInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Information Added"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="10dp"
+                        />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addBloodGroup"
+                        android:layout_width="58dp"
+                        android:layout_height="35dp"
+                        android:text="Add"
+                        android:textSize="10sp"
+                        app:backgroundTint="#5499C7"
+                        app:cornerRadius="28dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
 
 
-            </RelativeLayout>
+
 
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-
+</ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
