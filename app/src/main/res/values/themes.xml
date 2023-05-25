@@ -14,6 +14,13 @@
         <item name="android:textColorPrimary">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
-
+    <!-- Bottom Sheet Styles. -->
+    <style name="bottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <!-- Bottom Sheet Styles. -->
     <style name="Theme.DoctorBabu" parent="Base.Theme.DoctorBabu" />
 </resources>

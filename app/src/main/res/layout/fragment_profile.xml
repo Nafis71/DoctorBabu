@@ -250,16 +250,37 @@
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editProfile"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cornerRadius="12dp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto_medium"
+        android:onClick="edit"
+        android:text="Edit Profile"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:strokeColor="@color/white"
+        app:backgroundTint="#2C3E50  "
+        app:elevation="500dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp">
+            android:padding="2dp"
+            android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -271,8 +292,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp">
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_bold"
+                        android:text="Medical Info"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="10dp"
+                        app:drawableBottomCompat="@drawable/doctor_tool"
+                        android:textAllCaps="true"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/personalHistory"
+                        android:id="@+id/alergyHistoryInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/edit"
@@ -290,7 +325,6 @@
                                 app:flexWrap="wrap"
                                 app:alignContent="stretch"
                                 android:padding="5dp"
-
                                 >
                                  <TextView
                                 android:id="@+id/alergy"
@@ -299,16 +333,13 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="15dp"
-                                android:text="No information added"
+                                android:text=""
                                      android:layout_marginTop="6dp"
                                 />
                             </com.google.android.flexbox.FlexboxLayout>
 
-
-
-
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/pasMedicalHistory"
+                        android:id="@+id/pastMedicalHistoryText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/edit"
@@ -317,23 +348,28 @@
                         android:text="Past Medical History"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
-                    <LinearLayout
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/pastMedicalHistory"
+                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        app:flexWrap="wrap"
+                        app:alignContent="stretch"
+                        android:padding="5dp"
+                        >
                         <TextView
                             android:id="@+id/pastMedicalHistoryInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No Information Added"
+                            android:text=""
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
                             />
+                    </com.google.android.flexbox.FlexboxLayout>
 
-                    </LinearLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/bloodGroup"
+                        android:id="@+id/bloodGroupText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/edit"
@@ -350,7 +386,195 @@
                             android:id="@+id/bloodGroupInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No Information Added"
+                            android:text=""
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="10dp"
+                            />
+                    </LinearLayout>
+
+                </TableLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#FEFEFE"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_bold"
+                        android:text="Patient Info"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="10dp"
+                        app:drawableBottomCompat="@drawable/patient_info"
+                        android:textAllCaps="true"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/phone_2"
+                        android:editable="false"
+                        android:inputType=""
+                        android:padding="15dp"
+                        android:text="Phone Number"
+                        android:textSize="16sp"
+                        android:backgroundTint="#5499C7"
+                        android:clickable="false"
+                        />
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        app:flexWrap="wrap"
+                        app:alignContent="stretch"
+                        android:padding="5dp"
+                        >
+                        <TextView
+                            android:id="@+id/userPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:text=""
+                            android:layout_marginTop="6dp"
+                            />
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/location_2"
+                        android:editable="false"
+                        android:padding="12dp"
+                        android:text="Address"
+                        android:textSize="16sp"
+                        android:backgroundTint="#5499C7"/>
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        app:flexWrap="wrap"
+                        app:alignContent="stretch"
+                        android:padding="5dp"
+                        >
+                        <TextView
+                            android:id="@+id/userAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="10dp"
+                            />
+                    </com.google.android.flexbox.FlexboxLayout>
+
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/gender"
+                        android:editable="false"
+                        android:padding="12dp"
+                        android:text="Gender"
+                        android:textSize="16sp"
+                        android:backgroundTint="#5499C7"/>
+
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/userGender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="10dp"
+                            />
+                    </LinearLayout>
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/age"
+                        android:editable="false"
+                        android:padding="12dp"
+                        android:text="Age"
+                        android:textSize="16sp"
+                        android:backgroundTint="#5499C7"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/userAge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="10dp"
+                            />
+                    </LinearLayout>
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/height"
+                        android:editable="false"
+                        android:padding="12dp"
+                        android:text="Height (CM)"
+                        android:textSize="16sp"
+                        android:backgroundTint="#5499C7"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/userHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="10dp"
+                            />
+                    </LinearLayout>
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/weight"
+                        android:editable="false"
+                        android:padding="12dp"
+                        android:text="Weight (KG)"
+                        android:textSize="16sp"
+                        android:backgroundTint="#5499C7"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/userWeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
                             android:layout_marginStart="10dp"
                             android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
@@ -365,23 +589,9 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/editProfile"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/custom_button_back"
-            android:fontFamily="@font/roboto"
-            android:onClick="edit"
-            android:text="Edit Profile"
-            android:textStyle="bold"
-            app:backgroundTint="#2C3E50"
-            />
-    </LinearLayout>
+
+
 
 
 </LinearLayout>

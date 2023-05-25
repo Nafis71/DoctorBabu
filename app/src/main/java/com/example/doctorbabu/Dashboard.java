@@ -18,7 +18,8 @@ public class Dashboard extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     BottomNavigationView bottomNavigation;
-    private Home home;
+    FragmentManager fm;
+    int check = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,6 @@ public class Dashboard extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        home =  new Home();
         bottomNavigation = findViewById(R.id.bottomView);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -40,19 +40,24 @@ public class Dashboard extends AppCompatActivity {
                 int count = 0;
                 if(id == R.id.nav_home)
                 {
-                    loadFragment(new Home(),false);
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_home)
+                        loadFragment(new Home(),false);
+
                 }
                 else if(id == R.id.nav_doctor)
                 {
-                    loadFragment(new Doctor(),false);
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_doctor)
+                        loadFragment(new Doctor(),false);
                 }
                 else if(id == R.id.nav_history)
                 {
-                    loadFragment(new PrescriptionHistory(),false);
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_history)
+                        loadFragment(new PrescriptionHistory(),false);
                 }
                 else
                 {
-                    loadFragment(new Profile(),true);
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_profile)
+                        loadFragment(new Profile(),true);
                 }
                 return true;
             }
@@ -61,12 +66,20 @@ public class Dashboard extends AppCompatActivity {
     }
     public void loadFragment(Fragment fragment,boolean flag)
     {
-        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         if(flag)
         {
-            ft.add(R.id.container,fragment);
+            if(check == 0)
+            {
+                ft.add(R.id.container,fragment);
+                check++;
+            }
+            else
+            {
+                ft.replace(R.id.container,fragment);
+            }
         }
         else
         {
