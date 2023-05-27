@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,15 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,31 +29,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Profile extends Fragment {
 
     FirebaseAuth auth;
     FirebaseUser user;
-    TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,alergy,medicalInfo,bloodGroupInfo,alergyList;
+    TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,alergy,medicalInfo,bloodGroupInfo, allergyList,medicalHistoryList,bloodGroupList;
     ImageView userprofilePicture,verifyTickSign,notVerifyImg;
-    Button editProfile,alergyListConfirm;
+    Button editProfile,allergyListConfirm,medicalListConfirm,bloodConfirmList;
     ProgressBar loadingCircle;
     FlexboxLayout flex,flex2;
-    BottomSheetDialog bottomSheetDialog;
-    CheckBox drug,cloth,dust,food;
+    BottomSheetDialog bottomSheetDialog,bottomSheetDialogMedicalList,bottomSheetDialogBloodList;
+    CheckBox drug,cloth,dust,food,asthma,cancer,diabetics,heartDisease,highBp,migraine,stroke,ulcer,aPositive,bPositive,oPositive,abPositive,aNegative,bNegative,oNegative,abNegative;
     public Profile() {
         // Required empty public constructor
     }
@@ -94,7 +83,9 @@ public class Profile extends Fragment {
         height = (TextView) getView().findViewById(R.id.userHeight);
         weight = (TextView) getView().findViewById(R.id.userWeight);
         age = (TextView) getView().findViewById(R.id.userAge);
-        alergyList = (TextView) getView().findViewById(R.id.alergyHistoryInfo);
+        allergyList = (TextView) getView().findViewById(R.id.alergyHistoryInfo);
+        medicalHistoryList = (TextView) getView().findViewById(R.id.pastMedicalHistoryText);
+        bloodGroupList = (TextView) getView().findViewById(R.id.bloodGroupText);
     }
 
     public void getData()
@@ -137,28 +128,22 @@ public class Profile extends Fragment {
                 startActivity(intent);
             }
         });
-        alergyList.setOnClickListener(new View.OnClickListener() {
+        allergyList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.bottomSheetTheme);
-                View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_alergylist,null);
-                drug = bottomSheetView.findViewById(R.id.drug);
-                dust = bottomSheetView.findViewById(R.id.dust);
-                cloth = bottomSheetView.findViewById(R.id.cloth);
-                food = bottomSheetView.findViewById(R.id.food);
-                alergyListConfirm = bottomSheetView.findViewById(R.id.confirmList);
-                drug.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(drug.isChecked())
-                        {
-                            Toast.makeText(getContext(), "Drug is checked", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+               allergyList();
+            }
+        });
+        medicalHistoryList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                medicalList();
+            }
+        });
+        bloodGroupList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bloodList();
             }
         });
     }
@@ -265,7 +250,15 @@ public class Profile extends Fragment {
                     if(task.getResult().exists())
                     {
                         DataSnapshot snapshot = task.getResult();
-                        bloodGroupInfo.setText(String.valueOf(snapshot.child("group").getValue()));
+                        if(!String.valueOf(snapshot.child("group").getValue()).equals("null"))
+                        {
+                            bloodGroupInfo.setText(String.valueOf(snapshot.child("group").getValue()));
+                        }
+                        else
+                        {
+                            bloodGroupInfo.setText("No information found");
+                        }
+
                     }
                 }
             }
@@ -288,16 +281,22 @@ public class Profile extends Fragment {
                     if(task.getResult().exists())
                     {
                         DataSnapshot snapshot = task.getResult();
-                        String cloth = String.valueOf(snapshot.child("Cloth").getValue());
-                        String drug = String.valueOf(snapshot.child("Drug").getValue());
                         ArrayList<String> list = new ArrayList<>();
-                        if(!cloth.equals("null"))
+                        if(!String.valueOf(snapshot.child("cloth").getValue()).equals("null"))
                         {
-                            list.add(cloth);
+                            list.add(String.valueOf(snapshot.child("cloth").getValue()));
                         }
-                        if(!drug.equals("null"))
+                        if(!String.valueOf(snapshot.child("drug").getValue()).equals("null"))
                         {
-                            list.add(drug);
+                            list.add(String.valueOf(snapshot.child("drug").getValue()));
+                        }
+                        if(!String.valueOf(snapshot.child("dust").getValue()).equals("null"))
+                        {
+                            list.add(String.valueOf(snapshot.child("dust").getValue()));
+                        }
+                        if(!String.valueOf(snapshot.child("food").getValue()).equals("null"))
+                        {
+                            list.add(String.valueOf(snapshot.child("food").getValue()));
                         }
                         alergyListAdd(list);
                     }
@@ -359,47 +358,38 @@ public class Profile extends Fragment {
                     {
                         DataSnapshot snapshot = task.getResult();
                         ArrayList<String> medicalHistoryList = new ArrayList<>();
-                        String asthma = String.valueOf(snapshot.child("asthma").getValue());
-                        String cancer = String.valueOf(snapshot.child("cancer").getValue());
-                        String diabetics = String.valueOf(snapshot.child("diabetics").getValue());
-                        String heartDisease = String.valueOf(snapshot.child("heartdisease").getValue());
-                        String migrane = String.valueOf(snapshot.child("migrane").getValue());
-                        String stroke = String.valueOf(snapshot.child("stroke").getValue());
-                        String ulcer = String.valueOf(snapshot.child("ulcer").getValue());
-                        String highBp = String.valueOf(snapshot.child("highbp").getValue());
-                        if(!asthma.equals("null"))
+                        if(!String.valueOf(snapshot.child("asthma").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(asthma);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("asthma").getValue()));
                         }
-                        if(!cancer.equals("null"))
+                        if(!String.valueOf(snapshot.child("cancer").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(cancer);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("cancer").getValue()));
                         }
-                        if(!diabetics.equals("null"))
+                        if(!String.valueOf(snapshot.child("diabetics").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(diabetics);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("diabetics").getValue()));
                         }
-                        if(!heartDisease.equals("null"))
+                        if(!String.valueOf(snapshot.child("heartdisease").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(heartDisease);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("heartdisease").getValue()));
                         }
-                        if(!migrane.equals("null"))
+                        if(!String.valueOf(snapshot.child("migraine").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(migrane);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("migraine").getValue()));
                         }
-                        if(!stroke.equals("null"))
+                        if(!String.valueOf(snapshot.child("stroke").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(stroke);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("stroke").getValue()));
                         }
-                        if(!ulcer.equals("null"))
+                        if(!String.valueOf(snapshot.child("ulcer").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(ulcer);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("ulcer").getValue()));
                         }
-                        if(!highBp.equals("null"))
+                        if(!String.valueOf(snapshot.child("highbp").getValue()).equals("null"))
                         {
-                            medicalHistoryList.add(highBp);
+                            medicalHistoryList.add(String.valueOf(snapshot.child("highbp").getValue()));
                         }
-                        Log.i("medical history output: ", String.valueOf(medicalHistoryList));
                         medicalHistoryListAdd(medicalHistoryList);
                     }
                     else
@@ -455,6 +445,400 @@ public class Profile extends Fragment {
         }
 
     }
+
+    public void allergyList(){
+        bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.bottomSheetTheme);
+        View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_alergylist,null);
+        drug = bottomSheetView.findViewById(R.id.drug);
+        dust = bottomSheetView.findViewById(R.id.dust);
+        cloth = bottomSheetView.findViewById(R.id.cloth);
+        food = bottomSheetView.findViewById(R.id.food);
+        allergyListConfirm = bottomSheetView.findViewById(R.id.confirmList);
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference = database.getReference("alergy");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            if(task.getResult().exists())
+                            {
+                                DataSnapshot snapshot = task.getResult();
+                                drug.setChecked(!String.valueOf(snapshot.child("drug").getValue()).equals("null"));
+                                dust.setChecked(!String.valueOf(snapshot.child("dust").getValue()).equals("null"));
+                                cloth.setChecked(!String.valueOf(snapshot.child("cloth").getValue()).equals("null"));
+                                food.setChecked(!String.valueOf(snapshot.child("food").getValue()).equals("null"));
+                            }
+                            else
+                            {
+                                Toast.makeText(getContext(), "Data don't exist", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(), "Database load error", Toast.LENGTH_SHORT).show();
+                        }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Couldn't fetch alergy history",e.toString());
+            }
+        });
+        allergyListConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(drug.isChecked())
+                {
+                    reference.child(user.getUid()).child("drug").setValue("Drug");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("drug").setValue("null");
+                }
+                if(dust.isChecked())
+                {
+                    reference.child(user.getUid()).child("dust").setValue("Dust");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("dust").setValue("null");
+                }
+                if(cloth.isChecked())
+                {
+                    reference.child(user.getUid()).child("cloth").setValue("Cloth");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("cloth").setValue("null");
+                }
+                if(food.isChecked())
+                {
+                    reference.child(user.getUid()).child("food").setValue("Food");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("food").setValue("null");
+                }
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setTitle("Done").setMessage("Allergy History has been updated!");
+                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        bottomSheetDialog.cancel();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .detach(Profile.this)
+                                .commitNowAllowingStateLoss();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .attach(Profile.this)
+                                .commitNow();
+                    }
+                }).setCancelable(false);
+                dialog.create().show();
+            }
+        });
+
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+    }
+
+    public void medicalList()
+    {
+        bottomSheetDialogMedicalList = new BottomSheetDialog(getContext(),R.style.bottomSheetTheme);
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_medical_history_list,null);
+        asthma = bottomSheet.findViewById(R.id.asthma);
+        cancer = bottomSheet.findViewById(R.id.cancer);
+        diabetics = bottomSheet.findViewById(R.id.diabetics);
+        heartDisease = bottomSheet.findViewById(R.id.heartDisease);
+        highBp = bottomSheet.findViewById(R.id.highBp);
+        migraine = bottomSheet.findViewById(R.id.migraine);
+        stroke = bottomSheet.findViewById(R.id.stroke);
+        ulcer = bottomSheet.findViewById(R.id.ulcer);
+        medicalListConfirm = bottomSheet.findViewById(R.id.confirmList);
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference = database.getReference("medicalhistory");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isComplete())
+                {
+                    if(task.getResult().exists())
+                    {
+                        DataSnapshot snapshot = task.getResult();
+                        asthma.setChecked(!String.valueOf(snapshot.child("asthma").getValue()).equals("null"));
+                        cancer.setChecked(!String.valueOf(snapshot.child("cancer").getValue()).equals("null"));
+                        diabetics.setChecked(!String.valueOf(snapshot.child("diabetics").getValue()).equals("null"));
+                        heartDisease.setChecked(!String.valueOf(snapshot.child("heartdisease").getValue()).equals("null"));
+                        highBp.setChecked(!String.valueOf(snapshot.child("highbp").getValue()).equals("null"));
+                        migraine.setChecked(!String.valueOf(snapshot.child("migraine").getValue()).equals("null"));
+                        stroke.setChecked(!String.valueOf(snapshot.child("stroke").getValue()).equals("null"));
+                        ulcer.setChecked(!String.valueOf(snapshot.child("ulcer").getValue()).equals("null"));
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), "Data don't exist", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Database load error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Couldn't fetch medical history",e.toString());
+            }
+        });
+        medicalListConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(asthma.isChecked())
+                {
+                    reference.child(user.getUid()).child("asthma").setValue("Asthma");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("asthma").setValue("null");
+                }
+                if(cancer.isChecked())
+                {
+                    reference.child(user.getUid()).child("cancer").setValue("Cancer");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("cancer").setValue("null");
+                }
+                if(diabetics.isChecked())
+                {
+                    reference.child(user.getUid()).child("diabetics").setValue("Diabetics");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("diabetics").setValue("null");
+                }
+                if(heartDisease.isChecked())
+                {
+                    reference.child(user.getUid()).child("heartdisease").setValue("Heart Disease");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("heartdisease").setValue("null");
+                }
+                if(highBp.isChecked())
+                {
+                    reference.child(user.getUid()).child("highbp").setValue("High BP");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("highbp").setValue("null");
+                }
+                if(migraine.isChecked())
+                {
+                    reference.child(user.getUid()).child("migraine").setValue("Migraine");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("migraine").setValue("null");
+                }
+                if(stroke.isChecked())
+                {
+                    reference.child(user.getUid()).child("stroke").setValue("Stroke");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("stroke").setValue("null");
+                }
+                if(ulcer.isChecked())
+                {
+                    reference.child(user.getUid()).child("ulcer").setValue("Ulcer");
+                }
+                else
+                {
+                    reference.child(user.getUid()).child("ulcer").setValue("null");
+                }
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                dialog.setTitle("Done").setMessage("Medical History has been updated!");
+                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        bottomSheetDialogMedicalList.cancel();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .detach(Profile.this)
+                                .commitNowAllowingStateLoss();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .attach(Profile.this)
+                                .commitNow();
+                    }
+                }).setCancelable(false);
+                dialog.create().show();
+
+            }
+        });
+        bottomSheetDialogMedicalList.setContentView(bottomSheet);
+        bottomSheetDialogMedicalList.show();
+    }
+
+    public void bloodList(){
+        bottomSheetDialogBloodList = new BottomSheetDialog(getContext(),R.style.bottomSheetTheme);
+        View bloodList = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_blood_group_list,null);
+        aPositive = bloodList.findViewById(R.id.aPositive);
+        bPositive = bloodList.findViewById(R.id.bPositive);
+        oPositive = bloodList.findViewById(R.id.oPositive);
+        abPositive = bloodList.findViewById(R.id.abPositive);
+        aNegative = bloodList.findViewById(R.id.aNegative);
+        bNegative = bloodList.findViewById(R.id.bNegative);
+        oNegative = bloodList.findViewById(R.id.oNegative);
+        abNegative = bloodList.findViewById(R.id.abNegative);
+        bloodConfirmList =bloodList.findViewById(R.id.confirmList);
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference = database.getReference("bloodgroup");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    if(task.getResult().exists())
+                    {
+                        DataSnapshot snapshot = task.getResult();
+                        aPositive.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("A+"));
+                        bPositive.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("B+"));
+                        oPositive.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("O+"));
+                        abPositive.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("AB+"));
+                        aNegative.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("A-"));
+                        bNegative.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("B-"));
+                        oNegative.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("O-"));
+                        abNegative.setChecked(String.valueOf(snapshot.child("group").getValue()).equals("AB-"));
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), "Data don't exist", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Couldn't fetch blood info", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Database Connection Error",e.toString());
+            }
+        });
+        bloodConfirmList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int count = 0;
+                if(aPositive.isChecked() && bPositive.isChecked() | oPositive.isChecked() | aNegative.isChecked()
+                        | bNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_SHORT).show();
+                }
+                else if(bPositive.isChecked() && aPositive.isChecked() | oPositive.isChecked() | aNegative.isChecked()
+                        | bNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else if(oPositive.isChecked() && aPositive.isChecked() | bPositive.isChecked() | aNegative.isChecked()
+                        | bNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else if(abPositive.isChecked()&& aPositive.isChecked() | aPositive.isChecked() | aNegative.isChecked()
+                        | bNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | bPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else if(aNegative.isChecked() && aPositive.isChecked() | bPositive.isChecked() | oPositive.isChecked()
+                        | bNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else if(bNegative.isChecked() && aPositive.isChecked() | bPositive.isChecked() | oPositive.isChecked()
+                        | aNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else if(oNegative.isChecked() && aPositive.isChecked() | bPositive.isChecked() | oPositive.isChecked()
+                        | aNegative.isChecked() | bNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else if(abNegative.isChecked() && aPositive.isChecked() | bPositive.isChecked() | oPositive.isChecked()
+                        | aNegative.isChecked() | bNegative.isChecked() | oNegative.isChecked() | abPositive.isChecked())
+                {
+                    Toast.makeText(getContext(), "Please Select only one", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    if(aPositive.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("A+");
+                    }
+                    else if(oPositive.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("O+");
+                    }
+                    else if(bPositive.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("B+");
+                    }
+                    else if(abPositive.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("AB+");
+                    }
+                    else if(aNegative.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("A-");
+                    }
+                    else if(bNegative.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("B-");
+                    }
+                    else if(oNegative.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("O-");
+                    }
+                    else if(abNegative.isChecked())
+                    {
+                        reference.child(user.getUid()).child("group").setValue("AB-");
+                    }
+                    else
+                    {
+                        reference.child(user.getUid()).child("group").setValue("null");
+                    }
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+                    dialog.setTitle("Done").setMessage("Blood Group has been updated!");
+                    dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            bottomSheetDialogBloodList.cancel();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .detach(Profile.this)
+                                    .commitNowAllowingStateLoss();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .attach(Profile.this)
+                                    .commitNow();
+                        }
+                    }).setCancelable(false);
+                    dialog.create().show();
+                }
+            }
+        });
+        bottomSheetDialogBloodList.setContentView(bloodList);
+        bottomSheetDialogBloodList.show();
+
+
+
+    }
+
     public void alertDialog(String title,String message,String button,String button2)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -482,11 +866,12 @@ public class Profile extends Fragment {
         }).setNegativeButton(button2, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-               dialogInterface.cancel();
+                dialogInterface.cancel();
             }
         });
         builder.create().show();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
