@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F6F7"
+    android:background="@drawable/background3"
     tools:context=".Profile">
 
     <RelativeLayout
@@ -30,18 +30,19 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/signout" />
+            android:layout_centerVertical="true"
+            android:layout_marginStart="330dp"
+            android:src="@drawable/signout"/>
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="65dp"
             android:layout_toEndOf="@+id/profilePicture"
             android:fontFamily="@font/roboto"
+            android:textStyle="bold"
             android:includeFontPadding="false"
             android:text="Nafis Hasan Tonmoy"
             android:textSize="16sp" />
@@ -69,12 +70,12 @@
             android:includeFontPadding="false"
             android:text="nhtonmoy2@gmail.com"
             android:textSize="16sp" />
-
         <TextView
             android:id="@+id/verifyStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_below="@+id/userEmail"
+            android:layout_toEndOf="@+id/profilePicture"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/oswald"
             android:text="Email Verified"
@@ -85,8 +86,9 @@
             android:id="@+id/tickSign"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/verifyStatus"
+            android:layout_below="@+id/userEmail"
+            android:layout_marginStart="6dp"
             android:src="@drawable/verified" />
 
         <ImageView

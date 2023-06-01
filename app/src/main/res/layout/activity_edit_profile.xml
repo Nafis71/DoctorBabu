@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfile"
-    android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/background3"
+    android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="190dp"
@@ -21,28 +21,26 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:onClick="back"
-        android:src="@drawable/back" />
+        android:src="@drawable/back"
+        android:contentDescription="Back" />
     <com.google.android.material.imageview.ShapeableImageView
         android:id = "@+id/profilePicture"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="135dp"
+        android:layout_height="150dp"
         app:srcCompat="@drawable/profile_picture"
         android:layout_marginTop="40dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="115dp"
+        android:layout_centerHorizontal="true"
         app:shapeAppearanceOverlay="@style/circular"
         app:layout_constraintDimensionRatio="1:1"
         />
-
-
     <ImageView
         android:id ="@+id/editPicture"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-30dp"
-        android:layout_marginTop="126dp"
+        android:layout_marginStart="-38dp"
+        android:layout_marginTop="136dp"
         android:layout_toEndOf="@+id/profilePicture"
         android:src="@drawable/camera"
         android:onClick="browse"/>
@@ -54,18 +52,18 @@
         android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="38dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="4dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,6 +77,7 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
                 android:hint="Full Name"
+                android:padding="10dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
@@ -98,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
+                android:padding="10dp"
                 android:hint="Address"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
@@ -118,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
+                android:padding="10dp"
                 android:hint="Phone Number"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
@@ -139,6 +140,7 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
                 android:hint = "Age"
+                android:padding="10dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
@@ -159,6 +161,7 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
                 android:hint = "Height (in cm)"
+                android:padding="10dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
@@ -179,6 +182,7 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
                 android:hint = "Weight (in kg)"
+                android:padding="10dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
@@ -195,7 +199,8 @@
             </com.google.android.material.textfield.TextInputLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
                 <ImageView
                     android:id ="@+id/genderImg"
                     android:layout_width="29dp"
@@ -240,9 +245,6 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
     </ScrollView>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <com.google.android.material.button.MaterialButton
             android:id="@+id/update"
             android:layout_width="match_parent"
@@ -254,7 +256,7 @@
             android:textStyle="bold"
             android:fontFamily="@font/roboto"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="80dp"
             android:layout_marginEnd="75dp"
             android:layout_alignParentStart="true"
             app:backgroundTint="#2C3E50"
@@ -269,9 +271,8 @@
             android:indeterminateDrawable="@drawable/progress_back"
             android:layout_below="@+id/update"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="165dp"
+            android:layout_marginStart="185dp"
             android:visibility="gone"
             />
-    </RelativeLayout>
 
 </LinearLayout>

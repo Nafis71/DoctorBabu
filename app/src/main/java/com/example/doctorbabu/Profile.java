@@ -834,9 +834,6 @@ public class Profile extends Fragment {
         });
         bottomSheetDialogBloodList.setContentView(bloodList);
         bottomSheetDialogBloodList.show();
-
-
-
     }
 
     public void alertDialog(String title,String message,String button,String button2)
