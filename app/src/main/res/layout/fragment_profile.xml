@@ -138,7 +138,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="25"
+                    android:text=""
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -186,7 +186,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="34"
+                    android:text=""
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -234,7 +234,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="5"
+                    android:text=""
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -251,6 +251,45 @@
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:id = "@+id/warningCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#F7DC6F"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+        >
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Some profile information is missing!"
+            android:textColor="@color/black"
+            android:fontFamily="@font/overpass_semibold"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            >
+
+        </com.google.android.material.textview.MaterialTextView>
+
+    </com.google.android.material.card.MaterialCardView>
+       <pl.droidsonroids.gif.GifImageView
+           android:id="@+id/alarmGif"
+           android:layout_width="45dp"
+           android:layout_height="45dp"
+           android:src = "@drawable/alarm"
+           android:layout_gravity="center"
+           >
+
+       </pl.droidsonroids.gif.GifImageView>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

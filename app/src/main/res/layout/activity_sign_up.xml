@@ -122,7 +122,127 @@
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Enter Address"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:transitionName="usernameTransition"
+                    android:drawableStart="@drawable/location"
+                    android:drawablePadding="10dp"
 
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id = "@+id/birthDate"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp"
+                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dateofBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/calender"
+                        android:drawablePadding="10dp"
+                        android:textSize="15sp"
+                        android:editable="false"
+                        android:inputType="none"
+                        android:keyboardNavigationCluster="false"
+                        android:text="Enter Date of Birth"
+                        android:textColor="#666666"
+                        android:transitionName="usernameTransition" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id = "@+id/genderMenu"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Gender"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp"
+                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                    <AutoCompleteTextView
+                        android:id = "@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:padding="15dp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id = "@+id/height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter Height (CM)"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp"
+                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/height"
+                        android:drawablePadding="10dp"
+                        android:textSize="15sp"
+                        android:inputType="number"
+                        android:transitionName="usernameTransition" />
+                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Enter Weight (KG)"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="2dp"
+                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/weight2"
+                    android:drawablePadding="10dp"
+                    android:textSize="15sp"
+                    android:inputType="number"
+                    android:transitionName="usernameTransition" />
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id = "@+id/password"
                 android:layout_width="match_parent"
@@ -130,6 +250,7 @@
                 android:hint="Enter Password"
                 app:passwordToggleEnabled="true"
                 app:boxCornerRadiusBottomEnd="20dp"
+                android:layout_marginTop="10dp"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"

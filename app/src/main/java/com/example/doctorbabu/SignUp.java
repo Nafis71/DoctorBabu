@@ -17,32 +17,35 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.doctorbabu.Databases.userHelper;
+import com.google.android.gms.common.data.DataBufferSafeParcelable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
-import java.net.PasswordAuthentication;
-
 public class SignUp extends AppCompatActivity {
     private ImageView image;
     private TextView signupText,slogan;
-    private TextInputLayout name, email, phone, pass, confirmPass;
+    private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth,address;
+    private AutoCompleteTextView gender;
+    private TextInputEditText birthDate;
     private Button signup, signin, buttonDialog;
     private ProgressBar loading;
     private FirebaseAuth auth;
@@ -147,6 +150,61 @@ public class SignUp extends AppCompatActivity {
         }
 
     }
+    private boolean validateUserAge()
+    {
+        String age = birthDate.getText().toString();
+        if(age.equals("Enter Date of Birth"))
+        {
+            dateofBirth.setError("This field can't be empty");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    private boolean validateUserHeight() {
+        String userHeight = height.getEditText().getText().toString();
+        if (userHeight.isEmpty()) {
+            height.setError("Field can't be empty");
+            return false;
+        } else if (Float.parseFloat(userHeight) > 243.84) {
+            height.setError("Invalid height!");
+            return false;
+        } else if (Float.parseFloat(userHeight) < 121.92) {
+            height.setError("Invalid height");
+            return false;
+        } else{
+            return true;
+        }
+    }
+    private boolean validateUserWeight()
+    {
+        String userWeight = weight.getEditText().getText().toString();
+        if(userWeight.isEmpty()) {
+            weight.setError("Field can't be empty");
+            return false;
+        } else if(Float.parseFloat(userWeight) > 200.00){
+            weight.setError("Invalid weight!");
+            return false;
+        } else if(Float.parseFloat(userWeight)  <  35.00 ){
+            weight.setError("Invalid weight");
+            return false;
+        } else{
+            return true;
+        }
+    }
+    private boolean validateUserGender()
+    {
+        String userGender =  gender.getText().toString();
+        if(userGender.isEmpty())
+        {
+            gender.setError("Field can't be empty");
+            return false;
+        } else{
+            return true;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,10 +222,43 @@ public class SignUp extends AppCompatActivity {
         image = findViewById(R.id.logo);
         loading = findViewById(R.id.progressCircular);
         auth = FirebaseAuth.getInstance();
+        birthDate = findViewById(R.id.dateofBirth);
+        dateofBirth = findViewById(R.id.birthDate);
+        height = findViewById(R.id.height);
+        weight = findViewById(R.id.weight);
+        gender = findViewById(R.id.gender);
+        address = findViewById(R.id.address);
+        genderSelection();
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDate();
+            }
+        });
+    }
+    public void genderSelection()
+    {
+        String  [] items = {"Male", "Female"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.gender_menu, items);
+        gender.setAdapter(adapter);
+    }
+    public void getDate(){
+        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select Date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
+        datePicker.show(getSupportFragmentManager(),"Datepicker");
+        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener()
+        {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                birthDate.setText(datePicker.getHeaderText());
+            }
+        });
     }
     public void register(View view)
     {
-        if(!validateFullName() | !validateEmail() | !validatePassword() | !validateConfirmPassword() | !validatePhone())
+        if(!validateFullName() | !validateEmail() | !validatePassword() | !validateConfirmPassword()
+                | !validatePhone() | !validateUserAge() | !validateUserHeight()
+                    | !validateUserWeight() | !validateUserGender())
         {
             return;
         }
@@ -175,6 +266,11 @@ public class SignUp extends AppCompatActivity {
         String userEmail = email.getEditText().getText().toString();
         String userPhone = phone.getEditText().getText().toString();
         String userPass = pass.getEditText().getText().toString();
+        String userBirthdate = birthDate.getText().toString();
+        String userGender = gender.getText().toString();
+        String userHeight = height.getEditText().getText().toString();
+        String userWeight = weight.getEditText().getText().toString();
+        String userAddress = address.getEditText().getText().toString();
         signup.setVisibility(View.GONE);
         signin.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
@@ -195,7 +291,8 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         String uid = user.getUid();
-                                        database(fullName, userEmail, userPhone, uid);
+                                        database(fullName, userEmail, userPhone, uid, userBirthdate, userGender, userHeight,userWeight,userAddress);
+                                        miscellaneousAdd(user.getUid());
                                         loading.setVisibility(View.GONE);
                                         dialog.show();
                                         buttonDialog.setOnClickListener(new View.OnClickListener() {
@@ -250,12 +347,12 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    public void database(String fullName, String userEmail, String userPhone, String uid)
+    public void database(String fullName, String userEmail, String userPhone, String uid, String userBirthdate, String userGender, String userHeight, String userWeight, String userAddress)
     {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = rootNode.getReference("users");
-        userHelper addUser = new userHelper(fullName, userEmail ,userPhone);
+        userHelper addUser = new userHelper(fullName, userEmail ,userPhone,userBirthdate,userGender,userHeight,userWeight,userAddress);
         reference.child(uid).setValue(addUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -267,6 +364,30 @@ public class SignUp extends AppCompatActivity {
                 Log.d(TAG,"Database Write Error");
             }
         });
+    }
+    public void miscellaneousAdd(String userId)
+    {
+        FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference = rootnode.getReference("allergy");
+        reference.child(userId).child("cloth").setValue("null");
+        reference.child(userId).child("drug").setValue("null");
+        reference.child(userId).child("dust").setValue("null");
+        reference.child(userId).child("food").setValue("null");
+        reference = rootnode.getReference("medicalhistory");
+        reference.child(userId).child("asthma").setValue("null");
+        reference.child(userId).child("cancer").setValue("null");
+        reference.child(userId).child("diabetics").setValue("null");
+        reference.child(userId).child("heartdisease").setValue("null");
+        reference.child(userId).child("highbp").setValue("null");
+        reference.child(userId).child("migraine").setValue("null");
+        reference.child(userId).child("stroke").setValue("null");
+        reference = rootnode.getReference("bloodgroup");
+        reference.child(userId).child("group").setValue("null");
+        reference = rootnode.getReference("appointmentPatient");
+        reference.child(userId).child("done").setValue("0");
+        reference.child(userId).child("pending").setValue("0");
+        reference = rootnode.getReference("rewardPatient");
+        reference.child(userId).child("reward").setValue("50");
     }
     public static boolean isInternetAvailable(Context context)
     {

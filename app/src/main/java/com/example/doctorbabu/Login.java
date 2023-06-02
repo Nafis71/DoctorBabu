@@ -16,6 +16,7 @@ import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -47,9 +48,12 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(Login.this,Dashboard.class);
-            startActivity(intent);
-            finish();
+            if(currentUser.isEmailVerified())
+            {
+                Intent intent = new Intent(Login.this,Dashboard.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
     private boolean validateEmail()
@@ -127,16 +131,51 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = auth.getCurrentUser();
-                                    progressBar.setVisibility(View.GONE);
-                                    Intent intent = new Intent(Login.this, Dashboard.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(Login.this, "Wrong Credentials",
-                                            Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.GONE);
-                                }
+                                    final Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(user.isEmailVerified())
+                                            {
+                                                progressBar.setVisibility(View.GONE);
+                                                Intent intent = new Intent(Login.this, Dashboard.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                            else
+                                            {
+                                                progressBar.setVisibility(View.GONE);
+                                                AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                                                dialog.setTitle("Email Not Verified").setMessage("Please verify your email first");
+                                                dialog.setPositiveButton("Resend Email", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        if(internetStatus) {
+                                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    dialog.cancel();
+                                                                    Toast.makeText(Login.this, "Email Sent!", Toast.LENGTH_LONG).show();
+                                                                }
+                                                            });
+                                                        } else {
+                                                            positiveAlertDialog("No Internet Connection","Please Check your internet connection and try again","Ok");
+                                                        }
+                                                    }
+                                                });
+                                                dialog.create().show();
+                                            }
+                                        }
+                                    },6000);
+
+
+
+                                    } else {
+                                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                                Toast.makeText(Login.this, "Wrong Credentials",
+                                                        Toast.LENGTH_SHORT).show();
+                                                progressBar.setVisibility(View.GONE);
+                                    }
                             }
                         });
             }
@@ -185,5 +224,6 @@ public class Login extends AppCompatActivity {
         });
         builder.create().show();
     }
+
 
 }

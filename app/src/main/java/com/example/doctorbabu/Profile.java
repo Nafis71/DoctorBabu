@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -29,42 +31,96 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Profile extends Fragment {
 
     FirebaseAuth auth;
     FirebaseUser user;
-    TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,alergy,medicalInfo,bloodGroupInfo, allergyList,medicalHistoryList,bloodGroupList;
-    ImageView userprofilePicture,verifyTickSign,notVerifyImg;
+    CardView warningCard;
+    TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,allergy,medicalInfo,
+            bloodGroupInfo, allergyList,medicalHistoryList,bloodGroupList,appointmentDone,appointmentPending,rewardAmount;
+    ImageView userprofilePicture,verifyTickSign,notVerifyImg,logOut,alarmGif;
     Button editProfile,allergyListConfirm,medicalListConfirm,bloodConfirmList;
     ProgressBar loadingCircle;
     FlexboxLayout flex,flex2;
     BottomSheetDialog bottomSheetDialog,bottomSheetDialogMedicalList,bottomSheetDialogBloodList;
-    CheckBox drug,cloth,dust,food,asthma,cancer,diabetics,heartDisease,highBp,migraine,stroke,ulcer,aPositive,bPositive,oPositive,abPositive,aNegative,bNegative,oNegative,abNegative;
+    CheckBox drug,cloth,dust,food,asthma,cancer,diabetics,heartDisease,highBp,migraine,stroke,
+            ulcer,aPositive,bPositive,oPositive,abPositive,aNegative,bNegative,oNegative,abNegative;
+    Integer profileinfoCount = 0;
     public Profile() {
-        // Required empty public constructor
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadingCircle = (ProgressBar) getView().findViewById(R.id.progress_circular);
+        profileinfoCount = 0;
+        viewBinding();
         loadingCircle.setVisibility(View.VISIBLE);
         getData();
         getUserprofile();
         loadingCircle.setVisibility(View.GONE);
-
+        profileInfoVerify();
     }
+    public void profileInfoVerify()
+    {
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference = database.getReference("patientProfileTrack");
+        reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int count = 0;
+                String medicalHistory = String.valueOf(snapshot.child("medicalHistory").getValue());
+                String allergyInfo =  String.valueOf(snapshot.child("allergyInfo").getValue());
+                String profilePicture = String.valueOf(snapshot.child("profilePicture").getValue());
+                String bloodGroupInfo =  String.valueOf(snapshot.child("bloodGroupInfo").getValue());
+                if(!medicalHistory.equals("null"))
+                {
+                    count++;
+                }
+                if(!allergyInfo.equals("null"))
+                {
+                    count++;
+                }
+                if(!profilePicture.equals("null"))
+                {
+                    count++;
+                }
+                if(!bloodGroupInfo.equals("null"))
+                {
+                    count++;
+                }
+                if(count == 4)
+                {
+                    warningCard.setVisibility(View.GONE);
+                    alarmGif.setVisibility(View.GONE);
+                }
+                else
+                {
+                    warningCard.setVisibility(View.VISIBLE);
+                    alarmGif.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     public void viewBinding()
     {
+        loadingCircle = (ProgressBar) getView().findViewById(R.id.progress_circular);
         email = (TextView) getView().findViewById(R.id.userEmail);
         userprofilePicture = (ImageView) getView().findViewById(R.id.profilePicture);
         verificationStatus = (TextView) getView().findViewById(R.id.verifyStatus);
@@ -74,7 +130,7 @@ public class Profile extends Fragment {
         fullName = (TextView) getView().findViewById(R.id.userName);
         flex = (FlexboxLayout) getView().findViewById(R.id.alergyHistory);
         flex2 = (FlexboxLayout) getView().findViewById(R.id.pastMedicalHistory);
-        alergy =(TextView) getView().findViewById(R.id.alergy);
+        allergy =(TextView) getView().findViewById(R.id.alergy);
         medicalInfo = (TextView) getView().findViewById(R.id.pastMedicalHistoryInfo);
         bloodGroupInfo = (TextView) getView().findViewById(R.id.bloodGroupInfo);
         phone = (TextView) getView().findViewById(R.id.userPhone);
@@ -86,6 +142,13 @@ public class Profile extends Fragment {
         allergyList = (TextView) getView().findViewById(R.id.alergyHistoryInfo);
         medicalHistoryList = (TextView) getView().findViewById(R.id.pastMedicalHistoryText);
         bloodGroupList = (TextView) getView().findViewById(R.id.bloodGroupText);
+        appointmentDone = (TextView) getView().findViewById(R.id.appointmentDone);
+        appointmentPending = (TextView) getView().findViewById(R.id.appointmentPending);
+        rewardAmount = (TextView) getView().findViewById(R.id.rewardAmount);
+        logOut = (ImageView) getView().findViewById(R.id.signOut);
+        warningCard = (CardView) getView().findViewById(R.id.warningCard);
+        alarmGif = (ImageView) getView().findViewById(R.id.alarmGif);
+
     }
 
     public void getData()
@@ -93,10 +156,11 @@ public class Profile extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser != null){
-            currentUser.reload();
+        if(currentUser == null) {
+          Intent intent = new Intent(getActivity(),Login.class);
+          startActivity(intent);
+          getActivity().finish();
         }
-        ImageView logOut = (ImageView) getView().findViewById(R.id.signOut);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,19 +170,11 @@ public class Profile extends Fragment {
                 getActivity().finish();
             }
         });
-        viewBinding();
-        userAlergyHistory();
+        userAllergyHistory();
         userPastMedicalHistory();
 //        address = (TextView) getView().findViewById(R.id.userAddress);
 //        age = (TextView) getView().findViewById(R.id.userAge);
         email.setText(user.getEmail());
-        if(!user.isEmailVerified())
-        {
-            verifyTickSign.setVisibility(View.GONE);
-            verificationStatus.setText("Email not verified");
-            notVerifyImg.setVisibility(View.VISIBLE);
-            alertDialog("Email Not verified","Do you want a mail to verify your email?","Resend","Cancel");
-        }
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,94 +207,87 @@ public class Profile extends Fragment {
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = database.getReference("users");
-        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful())
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                fullName.setText(String.valueOf(snapshot.child("fullName").getValue()));
+                phone.setText(String.valueOf(snapshot.child("phone").getValue()));
+                String dbAddress = String.valueOf(snapshot.child("address").getValue());
+                if(!dbAddress.equals("null"))
                 {
-                    if(task.getResult().exists())
-                    {
-                        DataSnapshot snapshot = task.getResult();
-                          fullName.setText(String.valueOf(snapshot.child("fullName").getValue()));
-                          phone.setText(String.valueOf(snapshot.child("phone").getValue()));
-                          String dbAddress = String.valueOf(snapshot.child("address").getValue());
-                          if(!dbAddress.equals("null"))
-                          {
-                              address.setText(dbAddress);
-                          }
-                          else
-                          {
-                              address.setText("Address is not set");
-                          }
-                          String dbGender = String.valueOf(snapshot.child("gender").getValue());
-                          if(!dbGender.equals("null"))
-                          {
-                              gender.setText(dbGender);
-                          }
-                          else
-                          {
-                              gender.setText("Gender is not set");
-                          }
-                          String dbHeight = String.valueOf(snapshot.child("height").getValue());
-                          if(!dbHeight.equals("null"))
-                          {
-                              height.setText(dbHeight);
-                          }
-                          else
-                          {
-                              height.setText("Height is not set");
-                          }
-                          String dbWeight = String.valueOf(snapshot.child("weight").getValue());
-                          if(!dbWeight.equals("null"))
-                          {
-                              weight.setText(dbWeight);
-                          }
-                          else
-                          {
-                              weight.setText("Weight is not set");
-                          }
-                           String birthDate = String.valueOf(snapshot.child("age").getValue());
-                          if(!birthDate.equals("null"))
-                          {
-                              LocalDate date = LocalDate.parse(birthDate);
-                              int year = date.getYear();
-                              Year thisYear = Year.now();
-                              String thisYearString = thisYear.toString();
-                              int currentAge =  Integer.parseInt(thisYearString)- year;
-                              age.setText(String.valueOf(currentAge));
-
-                          }
-                          else
-                          {
-                              age.setText("Age is not set");
-                          }
-                        String photoUrl = String.valueOf(snapshot.child("photoUrl").getValue());
-                        if(!photoUrl.equals("null"))
-                        {
-                            Glide.with(getContext()).load(photoUrl).into(userprofilePicture);
-                            userprofilePicture.setVisibility(View.VISIBLE);
-                        }
-                        else
-                        {
-                            userprofilePicture.setImageResource(R.drawable.profile_picture);
-                            userprofilePicture.setVisibility(View.VISIBLE);
-                        }
-                        //TODO I have to finish this and make some changes to the UI also!
-
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(), "Couldn't load user's profile picture", Toast.LENGTH_LONG).show();
-                    }
+                    address.setText(dbAddress);
                 }
                 else
                 {
-                    Toast.makeText(getActivity(), "Database Read Error", Toast.LENGTH_LONG).show();
+                    address.setText("Address is not set");
                 }
-            }}).addOnFailureListener(new OnFailureListener() {
+                String dbGender = String.valueOf(snapshot.child("gender").getValue());
+                if(!dbGender.equals("null"))
+                {
+                    gender.setText(dbGender);
+                }
+                else
+                {
+                    gender.setText("Gender is not set");
+                }
+                String dbHeight = String.valueOf(snapshot.child("height").getValue());
+                if(!dbHeight.equals("null"))
+                {
+                    height.setText(dbHeight);
+                }
+                else
+                {
+                    height.setText("Height is not set");
+                }
+                String dbWeight = String.valueOf(snapshot.child("weight").getValue());
+                if(!dbWeight.equals("null"))
+                {
+                    weight.setText(dbWeight);
+                }
+                else
+                {
+                    weight.setText("Weight is not set");
+                }
+                String birthDate = String.valueOf(snapshot.child("birthDate").getValue());
+                if(!birthDate.equals("null"))
+                {
+                    String [] splitText = birthDate.split(",");
+                    String [] splitText2 = splitText[1].split(" ");
+                    Log.i("Year = ",splitText2[1]);
+                    int year = Integer.parseInt(splitText2[1]);
+                    Year thisYear = Year.now();
+                    String thisYearString = thisYear.toString();
+                    int currentAge =  Integer.parseInt(thisYearString) - year - 1;
+                    age.setText(String.valueOf(currentAge));
+
+                }
+                else
+                {
+                    age.setText("Age is not set");
+                }
+                String photoUrl = String.valueOf(snapshot.child("photoUrl").getValue());
+                if(!photoUrl.equals("null"))
+                {
+                    Glide.with(getContext()).load(photoUrl).into(userprofilePicture);
+                    userprofilePicture.setVisibility(View.VISIBLE);
+                    FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+                    DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+                    ref.child(user.getUid()).child("profilePicture").setValue("Completed");
+                }
+                else
+                {
+                    userprofilePicture.setImageResource(R.drawable.profile_picture);
+                    userprofilePicture.setVisibility(View.VISIBLE);
+                    FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+                    DatabaseReference ref = rootnode.getReference("patienProfileTrack");
+                    ref.child(user.getUid()).child("profilePicture").setValue("null");
+                }
+                //TODO I have to finish this and make some changes to the UI also!
+            }
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"Database Read Error");
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
         reference = database.getReference("bloodgroup");
@@ -253,10 +302,16 @@ public class Profile extends Fragment {
                         if(!String.valueOf(snapshot.child("group").getValue()).equals("null"))
                         {
                             bloodGroupInfo.setText(String.valueOf(snapshot.child("group").getValue()));
+                            FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+                            DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+                            ref.child(user.getUid()).child("bloodGroupInfo").setValue("Completed");
                         }
                         else
                         {
                             bloodGroupInfo.setText("No information found");
+                            FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+                            DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+                            ref.child(user.getUid()).child("bloodGroupInfo").setValue("null");
                         }
 
                     }
@@ -268,11 +323,40 @@ public class Profile extends Fragment {
 
             }
         });
+        reference = database.getReference("appointmentPatient");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    if(task.getResult().exists())
+                    {
+                        DataSnapshot snapshot = task.getResult();
+                        appointmentDone.setText(String.valueOf(snapshot.child("done").getValue()));
+                        appointmentPending.setText(String.valueOf(snapshot.child("pending").getValue()));
+                    }
+                }
+            }
+        });
+        reference = database.getReference("rewardPatient");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    if(task.getResult().exists())
+                    {
+                        DataSnapshot snapshot = task.getResult();
+                        rewardAmount.setText(String.valueOf(snapshot.child("reward").getValue()));
+                    }
+                }
+            }
+        });
 
     }
-  public void userAlergyHistory(){
+  public void userAllergyHistory(){
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference = database.getReference("alergy");
+        DatabaseReference reference = database.getReference("allergy");
         reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -298,7 +382,7 @@ public class Profile extends Fragment {
                         {
                             list.add(String.valueOf(snapshot.child("food").getValue()));
                         }
-                        alergyListAdd(list);
+                        allergyListAdd(list);
                     }
                 }
             }
@@ -309,12 +393,15 @@ public class Profile extends Fragment {
             }
         });
   }
-  public void alergyListAdd(ArrayList <String> list)
+  public void allergyListAdd(ArrayList <String> list)
   {
       int size = list.size();
       if(size != 0)
       {
-          alergy.setVisibility(View.GONE);
+          allergy.setVisibility(View.GONE);
+          FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+          DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+          ref.child(user.getUid()).child("allergyInfo").setValue("Completed");
           for(int i=0;i<size;i++)
           {
               TextView text = new TextView(getContext());FlexboxLayout.LayoutParams layout =
@@ -340,8 +427,11 @@ public class Profile extends Fragment {
       }
       else
       {
-          alergy.setText("No information found");
-          alergy.setVisibility(View.VISIBLE);
+          allergy.setText("No information found");
+          allergy.setVisibility(View.VISIBLE);
+          FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+          DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+          ref.child(user.getUid()).child("allergyInfo").setValue("null");
       }
 
   }
@@ -415,6 +505,9 @@ public class Profile extends Fragment {
         if(size != 0)
         {
             medicalInfo.setVisibility(View.GONE);
+            FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+            DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+            ref.child(user.getUid()).child("medicalHistory").setValue("Completed");
             for(int i=0;i<size;i++)
             {
                 TextView text = new TextView(getContext());FlexboxLayout.LayoutParams layout =
@@ -442,6 +535,9 @@ public class Profile extends Fragment {
         {
             medicalInfo.setText("No information found");
             medicalInfo.setVisibility(View.VISIBLE);
+            FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+            DatabaseReference ref = rootnode.getReference("patientProfileTrack");
+            ref.child(user.getUid()).child("medicalHistory").setValue("null");
         }
 
     }
@@ -455,7 +551,7 @@ public class Profile extends Fragment {
         food = bottomSheetView.findViewById(R.id.food);
         allergyListConfirm = bottomSheetView.findViewById(R.id.confirmList);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference = database.getReference("alergy");
+        DatabaseReference reference = database.getReference("allergy");
         reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -482,7 +578,7 @@ public class Profile extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.i("Couldn't fetch alergy history",e.toString());
+                Log.i("Couldn't fetch allergy history",e.toString());
             }
         });
         allergyListConfirm.setOnClickListener(new View.OnClickListener() {
@@ -835,40 +931,6 @@ public class Profile extends Fragment {
         bottomSheetDialogBloodList.setContentView(bloodList);
         bottomSheetDialogBloodList.show();
     }
-
-    public void alertDialog(String title,String message,String button,String button2)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setCancelable(false);
-        builder.setPositiveButton(button, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(getContext(), "Email Sent",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Failed to send",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        }).setNegativeButton(button2, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-        builder.create().show();
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

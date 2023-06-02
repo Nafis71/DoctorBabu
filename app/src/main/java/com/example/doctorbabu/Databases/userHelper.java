@@ -1,11 +1,30 @@
 package com.example.doctorbabu.Databases;
 
 public class userHelper {
-    String fullName, email ,phone,profileComplete="0",age = "null", address = "null",photoUrl ="null",height="null",weight="null",gender="null";
+    String fullName, email ,phone,profileComplete="0", birthDate = "null", address = "null",photoUrl ="null",height="null",weight="null",gender="null";
     // profileComplete= 0 means not fully completed
 
-    public userHelper(){}  //just for the firebase so it can't throw any error
+    public userHelper(){}  //just for the firebase so that it can't throw any error
 
+
+
+    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String address) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+        this.address = address;
+    }
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
     public String getPhotoUrl() {
         return photoUrl;
     }
@@ -38,16 +57,9 @@ public class userHelper {
         this.gender = gender;
     }
 
-    public userHelper(String fullName, String email, String phone) {
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-    }
-
     public String getFullName() {
         return fullName;
     }
-
 
     public String getProfileComplete() {
         return profileComplete;
@@ -55,14 +67,6 @@ public class userHelper {
 
     public void setProfileComplete(String profileComplete) {
         this.profileComplete = profileComplete;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getAddress() {

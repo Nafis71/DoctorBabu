@@ -139,7 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
-                android:hint = "Age"
                 android:padding="10dp"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
@@ -150,7 +149,11 @@
                     android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/age"
+                    android:drawableStart="@drawable/calender"
+                    android:text="Birth Date"
+                    android:textColor="#666666"
+                    android:editable="false"
+                    android:inputType="none"
                     android:drawablePadding="8dp">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -230,6 +233,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Male"
+                        android:textColor="#666666"
                         android:onClick="checkButton"
                     />
                     <RadioButton
@@ -237,42 +241,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Female"
+                        android:textColor="#666666"
                         android:onClick="checkButton"
                         />
                 </RadioGroup>
             </RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:cornerRadius="15dp"
+                app:elevation="15dp"
+                android:text="UPDATE"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginEnd="75dp"
+                android:layout_marginBottom="30dp"
+                android:layout_alignParentStart="true"
+                app:backgroundTint="#2C3E50"
+                android:onClick="firebaseUpdateData"
+                >
+            </com.google.android.material.button.MaterialButton>
+            <ProgressBar
+                android:id="@+id/progress_circular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/progress_back"
+                android:layout_below="@+id/update"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="185dp"
+                android:visibility="gone"
+                />
         </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
     </ScrollView>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/update"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:cornerRadius="15dp"
-            app:elevation="15dp"
-            android:text="UPDATE"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/roboto"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="75dp"
-            android:layout_alignParentStart="true"
-            app:backgroundTint="#2C3E50"
-            android:onClick="firebaseUpdateData"
-            >
-        </com.google.android.material.button.MaterialButton>
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/progress_back"
-            android:layout_below="@+id/update"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="185dp"
-            android:visibility="gone"
-            />
+
 
 </LinearLayout>

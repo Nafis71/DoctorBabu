@@ -21,13 +21,14 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.Databases.profileEditUserHelper;
 import com.example.doctorbabu.Databases.userHelper;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -43,7 +44,7 @@ public class EditProfile extends AppCompatActivity {
     ImageView backButton,editButton,profileImage;
     RadioGroup radioGroup;
     RadioButton radioButton,male,female;
-    TextInputEditText userName,userAddress,userAge,userHeight,userWeight,userPhone;
+    TextInputEditText userName,userAddress, birthDate,userHeight,userWeight,userPhone;
     ProgressBar loadingCircle;
     Uri filepath;
     Bitmap bitmap;
@@ -59,7 +60,7 @@ public class EditProfile extends AppCompatActivity {
         userName = findViewById(R.id.fullName);
         userAddress = findViewById(R.id.address);
         userPhone = findViewById(R.id.phone);
-        userAge = findViewById(R.id.age);
+        birthDate = findViewById(R.id.age);
         userHeight = findViewById(R.id.height);
         userWeight = findViewById(R.id.weight);
         loadingCircle = findViewById(R.id.progress_circular);
@@ -69,6 +70,22 @@ public class EditProfile extends AppCompatActivity {
         female = findViewById(R.id.female);
         update = findViewById(R.id.update);
         readFirebaseUserData();
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().
+                        setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
+                datePicker.show(getSupportFragmentManager(),"Datepicker");
+                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener()
+                {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        birthDate.setText(datePicker.getHeaderText());
+                    }
+                });
+            }
+        });
+
     }
     public void browse(View view)
     {
@@ -99,7 +116,7 @@ public class EditProfile extends AppCompatActivity {
         String fullname = userName.getText().toString();
         String address  = userAddress.getText().toString();
         String phone  = userPhone.getText().toString();
-        String age = userAge.getText().toString();
+        String birthdate = birthDate.getText().toString();
         String height = userHeight.getText().toString();
         String weight = userWeight.getText().toString();
         String gender = userGender;
@@ -116,12 +133,7 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             dialog.dismiss();
-                            userHelper userData = new userHelper(fullname, email, phone);
-                            userData.setAddress(address);
-                            userData.setAge(age);
-                            userData.setHeight(height);
-                            userData.setWeight(weight);
-                            userData.setGender(gender);
+                            userHelper userData = new userHelper(fullname, email, phone,birthdate,gender,height,weight,address);
                             userData.setPhotoUrl(uri.toString());
                             FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
                             DatabaseReference reference = database.getReference("users");
@@ -164,7 +176,7 @@ public class EditProfile extends AppCompatActivity {
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
             DatabaseReference reference = database.getReference("users");
             reference.child(uid).child("address").setValue(address);
-            reference.child(uid).child("age").setValue(age);
+            reference.child(uid).child("birthDate").setValue(birthdate);
             reference.child(uid).child("email").setValue(email);
             reference.child(uid).child("fullName").setValue(fullname);
             reference.child(uid).child("gender").setValue(gender);
@@ -199,14 +211,14 @@ public class EditProfile extends AppCompatActivity {
                         {
                             userAddress.setText("Not set");
                         }
-                        String age = String.valueOf(snapShot.child("age").getValue());
-                        if(!age.equals("null"))
+                        String birthDate = String.valueOf(snapShot.child("birthDate").getValue());
+                        if(!birthDate.equals("null"))
                         {
-                            userAge.setText(age);
+                            EditProfile.this.birthDate.setText(birthDate);
                         }
                         else
                         {
-                            userAge.setText("Not set");
+                            EditProfile.this.birthDate.setText("Not set");
                         }
                         String height = String.valueOf(snapShot.child("height").getValue());
                         if(!height.equals("null"))
@@ -242,10 +254,12 @@ public class EditProfile extends AppCompatActivity {
                             if(gender.equals("Male"))
                             {
                                 male.setChecked(true);
+                                userGender = "Male";
                             }
                             else
                             {
                                 female.setChecked(true);
+                                userGender = "Female";
                             }
                         }
                         else
