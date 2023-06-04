@@ -11,6 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,6 +48,7 @@ public class EditProfile extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButton,male,female;
     TextInputEditText userName,userAddress, birthDate,userHeight,userWeight,userPhone;
+    TextInputLayout fullNameLayout, phoneLayout, addressLayout, ageLayout,heightLayout, weightLayout;
     ProgressBar loadingCircle;
     Uri filepath;
     Bitmap bitmap;
@@ -52,6 +56,28 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewBinding();
+        readFirebaseUserData();
+        stateObserver();
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().
+                        setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
+                datePicker.show(getSupportFragmentManager(),"Datepicker");
+                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener()
+                {
+                    @Override
+                    public void onPositiveButtonClick(Object selection) {
+                        birthDate.setText(datePicker.getHeaderText());
+                    }
+                });
+            }
+        });
+
+    }
+    public void viewBinding()
+    {
         uid = getIntent().getStringExtra("uId");
         email = getIntent().getStringExtra("email");
         setContentView(R.layout.activity_edit_profile);
@@ -69,23 +95,202 @@ public class EditProfile extends AppCompatActivity {
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
         update = findViewById(R.id.update);
-        readFirebaseUserData();
-        birthDate.setOnClickListener(new View.OnClickListener() {
+        fullNameLayout = findViewById(R.id.fullNameLayout);
+        addressLayout = findViewById(R.id.addressLayout);
+        phoneLayout = findViewById(R.id.phoneLayout);
+        ageLayout = findViewById(R.id.ageLayout);
+        heightLayout = findViewById(R.id.heightLayout);
+        weightLayout = findViewById(R.id.weightLayout);
+    }
+    public void stateObserver()
+    {
+        userName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().
-                        setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
-                datePicker.show(getSupportFragmentManager(),"Datepicker");
-                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener()
-                {
-                    @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        birthDate.setText(datePicker.getHeaderText());
-                    }
-                });
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                fullNameLayout.setError(null);
+                fullNameLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
+        userAddress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                addressLayout.setError(null);
+                addressLayout.setErrorEnabled(false);
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        userPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                phoneLayout.setError(null);
+                phoneLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        userHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                heightLayout.setError(null);
+                heightLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        userWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                weightLayout.setError(null);
+                weightLayout.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+    public boolean validateFullName()
+    {
+        String value = userName.getText().toString();
+        String check = "^[a-zA-Z\\u0020]*$";
+        if(value.isEmpty())
+        {
+            fullNameLayout.setError("Field can't be empty");
+            return false;
+        }
+        else if(!value.matches(check))
+        {
+            fullNameLayout.setError("Invalid Name");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public boolean validateAddress()
+    {
+        String value = userAddress.getText().toString();
+        if(value.isEmpty())
+        {
+            addressLayout.setError("Field can't be empty");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public boolean validatePhone()
+    {
+        String value = userPhone.getText().toString();
+        if(value.isEmpty())
+        {
+            phoneLayout.setError("Field can't be empty");
+            return false;
+        }
+        else if(value.length() > 11)
+        {
+            phoneLayout.setError("Phone number exceeds limit");
+            return  false;
+        }
+        else if(value.length() < 11)
+        {
+            phoneLayout.setError("Invalid Phone Number");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public boolean validateHeight()
+    {
+        String value =  userHeight.getText().toString();
+        if(value.isEmpty())
+        {
+            heightLayout.setError("Field can't be empty");
+            return false;
+        }
+        else if(Float.parseFloat(value) < 121.92)
+        {
+            heightLayout.setError("Invalid height");
+            return false;
+        }
+        else if(Float.parseFloat(value) > 243.84)
+        {
+            heightLayout.setError("Invalid height");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public boolean validateWeight()
+    {
+        String value = userWeight.getText().toString();
+        if(value.isEmpty())
+        {
+            weightLayout.setError("Field can't be empty");
+            return false;
+        }
+        else if(Float.parseFloat(value) > 200.00)
+        {
+            weightLayout.setError("Invalid weight");
+            return false;
+        }
+        else if(Float.parseFloat(value) < 30.00)
+        {
+            weightLayout.setError("Invalid weight");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
     public void browse(View view)
     {
@@ -112,7 +317,10 @@ public class EditProfile extends AppCompatActivity {
     }
     public void firebaseUpdateData(View view)
     {
-
+        if(!validateFullName() | !validateHeight() | !validateWeight() | !validateAddress() | !validatePhone())
+        {
+            return;
+        }
         String fullname = userName.getText().toString();
         String address  = userAddress.getText().toString();
         String phone  = userPhone.getText().toString();

@@ -44,7 +44,7 @@
             android:fontFamily="@font/roboto"
             android:textStyle="bold"
             android:includeFontPadding="false"
-            android:text="Nafis Hasan Tonmoy"
+            android:text=""
             android:textSize="16sp" />
         <ProgressBar
             android:id="@+id/progress_circular"
@@ -68,7 +68,7 @@
             android:layout_toEndOf="@+id/profilePicture"
             android:fontFamily="@font/roboto"
             android:includeFontPadding="false"
-            android:text="nhtonmoy2@gmail.com"
+            android:text=""
             android:textSize="16sp" />
         <TextView
             android:id="@+id/verifyStatus"

@@ -57,14 +57,19 @@ public class SignUp extends AppCompatActivity {
     private boolean validateFullName()
     {
         String value = name.getEditText().getText().toString();
+        String check = "^[a-zA-Z\\u0020]*$";
         if(value.isEmpty())
         {
             name.setError("Field can't be empty");
             return false;
         }
+        else if(!value.matches(check))
+        {
+            name.setError("Invalid Name");
+            return false;
+        }
         else
         {
-
             return true;
         }
     }
@@ -197,7 +202,7 @@ public class SignUp extends AppCompatActivity {
         } else if(Float.parseFloat(userWeight) > 200.00){
             weight.setError("Invalid weight!");
             return false;
-        } else if(Float.parseFloat(userWeight)  <  35.00 ){
+        } else if(Float.parseFloat(userWeight)  <  30.00 ){
             weight.setError("Invalid weight");
             return false;
         } else{
