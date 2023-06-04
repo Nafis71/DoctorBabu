@@ -67,6 +67,7 @@
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fullNameTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/card"
@@ -90,6 +91,7 @@
                 app:boxStrokeWidth="2dp"
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -113,6 +115,7 @@
                 app:boxStrokeWidth="2dp"
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -135,6 +138,7 @@
                 app:boxStrokeWidth="2dp"
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addressTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -213,6 +217,7 @@
                     style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/heightTextfield"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/height"
@@ -235,6 +240,7 @@
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weightTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/weight2"
@@ -257,6 +263,7 @@
                 app:boxStrokeWidth="2dp"
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -280,6 +287,7 @@
                 app:boxStrokeWidth="2dp"
                 style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmPasswordTextfield"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"

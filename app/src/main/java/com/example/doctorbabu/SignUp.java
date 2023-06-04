@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -44,8 +46,8 @@ public class SignUp extends AppCompatActivity {
     private ImageView image;
     private TextView signupText,slogan;
     private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth,address;
+    private TextInputEditText birthDate, passTextfield, fullNameTextfield, emailTextfield,phoneTextfield, addressTextfield, heightTextfield,weightTextfield,confirmPasswordTextfield;
     private AutoCompleteTextView gender;
-    private TextInputEditText birthDate;
     private Button signup, signin, buttonDialog;
     private ProgressBar loading;
     private FirebaseAuth auth;
@@ -62,8 +64,7 @@ public class SignUp extends AppCompatActivity {
         }
         else
         {
-            name.setError(null);
-            name.setErrorEnabled(false);
+
             return true;
         }
     }
@@ -83,8 +84,7 @@ public class SignUp extends AppCompatActivity {
         }
         else
         {
-            email.setError(null);
-            email.setErrorEnabled(false);
+
             return true;
         }
     }
@@ -98,8 +98,21 @@ public class SignUp extends AppCompatActivity {
         }
         else
         {
-            phone.setError(null);
-            phone.setErrorEnabled(false);
+
+            return true;
+        }
+    }
+    public boolean validateAddress()
+    {
+        String value = address.getEditText().getText().toString();
+        if(value.isEmpty())
+        {
+            address.setError("Field can't be empty");
+            return false;
+        }
+        else
+        {
+
             return true;
         }
     }
@@ -124,8 +137,7 @@ public class SignUp extends AppCompatActivity {
         }
         else
         {
-            pass.setError(null);
-            pass.setErrorEnabled(false);
+
             return true;
         }
     }
@@ -144,8 +156,6 @@ public class SignUp extends AppCompatActivity {
         }
         else
         {
-            confirmPass.setError(null);
-            confirmPass.setErrorEnabled(false);
             return true;
         }
 
@@ -210,6 +220,19 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        viewBinding();
+        genderSelection();
+        stateObserver();
+        birthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDate();
+            }
+        });
+
+    }
+    public void viewBinding()
+    {
         name = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
@@ -228,19 +251,193 @@ public class SignUp extends AppCompatActivity {
         weight = findViewById(R.id.weight);
         gender = findViewById(R.id.gender);
         address = findViewById(R.id.address);
-        genderSelection();
-        birthDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDate();
-            }
-        });
+        passTextfield = findViewById(R.id.passTextfield);
+        fullNameTextfield = findViewById(R.id.fullNameTextfield);
+        emailTextfield = findViewById(R.id.emailTextfield);
+        phoneTextfield = findViewById(R.id.phoneTextfield);
+        addressTextfield = findViewById(R.id.addressTextfield);
+        heightTextfield = findViewById(R.id.heightTextfield);
+        weightTextfield = findViewById(R.id.weightTextfield);
+        confirmPasswordTextfield = findViewById(R.id.confirmPasswordTextfield);
     }
     public void genderSelection()
     {
         String  [] items = {"Male", "Female"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.gender_menu, items);
         gender.setAdapter(adapter);
+    }
+    public void stateObserver()
+    {
+        fullNameTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                name.setError(null);
+                name.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        emailTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                email.setError(null);
+                email.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        phoneTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                phone.setError(null);
+                phone.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        addressTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                address.setError(null);
+                address.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        heightTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                height.setError(null);
+                height.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        weightTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                weight.setError(null);
+                weight.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        passTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                pass.setError(null);
+                pass.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        confirmPasswordTextfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                confirmPass.setError(null);
+                confirmPass.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        birthDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                dateofBirth.setError(null);
+                dateofBirth.setErrorEnabled(false);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        gender.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                gender.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
     public void getDate(){
         MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
@@ -258,7 +455,7 @@ public class SignUp extends AppCompatActivity {
     {
         if(!validateFullName() | !validateEmail() | !validatePassword() | !validateConfirmPassword()
                 | !validatePhone() | !validateUserAge() | !validateUserHeight()
-                    | !validateUserWeight() | !validateUserGender())
+                    | !validateUserWeight() | !validateUserGender() | !validateAddress())
         {
             return;
         }
