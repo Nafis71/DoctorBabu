@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,17 +23,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
-    Button callSignUp,signIn;
+    Button callSignUp,signIn,forgetPass,confirm;
     ImageView image;
-    TextView greetingText, secondGreetingText, forgetPass;
-    TextInputLayout userEmail,userPassword;
+    TextView greetingText, secondGreetingText;
+    TextInputLayout userEmail,userPassword,forgetEmail;
     ProgressBar progressBar;
+    BottomSheetDialog bottomSheetForgetPass;
     FirebaseAuth auth;
     public void onStart() {
         super.onStart();
@@ -73,16 +76,14 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //hooking
-        callSignUp = findViewById(R.id.newUser);
-        image = findViewById(R.id.logo);
-        greetingText = findViewById(R.id.text1);
-        secondGreetingText = findViewById(R.id.text2);
-        userEmail = findViewById(R.id.email);
-        userPassword = findViewById(R.id.password);
-        signIn = findViewById(R.id.signIn);
-        forgetPass = findViewById(R.id.forgetPass);
-        progressBar = findViewById(R.id.progressCircular);
+        viewBinding();
         auth = FirebaseAuth.getInstance();
+        forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgetPassword();
+            }
+        });
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +102,63 @@ public class Login extends AppCompatActivity {
 
             }
         });
+
+    }
+    public void viewBinding()
+    {
+        callSignUp = findViewById(R.id.newUser);
+        image = findViewById(R.id.logo);
+        greetingText = findViewById(R.id.text1);
+        secondGreetingText = findViewById(R.id.text2);
+        userEmail = findViewById(R.id.email);
+        userPassword = findViewById(R.id.password);
+        signIn = findViewById(R.id.signIn);
+        forgetPass = findViewById(R.id.forgetPass);
+        progressBar = findViewById(R.id.progressCircular);
+    }
+    public void forgetPassword()
+    {
+        bottomSheetForgetPass = new BottomSheetDialog(Login.this,R.style.bottomSheetTheme);
+        View bottomSheetView = LayoutInflater.from(Login.this).inflate(R.layout.bottom_sheet_forget_password,null);
+        forgetEmail = bottomSheetView.findViewById(R.id.forgetEmail);
+        confirm = bottomSheetView.findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = forgetEmail.getEditText().getText().toString();
+                auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                            dialog.setTitle("Done").setMessage("Password Reset Link has been sent to your email.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            dialog.create().show();
+                        }
+                        else
+                        {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                            dialog.setTitle("Failed").setMessage("Failed to send email to this address")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            dialog.create().show();
+                        }
+                    }
+                });
+            }
+        });
+       bottomSheetForgetPass.setContentView(bottomSheetView);
+       bottomSheetForgetPass.show();
 
     }
     public void logIn(View view)
