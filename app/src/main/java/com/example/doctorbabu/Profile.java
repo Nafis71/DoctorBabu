@@ -3,6 +3,7 @@ import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -25,7 +26,6 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,11 +35,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Profile extends Fragment {
 
@@ -302,6 +300,7 @@ public class Profile extends Fragment {
                         if(!String.valueOf(snapshot.child("group").getValue()).equals("null"))
                         {
                             bloodGroupInfo.setText(String.valueOf(snapshot.child("group").getValue()));
+                            bloodGroupInfo.setTextColor(Color.parseColor("#1C2833"));
                             FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
                             DatabaseReference ref = rootnode.getReference("patientProfileTrack");
                             ref.child(user.getUid()).child("bloodGroupInfo").setValue("Completed");
@@ -416,11 +415,16 @@ public class Profile extends Fragment {
               if(i == size-1)
               {
                   text.setText(list.get(i));
+                  text.setBackgroundResource(R.drawable.card_corner);
+                  text.setPadding(7,7,7,7);
+                  text.setTextColor(Color.parseColor("#1C2833"));
               }
               else
               {
-                  String value = list.get(i) + ",";
-                  text.setText(value);
+                  text.setText(list.get(i));
+                  text.setBackgroundResource(R.drawable.card_corner);
+                  text.setPadding(7,7,7,7);
+                  text.setTextColor(Color.parseColor("#1C2833"));
               }
               flex.addView(text);
           }
@@ -522,11 +526,16 @@ public class Profile extends Fragment {
                 if(i == size-1)
                 {
                     text.setText(list.get(i));
+                    text.setBackgroundResource(R.drawable.card_corner);
+                    text.setPadding(7,7,7,7);
+                    text.setTextColor(Color.parseColor("#1C2833"));
                 }
                 else
                 {
-                    String value = list.get(i) + ",";
-                    text.setText(value);
+                    text.setText(list.get(i));
+                    text.setBackgroundResource(R.drawable.card_corner);
+                    text.setPadding(7,7,7,7);
+                    text.setTextColor(Color.parseColor("#1C2833"));
                 }
                 flex2.addView(text);
             }

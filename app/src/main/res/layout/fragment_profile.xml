@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background3"
+    android:background="@drawable/background2"
     tools:context=".Profile">
 
     <RelativeLayout
@@ -19,11 +19,10 @@
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/profile_picture"
-            app:shapeAppearanceOverlay="@style/circular"
             android:visibility="invisible"
             app:layout_constraintDimensionRatio="1:1"
-            />
+            app:shapeAppearanceOverlay="@style/circular"
+            app:srcCompat="@drawable/profile_picture" />
 
         <ImageView
             android:id="@+id/signOut"
@@ -32,7 +31,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="330dp"
-            android:src="@drawable/signout"/>
+            android:src="@drawable/signout" />
 
         <TextView
             android:id="@+id/userName"
@@ -42,18 +41,19 @@
             android:layout_marginTop="65dp"
             android:layout_toEndOf="@+id/profilePicture"
             android:fontFamily="@font/roboto"
-            android:textStyle="bold"
             android:includeFontPadding="false"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
         <ProgressBar
             android:id="@+id/progress_circular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/progress_back"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_back"
             android:visibility="gone"
 
             />
@@ -70,13 +70,14 @@
             android:includeFontPadding="false"
             android:text=""
             android:textSize="16sp" />
+
         <TextView
             android:id="@+id/verifyStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/userEmail"
-            android:layout_toEndOf="@+id/profilePicture"
             android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/profilePicture"
             android:fontFamily="@font/oswald"
             android:text="Email Verified"
             android:textSize="16sp"
@@ -86,9 +87,9 @@
             android:id="@+id/tickSign"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toEndOf="@+id/verifyStatus"
             android:layout_below="@+id/userEmail"
             android:layout_marginStart="6dp"
+            android:layout_toEndOf="@+id/verifyStatus"
             android:src="@drawable/verified" />
 
         <ImageView
@@ -374,6 +375,7 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="15dp"
+                                     android:textColor="@color/black"
                                 android:text=""
                                      android:layout_marginTop="6dp"
                                 />

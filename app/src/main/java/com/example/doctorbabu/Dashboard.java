@@ -33,6 +33,7 @@ public class Dashboard extends AppCompatActivity {
             finish();
         }
         bottomNavigation = findViewById(R.id.bottomView);
+        loadFragment(new Home(),true);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -57,12 +58,11 @@ public class Dashboard extends AppCompatActivity {
                 else
                 {
                     if(bottomNavigation.getSelectedItemId() != R.id.nav_profile)
-                        loadFragment(new Profile(),true);
+                        loadFragment(new Profile(),false);
                 }
                 return true;
             }
         });
-        bottomNavigation.setSelectedItemId(R.id.nav_profile);
     }
     public void loadFragment(Fragment fragment,boolean flag)
     {

@@ -12,11 +12,13 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="117dp"
-        android:layout_height="107dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="160dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="-20dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/patient"
+        android:src="@drawable/doctorhello"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         android:transitionName="imageTransition" />
 
 

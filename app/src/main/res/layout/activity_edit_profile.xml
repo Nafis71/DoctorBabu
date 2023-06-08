@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfile"
-    android:background="@drawable/background3"
+    android:background="@drawable/background2"
     android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
