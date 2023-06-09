@@ -14,10 +14,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static int SplashScreen = 4000;
+    public static int SplashScreen = 3000;
     Animation topAnim;
     ImageView image;
-    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         image.setAnimation(topAnim);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this,Login.class);
+            Intent intent = new Intent(MainActivity.this,LoginOptions.class);
             startActivity(intent);
             finish();
         }, SplashScreen);

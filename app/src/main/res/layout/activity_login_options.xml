@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginOptions">
+    <ImageView
+        android:id ="@+id/doctorIMG"
+        android:layout_width="250dp"
+        android:layout_height="550dp"
+        android:src="@drawable/doctorhellologin"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        >
+
+    </ImageView>
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/helloGif"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/hello"
+        android:layout_toEndOf="@+id/doctorIMG"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="-95dp"
+        >
+
+    </pl.droidsonroids.gif.GifImageView>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-50dp"
+        android:fontFamily="@font/oswald"
+        android:text="Who are you?"
+        android:textAlignment="center"
+        android:textColor="#B7101010"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/doctorIMG"
+        android:layout_centerHorizontal="true"
+        />
+    <com.google.android.material.card.MaterialCardView
+        android:id ="@+id/patientCard"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        app:cardElevation="1dp"
+        app:cardCornerRadius="80dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_card_gradient"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patient"
+                android:fontFamily="@font/oswald"
+                android:textSize="28sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/white"
+                >
+
+            </TextView>
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id ="@+id/doctorCard"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/patientCard"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:cardElevation="1dp"
+        app:cardCornerRadius="50dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/home_card_gradient"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doctor"
+                android:fontFamily="@font/oswald"
+                android:textSize="28sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/white"
+                >
+
+            </TextView>
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

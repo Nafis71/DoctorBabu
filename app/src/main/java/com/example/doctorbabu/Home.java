@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +36,8 @@ public class Home extends Fragment {
     FirebaseUser user;
     String uId;
     ImageView profilePicture;
+    BottomSheetDialog bookAppointmentSheet;
+    CardView appointmentCard;
 
     public Home() {
         // Required empty public constructor
@@ -48,6 +55,18 @@ public class Home extends Fragment {
         loadImageSlider();
         viewBinding();
         firebaseAuth();
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callProfileFragment();
+            }
+        });
+        appointmentCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAppointmentBottomSheet();
+            }
+        });
     }
     public void firebaseAuth()
     {
@@ -89,6 +108,7 @@ public class Home extends Fragment {
     public void viewBinding()
     {
         profilePicture = (ImageView) getView().findViewById(R.id.profilePicture);
+        appointmentCard = (CardView) getView().findViewById(R.id.appointmentCard);
     }
     public void loadImageSlider()
     {
@@ -103,6 +123,21 @@ public class Home extends Fragment {
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
+    }
+    public void callProfileFragment() {
+        BottomNavigationView bottomNavigation = getActivity().findViewById(R.id.bottomView);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.container, new Profile());
+        ft.commit();
+        bottomNavigation.setSelectedItemId(R.id.nav_profile);
+    }
+    public void callAppointmentBottomSheet()
+    {
+        bookAppointmentSheet = new BottomSheetDialog(getContext(),R.style.bottomSheetTheme);
+        View appointmentView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_book_doctor,null);
+        bookAppointmentSheet.setContentView(appointmentView);
+        bookAppointmentSheet.show();
     }
 
     @Override

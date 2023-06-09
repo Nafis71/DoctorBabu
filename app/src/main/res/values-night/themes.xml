@@ -5,7 +5,7 @@
         <item name="colorPrimaryVariant">#432E2F30</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">#4F5FDE</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -20,4 +20,5 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
     <!-- Bottom Sheet Styles. -->
+    <style name="Theme.DoctorBabu" parent="Base.Theme.DoctorBabu" />
 </resources>
