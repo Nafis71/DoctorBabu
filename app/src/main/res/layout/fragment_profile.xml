@@ -79,7 +79,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/profilePicture"
             android:fontFamily="@font/oswald"
-            android:text="Email Verified"
+            android:text="@string/emailVerified"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -148,11 +148,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rewardAmount"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_medium"
+                    android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
-                    android:text="Reward Points"
+                    android:text="@string/rewardPoint"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -198,9 +198,9 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="Appointment Done"
+                    android:text="@string/appointmentDone"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -246,9 +246,9 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
-                    android:text="Appointment Pending"
+                    android:text="@string/appointmentPending"
                     android:textAlignment="center"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -271,7 +271,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Some profile information is missing!"
+            android:text="@string/profileInformationMissing"
             android:textColor="@color/black"
             android:fontFamily="@font/overpass_semibold"
             android:textSize="16sp"
@@ -305,7 +305,7 @@
         android:background="@drawable/custom_button_back"
         android:fontFamily="@font/roboto_medium"
         android:onClick="edit"
-        android:text="Edit Profile"
+        android:text="@string/editProfile"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:strokeColor="@color/white"
@@ -338,7 +338,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/overpass_bold"
-                        android:text="Medical Info"
+                        android:text="@string/medicalInformation"
                         android:textColor="@color/black"
                         android:layout_marginTop="20dp"
                         android:drawablePadding="10dp"
@@ -356,7 +356,7 @@
                         android:editable="false"
                         android:inputType=""
                         android:padding="12dp"
-                        android:text="Allergy History"
+                        android:text="@string/allergyHistory"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"
                         />
@@ -388,7 +388,7 @@
                         android:drawableEnd="@drawable/edit"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Past Medical History"
+                        android:text="@string/pastMedicalHistory"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
                     <com.google.android.flexbox.FlexboxLayout
@@ -418,7 +418,7 @@
                         android:drawableEnd="@drawable/edit"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Blood Group"
+                        android:text="@string/bloodGroup"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
                     <LinearLayout
@@ -458,7 +458,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/overpass_bold"
-                        android:text="Patient Info"
+                        android:text="@string/patientInformation"
                         android:textColor="@color/black"
                         android:layout_marginTop="20dp"
                         android:drawablePadding="10dp"
@@ -475,7 +475,7 @@
                         android:editable="false"
                         android:inputType=""
                         android:padding="15dp"
-                        android:text="Phone Number"
+                        android:text="@string/phoneNumber"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"
                         android:clickable="false"
@@ -505,7 +505,7 @@
                         android:drawableEnd="@drawable/location_2"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Address"
+                        android:text="@string/address"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
                     <com.google.android.flexbox.FlexboxLayout
@@ -533,7 +533,7 @@
                         android:drawableEnd="@drawable/gender"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Gender"
+                        android:text="@string/gender"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
 
@@ -557,7 +557,7 @@
                         android:drawableEnd="@drawable/age"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Age"
+                        android:text="@string/age"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
 
@@ -581,7 +581,7 @@
                         android:drawableEnd="@drawable/height"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Height (CM)"
+                        android:text="@string/height"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
 
@@ -605,7 +605,7 @@
                         android:drawableEnd="@drawable/weight"
                         android:editable="false"
                         android:padding="12dp"
-                        android:text="Weight (KG)"
+                        android:text="@string/weight"
                         android:textSize="16sp"
                         android:backgroundTint="#5499C7"/>
 

@@ -8,14 +8,82 @@
     <string name="nav_doctor_title">Find Doctor</string>
     <string name="nav_profile_title">Profile</string>
     <string name="nav_history_title">History</string>
-    <string name="hello_home_fragment">This is home fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_doctor_fragment">This is doctor fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_prescription_history_fragment">This is history fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_profile_fragment">This is profile fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Nutrition_and_Dietetic">Nutrition &amp; Dietetic</string>
+    <!-- Home Fragment Strings -->
+    <string name ="languageName">English</string>
+    <string name="doctorSearch">Search for a doctor</string>
+    <string name="bookAppointment">Book Appointment</string>
+    <string name="bookAppointmentDescription">Book appointment with MBBS and Specialist Doctors</string>
+    <string name="takeConsultancy">Take Consultancy</string>
+    <string name="takeConsultancyDescription">Seek clinical and healthcare advices</string>
+    <string name="medicalReminder">Medicine Reminder</string>
+    <string name="medicalReminderDescription">Set an alarm to take medicine</string>
+    <string name="onlineConsultant">Online Consultant</string>
+    <string name="onlineConsultantDescription">Currently online: 65</string>
+    <string name="medicalReport">Medical Report</string>
+    <string name="medicalReportDescription">Upload your diagonosis report</string>
+    <string name="medicineInformation">Medicine Information</string>
+    <string name="medicineInformationDescription">Learn more about prescribed medicine</string>
+    <string name="appointmentHistory">Appointment History</string>
+    <string name="appointmentHistoryDescription">Appointments Taken: 0</string>
+    <!-- Home Fragment Strings Ends -->
+    <!-- Home Fragment Bottom Sheet Strings -->
+    <string name="chooseSpecialization">Choose Specialization</string>
+    <string name="generalPhysician">General Physician</string>
+    <string name="gynecology">Gynecology</string>
+    <string name="pediatrics">Pediatrics</string>
+    <string name="dermatology">Dermatology</string>
+    <string name="psychiatry">Psychiatry</string>
+    <string name="cardiology">Cardiology</string>
+    <string name="nutritionDietetic">Nutrition &amp; Dietetic</string>
+    <string name="ophthalmology">Ophthalmology</string>
+    <string name="neurology">Neurology</string>
+    <!-- Home Fragment Bottom Sheet Ends -->
+    <!-- Profile Fragment Strings -->
+    <string name="emailVerified">Email Verified</string>
+    <string name="rewardPoint">Reward Points</string>
+    <string name="appointmentDone">Appointment Done</string>
+    <string name="appointmentPending">Appointment Pending</string>
+    <string name="profileInformationMissing">Some profile information is missing!</string>
+    <string name="editProfile">Edit Profile</string>
+    <string name="medicalInformation">Medical Info</string>
+    <string name="allergyHistory">Allergy History</string>
+    <string name="patientInformation">Patient Info</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="height">Height (CM)</string>
+    <string name="weight">Weight (KG)</string>
+    <string name="drug">Drug</string>
+    <string name="cloth">Cloth</string>
+    <string name="dust">Dust</string>
+    <string name="food">Food</string>
+    <string name="confirm">Confirm</string>
+    <string name="pastMedicalHistory">Past Medical History</string>
+    <string name="bloodGroup">Blood Group</string>
+    <string name="aPositive">A+</string>
+    <string name="aNegative">A-</string>
+    <string name="abPositive">Ab+</string>
+    <string name="abNegative">Ab-</string>
+    <string name="oPositive">O+</string>
+    <string name="oNegative">O-</string>
+    <string name="bPositive">B+</string>
+    <string name="bNegative">B-</string>
+    <string name="asthma">Asthma</string>
+    <string name="diabetics">Diabetics</string>
+    <string name="cancer">Cancer</string>
+    <string name="heartDisease">Heart Disease</string>
+    <string name="highBp">High BP</string>
+    <string name="migraine">Migraine</string>
+    <string name="stroke">Stroke</string>
+    <string name="ulcer">Ulcer</string>
+    <!-- Profile Fragment Strings End -->
+    <!-- Edit Profile Strings -->
+    <string name="fullName">Full Name</string>
+    <string name="birthDate">Birth Date</string>
+    <string name="genderEditProfile">Gender :</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="update">Update</string>
+    <!-- Edit Profile Strings End -->
 </resources>

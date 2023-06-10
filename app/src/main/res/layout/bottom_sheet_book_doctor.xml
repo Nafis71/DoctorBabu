@@ -17,26 +17,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="1"
-            android:text="Choose Specialization"
-            android:textColor="#7783E4"
+            android:text="@string/chooseSpecialization"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="#666"
             android:textSize="22sp"
             android:textStyle="bold" />
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="36dp"
-            android:layout_toEndOf="@+id/headerText"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="0dp"
-            android:src ="@drawable/specialization"
-            />
         <View
             android:layout_width="match_parent"
             android:layout_height="0.4dp"
@@ -49,15 +38,16 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:padding="5dp"
         android:rowCount="3"
         android:columnCount="3"
         >
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -77,7 +67,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="General physician"
+                    android:text="@string/generalPhysician"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -85,13 +75,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -111,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gynecology"
+                    android:text="@string/gynecology"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -119,13 +110,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -145,7 +137,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pediatrics"
+                    android:text="@string/pediatrics"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -153,13 +145,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -179,7 +172,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dermatology"
+                    android:text="@string/dermatology"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -187,13 +180,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -213,7 +207,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Psychiatry"
+                    android:text="@string/psychiatry"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -221,13 +215,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -240,14 +235,14 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/psychology"
+                    android:src = "@drawable/cardiology"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Psychology"
+                    android:text="@string/cardiology"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -255,13 +250,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -281,7 +277,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nutrition &amp; Dietetic"
+                    android:text="@string/nutritionDietetic"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -289,13 +285,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -315,7 +312,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ophthalmology"
+                    android:text="@string/ophthalmology"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -323,13 +320,14 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
-            android:layout_height="100dp"
+            android:layout_height="115dp"
             android:layout_width ="115dp"
             app:cardElevation="2dp"
             android:layout_margin="7dp"
@@ -349,7 +347,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Neurology"
+                    android:text="@string/neurology"
                     android:textSize="13sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"
@@ -357,6 +355,7 @@
                     android:layout_gravity="center"
                     android:padding="2dp"
                     android:textColor="#2C3E50"
+                    android:layout_marginBottom="2dp"
                     >
                 </TextView>
             </LinearLayout>

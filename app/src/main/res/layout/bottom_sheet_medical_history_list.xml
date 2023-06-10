@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:fontFamily="@font/roboto"
-            android:text="Past Medical History"
+            android:text="@string/pastMedicalHistory"
             android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -51,18 +51,25 @@
         >
 
     </View>
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="18dp"
+        android:rowCount="4"
+        android:columnCount="3"
+        >
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/asthma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Asthma"
-            android:textSize="16sp"
-            android:layout_marginStart="70dp"
+            android:text="@string/asthma"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
+            android:textSize="14sp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
@@ -70,26 +77,21 @@
             android:id="@+id/cancer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancer"
-            android:textSize="16sp"
-            android:layout_marginStart="60dp"
+            android:text="@string/cancer"
+            android:textSize="14sp"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/diabetics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Diabetics"
-            android:textSize="16sp"
-            android:layout_marginStart="70dp"
+            android:text="@string/diabetics"
+            android:textSize="14sp"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
@@ -97,27 +99,21 @@
             android:id="@+id/heartDisease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Heart Disease"
-            android:textSize="16sp"
-            android:layout_marginStart="50dp"
+            android:text="@string/heartDisease"
+            android:textSize="14sp"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/highBp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="High BP"
-            android:textSize="16sp"
-            android:layout_marginStart="70dp"
+            android:text="@string/highBp"
+            android:textSize="14sp"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
@@ -125,26 +121,20 @@
             android:id="@+id/migraine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Migraine"
-            android:textSize="16sp"
-            android:layout_marginStart="60dp"
+            android:text="@string/migraine"
+            android:textSize="14sp"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/stroke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stroke"
-            android:textSize="16sp"
-            android:layout_marginStart="70dp"
+            android:text="@string/stroke"
+            android:textSize="14sp"
+            android:layout_margin="5dp"
             app:buttonTint="#76D7C4"
             >
 
@@ -153,21 +143,21 @@
             android:id="@+id/ulcer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ulcer"
-            android:textSize="16sp"
-            android:layout_marginStart="72dp"
+            android:text="@string/ulcer"
+            android:textSize="14sp"
             app:buttonTint="#76D7C4"
+            android:layout_margin="5dp"
             >
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+    </GridLayout>
 
-    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/confirmList"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textSize="15sp"
         android:textColor="@color/black"
         app:backgroundTint = "#76D7C4"

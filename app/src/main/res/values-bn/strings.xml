@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ডাক্তার বাবু</string>
+    <string name="custom_dialog_email_verification">আপনার ইমেল ঠিকানা যাচাই করুন!</string>
+    <string name="custom_dialog_email_sent">আপনার মেইলে একটি ইমেল পাঠানো হয়েছে</string>
+    <string name="custom_dialog_registration_successfull">নিবন্ধন সফল!</string>
+    <string name="custom_dialog_okay_button">ঠিক আছে</string>
+    <string name="nav_home_title">হোম</string>
+    <string name="nav_doctor_title">ডাক্তার খুঁজুন</string>
+    <string name="nav_profile_title">প্রোফাইল</string>
+    <string name="nav_history_title">ইতিহাস</string>
+
+    <!-- Home Fragment Strings. -->
+    <string name ="languageName">বাংলা</string>
+    <string name="doctorSearch">একজন ডাক্তারের সন্ধান করুন</string>
+    <string name="bookAppointment">বুক অ্যাপয়েন্টমেন্ট</string>
+    <string name="bookAppointmentDescription">এমবিবিএস এবং বিশেষজ্ঞ ডাক্তারদের সাথে অ্যাপয়েন্টমেন্ট বুক করুন</string>
+    <string name="takeConsultancy">কনসালটেন্সি নিন</string>
+    <string name="takeConsultancyDescription">ক্লিনিকাল এবং স্বাস্থ্যসেবা পরামর্শ নিন </string>
+    <string name="medicalReminder">ঔষধ অনুস্মারক</string>
+    <string name="medicalReminderDescription">ওষুধ খাওয়ার জন্য একটি অ্যালার্ম সেট করুন</string>
+    <string name="onlineConsultant">অনলাইন পরামর্শদাতা</string>
+    <string name="onlineConsultantDescription">বর্তমানে অনলাইন: 65</string>
+    <string name="medicalReport">চিকিৎসা বিবরণ</string>
+    <string name="medicalReportDescription">আপনার ডায়াগোনোসিস রিপোর্ট আপলোড করুন</string>
+    <string name="medicineInformation">ঔষধ তথ্য</string>
+    <string name="medicineInformationDescription">নির্ধারিত ওষুধ সম্পর্কে আরও জানুন</string>
+    <string name="appointmentHistory">অ্যাপয়েন্টমেন্টের ইতিহাস</string>
+    <string name="appointmentHistoryDescription">অ্যাপয়েন্টমেন্ট নেওয়া হয়েছে: 0</string>
+    <!-- Home Fragment Strings Ends -->
+    <!-- Home Fragment Bottom Sheet Strings -->
+    <string name="chooseSpecialization">একটি স্পেশালাইজেশন নির্বাচন করুন</string>
+    <string name="generalPhysician">জেনারেল ফিজিশিয়ান</string>
+    <string name="gynecology">গাইনোকোলজি</string>
+    <string name="pediatrics">শিশু রোগ</string>
+    <string name="dermatology">চর্মরোগবিদ্যা</string>
+    <string name="psychiatry">মনোরোগবিদ্যা</string>
+    <string name="cardiology">কার্ডিওলজি</string>
+    <string name="nutritionDietetic">পুষ্টি এবং ডায়েটিক্স</string>
+    <string name="ophthalmology">চক্ষুবিদ্যা</string>
+    <string name="neurology">নিউরোলজি</string>
+    <!-- Home Fragment Bottom Sheet Ends -->
+    <!-- Profile Fragment Strings -->
+    <string name="emailVerified">ই-মেইল ভেরিফাইড</string>
+    <string name="rewardPoint">রিওয়ার্ড পয়েন্ট</string>
+    <string name="appointmentDone">অ্যাপয়েন্টমেন্ট সম্পন্ন</string>
+    <string name="appointmentPending">অ্যাপয়েন্টমেন্ট মুলতুবি আছে</string>
+    <string name="profileInformationMissing">কিছু প্রোফাইল তথ্য অনুপস্থিত!</string>
+    <string name="editProfile">প্রোফাইল সম্পাদনা করুন</string>
+    <string name="medicalInformation">মেডিকেল তথ্য</string>
+    <string name="allergyHistory">অ্যালার্জির ইতিহাস</string>
+    <string name="pastMedicalHistory">অতীত চিকিৎসা ইতিহাস</string>
+    <string name="bloodGroup">রক্তের গ্রুপ</string>
+    <string name="patientInformation">রোগীর তথ্য</string>
+    <string name="phoneNumber">ফোন নম্বর</string>
+    <string name="address">ঠিকানা</string>
+    <string name="gender">লিঙ্গ</string>
+    <string name="age">বয়স</string>
+    <string name="height">উচ্চতা (CM)</string>
+    <string name="weight">ওজন (KG)</string>
+    <string name="drug">ওষুধ</string>
+    <string name="cloth">কাপড়</string>
+    <string name="dust">ধুলো</string>
+    <string name="food">খাদ্য</string>
+    <string name="confirm">নিশ্চিত করুন</string>
+    <string name="aPositive">A+</string>
+    <string name="aNegative">A-</string>
+    <string name="abPositive">Ab+</string>
+    <string name="abNegative">Ab-</string>
+    <string name="oPositive">O+</string>
+    <string name="oNegative">O-</string>
+    <string name="bPositive">B+</string>
+    <string name="bNegative">B-</string>
+    <string name="asthma">হাঁপানি</string>
+    <string name="diabetics">ডায়াবেটিস</string>
+    <string name="cancer">ক্যান্সার</string>
+    <string name="heartDisease">হৃদরোগ</string>
+    <string name="highBp">উচ্চ রক্তচাপ</string>
+    <string name="migraine">মাইগ্রেন</string>
+    <string name="stroke">স্ট্রোক</string>
+    <string name="ulcer">আলসার</string>
+    <!-- Profile Fragment Strings End -->
+    <!-- Edit Profile Strings -->
+    <string name="fullName">সম্পূর্ণ নাম</string>
+    <string name="birthDate">জন্ম তারিখ</string>
+    <string name="genderEditProfile">লিঙ্গ :</string>
+    <string name="male">পুরুষ</string>
+    <string name="female">নারী</string>
+    <string name="update">হালনাগাদ</string>
+    <!-- Edit Profile Strings End -->
+</resources>

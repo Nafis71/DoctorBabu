@@ -502,6 +502,14 @@ public class EditProfile extends AppCompatActivity {
         int radioId = radioGroup.getCheckedRadioButtonId(); //check which button is pressed
         radioButton = findViewById(radioId);
         userGender = radioButton.getText().toString();
+        if(userGender.equals("Male")||userGender.equals("পুরুষ"))
+        {
+            userGender = "Male";
+        }
+        else
+        {
+            userGender = "Female";
+        }
     }
     public void alertDialog()
     {

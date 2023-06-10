@@ -590,6 +590,8 @@ public class SignUp extends AppCompatActivity {
         reference.child(userId).child("pending").setValue("0");
         reference = rootnode.getReference("rewardPatient");
         reference.child(userId).child("reward").setValue("50");
+        reference = rootnode.getReference("appLanguage");
+        reference.child(userId).setValue("en");
     }
     public static boolean isInternetAvailable(Context context)
     {

@@ -31,13 +31,36 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/doctorBabuLogo"
-            android:layout_marginStart="130dp"
+            android:layout_marginStart="140dp"
             app:srcCompat="@drawable/profile_picture"
             app:shapeAppearanceOverlay="@style/circular"
             android:visibility="invisible"
             app:layout_constraintDimensionRatio="1:1"
-            />
 
+            />
+        <TextView
+            android:id="@+id/languageName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/languageName"
+            android:fontFamily="@font/roboto"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/languageImage"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            >
+
+        </TextView>
+        <ImageView
+            android:id="@+id/languageImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src = "@drawable/languages"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2dp"
+            />
 
 
     </RelativeLayout>
@@ -61,7 +84,7 @@
             android:background="@color/white"
             app:animateMenuItems="true"
             app:closeIcon="@drawable/close"
-            app:defaultQueryHint="Search for a doctor"
+            app:defaultQueryHint="@string/doctorSearch"
             android:inputType="textPersonName"
             app:iconifiedByDefault="false"
             >
@@ -113,7 +136,7 @@
            <com.google.android.material.card.MaterialCardView
                android:id="@+id/appointmentCard"
                android:layout_width="match_parent"
-               android:layout_height="150dp"
+               android:layout_height="wrap_content"
                android:layout_marginStart="20dp"
                android:layout_marginTop="20dp"
                android:layout_marginEnd="20dp"
@@ -141,7 +164,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
-                       android:text="Book Appointment"
+                       android:text="@string/bookAppointment"
                        android:fontFamily="@font/overpass_bold"
                        android:textColor="@color/white"
                        android:shadowColor="@color/black"
@@ -151,14 +174,18 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Book appointment with MBBS and Specialist Doctors"
+                       android:text="@string/bookAppointmentDescription"
                        android:textColor="@color/white"
                        android:textStyle="bold"
                        android:fontFamily="@font/roboto"
                        android:layout_marginTop="5dp"
+                       android:layout_marginStart="5dp"
                        android:textSize="13sp"
                        android:layout_gravity="center"
-                       />
+                       android:textAlignment="center"
+                       android:padding="5dp"
+                       android:layout_marginBottom="10dp"
+                       android:layout_marginEnd="5dp"
                        />
                </LinearLayout>
 
@@ -166,7 +193,7 @@
            <com.google.android.material.card.MaterialCardView
                android:id="@+id/consultantCard"
                android:layout_width="match_parent"
-               android:layout_height="150dp"
+               android:layout_height="wrap_content"
                android:layout_below="@+id/appointmentCard"
                android:layout_marginStart="20dp"
                android:layout_marginTop="10dp"
@@ -195,7 +222,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
-                       android:text="Take Consultancy"
+                       android:text="@string/takeConsultancy"
                        android:fontFamily="@font/overpass_bold"
                        android:textColor="@color/white"
                        android:shadowColor="@color/black"
@@ -205,13 +232,16 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Seek clinical and healthcare advices and suggestions"
+                       android:text="@string/takeConsultancyDescription"
                        android:textColor="@color/white"
                        android:textStyle="bold"
                        android:fontFamily="@font/roboto"
                        android:layout_marginTop="5dp"
                        android:textSize="13sp"
                        android:layout_gravity="center"
+                       android:padding="5dp"
+                       android:layout_marginBottom="10dp"
+                       android:layout_marginEnd="5dp"
                        />
                </LinearLayout>
 
@@ -219,7 +249,7 @@
            <com.google.android.material.card.MaterialCardView
                android:id="@+id/medicineReminderCard"
                android:layout_width="180dp"
-               android:layout_height="140dp"
+               android:layout_height="wrap_content"
                android:layout_below="@+id/consultantCard"
                app:cardCornerRadius="11dp"
                app:cardElevation="8dp"
@@ -240,16 +270,17 @@
                        android:layout_width="110dp"
                        android:layout_height="85dp"
                        android:src = "@drawable/pillremind"
-                      android:layout_centerHorizontal="true"
+                       android:layout_below="@+id/medicineReminderDescription"
                        android:layout_marginBottom="5dp"
-                       android:layout_marginTop="50dp"
+                       android:layout_marginTop="2dp"
+                       android:layout_centerHorizontal="true"
                        android:scaleType="centerCrop"
                        />
                    <TextView
                        android:id="@+id/medicineRemindText"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Medicine Reminder"
+                       android:text="@string/medicalReminder"
                        android:textSize="13sp"
                        android:textStyle="bold"
                        android:textColor="#666666"
@@ -261,9 +292,10 @@
 
                    </TextView>
                    <TextView
+                       android:id="@+id/medicineReminderDescription"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Set an alarm to take medicine"
+                       android:text="@string/medicalReminderDescription"
                        android:textSize="12sp"
                        android:layout_gravity="center"
                        android:layout_marginStart="9dp"
@@ -282,7 +314,7 @@
            <com.google.android.material.card.MaterialCardView
                android:id="@+id/reportCard"
                android:layout_width="180dp"
-               android:layout_height="153dp"
+               android:layout_height="wrap_content"
                android:layout_below="@+id/medicineReminderCard"
                app:cardCornerRadius="11dp"
                app:cardElevation="8dp"
@@ -303,16 +335,17 @@
                        android:layout_width="110dp"
                        android:layout_height="90dp"
                        android:src = "@drawable/report"
+                       android:layout_marginTop="2dp"
                        android:layout_centerHorizontal="true"
                        android:layout_marginBottom="5dp"
-                       android:layout_marginTop="65dp"
                        android:scaleType="centerCrop"
+                       android:layout_below="@+id/medicalReportDescription"
                        />
                    <TextView
                        android:id="@+id/reportText"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Upload Medical Report"
+                       android:text="@string/medicalReport"
                        android:textSize="13sp"
                        android:textStyle="bold"
                        android:textColor="#666666"
@@ -324,9 +357,10 @@
 
                    </TextView>
                    <TextView
+                       android:id="@+id/medicalReportDescription"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Upload your diagonosis report"
+                       android:text="@string/medicalReportDescription"
                        android:textSize="12sp"
                        android:layout_gravity="center"
                        android:layout_marginStart="8.5dp"
@@ -368,14 +402,15 @@
                        android:src = "@drawable/appointmenthistory"
                        android:layout_centerHorizontal="true"
                        android:layout_marginBottom="5dp"
-                       android:layout_marginTop="65dp"
+                       android:layout_marginTop="2dp"
                        android:scaleType="centerCrop"
+                       android:layout_below="@+id/appointmentHistoryDescription"
                        />
                    <TextView
                        android:id="@+id/apointmentHistoryText"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Appointment History"
+                       android:text="@string/appointmentHistory"
                        android:textSize="13sp"
                        android:textStyle="bold"
                        android:textColor="#666666"
@@ -387,9 +422,10 @@
 
                    </TextView>
                    <TextView
+                       android:id="@+id/appointmentHistoryDescription"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Total Appointments Taken: 0"
+                       android:text="@string/appointmentHistoryDescription"
                        android:textSize="12sp"
                        android:layout_gravity="center"
                        android:layout_marginStart="8.5dp"
@@ -456,7 +492,7 @@
                    android:id="@+id/doctorText"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Online Consultant"
+                   android:text="@string/onlineConsultant"
                    android:textSize="13sp"
                    android:textColor="#666666"
                    android:fontFamily="@font/roboto"
@@ -470,7 +506,7 @@
                    android:id="@+id/onlineText"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Currently online: 65"
+                   android:text="@string/onlineConsultantDescription"
                    android:textSize="12sp"
                    android:layout_below="@+id/doctorText"
                    android:layout_gravity="center"
@@ -520,15 +556,15 @@
                        android:src = "@drawable/medicinepicture"
                        android:layout_centerHorizontal="true"
                        android:layout_marginBottom="5dp"
-                       android:layout_marginTop="65dp"
+                       android:layout_marginTop="2dp"
                        android:scaleType="centerCrop"
                        android:adjustViewBounds="true"
-                       />
+                       android:layout_below="@+id/medicineInformationDescription"/>
                    <TextView
                        android:id="@+id/medicineText"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="Medicine Information"
+                       android:text="@string/medicineInformation"
                        android:textSize="13sp"
                        android:textStyle="bold"
                        android:textColor="#666666"
@@ -540,9 +576,10 @@
 
                    </TextView>
                    <TextView
+                       android:id="@+id/medicineInformationDescription"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Learn more about prescribed medicine"
+                       android:text="@string/medicineInformationDescription"
                        android:textSize="12sp"
                        android:layout_gravity="center"
                        android:layout_marginStart="9dp"
