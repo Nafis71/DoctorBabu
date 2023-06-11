@@ -3,7 +3,10 @@ package com.example.doctorbabu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -32,29 +35,12 @@ public class MainActivity extends AppCompatActivity {
     public void onStart()
     {
         super.onStart();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        if(user!= null)
-        {
-            FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
-            DatabaseReference reference = database.getReference("appLanguage");
-            reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if(task.isSuccessful())
-                    {
-                        if(task.getResult().exists())
-                        {
-                            DataSnapshot snapshot = task.getResult();
-                            language = String.valueOf(snapshot.getValue());
-                            setLanguage(language);
-                            Log.i("Language",language);
-                        }
-                    }
-                }
-            });
-        }
-
+        SharedPreferences preferences = getSharedPreferences("language", Context.MODE_PRIVATE);
+         language = preferences.getString("lang","");
+         if(!language.isEmpty())
+         {
+             setLanguage(language);
+         }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

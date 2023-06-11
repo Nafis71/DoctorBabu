@@ -489,6 +489,7 @@ public class SignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = auth.getCurrentUser();
+                                assert user != null;
                                 user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
@@ -590,8 +591,6 @@ public class SignUp extends AppCompatActivity {
         reference.child(userId).child("pending").setValue("0");
         reference = rootnode.getReference("rewardPatient");
         reference.child(userId).child("reward").setValue("50");
-        reference = rootnode.getReference("appLanguage");
-        reference.child(userId).setValue("en");
     }
     public static boolean isInternetAvailable(Context context)
     {
