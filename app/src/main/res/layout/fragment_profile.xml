@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background2"
+    android:background="#FEFEFE"
     tools:context=".Profile">
 
     <RelativeLayout
@@ -196,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/appointmentDone"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_medium"
+                    android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
                     android:text="@string/appointmentDone"
                     android:textAlignment="center"
@@ -244,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/appointmentPending"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_medium"
+                    android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
                     android:text="@string/appointmentPending"
                     android:textAlignment="center"
@@ -282,15 +282,6 @@
         </com.google.android.material.textview.MaterialTextView>
 
     </com.google.android.material.card.MaterialCardView>
-       <pl.droidsonroids.gif.GifImageView
-           android:id="@+id/alarmGif"
-           android:layout_width="45dp"
-           android:layout_height="45dp"
-           android:src = "@drawable/alarm"
-           android:layout_gravity="center"
-           >
-
-       </pl.droidsonroids.gif.GifImageView>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -328,7 +319,7 @@
                 android:layout_weight="1"
                 app:cardBackgroundColor="#FEFEFE"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="2dp">
+                app:cardElevation="3dp">
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -375,7 +366,6 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="15dp"
-                                     android:textColor="@color/black"
                                 android:text=""
                                      android:layout_marginTop="6dp"
                                 />
@@ -437,10 +427,6 @@
                     </LinearLayout>
 
                 </TableLayout>
-
-
-
-
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -449,7 +435,7 @@
                 android:layout_weight="1"
                 app:cardBackgroundColor="#FEFEFE"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="2dp">
+                app:cardElevation="3dp">
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

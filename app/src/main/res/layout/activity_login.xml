@@ -10,6 +10,39 @@
     android:padding="20dp"
     android:textColor = "?android:textColorPrimary">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/languages"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center"
+            android:layout_marginStart="280dp"
+            >
+
+        </ImageView>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/languageSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:track="@drawable/track"
+            android:thumb="@drawable/thumb"
+            app:showText="true"
+            android:textOn="@string/bn"
+            android:textOff="@string/en"
+            app:thumbTextPadding="3dp"
+            android:textColor = "@color/white"
+            >
+
+        </androidx.appcompat.widget.SwitchCompat>
+
+    </LinearLayout>
+
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="160dp"
@@ -29,7 +62,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/oswald"
-        android:text="Hello there"
+        android:text="@string/signInText1"
         android:textAlignment="viewStart"
         android:textColor="#B7101010"
         android:textSize="34sp"
@@ -42,7 +75,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/oswald"
         android:layout_marginStart="5dp"
-        android:text="Let's get you logged in"
+        android:text="@string/signInText2"
         android:textAlignment="viewStart"
         android:textColor="#B7101010"
         android:textSize="34sp"
@@ -55,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:fontFamily="@font/poppins"
-        android:text="Sign in to continue"
+        android:text="@string/signInText3"
         android:textAlignment="viewStart"
         android:textColor="#9A101010"
         android:textSize="15sp"
@@ -71,12 +104,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id ="@+id/email"
-            android:hint="Email"
+            android:hint="@string/email"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxBackgroundMode="filled"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidth="1dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -91,13 +124,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:id ="@+id/password"
-            android:hint="Password"
+            android:hint="@string/password"
             app:passwordToggleEnabled="true"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxBackgroundMode="filled"
             app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-            app:boxStrokeWidth="3dp"
+            app:boxStrokeWidth="1dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -118,7 +151,7 @@
             android:background="#00000000"
             android:elevation="0dp"
             android:fontFamily="@font/poppins"
-            android:text="Forget Password?"
+            android:text="@string/forgetPassword"
             android:textColor="@color/black"
             android:textSize="12.5sp"
             android:textStyle="bold"
@@ -132,7 +165,7 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/custom_button_back"
             android:onClick="logIn"
-            android:text="Sign In"
+            android:text="@string/signIn"
             android:textColor="#fff"
             android:textSize="16sp"
             android:transitionName="signinTransition"
@@ -142,11 +175,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_margin="5dp"
+            android:layout_margin="1dp"
             android:background="#00000000"
             android:elevation="0dp"
             android:fontFamily="@font/poppins"
-            android:text="New User? Sign Up"
+            android:text="@string/signin"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="13.5sp"

@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,7 +17,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -41,6 +46,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EditProfile extends AppCompatActivity {
     String uid,userGender,email;
@@ -48,7 +55,8 @@ public class EditProfile extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButton,male,female;
     TextInputEditText userName,userAddress, birthDate,userHeight,userWeight,userPhone;
-    TextInputLayout fullNameLayout, phoneLayout, addressLayout, ageLayout,heightLayout, weightLayout;
+    AutoCompleteTextView district,area;
+    TextInputLayout fullNameLayout, phoneLayout, addressLayout, ageLayout,heightLayout, weightLayout,districtLayout,areaLayout;
     ProgressBar loadingCircle;
     Uri filepath;
     Bitmap bitmap;
@@ -57,21 +65,27 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewBinding();
+        districtSelection();
         readFirebaseUserData();
         stateObserver();
         birthDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().
-                        setTitleText("Select date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
-                datePicker.show(getSupportFragmentManager(),"Datepicker");
-                datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener()
-                {
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MM/dd");
+                Date date = new Date(System.currentTimeMillis());
+                String tempDate = formatter.format(date);
+                String[] CurrentDate = tempDate.split("/");
+                int currentYear = Integer.parseInt(CurrentDate[0]);
+                int currentMonth = Integer.parseInt(CurrentDate[1]);
+                int currentDay = Integer.parseInt(CurrentDate[2]);
+                DatePickerDialog dialog = new DatePickerDialog(EditProfile.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        birthDate.setText(datePicker.getHeaderText());
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        String date = String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth);
+                        birthDate.setText(date);
                     }
-                });
+                }, currentYear, currentMonth, currentDay);
+                dialog.show();
             }
         });
 
@@ -95,12 +109,35 @@ public class EditProfile extends AppCompatActivity {
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
         update = findViewById(R.id.update);
+        district = findViewById(R.id.district);
+        area = findViewById(R.id.area);
         fullNameLayout = findViewById(R.id.fullNameLayout);
         addressLayout = findViewById(R.id.addressLayout);
         phoneLayout = findViewById(R.id.phoneLayout);
         ageLayout = findViewById(R.id.ageLayout);
         heightLayout = findViewById(R.id.heightLayout);
         weightLayout = findViewById(R.id.weightLayout);
+        districtLayout = findViewById(R.id.districtLayout);
+        areaLayout = findViewById(R.id.areaLayout);
+    }
+    public void districtSelection()
+    {
+        String [] items = {"Dhaka","Chittagong","Gazipur","Barishal","Jamalpur","Khulna","Rajshahi","Sherpur","Sylhet ","Rangpur"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this,R.layout.drop_menu,items);
+        district.setAdapter(adapter);
+    }
+    public void areaSelection(String area) {
+        if (area.equals("Dhaka")) {
+            String[] items = {"Badda", "Mirpur", "Dhanmondi", "Mohammadpur", "Demra", "Gulshan", "Khilgaon", "Khilkhet", "Ramna ", "Savar"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        if(area.equals("Chittagong"))
+        {
+            String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania", "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali","Bandarban","Patenga"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
     }
     public void stateObserver()
     {
@@ -189,6 +226,23 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
+        district.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                district.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                area.setText(null);
+                areaSelection(district.getText().toString());
+            }
+        });
     }
     public boolean validateFullName()
     {
@@ -215,6 +269,11 @@ public class EditProfile extends AppCompatActivity {
         if(value.isEmpty())
         {
             addressLayout.setError("Field can't be empty");
+            return false;
+        }
+        if(value.equals("Not set"))
+        {
+            addressLayout.setError("Please update your address");
             return false;
         }
         else
@@ -292,6 +351,28 @@ public class EditProfile extends AppCompatActivity {
             return true;
         }
     }
+    private boolean validateUserDistrict()
+    {
+        String userDistrict =  district.getText().toString();
+        if(userDistrict.isEmpty())
+        {
+            district.setError("Field can't be empty");
+            return false;
+        } else{
+            return true;
+        }
+    }
+    private boolean validateUserArea()
+    {
+        String userArea = area.getText().toString();
+        if(userArea.isEmpty())
+        {
+            area.setError("Field can't be empty");
+            return false;
+        } else{
+            return true;
+        }
+    }
     public void browse(View view)
     {
         ImagePicker.with(this)
@@ -317,7 +398,7 @@ public class EditProfile extends AppCompatActivity {
     }
     public void firebaseUpdateData(View view)
     {
-        if(!validateFullName() | !validateHeight() | !validateWeight() | !validateAddress() | !validatePhone())
+        if(!validateFullName() | !validateHeight() | !validateWeight() | !validateAddress() | !validatePhone()|!validateUserArea()|!validateUserDistrict())
         {
             return;
         }
@@ -327,6 +408,8 @@ public class EditProfile extends AppCompatActivity {
         String birthdate = birthDate.getText().toString();
         String height = userHeight.getText().toString();
         String weight = userWeight.getText().toString();
+        String userDistrict = district.getText().toString();
+        String userArea = area.getText().toString();
         String gender = userGender;
         if(filepath != null) {
             ProgressDialog dialog = new ProgressDialog(this);
@@ -341,7 +424,7 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             dialog.dismiss();
-                            userHelper userData = new userHelper(fullname, email, phone,birthdate,gender,height,weight,address);
+                            userHelper userData = new userHelper(fullname, email, phone,birthdate,gender,height,weight,address,userDistrict,userArea);
                             userData.setPhotoUrl(uri.toString());
                             FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
                             DatabaseReference reference = database.getReference("users");
@@ -410,6 +493,11 @@ public class EditProfile extends AppCompatActivity {
                         DataSnapshot snapShot = task.getResult();
                         userName.setText(String.valueOf(snapShot.child("fullName").getValue()));
                         userPhone.setText(String.valueOf(snapShot.child("phone").getValue()));
+                        district.setText(String.valueOf(snapShot.child("district").getValue()));
+                        area.setText(String.valueOf(snapShot.child("area").getValue()));
+                        districtSelection();
+                        areaSelection(district.getText().toString());
+                        Log.i("distric loaded","District");
                         String address = String.valueOf(snapShot.child("address").getValue());
                         if(!address.equals("null"))
                         {

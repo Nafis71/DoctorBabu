@@ -2,11 +2,9 @@ package com.example.doctorbabu;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,18 +20,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.doctorbabu.Databases.userHelper;
-import com.google.android.gms.common.data.DataBufferSafeParcelable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
@@ -42,18 +40,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SignUp extends AppCompatActivity {
     private ImageView image;
     private TextView signupText,slogan;
-    private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth,address;
-    private TextInputEditText birthDate, passTextfield, fullNameTextfield, emailTextfield,phoneTextfield, addressTextfield, heightTextfield,weightTextfield,confirmPasswordTextfield;
-    private AutoCompleteTextView gender;
+    private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth,address,districtLayout,areaLayout;
+    private TextInputEditText birthDate, passTextfield, fullNameTextfield, emailTextfield,phoneTextfield, heightTextfield,weightTextfield,confirmPasswordTextfield;
+    private AutoCompleteTextView gender,district,area;
     private Button signup, signin, buttonDialog;
     private ProgressBar loading;
     private FirebaseAuth auth;
-
-
-
     private boolean validateFullName()
     {
         String value = name.getEditText().getText().toString();
@@ -99,20 +97,6 @@ public class SignUp extends AppCompatActivity {
         if(value.isEmpty())
         {
             phone.setError("Field can't be empty");
-            return false;
-        }
-        else
-        {
-
-            return true;
-        }
-    }
-    public boolean validateAddress()
-    {
-        String value = address.getEditText().getText().toString();
-        if(value.isEmpty())
-        {
-            address.setError("Field can't be empty");
             return false;
         }
         else
@@ -220,6 +204,28 @@ public class SignUp extends AppCompatActivity {
             return true;
         }
     }
+    private boolean validateUserDistrict()
+    {
+        String userDistrict =  district.getText().toString();
+        if(userDistrict.isEmpty())
+        {
+            district.setError("Field can't be empty");
+            return false;
+        } else{
+            return true;
+        }
+    }
+    private boolean validateUserArea()
+    {
+        String userArea = area.getText().toString();
+        if(userArea.isEmpty())
+        {
+            area.setError("Field can't be empty");
+            return false;
+        } else{
+            return true;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +233,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         viewBinding();
         genderSelection();
+        districtSelection();
         stateObserver();
         birthDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,21 +262,45 @@ public class SignUp extends AppCompatActivity {
         height = findViewById(R.id.height);
         weight = findViewById(R.id.weight);
         gender = findViewById(R.id.gender);
-        address = findViewById(R.id.address);
         passTextfield = findViewById(R.id.passTextfield);
         fullNameTextfield = findViewById(R.id.fullNameTextfield);
         emailTextfield = findViewById(R.id.emailTextfield);
         phoneTextfield = findViewById(R.id.phoneTextfield);
-        addressTextfield = findViewById(R.id.addressTextfield);
         heightTextfield = findViewById(R.id.heightTextfield);
         weightTextfield = findViewById(R.id.weightTextfield);
         confirmPasswordTextfield = findViewById(R.id.confirmPasswordTextfield);
+        districtLayout = findViewById(R.id.districtLayout);
+        district = findViewById(R.id.district);
+        area = findViewById(R.id.area);
     }
     public void genderSelection()
     {
         String  [] items = {"Male", "Female"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.gender_menu, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.drop_menu, items);
         gender.setAdapter(adapter);
+    }
+    public void districtSelection()
+    {
+        String [] items = {"Dhaka","Faridpur","Gazipur","Gopalganj","Jamalpur","Kishoreganj","Rajshahi",
+                "Sherpur","Tangail ","Pabna"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.drop_menu,items);
+        district.setAdapter(adapter);
+    }
+    public void areaSelection(String area) {
+        if (area.equals("Dhaka")) {
+            String[] items = {"Badda", "Mirpur", "Dhanmondi", "Mohammadpur", "Demra", "Gulshan", "Khilgaon",
+                    "Khilkhet", "Ramna ", "Savar"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        if(area.equals("Chittagong"))
+        {
+            String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania",
+                    "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali",
+                    "Bandarban","Patenga"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
     }
     public void stateObserver()
     {
@@ -324,11 +355,26 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
-        addressTextfield.addTextChangedListener(new TextWatcher() {
+        district.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                address.setError(null);
-                address.setErrorEnabled(false);
+                district.setError(null);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+               areaSelection(district.getText().toString());
+            }
+        });
+        area.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                area.setError(null);
             }
 
             @Override
@@ -444,23 +490,30 @@ public class SignUp extends AppCompatActivity {
         });
 
     }
-    public void getDate(){
-        MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select Date").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build();
-        datePicker.show(getSupportFragmentManager(),"Datepicker");
-        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener()
-        {
+
+    public void getDate()
+    {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date(System.currentTimeMillis());
+        String tempDate = formatter.format(date);
+        String[] CurrentDate = tempDate.split("/");
+        int currentYear = Integer.parseInt(CurrentDate[0]);
+        int currentMonth = Integer.parseInt(CurrentDate[1]);
+        int currentDay = Integer.parseInt(CurrentDate[2]);
+        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onPositiveButtonClick(Object selection) {
-                birthDate.setText(datePicker.getHeaderText());
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String date = String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth);
+                birthDate.setText(date);
             }
-        });
+        }, currentYear, currentMonth, currentDay);
+        dialog.show();
     }
     public void register(View view)
     {
         if(!validateFullName() | !validateEmail() | !validatePassword() | !validateConfirmPassword()
                 | !validatePhone() | !validateUserAge() | !validateUserHeight()
-                    | !validateUserWeight() | !validateUserGender() | !validateAddress())
+                    | !validateUserWeight() | !validateUserGender()| !validateUserArea() | !validateUserDistrict())
         {
             return;
         }
@@ -472,7 +525,8 @@ public class SignUp extends AppCompatActivity {
         String userGender = gender.getText().toString();
         String userHeight = height.getEditText().getText().toString();
         String userWeight = weight.getEditText().getText().toString();
-        String userAddress = address.getEditText().getText().toString();
+        String userDistrict = district.getText().toString();
+        String userArea = area.getText().toString();
         signup.setVisibility(View.GONE);
         signin.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
@@ -494,7 +548,7 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         String uid = user.getUid();
-                                        database(fullName, userEmail, userPhone, uid, userBirthdate, userGender, userHeight,userWeight,userAddress);
+                                        database(fullName, userEmail, userPhone, uid, userBirthdate, userGender, userHeight,userWeight,userDistrict,userArea);
                                         miscellaneousAdd(user.getUid());
                                         loading.setVisibility(View.GONE);
                                         dialog.show();
@@ -550,12 +604,12 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    public void database(String fullName, String userEmail, String userPhone, String uid, String userBirthdate, String userGender, String userHeight, String userWeight, String userAddress)
+    public void database(String fullName, String userEmail, String userPhone, String uid, String userBirthdate, String userGender, String userHeight, String userWeight, String userDistrict, String userArea)
     {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = rootNode.getReference("users");
-        userHelper addUser = new userHelper(fullName, userEmail ,userPhone,userBirthdate,userGender,userHeight,userWeight,userAddress);
+        userHelper addUser = new userHelper(fullName, userEmail ,userPhone,userBirthdate,userGender,userHeight,userWeight,userDistrict,userArea);
         reference.child(uid).setValue(addUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

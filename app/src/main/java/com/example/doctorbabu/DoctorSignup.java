@@ -18,7 +18,7 @@ public class DoctorSignup extends AppCompatActivity {
     }
     public void viewBinding()
     {
-        medicalSpecialty = findViewById(R.id.medicalSpecialty);
+
     }
     public void medicalSpecialtySelection()
     {

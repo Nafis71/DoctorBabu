@@ -1,15 +1,11 @@
 package com.example.doctorbabu;
-import static android.content.ContentValues.TAG;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -21,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
@@ -46,14 +45,22 @@ public class Profile extends Fragment {
     CardView warningCard;
     TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,allergy,medicalInfo,
             bloodGroupInfo, allergyList,medicalHistoryList,bloodGroupList,appointmentDone,appointmentPending,rewardAmount;
-    ImageView userprofilePicture,verifyTickSign,notVerifyImg,logOut,alarmGif;
+    ImageView userprofilePicture,verifyTickSign,notVerifyImg,logOut;
     Button editProfile,allergyListConfirm,medicalListConfirm,bloodConfirmList;
     ProgressBar loadingCircle;
     FlexboxLayout flex,flex2;
     BottomSheetDialog bottomSheetDialog,bottomSheetDialogMedicalList,bottomSheetDialogBloodList;
     CheckBox drug,cloth,dust,food,asthma,cancer,diabetics,heartDisease,highBp,migraine,stroke,
             ulcer,aPositive,bPositive,oPositive,abPositive,aNegative,bNegative,oNegative,abNegative;
-    Integer profileinfoCount = 0;
+    String api = "AIzaSyDU-jRCYvtd7KQ2hK4CoWyrEujhU2u-ZZ8";
+    String targetLang;
+    Boolean ML;
+
+    public void onStart() {
+        super.onStart();
+        SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
+        targetLang = preferences.getString("lang", "");
+    }
     public Profile() {
     }
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,6 @@ public class Profile extends Fragment {
     }
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        profileinfoCount = 0;
         viewBinding();
         loadingCircle.setVisibility(View.VISIBLE);
         getData();
@@ -101,12 +107,10 @@ public class Profile extends Fragment {
                 if(count == 4)
                 {
                     warningCard.setVisibility(View.GONE);
-                    alarmGif.setVisibility(View.GONE);
                 }
                 else
                 {
                     warningCard.setVisibility(View.VISIBLE);
-                    alarmGif.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -118,35 +122,33 @@ public class Profile extends Fragment {
     }
     public void viewBinding()
     {
-        loadingCircle = (ProgressBar) getView().findViewById(R.id.progress_circular);
-        email = (TextView) getView().findViewById(R.id.userEmail);
-        userprofilePicture = (ImageView) getView().findViewById(R.id.profilePicture);
-        verificationStatus = (TextView) getView().findViewById(R.id.verifyStatus);
-        verifyTickSign = (ImageView) getView().findViewById(R.id.tickSign);
-        notVerifyImg = (ImageView) getView().findViewById(R.id.notVerified);
-        editProfile = (Button) getView().findViewById(R.id.editProfile);
-        fullName = (TextView) getView().findViewById(R.id.userName);
-        flex = (FlexboxLayout) getView().findViewById(R.id.alergyHistory);
-        flex2 = (FlexboxLayout) getView().findViewById(R.id.pastMedicalHistory);
-        allergy =(TextView) getView().findViewById(R.id.alergy);
-        medicalInfo = (TextView) getView().findViewById(R.id.pastMedicalHistoryInfo);
-        bloodGroupInfo = (TextView) getView().findViewById(R.id.bloodGroupInfo);
-        phone = (TextView) getView().findViewById(R.id.userPhone);
-        address = (TextView) getView().findViewById(R.id.userAddress);
-        gender = (TextView) getView().findViewById(R.id.userGender);
-        height = (TextView) getView().findViewById(R.id.userHeight);
-        weight = (TextView) getView().findViewById(R.id.userWeight);
-        age = (TextView) getView().findViewById(R.id.userAge);
-        allergyList = (TextView) getView().findViewById(R.id.alergyHistoryInfo);
-        medicalHistoryList = (TextView) getView().findViewById(R.id.pastMedicalHistoryText);
-        bloodGroupList = (TextView) getView().findViewById(R.id.bloodGroupText);
-        appointmentDone = (TextView) getView().findViewById(R.id.appointmentDone);
-        appointmentPending = (TextView) getView().findViewById(R.id.appointmentPending);
-        rewardAmount = (TextView) getView().findViewById(R.id.rewardAmount);
-        logOut = (ImageView) getView().findViewById(R.id.signOut);
-        warningCard = (CardView) getView().findViewById(R.id.warningCard);
-        alarmGif = (ImageView) getView().findViewById(R.id.alarmGif);
-
+        loadingCircle = (ProgressBar) requireView().findViewById(R.id.progress_circular);
+        email = (TextView) requireView().findViewById(R.id.userEmail);
+        userprofilePicture = (ImageView) requireView().findViewById(R.id.profilePicture);
+        verificationStatus = (TextView) requireView().findViewById(R.id.verifyStatus);
+        verifyTickSign = (ImageView) requireView().findViewById(R.id.tickSign);
+        notVerifyImg = (ImageView) requireView().findViewById(R.id.notVerified);
+        editProfile = (Button) requireView().findViewById(R.id.editProfile);
+        fullName = (TextView) requireView().findViewById(R.id.userName);
+        flex = (FlexboxLayout) requireView().findViewById(R.id.alergyHistory);
+        flex2 = (FlexboxLayout) requireView().findViewById(R.id.pastMedicalHistory);
+        allergy =(TextView) requireView().findViewById(R.id.alergy);
+        medicalInfo = (TextView) requireView().findViewById(R.id.pastMedicalHistoryInfo);
+        bloodGroupInfo = (TextView) requireView().findViewById(R.id.bloodGroupInfo);
+        phone = (TextView) requireView().findViewById(R.id.userPhone);
+        address = (TextView) requireView().findViewById(R.id.userAddress);
+        gender = (TextView) requireView().findViewById(R.id.userGender);
+        height = (TextView) requireView().findViewById(R.id.userHeight);
+        weight = (TextView) requireView().findViewById(R.id.userWeight);
+        age = (TextView) requireView().findViewById(R.id.userAge);
+        allergyList = (TextView) requireView().findViewById(R.id.alergyHistoryInfo);
+        medicalHistoryList = (TextView) requireView().findViewById(R.id.pastMedicalHistoryText);
+        bloodGroupList = (TextView) requireView().findViewById(R.id.bloodGroupText);
+        appointmentDone = (TextView) requireView().findViewById(R.id.appointmentDone);
+        appointmentPending = (TextView) requireView().findViewById(R.id.appointmentPending);
+        rewardAmount = (TextView) requireView().findViewById(R.id.rewardAmount);
+        logOut = (ImageView) requireView().findViewById(R.id.signOut);
+        warningCard = (CardView) requireView().findViewById(R.id.warningCard);
     }
 
     public void getData()
@@ -249,10 +251,8 @@ public class Profile extends Fragment {
                 String birthDate = String.valueOf(snapshot.child("birthDate").getValue());
                 if(!birthDate.equals("null"))
                 {
-                    String [] splitText = birthDate.split(",");
-                    String [] splitText2 = splitText[1].split(" ");
-                    Log.i("Year = ",splitText2[1]);
-                    int year = Integer.parseInt(splitText2[1]);
+                    String [] splitText = birthDate.split("/");
+                    int year = Integer.parseInt(splitText[0]);
                     Year thisYear = Year.now();
                     String thisYearString = thisYear.toString();
                     int currentAge =  Integer.parseInt(thisYearString) - year - 1;
@@ -280,7 +280,6 @@ public class Profile extends Fragment {
                     DatabaseReference ref = rootnode.getReference("patienProfileTrack");
                     ref.child(user.getUid()).child("profilePicture").setValue("null");
                 }
-                //TODO I have to finish this and make some changes to the UI also!
             }
 
             @Override

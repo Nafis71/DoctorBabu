@@ -1,14 +1,13 @@
 package com.example.doctorbabu.Databases;
 
 public class userHelper {
-    String fullName, email ,phone,profileComplete="0", birthDate = "null", address = "null",photoUrl ="null",height="null",weight="null",gender="null";
-    // profileComplete= 0 means not fully completed
+    String fullName, email ,phone, birthDate = "null", address = "null",photoUrl ="null",height="null",weight="null",gender="null",district="null",area="null";
 
     public userHelper(){}  //just for the firebase so that it can't throw any error
 
 
 
-    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String address) {
+    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String district,String area) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -16,10 +15,39 @@ public class userHelper {
         this.gender = gender;
         this.height = height;
         this.weight = weight;
+        this.district = district;
+        this.area = area;
+    }
+    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String address,String district,String area) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.height = height;
+        this.weight = weight;
+        this.district = district;
+        this.area = area;
         this.address = address;
     }
     public String getBirthDate() {
         return birthDate;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public void setBirthDate(String birthDate) {
@@ -59,14 +87,6 @@ public class userHelper {
 
     public String getFullName() {
         return fullName;
-    }
-
-    public String getProfileComplete() {
-        return profileComplete;
-    }
-
-    public void setProfileComplete(String profileComplete) {
-        this.profileComplete = profileComplete;
     }
 
     public String getAddress() {

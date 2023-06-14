@@ -1,24 +1,26 @@
 package com.example.doctorbabu;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,9 +35,7 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Home extends Fragment {
     FirebaseAuth auth;
@@ -43,9 +43,10 @@ public class Home extends Fragment {
     String uId;
     ImageView profilePicture,languageImage;
     BottomSheetDialog bookAppointmentSheet;
-    CardView appointmentCard;
+    CardView appointmentCard,sliderCard,consultantCard,medicineReminderCard,reportCard,appointmentHistory,onlineCosultantCard,medicineCard;
     Button buttonDialog;
     RadioButton english,bengali;
+    Animation leftAnim,rightAnim;
 
     public Home() {
         // Required empty public constructor
@@ -81,6 +82,7 @@ public class Home extends Fragment {
                 callLanguageChanger();
             }
         });
+      
     }
     public void firebaseAuth()
     {
@@ -124,7 +126,25 @@ public class Home extends Fragment {
         profilePicture = (ImageView) requireView().findViewById(R.id.profilePicture);
         appointmentCard = (CardView) requireView().findViewById(R.id.appointmentCard);
         languageImage = (ImageView) requireView().findViewById(R.id.languageImage);
+        sliderCard = (CardView) requireView().findViewById(R.id.sliderCard);
+        consultantCard = (CardView) requireView().findViewById(R.id.consultantCard);
+        medicineReminderCard = (CardView) requireView().findViewById(R.id.medicineReminderCard);
+        reportCard = (CardView) requireView().findViewById(R.id.reportCard);
+        appointmentHistory =(CardView) requireView().findViewById(R.id.appointmentHistory);
+        onlineCosultantCard = (CardView) requireView().findViewById(R.id.onlineCosultantCard);
+        medicineCard = (CardView) requireView().findViewById(R.id.medicineCard);
+        leftAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.left_animation);
+        rightAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.right_anim);
+        appointmentCard.setAnimation(leftAnim);
+        sliderCard.setAnimation(rightAnim);
+        consultantCard.setAnimation(rightAnim);
+        medicineReminderCard.setAnimation(leftAnim);
+        reportCard.setAnimation(leftAnim);
+        appointmentHistory.setAnimation(leftAnim);
+        onlineCosultantCard.setAnimation(rightAnim);
+        medicineCard.setAnimation(rightAnim);
     }
+
     public void loadImageSlider()
     {
         SliderView sliderView;
@@ -168,9 +188,13 @@ public class Home extends Fragment {
         {
             english.setChecked(true);
         }
-        else
+        else if(language.equals("bn"))
         {
             bengali.setChecked(true);
+        }
+        else
+        {
+            english.setChecked(true);
         }
         buttonDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +205,7 @@ public class Home extends Fragment {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("lang","en");
                     editor.apply();
+
                 }
                 else
                 {
@@ -190,13 +215,26 @@ public class Home extends Fragment {
                     editor.apply();
                 }
                 dialog.cancel();
-                ProcessPhoenix.triggerRebirth(requireActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setTitle("Language Change").setMessage("Language is changing, Please wait....").setCancelable(false);
+                builder.create().show();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        restart();
+                    }
+                }, 1500);
+
             }
         });
         dialog.show();
     }
 
-
+    public void restart()
+    {
+        ProcessPhoenix.triggerRebirth(requireActivity());
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

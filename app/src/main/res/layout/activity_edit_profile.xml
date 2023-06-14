@@ -5,30 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfile"
-    android:background="@drawable/background2"
+    android:background="#FEFEFE"
     android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="190dp"
-    android:padding="5dp">
-
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+    android:padding="5dp"
+    android:background="@drawable/background"
+    >
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        app:cardBackgroundColor="#C1765D"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:onClick="back"
-        android:src="@drawable/back"
-        android:contentDescription="Back" />
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="30dp"
+        android:foregroundGravity="center"
+        app:cardCornerRadius="15dp"
+        >
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:onClick="back"
+            android:src="@drawable/back"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Back" />
+
+    </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id = "@+id/profilePicture"
         android:layout_width="135dp"
         android:layout_height="150dp"
         app:srcCompat="@drawable/profile_picture"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="42dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         app:shapeAppearanceOverlay="@style/circular"
@@ -58,13 +71,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,8 +92,6 @@
                 app:boxBackgroundMode="filled"
                 android:hint="@string/fullName"
                 android:padding="10dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="1dp">
 
@@ -89,8 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:drawableStart="@drawable/card"
-                    android:drawablePadding="8dp">
+                    >
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -102,8 +112,6 @@
                 app:boxBackgroundMode="filled"
                 android:padding="10dp"
                 android:hint="@string/address"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="1dp">
 
@@ -111,11 +119,49 @@
                     android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:drawableStart="@drawable/location"
-                    android:drawablePadding="8dp">
+                    android:inputType="textPostalAddress"
+                    >
 
                 </com.google.android.material.textfield.TextInputEditText>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id = "@+id/districtLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/district"
+                    app:boxBackgroundMode="filled"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp"
+                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/district"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:padding="15dp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id = "@+id/areaLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/area"
+                    app:boxBackgroundMode="filled"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp"
+                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                    <AutoCompleteTextView
+                        android:id = "@+id/area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:padding="15dp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id = "@+id/phoneLayout"
@@ -125,8 +171,6 @@
                 app:boxBackgroundMode="filled"
                 android:padding="10dp"
                 android:hint="@string/phoneNumber"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="1dp">
 
@@ -135,8 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:drawableStart="@drawable/phone"
-                    android:drawablePadding="8dp">
+                    >
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -147,8 +190,7 @@
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="filled"
                 android:padding="10dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
+                android:hint="@string/birthDate"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="1dp">
 
@@ -156,12 +198,10 @@
                     android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/calender"
                     android:text="@string/birthDate"
                     android:textColor="#666666"
                     android:editable="false"
-                    android:inputType="none"
-                    android:drawablePadding="8dp">
+                    android:inputType="none">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -173,8 +213,6 @@
                 app:boxBackgroundMode="filled"
                 android:hint = "@string/height"
                 android:padding="10dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="1dp">
 
@@ -183,8 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:drawableStart="@drawable/height"
-                    android:drawablePadding="8dp">
+                    >
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -196,8 +233,6 @@
                 app:boxBackgroundMode="filled"
                 android:hint = "@string/weight"
                 android:padding="10dp"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="1dp">
 
@@ -206,8 +241,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:drawableStart="@drawable/weight"
-                    android:drawablePadding="8dp">
+                    >
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
@@ -215,21 +249,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="10dp">
-                <ImageView
-                    android:id ="@+id/genderImg"
-                    android:layout_width="29dp"
-                    android:layout_height="29dp"
-                    android:src = "@drawable/gender"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    />
+
                 <TextView
                     android:id="@+id/txt1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/genderEditProfile"
                     android:textSize="16sp"
-                    android:layout_toEndOf="@+id/genderImg"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     />

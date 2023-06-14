@@ -85,5 +85,23 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="update">Update</string>
+    <string name="district">District</string>
+    <string name="area">Area</string>
     <!-- Edit Profile Strings End -->
+    <!-- SignUp and signIn Strings -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="signup">Sign UP</string>
+    <string name="signUp">Sign up</string>
+    <string name="signInText">Already have an account? Sign in</string>
+    <string name="signUpQuote">One step closer to a healthy life</string>
+    <string name="signInText1">Hello there</string>
+    <string name="signInText2">Let\'s get you logged in</string>
+    <string name="signInText3">Sign in to continue</string>
+    <string name="forgetPassword">Forget Password?</string>
+    <string name="signIn">Sign In</string>
+    <string name="signin">New User? Sign Up</string>
+    <string name="en">EN</string>
+    <string name="bn">BN</string>
 </resources>

@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.doctorbabu"
-        minSdk 28
+        minSdk 27
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.jakewharton:process-phoenix:2.0.0'
+    implementation 'com.google.mlkit:translate:17.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

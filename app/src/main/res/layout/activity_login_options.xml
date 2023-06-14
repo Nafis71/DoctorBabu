@@ -11,7 +11,7 @@
         android:layout_width="250dp"
         android:layout_height="550dp"
         android:src="@drawable/doctorhellologin"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
@@ -25,7 +25,7 @@
         android:src="@drawable/hello"
         android:layout_toEndOf="@+id/doctorIMG"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="-95dp"
         >
 
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-100dp"
         android:fontFamily="@font/oswald"
         android:text="Who are you?"
         android:textAlignment="center"
@@ -53,7 +53,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         app:cardElevation="1dp"
-        app:cardCornerRadius="80dp"
+        app:cardCornerRadius="20dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         app:cardElevation="1dp"
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="20dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"

@@ -5,6 +5,5 @@
     android:layout_height="match_parent"
     tools:context=".PrescriptionHistory">
 
-    <!-- TODO: Update blank fragment layout -->
 
 </FrameLayout>

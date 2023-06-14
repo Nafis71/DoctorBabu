@@ -3,11 +3,14 @@ package com.example.doctorbabu;
 import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 public class Login extends AppCompatActivity {
     Button callSignUp,signIn,forgetPass,confirm;
@@ -35,6 +40,7 @@ public class Login extends AppCompatActivity {
     TextView greetingText, secondGreetingText;
     TextInputLayout userEmail,userPassword,forgetEmail;
     ProgressBar progressBar;
+    SwitchCompat languageSwitch;
     BottomSheetDialog bottomSheetForgetPass;
     FirebaseAuth auth;
     public void onStart() {
@@ -102,7 +108,47 @@ public class Login extends AppCompatActivity {
 
             }
         });
+        languageSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(languageSwitch.isChecked())
+                {
+                    SharedPreferences preferences = getSharedPreferences("language",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("lang","bn");
+                    editor.apply();
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                    dialog.setTitle("Language Change").setMessage("Language is changing to Bangla, Please wait....").setCancelable(false);
+                    dialog.create().show();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            restart();
+                        }
+                    }, 1500);
 
+
+                }
+                else
+                {
+                    SharedPreferences preferences = getSharedPreferences("language",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("lang","en");
+                    editor.apply();
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
+                    dialog.setTitle("Language Change").setMessage("Language is changing to English, Please wait....").setCancelable(false);
+                    dialog.create().show();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            restart();
+                        }
+                    }, 1500);
+                }
+            }
+        });
     }
     public void viewBinding()
     {
@@ -115,6 +161,20 @@ public class Login extends AppCompatActivity {
         signIn = findViewById(R.id.signIn);
         forgetPass = findViewById(R.id.forgetPass);
         progressBar = findViewById(R.id.progressCircular);
+        languageSwitch = findViewById(R.id.languageSwitch);
+        String language = language();
+        if(language.equals("bn"))
+        {
+            greetingText.setTextSize(26);
+            secondGreetingText.setTextSize(24);
+            languageSwitch.setChecked(true);
+        }
+
+    }
+    public String language()
+    {
+        SharedPreferences preferences = getSharedPreferences("language",MODE_PRIVATE);
+        return preferences.getString("lang","");
     }
     public void forgetPassword()
     {
@@ -278,6 +338,10 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent(Login.this,LoginOptions.class);
         startActivity(intent);
         finish();
+    }
+    public void restart()
+    {
+        ProcessPhoenix.triggerRebirth(Login.this);
     }
 
 }
