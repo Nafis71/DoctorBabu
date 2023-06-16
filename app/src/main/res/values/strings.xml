@@ -114,7 +114,6 @@
     <string name="doctorSignupQuote">Providing Good Health to People Is Our Duty</string>
     <string name="ChoosedepartmentSymptoms">Choose a department or Symptoms</string>
     <string name="clinicalAreas">Find your doctor from 10+ clinical areas</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fever">Fever or Cold</string>
     <string name="weightlossgain">Weight Loss/Gain</string>

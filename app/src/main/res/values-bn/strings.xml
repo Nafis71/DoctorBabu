@@ -112,4 +112,16 @@
     <string name="registrationNumber">রেজিস্ট্রেশন নম্বর (বিএমডিসি)</string>
     <string name="nid">জাতীয় পরিচয়পত্র (এনআইডি)</string>
     <string name="doctorSignupQuote">মানুষকে সুস্বাস্থ্য প্রদান করা আমাদের কর্তব্য</string>
+    <string name="ChoosedepartmentSymptoms">একটি বিভাগ বা লক্ষণ নির্বাচন করুন</string>
+    <string name="clinicalAreas">10+ ক্লিনিকাল অঞ্চল থেকে আপনার ডাক্তারকে সন্ধান করুন</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fever">জ্বর বা সর্দি</string>
+    <string name="weightlossgain">ওজন হ্রাস / বৃদ্ধি</string>
+    <string name="skindiseases">ত্বকের রোগ</string>
+    <string name="abdominalpain">পেটে ব্যথা</string>
+    <string name="acidity">অ্যাসিডিটি</string>
+    <string name="headacheMigrane">মাথা ব্যথা বা মিগ্রান</string>
+    <string name="childdisease">শিশু রোগ</string>
+    <string name="stressdepression">মানসিক চাপ/বিষণ্নতা</string>
+    <string name="pregnancyComplications">গর্ভাবস্থার জটিলতা</string>
 </resources>
