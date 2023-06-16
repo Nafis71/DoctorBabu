@@ -10,16 +10,21 @@
     android:padding="20dp"
     android:textColor = "?android:textColorPrimary">
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="160dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="-40dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/doctor1"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
+        android:layout_width="220dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logindoctor"
+        android:layout_gravity="center"
         android:transitionName="imageTransition" />
+</LinearLayout>
+
 
 
     <TextView
@@ -61,6 +66,10 @@
         android:textSize="15sp"
         android:textStyle="bold"
         android:transitionName="textTransition2" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -168,4 +177,5 @@
 
     </LinearLayout>
 
+    </ScrollView>
 </LinearLayout>

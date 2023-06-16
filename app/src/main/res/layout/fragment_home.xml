@@ -82,7 +82,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:animateMenuItems="true"
             app:closeIcon="@drawable/close"
             app:defaultQueryHint="@string/doctorSearch"
             android:inputType="textPersonName"

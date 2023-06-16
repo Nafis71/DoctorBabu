@@ -53,7 +53,7 @@
     <string name="bloodGroup">রক্তের গ্রুপ</string>
     <string name="patientInformation">রোগীর তথ্য</string>
     <string name="phoneNumber">ফোন নম্বর</string>
-    <string name="address">ঠিকানা</string>
+    <string name="address">পূর্ণ ঠিকানা</string>
     <string name="gender">লিঙ্গ</string>
     <string name="age">বয়স</string>
     <string name="height">উচ্চতা (CM)</string>
@@ -79,6 +79,7 @@
     <string name="migraine">মাইগ্রেন</string>
     <string name="stroke">স্ট্রোক</string>
     <string name="ulcer">আলসার</string>
+    <string name="bmi">বডি মাস ইনডেক্স (BMI)</string>
     <!-- Profile Fragment Strings End -->
     <!-- Edit Profile Strings -->
     <string name="fullName">সম্পূর্ণ নাম</string>
@@ -106,4 +107,9 @@
     <string name="signin">নতুন ব্যবহারকারী? সাইন আপ করুন</string>
     <string name="en">ইং</string>
     <string name="bn">বাং</string>
+    <string name="title">উপাধি</string>
+    <string name="doctorType">ডাক্তারের ধরন</string>
+    <string name="registrationNumber">রেজিস্ট্রেশন নম্বর (বিএমডিসি)</string>
+    <string name="nid">জাতীয় পরিচয়পত্র (এনআইডি)</string>
+    <string name="doctorSignupQuote">মানুষকে সুস্বাস্থ্য প্রদান করা আমাদের কর্তব্য</string>
 </resources>

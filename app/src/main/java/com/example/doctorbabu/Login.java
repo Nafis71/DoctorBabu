@@ -43,19 +43,6 @@ public class Login extends AppCompatActivity {
     SwitchCompat languageSwitch;
     BottomSheetDialog bottomSheetForgetPass;
     FirebaseAuth auth;
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser != null){
-            if(currentUser.isEmailVerified())
-            {
-                Intent intent = new Intent(Login.this,Dashboard.class);
-                startActivity(intent);
-                finish();
-            }
-        }
-    }
     private boolean validateEmail()
     {
         String value = userEmail.getEditText().getText().toString();
@@ -246,6 +233,7 @@ public class Login extends AppCompatActivity {
                                         public void run() {
                                             if(user.isEmailVerified())
                                             {
+                                                storeLoginInfo();
                                                 progressBar.setVisibility(View.GONE);
                                                 Intent intent = new Intent(Login.this, Dashboard.class);
                                                 startActivity(intent);
@@ -294,6 +282,13 @@ public class Login extends AppCompatActivity {
             }
 
         }
+    }
+    public void storeLoginInfo()
+    {
+        SharedPreferences preferences = getSharedPreferences("loginDetails",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("loginAs","patient");
+        editor.apply();
     }
     public static boolean isInternetAvailable(Context context)
     {

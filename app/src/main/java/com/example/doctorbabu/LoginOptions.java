@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -22,18 +23,27 @@ public class LoginOptions extends AppCompatActivity {
     TextView helloText;
     CardView patientCard,doctorCard;
     GifImageView helloGif;
-    FirebaseAuth auth;
-    FirebaseUser user;
     public void onStart()
     {
         super.onStart();
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
         if(user!=null)
         {
-            Intent intent = new Intent(LoginOptions.this,Dashboard.class);
-            startActivity(intent);
-            finish();
+            SharedPreferences preferences = getSharedPreferences("loginDetails",MODE_PRIVATE);
+            String login = preferences.getString("loginAs","");
+            if(login.equals("patient"))
+            {
+                Intent intent = new Intent(LoginOptions.this,Dashboard.class);
+                startActivity(intent);
+                finish();
+            }
+            if(login.equals("doctor"))
+            {
+                Intent intent = new Intent(LoginOptions.this,DoctorDashboard.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
     @Override

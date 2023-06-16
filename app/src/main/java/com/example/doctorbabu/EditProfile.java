@@ -128,13 +128,65 @@ public class EditProfile extends AppCompatActivity {
     }
     public void areaSelection(String area) {
         if (area.equals("Dhaka")) {
-            String[] items = {"Badda", "Mirpur", "Dhanmondi", "Mohammadpur", "Demra", "Gulshan", "Khilgaon", "Khilkhet", "Ramna ", "Savar"};
+            String[] items = {"Badda", "Mirpur", "Dhanmondi", "Mohammadpur", "Demra", "Gulshan", "Khilgaon",
+                    "Khilkhet", "Ramna ", "Savar"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
         }
-        if(area.equals("Chittagong"))
+        else if(area.equals("Chittagong"))
         {
-            String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania", "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali","Bandarban","Patenga"};
+            String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania",
+                    "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali",
+                    "Bandarban","Patenga"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Gazipur"))
+        {
+            String[] items = {"Gazipur Sadar", "Kapasia", "Tongi town", "Sripur", "Kaliganj", "Kaliakior"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Barishal"))
+        {
+            String[] items = {"Barishal Sadar", "Banaripara", "Bakerganj", "Babuganj", "Gaurnadi", "Hizla",
+                    "Mehendiganj", "Agailjhara", "Wazirpur", "Muladi"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Jamalpur"))
+        {
+            String[] items = {"Jamalpur Sadar", "Baksiganj ", "Dewanganj", "Islampur", "Madarganj", "Sarishabari"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Khulna"))
+        {
+            String[] items = {"Dumuria", "Batiaghata ", "Dacope", "Phultala", "Dighalia", "Koyra","Terokhada","Rupsha","Paikgachha"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Rajshahi"))
+        {
+            String[] items = {"Godagari", "Tanore", "Mohanpur", "Bagmara", "Durgapur", "Bagmara","Bagha","Charghat","Puthia","Paba "};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Sherpur"))
+        {
+            String[] items = {"Sherpur Sadar", "Nakla", "Sreebardi", "Nalitabari", "Jhenaigati"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Sylhet"))
+        {
+            String[] items = {"Sylhet Sadar", "Beanibazar", "Golapganj", "Companiganj", "Fenchuganj","Bishwanath","Bishwanath","Jaintiapur","Kanaighat","Balaganj"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Rangpur"))
+        {
+            String[] items = {"Rangpur Sadar", "Badarganj", "Kaunia", "Gangachhara", "Mithapukur","Taraganj","Pirganj","Pirgachha"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
         }
@@ -474,6 +526,8 @@ public class EditProfile extends AppCompatActivity {
             reference.child(uid).child("height").setValue(height);
             reference.child(uid).child("phone").setValue(phone);
             reference.child(uid).child("weight").setValue(weight);
+            reference.child(uid).child("district").setValue(userDistrict);
+            reference.child(uid).child("area").setValue(userArea);
             loadingCircle.setVisibility(View.GONE);
             alertDialog();
         }

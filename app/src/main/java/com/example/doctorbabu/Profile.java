@@ -1,9 +1,8 @@
 package com.example.doctorbabu;
+
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
@@ -34,8 +35,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 
 public class Profile extends Fragment {
@@ -43,7 +46,7 @@ public class Profile extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     CardView warningCard;
-    TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,allergy,medicalInfo,
+    TextView email,phone,address,gender,height,weight,age,verificationStatus,fullName,allergy,medicalInfo,district,area,bmi,
             bloodGroupInfo, allergyList,medicalHistoryList,bloodGroupList,appointmentDone,appointmentPending,rewardAmount;
     ImageView userprofilePicture,verifyTickSign,notVerifyImg,logOut;
     Button editProfile,allergyListConfirm,medicalListConfirm,bloodConfirmList;
@@ -52,21 +55,13 @@ public class Profile extends Fragment {
     BottomSheetDialog bottomSheetDialog,bottomSheetDialogMedicalList,bottomSheetDialogBloodList;
     CheckBox drug,cloth,dust,food,asthma,cancer,diabetics,heartDisease,highBp,migraine,stroke,
             ulcer,aPositive,bPositive,oPositive,abPositive,aNegative,bNegative,oNegative,abNegative;
-    String api = "AIzaSyDU-jRCYvtd7KQ2hK4CoWyrEujhU2u-ZZ8";
-    String targetLang;
-    Boolean ML;
 
-    public void onStart() {
-        super.onStart();
-        SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
-        targetLang = preferences.getString("lang", "");
-    }
     public Profile() {
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewBinding();
         loadingCircle.setVisibility(View.VISIBLE);
@@ -149,6 +144,9 @@ public class Profile extends Fragment {
         rewardAmount = (TextView) requireView().findViewById(R.id.rewardAmount);
         logOut = (ImageView) requireView().findViewById(R.id.signOut);
         warningCard = (CardView) requireView().findViewById(R.id.warningCard);
+        district = (TextView) requireView().findViewById(R.id.district);
+        area = (TextView) requireView().findViewById(R.id.area);
+        bmi = (TextView) requireView().findViewById(R.id.bmi);
     }
 
     public void getData()
@@ -159,7 +157,7 @@ public class Profile extends Fragment {
         if(currentUser == null) {
           Intent intent = new Intent(getActivity(),Login.class);
           startActivity(intent);
-          getActivity().finish();
+          requireActivity().finish();
         }
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +165,7 @@ public class Profile extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getContext(),Login.class);
                 startActivity(intent);
-                getActivity().finish();
+                requireActivity().finish();
             }
         });
         userAllergyHistory();
@@ -212,6 +210,8 @@ public class Profile extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullName.setText(String.valueOf(snapshot.child("fullName").getValue()));
                 phone.setText(String.valueOf(snapshot.child("phone").getValue()));
+                district.setText(String.valueOf(snapshot.child("district").getValue()));
+                area.setText(String.valueOf(snapshot.child("area").getValue()));
                 String dbAddress = String.valueOf(snapshot.child("address").getValue());
                 if(!dbAddress.equals("null"))
                 {
@@ -280,6 +280,7 @@ public class Profile extends Fragment {
                     DatabaseReference ref = rootnode.getReference("patienProfileTrack");
                     ref.child(user.getUid()).child("profilePicture").setValue("null");
                 }
+                bmi.setText(bodyMassIndex());
             }
 
             @Override
@@ -769,11 +770,11 @@ public class Profile extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         bottomSheetDialogMedicalList.cancel();
-                        getActivity().getSupportFragmentManager()
+                        requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .detach(Profile.this)
                                 .commitNowAllowingStateLoss();
-                        getActivity().getSupportFragmentManager()
+                        requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .attach(Profile.this)
                                 .commitNow();
@@ -788,7 +789,7 @@ public class Profile extends Fragment {
     }
 
     public void bloodList(){
-        bottomSheetDialogBloodList = new BottomSheetDialog(getContext(),R.style.bottomSheetTheme);
+        bottomSheetDialogBloodList = new BottomSheetDialog(requireContext(),R.style.bottomSheetTheme);
         View bloodList = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_blood_group_list,null);
         aPositive = bloodList.findViewById(R.id.aPositive);
         bPositive = bloodList.findViewById(R.id.bPositive);
@@ -922,11 +923,11 @@ public class Profile extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             bottomSheetDialogBloodList.cancel();
-                            getActivity().getSupportFragmentManager()
+                            requireActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .detach(Profile.this)
                                     .commitNowAllowingStateLoss();
-                            getActivity().getSupportFragmentManager()
+                            requireActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .attach(Profile.this)
                                     .commitNow();
@@ -938,6 +939,13 @@ public class Profile extends Fragment {
         });
         bottomSheetDialogBloodList.setContentView(bloodList);
         bottomSheetDialogBloodList.show();
+    }
+    public String bodyMassIndex()
+    {
+        Formatter fm = new Formatter();
+        double bmi =  Double.parseDouble(weight.getText().toString()) / Math.pow((Double.parseDouble(height.getText().toString())/100),2);
+        fm.format("%.2f",bmi);
+        return String.valueOf(fm);
     }
 
     @Override

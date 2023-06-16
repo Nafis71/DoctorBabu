@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -74,7 +75,7 @@ public class SignUp extends AppCompatActivity {
     private boolean validateEmail()
     {
         String value = email.getEditText().getText().toString();
-        String emailPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+"; //regix expression
+        String emailPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+"; //regex expression
         if(value.isEmpty())
         {
             email.setError("Field can't be empty");
@@ -281,8 +282,7 @@ public class SignUp extends AppCompatActivity {
     }
     public void districtSelection()
     {
-        String [] items = {"Dhaka","Faridpur","Gazipur","Gopalganj","Jamalpur","Kishoreganj","Rajshahi",
-                "Sherpur","Tangail ","Pabna"};
+        String [] items = {"Dhaka","Chittagong","Gazipur","Barishal","Jamalpur","Khulna","Rajshahi","Sherpur","Sylhet ","Rangpur"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.drop_menu,items);
         district.setAdapter(adapter);
     }
@@ -293,11 +293,60 @@ public class SignUp extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
         }
-        if(area.equals("Chittagong"))
+        else if(area.equals("Chittagong"))
         {
             String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania",
                     "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali",
                     "Bandarban","Patenga"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Gazipur"))
+        {
+            String[] items = {"Gazipur Sadar", "Kapasia", "Tongi town", "Sripur", "Kaliganj", "Kaliakior"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Barishal"))
+        {
+            String[] items = {"Barishal Sadar", "Banaripara", "Bakerganj", "Babuganj", "Gaurnadi", "Hizla",
+                    "Mehendiganj", "Agailjhara", "Wazirpur", "Muladi"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Jamalpur"))
+        {
+            String[] items = {"Jamalpur Sadar", "Baksiganj ", "Dewanganj", "Islampur", "Madarganj", "Sarishabari"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Khulna"))
+        {
+            String[] items = {"Dumuria", "Batiaghata ", "Dacope", "Phultala", "Dighalia", "Koyra","Terokhada","Rupsha","Paikgachha"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Rajshahi"))
+        {
+            String[] items = {"Godagari", "Tanore", "Mohanpur", "Bagmara", "Durgapur", "Bagmara","Bagha","Charghat","Puthia","Paba "};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Sherpur"))
+        {
+            String[] items = {"Sherpur Sadar", "Nakla", "Sreebardi", "Nalitabari", "Jhenaigati"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Sylhet"))
+        {
+            String[] items = {"Sylhet Sadar", "Beanibazar", "Golapganj", "Companiganj", "Fenchuganj","Bishwanath","Bishwanath","Jaintiapur","Kanaighat","Balaganj"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
+            this.area.setAdapter(adapter);
+        }
+        else if(area.equals("Rangpur"))
+        {
+            String[] items = {"Rangpur Sadar", "Badarganj", "Kaunia", "Gangachhara", "Mithapukur","Taraganj","Pirganj","Pirgachha"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
         }
@@ -368,7 +417,8 @@ public class SignUp extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-               areaSelection(district.getText().toString());
+                area.setText(null);
+                areaSelection(district.getText().toString());
             }
         });
         area.addTextChangedListener(new TextWatcher() {
@@ -551,11 +601,13 @@ public class SignUp extends AppCompatActivity {
                                         database(fullName, userEmail, userPhone, uid, userBirthdate, userGender, userHeight,userWeight,userDistrict,userArea);
                                         miscellaneousAdd(user.getUid());
                                         loading.setVisibility(View.GONE);
+                                        storeLoginInfo();
                                         dialog.show();
                                         buttonDialog.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
                                                 dialog.dismiss();
+                                                auth.signOut();
                                                 Intent intent = new Intent(SignUp.this, Login.class);
                                                 startActivity(intent);
                                                 finish();
@@ -587,6 +639,13 @@ public class SignUp extends AppCompatActivity {
 
         }
 
+    }
+    public void storeLoginInfo()
+    {
+        SharedPreferences preferences = getSharedPreferences("loginDetails",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("loginAs","patient");
+        editor.apply();
     }
     public void callSignIn(View view)
     {

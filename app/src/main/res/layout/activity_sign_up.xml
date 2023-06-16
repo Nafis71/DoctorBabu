@@ -8,20 +8,20 @@
     android:orientation="vertical"
     android:background="#fff"
     android:padding="20dp">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="97dp"
-            android:layout_height="107dp"
+            android:layout_width="297dp"
+            android:layout_height="170dp"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="-10dp"
             android:src="@drawable/signup"
             android:transitionName="imageTransition"
+            android:layout_centerHorizontal="true"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
         android:textColor="#B7101010"
         android:textSize="34sp"
         android:textStyle="bold"
+        android:layout_marginTop="-15dp"
         android:transitionName="textTransition1"/>
     <TextView android:id="@+id/text3"
         android:layout_width="wrap_content"
@@ -135,7 +136,7 @@
                 android:orientation="horizontal">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id = "@+id/districtLayout"
-                    android:layout_width="170dp"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:hint="@string/district"
@@ -155,13 +156,15 @@
                         android:padding="15dp"
                         android:transitionName="usernameTransition"
                         android:textSize="14sp"
+                        android:drawableStart="@drawable/building"
+                        android:drawablePadding="5dp"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id = "@+id/areaLayout"
-                    android:layout_width="180dp"
+                    android:layout_width="190dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:hint="@string/area"
                     app:boxCornerRadiusBottomEnd="20dp"
@@ -179,7 +182,8 @@
                         android:padding="15dp"
                         android:transitionName="usernameTransition"
                         android:textSize="14sp"
-
+                        android:drawableStart="@drawable/map"
+                        android:drawablePadding="5dp"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -190,7 +194,7 @@
                 android:orientation="horizontal">
                 <com.google.android.material.textfield.TextInputLayout
                     android:id = "@+id/birthDate"
-                    android:layout_width="200dp"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:boxCornerRadiusBottomEnd="20dp"
@@ -217,9 +221,9 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id = "@+id/genderMenu"
-                    android:layout_width="145dp"
+                    android:layout_width="182dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:hint="@string/gender"
                     app:boxCornerRadiusBottomEnd="20dp"
@@ -235,6 +239,8 @@
                         android:inputType="none"
                         android:padding="15dp"
                         android:textSize="14sp"
+                        android:drawableStart="@drawable/gender"
+                        android:drawablePadding="5dp"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>

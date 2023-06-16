@@ -9,7 +9,7 @@
     <string name="nav_profile_title">Profile</string>
     <string name="nav_history_title">History</string>
     <!-- Home Fragment Strings -->
-    <string name ="languageName">English</string>
+    <string name="languageName">English</string>
     <string name="doctorSearch">Search for a doctor</string>
     <string name="bookAppointment">Book Appointment</string>
     <string name="bookAppointmentDescription">Book appointment with MBBS and Specialist Doctors</string>
@@ -49,7 +49,7 @@
     <string name="allergyHistory">Allergy History</string>
     <string name="patientInformation">Patient Info</string>
     <string name="phoneNumber">Phone Number</string>
-    <string name="address">Address</string>
+    <string name="address">Full Address</string>
     <string name="gender">Gender</string>
     <string name="age">Age</string>
     <string name="height">Height (CM)</string>
@@ -77,6 +77,7 @@
     <string name="migraine">Migraine</string>
     <string name="stroke">Stroke</string>
     <string name="ulcer">Ulcer</string>
+    <string name="bmi">Body Mass Index (BMI)</string>
     <!-- Profile Fragment Strings End -->
     <!-- Edit Profile Strings -->
     <string name="fullName">Full Name</string>
@@ -104,4 +105,24 @@
     <string name="signin">New User? Sign Up</string>
     <string name="en">EN</string>
     <string name="bn">BN</string>
+    <!-- SignUp and signIn Strings Ends-->
+    <!-- Doctor Signup signIn Strings -->
+    <string name="title">Title</string>
+    <string name="doctorType">Doctor Type</string>
+    <string name="registrationNumber">Registration Number (BMDC)</string>
+    <string name="nid">National Identity Card (NID)</string>
+    <string name="doctorSignupQuote">Providing Good Health to People Is Our Duty</string>
+    <string name="ChoosedepartmentSymptoms">Choose a department or Symptoms</string>
+    <string name="clinicalAreas">Find your doctor from 10+ clinical areas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fever">Fever or Cold</string>
+    <string name="weightlossgain">Weight Loss/Gain</string>
+    <string name="skindiseases">Skin Diseases</string>
+    <string name="abdominalpain">Abdominal Pain</string>
+    <string name="acidity">Acidity</string>
+    <string name="headacheMigrane">Headache or Migrane</string>
+    <string name="childdisease">Child Diseases</string>
+    <string name="stressdepression">Stress/Depression</string>
+    <string name="pregnancyComplications">Pregnancy Complications</string>
 </resources>

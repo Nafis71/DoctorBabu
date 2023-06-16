@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,9 +19,10 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static int SplashScreen = 2000;
-    Animation topAnim;
+    public static int SplashScreen = 3500;
+    Animation fadein, bottomanim;
     ImageView image;
+    TextView text1, text2;
     String language;
     public void onStart()
     {
@@ -36,10 +38,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
+        bottomanim =  AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
         image = findViewById(R.id.splash_img);
-        image.setAnimation(topAnim);
-
+        text1 = findViewById(R.id.text1);
+        text2 = findViewById(R.id.text2);
+        image.setAnimation(fadein);
+        text1.setAnimation(bottomanim);
+        text2.setAnimation(bottomanim);
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(MainActivity.this,LoginOptions.class);
             startActivity(intent);
