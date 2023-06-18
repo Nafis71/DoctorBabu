@@ -81,7 +81,7 @@ public class Dashboard extends AppCompatActivity {
     public void loadFragment(Fragment fragment,boolean flag)
     {
         fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true).addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         if(flag)
         {

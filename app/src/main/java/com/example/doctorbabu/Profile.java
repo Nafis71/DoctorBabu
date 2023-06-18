@@ -631,11 +631,11 @@ public class Profile extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         bottomSheetDialog.cancel();
-                        getActivity().getSupportFragmentManager()
+                        requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .detach(Profile.this)
                                 .commitNowAllowingStateLoss();
-                        getActivity().getSupportFragmentManager()
+                        requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .attach(Profile.this)
                                 .commitNow();

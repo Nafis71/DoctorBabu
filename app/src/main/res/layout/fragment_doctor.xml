@@ -42,8 +42,8 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/doctor"
-                android:layout_width="210dp"
-                android:layout_height="170dp"
+                android:layout_width="170dp"
+                android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
@@ -51,10 +51,11 @@
                 />
 
                 <RelativeLayout
+                    android:id ="@+id/DepartmentCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_below="@+id/doctor"
                     android:background="#ffff"
                     >
@@ -92,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/dsText2"
                         android:layout_marginTop="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:background="#F7F9F9"
                         >
                         <com.google.android.material.tabs.TabItem
@@ -122,13 +123,39 @@
                     </androidx.viewpager2.widget.ViewPager2>
 
                 </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/availableDoctor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/DepartmentCard"
+                android:background="#ffff"
+                >
+                <TextView
+                    android:id="@+id/doctorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/availabledoctors"
+                    android:fontFamily="@font/overpass_semibold"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/doctorText"
+                    />
 
-
+            </RelativeLayout>
 
 
         </RelativeLayout>
-
-
 
     </ScrollView>
 

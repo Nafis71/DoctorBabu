@@ -124,4 +124,6 @@
     <string name="childdisease">Child Diseases</string>
     <string name="stressdepression">Stress/Depression</string>
     <string name="pregnancyComplications">Pregnancy Complications</string>
+    <string name="availabledoctors">Available Doctors</string>
+    <string name="onlineStatus">Online</string>
 </resources>
