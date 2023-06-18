@@ -1,6 +1,8 @@
 package com.example.doctorbabu;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +19,13 @@ import com.example.doctorbabu.Databases.availableDoctorModel;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class Doctor extends Fragment {
     ViewPager2 vPager;
@@ -26,18 +34,9 @@ public class Doctor extends Fragment {
     private String [] titles = new String[]{"Departments","Symptoms"};
 
     availableDoctorAdapter adapter;
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        adapter.startListening();
-    }
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        adapter.stopListening();
-    }
+    ArrayList<availableDoctorModel> list;
+
+
     public Doctor() {
         // Required empty public constructor
     }
@@ -48,11 +47,8 @@ public class Doctor extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         viewBinding();
-        FirebaseRecyclerOptions<availableDoctorModel> options = new FirebaseRecyclerOptions.Builder<availableDoctorModel>()
-                .setQuery(FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("doctorInfo"),availableDoctorModel.class).build();
+        loadAvailableDoctor();
 
-        adapter = new availableDoctorAdapter(options);
-        recyclerView.setAdapter(adapter);
 
     }
     public void viewBinding(){
@@ -61,6 +57,37 @@ public class Doctor extends Fragment {
         pageAdapter adapter = new pageAdapter(requireActivity());
         vPager.setAdapter(adapter);
         new TabLayoutMediator(tabs,vPager,((tab, position) ->tab.setText(titles[position]))).attach();
+
+    }
+    public void loadAvailableDoctor()
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference reference = database.getReference("doctorInfo");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        list =  new ArrayList<>();
+        adapter = new availableDoctorAdapter(requireContext(),list);
+        recyclerView.setAdapter(adapter);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap : snapshot.getChildren())
+                {
+                    availableDoctorModel model = snap.getValue(availableDoctorModel.class);
+                    assert model != null;
+                    if(model.getRating() >= 4.8)
+                    {
+                        list.add(model);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
