@@ -105,6 +105,8 @@
     <string name="forgetPassword">পাসওয়ার্ড ভুলে গেছেন?</string>
     <string name="signIn">সাইন-ইন করুন</string>
     <string name="signin">নতুন ব্যবহারকারী? সাইন আপ করুন</string>
+    <string name="treatsomepatient">আসুন কিছু রোগীর চিকিৎসা করা যাক</string>
+
     <string name="en">ইং</string>
     <string name="bn">বাং</string>
     <string name="title">উপাধি</string>

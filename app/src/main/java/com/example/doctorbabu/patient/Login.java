@@ -1,4 +1,4 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
@@ -25,6 +25,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.doctorbabu.LoginOptions;
+import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -43,6 +46,8 @@ public class Login extends AppCompatActivity {
     SwitchCompat languageSwitch;
     BottomSheetDialog bottomSheetForgetPass;
     FirebaseAuth auth;
+
+
     private boolean validateEmail()
     {
         String value = userEmail.getEditText().getText().toString();
@@ -80,7 +85,7 @@ public class Login extends AppCompatActivity {
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this,SignUp.class);
+                Intent intent = new Intent(Login.this, SignUp.class);
                 Pair[] pairs = new Pair[7];
                 pairs[0] = new Pair<View,String>(image, "imageTransition");
                 pairs[1] = new Pair<View,String>(greetingText, "textTransition1");
@@ -231,6 +236,7 @@ public class Login extends AppCompatActivity {
                                     handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            assert user != null;
                                             if(user.isEmailVerified())
                                             {
                                                 storeLoginInfo();
@@ -264,14 +270,9 @@ public class Login extends AppCompatActivity {
                                             }
                                         }
                                     },6000);
-
-
-
                                     } else {
-                                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                                Toast.makeText(Login.this, "Wrong Credentials",
-                                                        Toast.LENGTH_SHORT).show();
-                                                progressBar.setVisibility(View.GONE);
+                                            Toast.makeText(Login.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
                                     }
                             }
                         });
@@ -330,7 +331,7 @@ public class Login extends AppCompatActivity {
     }
     public void onBackPressed()
     {
-        Intent intent = new Intent(Login.this,LoginOptions.class);
+        Intent intent = new Intent(Login.this, LoginOptions.class);
         startActivity(intent);
         finish();
     }

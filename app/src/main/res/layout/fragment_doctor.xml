@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F9F9"
     android:orientation="vertical"
-    tools:context=".Doctor">
+    tools:context=".patient.Doctor">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
@@ -64,11 +64,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ChoosedepartmentSymptoms"
-                        android:fontFamily="@font/overpass_semibold"
-                        android:textSize="16sp"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="3dp"
                         >
@@ -80,8 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/clinicalAreas"
                         android:fontFamily="@font/roboto"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
+                        android:textSize="12sp"
                         android:layout_below="@+id/dsText"
                         android:layout_marginStart="10dp"
                         >
@@ -92,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/dsText2"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="7dp"
                         android:layout_marginBottom="5dp"
                         android:background="#F7F9F9"
                         >
@@ -137,19 +136,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/availabledoctors"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="2dp"
+                    />
+                <TextView
+                    android:id="@+id/doctorText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/takeInstantConsultancy"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_below="@id/doctorText"
                     />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/viewAll"
+                    android:textSize="12sp"
+                    android:textColor="#4F5FDE"
+                    android:shadowColor="@color/black_shade_1"
+                    app:cornerRadius="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_toEndOf="@id/doctorText2"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="40dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/doctorText"
+                    android:layout_below="@+id/doctorText2"
                     />
 
             </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,6 +22,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.doctorbabu.R;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -155,7 +156,7 @@ public class Profile extends Fragment {
         user = auth.getCurrentUser();
         FirebaseUser currentUser = auth.getCurrentUser();
         if(currentUser == null) {
-          Intent intent = new Intent(getActivity(),Login.class);
+          Intent intent = new Intent(getActivity(), Login.class);
           startActivity(intent);
           requireActivity().finish();
         }
@@ -176,7 +177,7 @@ public class Profile extends Fragment {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),EditProfile.class);
+                Intent intent = new Intent(getActivity(), EditProfile.class);
                 intent.putExtra("uId",user.getUid());
                 intent.putExtra("email",user.getEmail());
                 startActivity(intent);

@@ -1,26 +1,20 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.tabs.TabItem;
-import com.google.android.material.tabs.TabLayout;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Department#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Department extends Fragment {
+import com.example.doctorbabu.R;
 
 
-    public Department() {
+public class Symptom extends Fragment {
+
+
+    public Symptom() {
         // Required empty public constructor
     }
 
@@ -28,6 +22,7 @@ public class Department extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
@@ -37,6 +32,6 @@ public class Department extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_department, container, false);
+        return inflater.inflate(R.layout.fragment_symptom, container, false);
     }
 }

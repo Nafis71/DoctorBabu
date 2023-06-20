@@ -16,31 +16,31 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="31">
         <activity
-            android:name=".ChooseDoctor"
+            android:name=".patient.ChooseDoctor"
             android:exported="false" />
         <activity
-            android:name=".DoctorDashboard"
+            android:name=".doctor.DoctorDashboard"
             android:exported="false" />
         <activity
-            android:name=".DoctorSignup"
+            android:name=".doctor.DoctorSignup"
             android:exported="false" />
         <activity
-            android:name=".DoctorLogin"
+            android:name=".doctor.DoctorLogin"
             android:exported="false" />
         <activity
             android:name=".LoginOptions"
             android:exported="false" />
         <activity
-            android:name=".EditProfile"
+            android:name=".patient.EditProfile"
             android:exported="false" />
         <activity
-            android:name=".Dashboard"
+            android:name=".patient.Dashboard"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".patient.SignUp"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".patient.Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -1,4 +1,4 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

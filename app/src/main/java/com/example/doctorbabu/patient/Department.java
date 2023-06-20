@@ -1,18 +1,22 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.doctorbabu.R;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
-public class Symptom extends Fragment {
+public class Department extends Fragment {
 
 
-    public Symptom() {
+    public Department() {
         // Required empty public constructor
     }
 
@@ -20,7 +24,6 @@ public class Symptom extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
@@ -30,6 +33,6 @@ public class Symptom extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_symptom, container, false);
+        return inflater.inflate(R.layout.fragment_department, container, false);
     }
 }

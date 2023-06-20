@@ -151,11 +151,27 @@
             android:background="@drawable/doted"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/profilePicture"
-
+            android:id = "@+id/bar"
             >
 
         </View>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E5E8E8"
+                android:layout_below="@id/bar"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "Take Consultancy"
+                    app:cornerRadius="8dp"
 
+                    >
+
+                </com.google.android.material.button.MaterialButton>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

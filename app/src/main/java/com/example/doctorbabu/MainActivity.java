@@ -1,6 +1,5 @@
 package com.example.doctorbabu;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,9 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Locale;
 
 
@@ -33,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
          {
              setLanguage(language);
          }
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

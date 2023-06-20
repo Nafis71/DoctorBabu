@@ -1,14 +1,16 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.doctor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ChooseDoctor extends AppCompatActivity {
+import com.example.doctorbabu.R;
+
+public class DoctorDashboard extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_doctor);
+        setContentView(R.layout.activity_doctor_dashboard);
     }
 }

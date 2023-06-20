@@ -1,4 +1,4 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
@@ -29,13 +29,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Databases.userHelper;
+import com.example.doctorbabu.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -61,6 +60,9 @@ public class EditProfile extends AppCompatActivity {
     Uri filepath;
     Bitmap bitmap;
     Button update;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

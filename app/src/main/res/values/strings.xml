@@ -103,6 +103,7 @@
     <string name="forgetPassword">Forget Password?</string>
     <string name="signIn">Sign In</string>
     <string name="signin">New User? Sign Up</string>
+    <string name="treatsomepatient">Let\'s treat some patients</string>
     <string name="en">EN</string>
     <string name="bn">BN</string>
     <!-- SignUp and signIn Strings Ends-->
@@ -126,4 +127,6 @@
     <string name="pregnancyComplications">Pregnancy Complications</string>
     <string name="availabledoctors">Available Doctors</string>
     <string name="onlineStatus">Online</string>
+    <string name="takeInstantConsultancy">Take instant consultancy from available doctors</string>
+    <string name="viewAll">View All</string>
 </resources>

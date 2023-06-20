@@ -1,4 +1,4 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.doctorbabu.Databases.userHelper;
+import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

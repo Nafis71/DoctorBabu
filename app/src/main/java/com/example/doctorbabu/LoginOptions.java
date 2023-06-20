@@ -12,6 +12,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.doctorbabu.doctor.DoctorDashboard;
+import com.example.doctorbabu.doctor.DoctorLogin;
+import com.example.doctorbabu.patient.Dashboard;
+import com.example.doctorbabu.patient.Login;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -34,13 +38,13 @@ public class LoginOptions extends AppCompatActivity {
             String login = preferences.getString("loginAs","");
             if(login.equals("patient"))
             {
-                Intent intent = new Intent(LoginOptions.this,Dashboard.class);
+                Intent intent = new Intent(LoginOptions.this, Dashboard.class);
                 startActivity(intent);
                 finish();
             }
             if(login.equals("doctor"))
             {
-                Intent intent = new Intent(LoginOptions.this,DoctorDashboard.class);
+                Intent intent = new Intent(LoginOptions.this, DoctorDashboard.class);
                 startActivity(intent);
                 finish();
             }
@@ -54,7 +58,7 @@ public class LoginOptions extends AppCompatActivity {
         patientCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginOptions.this,Login.class);
+                Intent intent = new Intent(LoginOptions.this, Login.class);
                 startActivity(intent);
                 finish();
             }
@@ -62,7 +66,7 @@ public class LoginOptions extends AppCompatActivity {
         doctorCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginOptions.this,DoctorLogin.class);
+                Intent intent = new Intent(LoginOptions.this, DoctorLogin.class);
                 startActivity(intent);
                 finish();
             }

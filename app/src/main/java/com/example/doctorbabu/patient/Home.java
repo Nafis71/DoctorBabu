@@ -1,4 +1,4 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,6 +48,9 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english,bengali;
     Animation leftAnim,rightAnim;
+
+
+
 
     public Home() {
         // Required empty public constructor

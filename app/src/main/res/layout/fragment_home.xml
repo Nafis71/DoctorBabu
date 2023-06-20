@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F7F9F9 "
-    tools:context=".Home">
+    tools:context=".patient.Home">
 
     <RelativeLayout
         android:layout_width="match_parent"

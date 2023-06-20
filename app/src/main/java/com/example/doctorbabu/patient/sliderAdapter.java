@@ -1,10 +1,11 @@
-package com.example.doctorbabu;
+package com.example.doctorbabu.patient;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.doctorbabu.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
