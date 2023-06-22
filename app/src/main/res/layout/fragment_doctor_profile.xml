@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".doctor.DoctorHome"
+    android:background="#F7F9F9"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#ffff"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        >
+
+        <ImageView
+            android:id="@+id/doctorBabuLogo"
+            android:layout_width="200dp"
+            android:layout_height="112dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-2dp"
+            android:layout_marginEnd="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/headerlogo" />
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:layout_marginStart="140dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:src="@drawable/settings"
+
+            />
+        <TextView
+            android:id="@+id/languageName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/languageName"
+            android:fontFamily="@font/roboto"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/languageImage"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            >
+
+        </TextView>
+        <ImageView
+            android:id="@+id/languageImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src = "@drawable/languages"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2dp"
+            />
+
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="6dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:id="@+id/profileDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/rubik"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:text="Welcome, Doctor"
+                            android:textSize="20sp">
+
+
+                        </TextView>
+                        <ImageView
+                            android:id="@+id/basicProfileEdit"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/profileedit"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="12dp"/>
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id = "@+id/profilePicture"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/profile_picture"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="20dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:shapeAppearanceOverlay="@style/RoundedSquare"
+                            android:layout_below="@id/profileDetails"
+
+                            >
+
+                        </com.google.android.material.imageview.ShapeableImageView>
+                        <RatingBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/profilePicture"
+                            android:rating="3.5"
+                            android:layout_marginStart="20dp"
+                            android:stepSize="0.5"
+                            style="@style/Widget.AppCompat.RatingBar.Indicator"
+                            android:layout_marginBottom="10dp"
+                            >
+
+                        </RatingBar>
+
+                        <TextView
+                            android:id="@+id/doctorName"
+                            style="@style/Widget.MaterialComponents.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="58dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:fontFamily="@font/rubik"
+                            android:text="Nafis Hasan Tonmoy"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/doctorDegree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik"
+                            android:text="MBBS,BCS(Health)"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:layout_below="@+id/doctorName"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginStart="20dp"
+                            android:textSize="12sp"
+                            style="@style/Widget.MaterialComponents.TextView"
+                            >
+                        </TextView>
+                        <TextView
+                            android:id="@+id/doctorTraining"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik"
+                            android:text="Training/Courses: None"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:layout_below="@+id/doctorDegree"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginStart="20dp"
+                            android:textSize="12sp"
+                            style="@style/Widget.MaterialComponents.TextView"
+                            >
+                        </TextView>
+                        <TextView
+                            android:id="@+id/currentlyWorking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik"
+                            android:text="General Physician"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:layout_below="@+id/doctorTraining"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginStart="20dp"
+                            android:textSize="12sp"
+                            style="@style/Widget.MaterialComponents.TextView"
+                            android:textColor="#4F5FDE"
+                            >
+                        </TextView>
+                        <TextView
+                            android:id="@+id/bmdcNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik"
+                            android:text="Bmdc Number: 13303 "
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:layout_below="@+id/currentlyWorking"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginStart="20dp"
+                            android:textSize="12sp"
+                            style="@style/Widget.MaterialComponents.TextView"
+
+                            >
+                        </TextView>
+
+
+                    </RelativeLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/aboutYouText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/rubik"
+                            android:padding="10dp"
+                            android:text="About You"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/aboutYouEdit"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:src="@drawable/edit"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="12dp"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Write something about you"
+                        android:fontFamily="@font/rubik"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:layout_marginStart="5dp"
+                        android:padding="10dp"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/rubik"
+                            android:padding="10dp"
+                            android:text="Specialties"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/specialtiesEdit"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:src="@drawable/edit"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="12dp"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Information Found"
+                        android:fontFamily="@font/rubik"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:layout_marginStart="5dp"
+                        android:padding="10dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/rubik"
+                            android:padding="10dp"
+                            android:text="Medical Degrees"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/medicalDegreesEdit"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:src="@drawable/edit"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="12dp"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Information Found"
+                        android:fontFamily="@font/rubik"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:layout_marginStart="5dp"
+                        android:padding="10dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/rubik"
+                            android:padding="10dp"
+                            android:text="Currently Working At"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/currentlyWorkingAtEdit"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:src="@drawable/edit"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="12dp"/>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Information Found"
+                        android:fontFamily="@font/rubik"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:layout_marginStart="5dp"
+                        android:padding="10dp"
+
+                        />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:background="#ffffff"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Past Experiences"
+                        android:fontFamily="@font/rubik"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:id="@+id/recyclerView"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+       </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

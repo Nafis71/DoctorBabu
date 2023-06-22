@@ -19,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Dashboard extends AppCompatActivity {
-    FirebaseAuth auth;
-    FirebaseUser user;
     BottomNavigationView bottomNavigation;
     FragmentManager fm;
     int check = 0;
@@ -29,14 +27,6 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        if(user== null)
-        {
-            Intent intent = new Intent(Dashboard.this, Login.class);
-            startActivity(intent);
-            finish();
-        }
         bottomNavigation = findViewById(R.id.bottomView);
         loadFragment(new Home(),true);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

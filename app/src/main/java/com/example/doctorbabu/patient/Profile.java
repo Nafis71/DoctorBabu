@@ -1,8 +1,10 @@
 package com.example.doctorbabu.patient;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -164,6 +166,10 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
+                SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("loginAs","");
+                editor.apply();
                 Intent intent = new Intent(getContext(),Login.class);
                 startActivity(intent);
                 requireActivity().finish();

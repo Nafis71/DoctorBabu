@@ -28,13 +28,21 @@ import android.widget.Toast;
 
 import com.example.doctorbabu.LoginOptions;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.doctor.DoctorDashboard;
+import com.example.doctorbabu.doctor.DoctorLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 public class Login extends AppCompatActivity {
@@ -46,6 +54,9 @@ public class Login extends AppCompatActivity {
     SwitchCompat languageSwitch;
     BottomSheetDialog bottomSheetForgetPass;
     FirebaseAuth auth;
+    FirebaseDatabase database;
+    FirebaseUser user;
+    boolean doctorCredentials;
 
 
     private boolean validateEmail()
@@ -85,19 +96,13 @@ public class Login extends AppCompatActivity {
         callSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this, SignUp.class);
-                Pair[] pairs = new Pair[7];
-                pairs[0] = new Pair<View,String>(image, "imageTransition");
-                pairs[1] = new Pair<View,String>(greetingText, "textTransition1");
-                pairs[2] = new Pair<View,String>(secondGreetingText, "textTransition2");
-                pairs[3] = new Pair<View,String>(userEmail, "usernameTransition");
-                pairs[4] = new Pair<View,String>(userPassword, "passwordTransition");
-                pairs[5] = new Pair<View,String>(signIn, "signinTransition");
-                pairs[6] = new Pair<View,String>(callSignUp, "signupTransition");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
-                startActivity(intent, options.toBundle()); //Bundle is a class in android which is used to pass data from one activity to another activity within an android application.
-
-
+                signUp();
+            }
+        });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn();
             }
         });
         languageSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -154,6 +159,7 @@ public class Login extends AppCompatActivity {
         forgetPass = findViewById(R.id.forgetPass);
         progressBar = findViewById(R.id.progressCircular);
         languageSwitch = findViewById(R.id.languageSwitch);
+        database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         String language = language();
         if(language.equals("bn"))
         {
@@ -213,7 +219,7 @@ public class Login extends AppCompatActivity {
        bottomSheetForgetPass.show();
 
     }
-    public void logIn(View view)
+    public void logIn()
     {
         if(!validateEmail())
         {
@@ -226,63 +232,88 @@ public class Login extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 String email = userEmail.getEditText().getText().toString();
                 String password = userPassword.getEditText().getText().toString();
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = auth.getCurrentUser();
-                                    final Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            assert user != null;
-                                            if(user.isEmailVerified())
-                                            {
-                                                storeLoginInfo();
-                                                progressBar.setVisibility(View.GONE);
-                                                Intent intent = new Intent(Login.this, Dashboard.class);
-                                                startActivity(intent);
-                                                finish();
+                firebaseUserCheck(email);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!doctorCredentials)
+                        {
+                            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        final Handler handler = new Handler();
+                                        FirebaseUser user = auth.getCurrentUser();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                assert user != null;
+                                                if (user.isEmailVerified()) {
+                                                    storeLoginInfo();
+                                                    progressBar.setVisibility(View.GONE);
+                                                    Intent intent = new Intent(Login.this, Dashboard.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    progressBar.setVisibility(View.GONE);
+                                                    resendEmail("Email not verified", "Press resend button to get a email with verification link", false);
+                                                }
                                             }
-                                            else
-                                            {
-                                                progressBar.setVisibility(View.GONE);
-                                                AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
-                                                dialog.setTitle("Email Not Verified").setMessage("Please verify your email first");
-                                                dialog.setPositiveButton("Resend Email", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        if(internetStatus) {
-                                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    dialog.cancel();
-                                                                    Toast.makeText(Login.this, "Email Sent!", Toast.LENGTH_LONG).show();
-                                                                }
-                                                            });
-                                                        } else {
-                                                            positiveAlertDialog("No Internet Connection","Please Check your internet connection and try again","Ok");
-                                                        }
-                                                    }
-                                                });
-                                                dialog.create().show();
-                                            }
-                                        }
-                                    },6000);
-                                    } else {
-                                            Toast.makeText(Login.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                                            progressBar.setVisibility(View.GONE);
+                                        }, 5000);
+
+
                                     }
-                            }
-                        });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(Login.this, "Wrong Credentials", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                        else
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(Login.this, "Wrong Credentials", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },1000);
             }
-            else
-            {
-                positiveAlertDialog("Network Issue","No internet Connection!","Ok");
+             else{
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle("No Internet").setMessage("Please check your internet connection and try again").setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        logIn();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.create().show();
             }
 
         }
+    }
+    public void firebaseUserCheck(String email)
+    {
+        DatabaseReference reference = database.getReference("doctorInfo");
+        reference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                doctorCredentials = snapshot.exists();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     public void storeLoginInfo()
     {
@@ -316,19 +347,52 @@ public class Login extends AppCompatActivity {
 
         }
     }
-    public void positiveAlertDialog(String title,String message,String button)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(button, new DialogInterface.OnClickListener() {
+    public void resendEmail(String title, String message, boolean cancelable) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title).setMessage(message).setPositiveButton("Resend Email", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                progressBar.setVisibility(View.VISIBLE);
+                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(Login.this, "Verification Email Sent!", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(Login.this, "Verification Email Sent Failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
-        });
-        builder.create().show();
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        }).setCancelable(cancelable);
+        dialog.create().show();
     }
+
+    public void signUp()
+    {
+        Intent intent = new Intent(Login.this, SignUp.class);
+        Pair[] pairs = new Pair[7];
+        pairs[0] = new Pair<View,String>(image, "imageTransition");
+        pairs[1] = new Pair<View,String>(greetingText, "textTransition1");
+        pairs[2] = new Pair<View,String>(secondGreetingText, "textTransition2");
+        pairs[3] = new Pair<View,String>(userEmail, "usernameTransition");
+        pairs[4] = new Pair<View,String>(userPassword, "passwordTransition");
+        pairs[5] = new Pair<View,String>(signIn, "signinTransition");
+        pairs[6] = new Pair<View,String>(callSignUp, "signupTransition");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+        startActivity(intent, options.toBundle()); //Bundle is a class in android which is used to pass data from one activity to another activity within an android application.
+    }
+
     public void onBackPressed()
     {
         Intent intent = new Intent(Login.this, LoginOptions.class);

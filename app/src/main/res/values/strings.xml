@@ -129,4 +129,7 @@
     <string name="onlineStatus">Online</string>
     <string name="takeInstantConsultancy">Take instant consultancy from available doctors</string>
     <string name="viewAll">View All</string>
+    <!-- doctor dashboard Strings-->
+    <string name="nav_appointmentHistory">Appointment History</string>
+    <string name="nav_items_message">Inbox</string>
 </resources>

@@ -134,7 +134,7 @@ public class DoctorLogin extends AppCompatActivity {
                                     handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if (user.isEmailVerified()) {
+                                            if (!user.isEmailVerified()) { //TODO I have to set it to true in future
                                                 SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
                                                 SharedPreferences.Editor editor = preferences.edit();
                                                 editor.putString("loginAs", "doctor");
@@ -194,16 +194,8 @@ public class DoctorLogin extends AppCompatActivity {
         reference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    patientCredential = true;
-                }
-                else
-                {
-                    patientCredential = false;
-                }
+                patientCredential = snapshot.exists();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
