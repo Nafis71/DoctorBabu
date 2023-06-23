@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".doctor.DoctorHome"
-    android:background="#F7F9F9"
+    android:background="#EFF5F5"
+    android:id = "@+id/parentLayout"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,8 +30,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
-            android:layout_marginStart="140dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
             app:layout_constraintDimensionRatio="1:1"
             android:src="@drawable/settings"
 
@@ -79,7 +80,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="25dp"
+                    app:cardCornerRadius="18dp"
                     app:cardElevation="6dp"
                     >
                     <RelativeLayout
@@ -95,22 +96,14 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/rubik"
+                            android:fontFamily="@font/roboto"
                             android:textColor="@color/black"
                             android:textStyle="bold"
-                            android:text="Welcome, Doctor"
+                            android:text="Profile Overview"
                             android:textSize="20sp">
 
 
                         </TextView>
-                        <ImageView
-                            android:id="@+id/basicProfileEdit"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/profileedit"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginTop="12dp"/>
 
                         <com.google.android.material.imageview.ShapeableImageView
                             android:id = "@+id/profilePicture"
@@ -127,15 +120,27 @@
                             >
 
                         </com.google.android.material.imageview.ShapeableImageView>
+                        <ImageView
+                            android:id= "@+id/editProfilePicture"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/camera"
+                            android:layout_toEndOf="@id/profilePicture"
+                            android:layout_marginTop="120dp"
+                            android:layout_marginStart="-20dp"
+                            />
                         <RatingBar
+                            android:id="@+id/ratingbar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/profilePicture"
+                            android:layout_below="@+id/bmdcNumberSuffix"
                             android:rating="3.5"
                             android:layout_marginStart="20dp"
                             android:stepSize="0.5"
                             style="@style/Widget.AppCompat.RatingBar.Indicator"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_marginTop="10dp"
+                            android:theme="@style/RatingBar"
                             >
 
                         </RatingBar>
@@ -149,23 +154,25 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="58dp"
                             android:layout_marginBottom="1dp"
+                            android:layout_marginEnd="5dp"
                             android:layout_toEndOf="@+id/profilePicture"
-                            android:fontFamily="@font/rubik"
-                            android:text="Nafis Hasan Tonmoy"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
                             android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
                         <TextView
                             android:id="@+id/doctorDegree"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/rubik"
-                            android:text="MBBS,BCS(Health)"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
                             android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorName"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="1dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginStart="20dp"
+                            android:layout_marginEnd="5dp"
                             android:textSize="12sp"
                             style="@style/Widget.MaterialComponents.TextView"
                             >
@@ -174,7 +181,7 @@
                             android:id="@+id/doctorTraining"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/rubik"
+                            android:fontFamily="@font/roboto"
                             android:text="Training/Courses: None"
                             android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorDegree"
@@ -182,35 +189,37 @@
                             android:layout_marginBottom="1dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginStart="20dp"
+                            android:layout_marginEnd="5dp"
                             android:textSize="12sp"
                             style="@style/Widget.MaterialComponents.TextView"
                             >
                         </TextView>
                         <TextView
-                            android:id="@+id/currentlyWorking"
+                            android:id="@+id/doctorSpecialties"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/rubik"
-                            android:text="General Physician"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
                             android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorTraining"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="1dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginStart="20dp"
+                            android:layout_marginEnd="10dp"
                             android:textSize="12sp"
                             style="@style/Widget.MaterialComponents.TextView"
                             android:textColor="#4F5FDE"
                             >
                         </TextView>
                         <TextView
-                            android:id="@+id/bmdcNumber"
+                            android:id="@+id/bmdcNumberSuffix"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/rubik"
-                            android:text="Bmdc Number: 13303 "
+                            android:fontFamily="@font/roboto"
+                            android:text="Bmdc Number: "
                             android:layout_toEndOf="@+id/profilePicture"
-                            android:layout_below="@+id/currentlyWorking"
+                            android:layout_below="@+id/doctorSpecialties"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="1dp"
                             android:layout_marginTop="1dp"
@@ -220,6 +229,22 @@
 
                             >
                         </TextView>
+                        <TextView
+                            android:id="@+id/bmdc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:layout_toEndOf="@+id/bmdcNumberSuffix"
+                            android:layout_below="@+id/doctorSpecialties"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginStart="0dp"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            style="@style/Widget.MaterialComponents.TextView"
+                            />
 
 
                     </RelativeLayout>
@@ -246,7 +271,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/rubik"
+                            android:fontFamily="@font/roboto"
                             android:padding="10dp"
                             android:text="About You"
                             android:textColor="@color/black"
@@ -254,19 +279,25 @@
                             android:textStyle="bold" />
                         <ImageView
                             android:id="@+id/aboutYouEdit"
-                            android:layout_width="33dp"
-                            android:layout_height="33dp"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
                             android:src="@drawable/edit"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="20dp"
                             android:layout_marginTop="12dp"/>
                     </RelativeLayout>
+                        <com.google.android.material.divider.MaterialDivider
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="20dp"
 
+                            />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Write something about you"
-                        android:fontFamily="@font/rubik"
+                        android:fontFamily="@font/roboto"
                         android:textColor="#666666"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp"
@@ -293,7 +324,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/rubik"
+                            android:fontFamily="@font/roboto"
                             android:padding="10dp"
                             android:text="Specialties"
                             android:textColor="@color/black"
@@ -301,19 +332,27 @@
                             android:textStyle="bold" />
                         <ImageView
                             android:id="@+id/specialtiesEdit"
-                            android:layout_width="33dp"
-                            android:layout_height="33dp"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
                             android:src="@drawable/edit"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="20dp"
                             android:layout_marginTop="12dp"/>
                     </RelativeLayout>
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+
+                        />
 
                     <TextView
+                        android:id="@+id/doctorSpecialtiesDownField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No Information Found"
-                        android:fontFamily="@font/rubik"
+                        android:text=""
+                        android:fontFamily="@font/roboto"
                         android:textColor="#666666"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp"
@@ -339,7 +378,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/rubik"
+                            android:fontFamily="@font/roboto"
                             android:padding="10dp"
                             android:text="Medical Degrees"
                             android:textColor="@color/black"
@@ -347,19 +386,25 @@
                             android:textStyle="bold" />
                         <ImageView
                             android:id="@+id/medicalDegreesEdit"
-                            android:layout_width="33dp"
-                            android:layout_height="33dp"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
                             android:src="@drawable/edit"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="20dp"
                             android:layout_marginTop="12dp"/>
                     </RelativeLayout>
-
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+                        />
                     <TextView
+                        android:id="@+id/medicalDegree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No Information Found"
-                        android:fontFamily="@font/rubik"
+                        android:text=""
+                        android:fontFamily="@font/roboto"
                         android:textColor="#666666"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp"
@@ -384,7 +429,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/rubik"
+                            android:fontFamily="@font/roboto"
                             android:padding="10dp"
                             android:text="Currently Working At"
                             android:textColor="@color/black"
@@ -393,19 +438,25 @@
 
                         <ImageView
                             android:id="@+id/currentlyWorkingAtEdit"
-                            android:layout_width="33dp"
-                            android:layout_height="33dp"
-                            android:src="@drawable/edit"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginTop="12dp"/>
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="19dp"
+                            android:src="@drawable/edit" />
                     </RelativeLayout>
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
 
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No Information Found"
-                        android:fontFamily="@font/rubik"
+                        android:fontFamily="@font/roboto"
                         android:textColor="#666666"
                         android:textSize="13sp"
                         android:layout_marginStart="5dp"
@@ -427,12 +478,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Past Experiences"
-                        android:fontFamily="@font/rubik"
+                        android:fontFamily="@font/roboto"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:layout_margin="5dp"
                         android:textStyle="bold"
                         android:padding="10dp"/>
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+
+                        />
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

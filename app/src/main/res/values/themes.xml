@@ -23,4 +23,8 @@
     </style>
     <!-- Bottom Sheet Styles. -->
     <style name="Theme.DoctorBabu" parent="Base.Theme.DoctorBabu" />
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#E5E7E9</item>
+        <item name="colorControlActivated">#FFD700</item>
+    </style>
 </resources>

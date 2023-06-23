@@ -10,20 +10,23 @@
         android:id ="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
+
         />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id = "@+id/bottomView"
+        android:id="@+id/bottomView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/card_corner_white"
-        app:menu="@menu/nav_items"
-        android:elevation="2dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/card_corner_white"
+        android:elevation="2dp"
         android:padding="3dp"
-        />
+        app:layout_anchor="@+id/container"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:menu="@menu/nav_items" />
 
 </RelativeLayout>

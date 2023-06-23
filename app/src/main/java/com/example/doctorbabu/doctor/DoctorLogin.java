@@ -42,6 +42,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class DoctorLogin extends AppCompatActivity {
     TextInputLayout email,password;
     TextInputEditText emailText;
@@ -53,6 +55,7 @@ public class DoctorLogin extends AppCompatActivity {
     ProgressBar progressCircular;
     FirebaseDatabase database;
     boolean patientCredential;
+    String doctorId;
 
 
     @Override
@@ -131,13 +134,17 @@ public class DoctorLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     final Handler handler = new Handler();
                                     user = auth.getCurrentUser();
+                                    assert user != null;
+                                    getDoctorId(user.getUid());
                                     handler.postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
                                             if (!user.isEmailVerified()) { //TODO I have to set it to true in future
+                                                Log.i("DoctorID : ",doctorId);
                                                 SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
                                                 SharedPreferences.Editor editor = preferences.edit();
                                                 editor.putString("loginAs", "doctor");
+                                                editor.putString("doctorId",doctorId);
                                                 editor.apply();
                                                 progressCircular.setVisibility(View.GONE);
                                                 Intent intent = new Intent(DoctorLogin.this, DoctorDashboard.class);
@@ -148,7 +155,7 @@ public class DoctorLogin extends AppCompatActivity {
                                                 resendEmail("Email not verified", "Press resend button to get a email with verification link", false);
                                             }
                                         }
-                                    }, 5000);
+                                    }, 4000);
 
 
                                 }
@@ -201,6 +208,29 @@ public class DoctorLogin extends AppCompatActivity {
 
             }
         });
+    }
+    public void getDoctorId(String uid)
+    {
+      DatabaseReference reference = database.getReference("doctorInfo");
+      reference.orderByChild("uId").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull DataSnapshot snapshot) {
+              if(snapshot.exists())
+              {
+                  for(DataSnapshot snap : snapshot.getChildren())
+                  {
+                     doctorId = String.valueOf(snap.child("doctorId").getValue());
+                  }
+
+              }
+
+          }
+
+          @Override
+          public void onCancelled(@NonNull DatabaseError error) {
+
+          }
+      });
     }
     private boolean validateEmail()
     {

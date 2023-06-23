@@ -12,14 +12,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
@@ -48,6 +55,8 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english,bengali;
     Animation leftAnim,rightAnim;
+    BottomNavigationView bottomBar;
+    ScrollView scroll;
 
 
 
@@ -137,6 +146,8 @@ public class Home extends Fragment {
         appointmentHistory =(CardView) requireView().findViewById(R.id.appointmentHistory);
         onlineCosultantCard = (CardView) requireView().findViewById(R.id.onlineCosultantCard);
         medicineCard = (CardView) requireView().findViewById(R.id.medicineCard);
+        bottomBar = requireActivity().findViewById(R.id.bottomView);
+        scroll = (ScrollView) requireView().findViewById(R.id.scroll);
         leftAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.left_animation);
         rightAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.right_anim);
         appointmentCard.setAnimation(leftAnim);
@@ -147,6 +158,26 @@ public class Home extends Fragment {
         appointmentHistory.setAnimation(leftAnim);
         onlineCosultantCard.setAnimation(rightAnim);
         medicineCard.setAnimation(rightAnim);
+        scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if(scrollY == 0 )
+                {
+                    bottomBar.setVisibility(View.VISIBLE);
+                    Animation fadeIn = new AlphaAnimation(0, 1);
+                    fadeIn.setInterpolator(new DecelerateInterpolator());
+                    fadeIn.setDuration(400);
+                    bottomBar.setAnimation(fadeIn);
+                }
+                else
+                {
+                    bottomBar.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
     }
 
     public void loadImageSlider()

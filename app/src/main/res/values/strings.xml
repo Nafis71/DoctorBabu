@@ -129,7 +129,26 @@
     <string name="onlineStatus">Online</string>
     <string name="takeInstantConsultancy">Take instant consultancy from available doctors</string>
     <string name="viewAll">View All</string>
-    <!-- doctor dashboard Strings-->
     <string name="nav_appointmentHistory">Appointment History</string>
     <string name="nav_items_message">Inbox</string>
+    <string name="chooseSpecialty">Choose Your Specialty</string>
+    <string name="gynecologist">Gynecologist</string>
+    <string name="paediatrician">Paediatrician</string>
+    <string name="dermatologist">Dermatologist</string>
+    <string name="psychiatrist">Psychiatrist</string>
+    <string name="neurologist">Neurologist</string>
+    <string name="ophthalmologist">Ophthalmologist</string>
+    <string name="nutritionist">Nutritionist</string>
+    <string name="cardiologist">Cardiologist</string>
+    <string name="chooseDegree">Choose Your Degree</string>
+    <string name="mbbs">MBBS</string>
+    <string name="bmbs">BMBS</string>
+    <string name="mbchc">MBChC</string>
+    <string name="mbbch">MBBCh</string>
+    <string name="md">MD</string>
+    <string name="DO">DO</string>
+    <string name="ds">DS</string>
+    <string name="bcs">BCS (Health)</string>
+
+
 </resources>
