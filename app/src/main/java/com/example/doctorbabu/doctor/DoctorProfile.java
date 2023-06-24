@@ -42,10 +42,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class DoctorProfile extends Fragment {
@@ -55,7 +62,7 @@ FirebaseDatabase database;
 TextInputLayout hospitalNameLayout,designationLayout,joiningDateLayout,leavingDateLayout,departmentLayout;
 AutoCompleteTextView hospitalName,designation,joiningDate,department,leavingDate;
 ImageView profilePicture,editProfilePicture,medicalDegreesEdit,specialtiesEdit,currentlyWorkingAtEdit;
-TextView doctorName,doctorDegree,medicalDegree,doctorSpecialties,doctorSpecialtiesDownField,bmdc;
+TextView doctorName,doctorDegree,medicalDegree,doctorSpecialties,period,doctorSpecialtiesDownField,bmdc,currentHospitalName,designationName,departmentName;
 CheckBox MBBS,BMBS,MBChC,MBChB,MBBCh,MD,DO,DS,BCS,generalPhysician,gynecologist,paediatrician,
         dermatologist,psychiatrist,neurologist,ophthalmologist,nutritionist,cardiologist,workingStatus;
 Button confirmList;
@@ -89,6 +96,7 @@ LinearLayout parentLayout;
         super.onViewCreated(view, savedInstanceState);
         viewBinding();
         getData();
+        getCurrentWorkingInfo();
         editProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,14 +122,13 @@ LinearLayout parentLayout;
             }
         });
     }
-    public void viewBinding()
-    {
+    public void viewBinding() {
         profilePicture = (ImageView) requireView().findViewById(R.id.profilePicture);
         editProfilePicture = (ImageView) requireView().findViewById(R.id.editProfilePicture);
         ratingBar = (RatingBar) requireView().findViewById(R.id.ratingbar);
         doctorName = (TextView) requireView().findViewById(R.id.doctorName);
         medicalDegreesEdit = (ImageView) requireView().findViewById(R.id.medicalDegreesEdit);
-        doctorDegree =(TextView) requireView().findViewById(R.id.doctorDegree);
+        doctorDegree = (TextView) requireView().findViewById(R.id.doctorDegree);
         medicalDegree = (TextView) requireView().findViewById(R.id.medicalDegree);
         specialtiesEdit = (ImageView) requireView().findViewById(R.id.specialtiesEdit);
         doctorSpecialties = (TextView) requireView().findViewById(R.id.doctorSpecialties);
@@ -129,6 +136,10 @@ LinearLayout parentLayout;
         bmdc = (TextView) requireView().findViewById(R.id.bmdc);
         parentLayout = requireView().findViewById(R.id.parentLayout);
         currentlyWorkingAtEdit = (ImageView) requireView().findViewById(R.id.currentlyWorkingAtEdit);
+        currentHospitalName = (TextView) requireView().findViewById(R.id.currentHospitalName);
+        designationName = (TextView) requireView().findViewById(R.id.designationName);
+        departmentName = (TextView) requireView().findViewById(R.id.departmentName);
+        period = (TextView) requireView().findViewById(R.id.period);
     }
     public void getData()
     {
@@ -167,6 +178,56 @@ LinearLayout parentLayout;
             }
         });
         DatabaseReference referenceDegree =  database.getReference("doctorDegree");
+    }
+    public void getCurrentWorkingInfo()
+    {
+
+        DatabaseReference reference = database.getReference("doctorCurrentlyWorking");
+        reference.child(doctorId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    currentHospitalName.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                    designationName.setText(String.valueOf(snapshot.child("designation").getValue()));
+                    departmentName.setText(String.valueOf(snapshot.child("department").getValue()));
+                    String date = String.valueOf(snapshot.child("joiningDate").getValue());
+                    String [] splitText = date.split("/");
+                    int year = Integer.parseInt(splitText[0]);
+                    int month = Integer.parseInt(splitText[1]);
+                    int day = Integer.parseInt(splitText[2]);
+                    LocalDate bday = LocalDate.of(year,month,day);
+                    LocalDate today = LocalDate.now();
+                    Period age = Period.between(bday, today);
+                    String years = String.valueOf(age.getYears());
+                    String months = String.valueOf(age.getMonths());
+                    String yearText, monthText;
+                    if(age.getYears() > 1 && age.getMonths() > 1)
+                    {
+                        yearText = " years "; monthText =" months";
+                    }
+                    else if(age.getYears() < 1 && age.getMonths() > 1)
+                    {
+                        yearText = " year "; monthText = " months";
+                    }
+                    else if(age.getYears() > 1 && age.getMonths() < 1)
+                    {
+                        yearText = " years "; monthText = " month";
+                    }
+                    else
+                    {
+                        yearText = " year "; monthText = " month";
+                    }
+                    String result = years+yearText+months+monthText;
+                    period.setText(result);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
     private void addDegrees()
     {
