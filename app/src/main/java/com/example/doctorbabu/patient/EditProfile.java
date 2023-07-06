@@ -438,8 +438,8 @@ public class EditProfile extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-            filepath = data.getData();
+        assert data != null;
+        filepath = data.getData();
             try{
                 InputStream inputStream = getContentResolver().openInputStream(filepath);
                 bitmap = BitmapFactory.decodeStream(inputStream);

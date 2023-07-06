@@ -56,7 +56,6 @@ public class Home extends Fragment {
     RadioButton english,bengali;
     Animation leftAnim,rightAnim;
     BottomNavigationView bottomBar;
-    ScrollView scroll;
 
 
 
@@ -136,18 +135,17 @@ public class Home extends Fragment {
     }
     public void viewBinding()
     {
-        profilePicture = (ImageView) requireView().findViewById(R.id.profilePicture);
-        appointmentCard = (CardView) requireView().findViewById(R.id.appointmentCard);
-        languageImage = (ImageView) requireView().findViewById(R.id.languageImage);
-        sliderCard = (CardView) requireView().findViewById(R.id.sliderCard);
-        consultantCard = (CardView) requireView().findViewById(R.id.consultantCard);
-        medicineReminderCard = (CardView) requireView().findViewById(R.id.medicineReminderCard);
-        reportCard = (CardView) requireView().findViewById(R.id.reportCard);
-        appointmentHistory =(CardView) requireView().findViewById(R.id.appointmentHistory);
-        onlineCosultantCard = (CardView) requireView().findViewById(R.id.onlineCosultantCard);
-        medicineCard = (CardView) requireView().findViewById(R.id.medicineCard);
+        profilePicture = requireView().findViewById(R.id.profilePicture);
+        appointmentCard =requireView().findViewById(R.id.appointmentCard);
+        languageImage = requireView().findViewById(R.id.languageImage);
+        sliderCard = requireView().findViewById(R.id.sliderCard);
+        consultantCard =  requireView().findViewById(R.id.consultantCard);
+        medicineReminderCard = requireView().findViewById(R.id.medicineReminderCard);
+        reportCard =  requireView().findViewById(R.id.reportCard);
+        appointmentHistory =requireView().findViewById(R.id.appointmentHistory);
+        onlineCosultantCard = requireView().findViewById(R.id.onlineCosultantCard);
+        medicineCard = requireView().findViewById(R.id.medicineCard);
         bottomBar = requireActivity().findViewById(R.id.bottomView);
-        scroll = (ScrollView) requireView().findViewById(R.id.scroll);
         leftAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.left_animation);
         rightAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.right_anim);
         appointmentCard.setAnimation(leftAnim);
@@ -158,25 +156,6 @@ public class Home extends Fragment {
         appointmentHistory.setAnimation(leftAnim);
         onlineCosultantCard.setAnimation(rightAnim);
         medicineCard.setAnimation(rightAnim);
-        scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                if(scrollY == 0 )
-                {
-                    bottomBar.setVisibility(View.VISIBLE);
-                    Animation fadeIn = new AlphaAnimation(0, 1);
-                    fadeIn.setInterpolator(new DecelerateInterpolator());
-                    fadeIn.setDuration(400);
-                    bottomBar.setAnimation(fadeIn);
-                }
-                else
-                {
-                    bottomBar.setVisibility(View.GONE);
-                }
-
-            }
-        });
 
     }
 

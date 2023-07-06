@@ -120,36 +120,36 @@ public class Profile extends Fragment {
     }
     public void viewBinding()
     {
-        loadingCircle = (ProgressBar) requireView().findViewById(R.id.progress_circular);
-        email = (TextView) requireView().findViewById(R.id.userEmail);
-        userprofilePicture = (ImageView) requireView().findViewById(R.id.profilePicture);
-        verificationStatus = (TextView) requireView().findViewById(R.id.verifyStatus);
-        verifyTickSign = (ImageView) requireView().findViewById(R.id.tickSign);
-        notVerifyImg = (ImageView) requireView().findViewById(R.id.notVerified);
-        editProfile = (Button) requireView().findViewById(R.id.editProfile);
-        fullName = (TextView) requireView().findViewById(R.id.userName);
-        flex = (FlexboxLayout) requireView().findViewById(R.id.alergyHistory);
-        flex2 = (FlexboxLayout) requireView().findViewById(R.id.pastMedicalHistory);
-        allergy =(TextView) requireView().findViewById(R.id.alergy);
-        medicalInfo = (TextView) requireView().findViewById(R.id.pastMedicalHistoryInfo);
-        bloodGroupInfo = (TextView) requireView().findViewById(R.id.bloodGroupInfo);
-        phone = (TextView) requireView().findViewById(R.id.userPhone);
-        address = (TextView) requireView().findViewById(R.id.userAddress);
-        gender = (TextView) requireView().findViewById(R.id.userGender);
-        height = (TextView) requireView().findViewById(R.id.userHeight);
-        weight = (TextView) requireView().findViewById(R.id.userWeight);
-        age = (TextView) requireView().findViewById(R.id.userAge);
-        allergyList = (TextView) requireView().findViewById(R.id.alergyHistoryInfo);
-        medicalHistoryList = (TextView) requireView().findViewById(R.id.pastMedicalHistoryText);
-        bloodGroupList = (TextView) requireView().findViewById(R.id.bloodGroupText);
-        appointmentDone = (TextView) requireView().findViewById(R.id.appointmentDone);
-        appointmentPending = (TextView) requireView().findViewById(R.id.appointmentPending);
-        rewardAmount = (TextView) requireView().findViewById(R.id.rewardAmount);
-        logOut = (ImageView) requireView().findViewById(R.id.signOut);
-        warningCard = (CardView) requireView().findViewById(R.id.warningCard);
-        district = (TextView) requireView().findViewById(R.id.district);
-        area = (TextView) requireView().findViewById(R.id.area);
-        bmi = (TextView) requireView().findViewById(R.id.bmi);
+        loadingCircle = requireView().findViewById(R.id.progress_circular);
+        email = requireView().findViewById(R.id.userEmail);
+        userprofilePicture = requireView().findViewById(R.id.profilePicture);
+        verificationStatus =  requireView().findViewById(R.id.verifyStatus);
+        verifyTickSign = requireView().findViewById(R.id.tickSign);
+        notVerifyImg = requireView().findViewById(R.id.notVerified);
+        editProfile =  requireView().findViewById(R.id.editProfile);
+        fullName =  requireView().findViewById(R.id.userName);
+        flex =  requireView().findViewById(R.id.alergyHistory);
+        flex2 = requireView().findViewById(R.id.pastMedicalHistory);
+        allergy = requireView().findViewById(R.id.alergy);
+        medicalInfo = requireView().findViewById(R.id.pastMedicalHistoryInfo);
+        bloodGroupInfo =  requireView().findViewById(R.id.bloodGroupInfo);
+        phone = requireView().findViewById(R.id.userPhone);
+        address =  requireView().findViewById(R.id.userAddress);
+        gender =  requireView().findViewById(R.id.userGender);
+        height =  requireView().findViewById(R.id.userHeight);
+        weight = requireView().findViewById(R.id.userWeight);
+        age =  requireView().findViewById(R.id.userAge);
+        allergyList =  requireView().findViewById(R.id.alergyHistoryInfo);
+        medicalHistoryList =  requireView().findViewById(R.id.pastMedicalHistoryText);
+        bloodGroupList =  requireView().findViewById(R.id.bloodGroupText);
+        appointmentDone =  requireView().findViewById(R.id.appointmentDone);
+        appointmentPending =  requireView().findViewById(R.id.appointmentPending);
+        rewardAmount =  requireView().findViewById(R.id.rewardAmount);
+        logOut =  requireView().findViewById(R.id.signOut);
+        warningCard =  requireView().findViewById(R.id.warningCard);
+        district = requireView().findViewById(R.id.district);
+        area =  requireView().findViewById(R.id.area);
+        bmi =  requireView().findViewById(R.id.bmi);
     }
 
     public void getData()
@@ -264,7 +264,6 @@ public class Profile extends Fragment {
                     String thisYearString = thisYear.toString();
                     int currentAge =  Integer.parseInt(thisYearString) - year - 1;
                     age.setText(String.valueOf(currentAge));
-
                 }
                 else
                 {
@@ -273,7 +272,7 @@ public class Profile extends Fragment {
                 String photoUrl = String.valueOf(snapshot.child("photoUrl").getValue());
                 if(!photoUrl.equals("null"))
                 {
-                    Glide.with(getContext()).load(photoUrl).into(userprofilePicture);
+                    Glide.with(requireContext()).load(photoUrl).into(userprofilePicture);
                     userprofilePicture.setVisibility(View.VISIBLE);
                     FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
                     DatabaseReference ref = rootnode.getReference("patientProfileTrack");

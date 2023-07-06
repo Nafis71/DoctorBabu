@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
@@ -58,7 +61,6 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
             doctorName = itemView.findViewById(R.id.doctorName);
             doctorType = itemView.findViewById(R.id.doctorType);
             rating = itemView.findViewById(R.id.rating);
-
         }
     }
 

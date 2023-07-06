@@ -1,7 +1,7 @@
 package com.example.doctorbabu.Databases;
 
 public class availableDoctorModel {
-    String area,bmdc,dateofBirth,district,doctorId,doctorType,email,fullName,gender,nid,photoUrl,title,uId;
+    String area,bmdc,dateofBirth,district,doctorId,doctorType,email,fullName,gender,nid,photoUrl,title,uId,currentlyWorking,workingExperience,degrees,specialty;
     float rating;
 
     public availableDoctorModel() {
@@ -26,6 +26,38 @@ public class availableDoctorModel {
 
     public String getArea() {
         return area;
+    }
+
+    public String getWorkingExperience() {
+        return workingExperience;
+    }
+
+    public String getDegrees() {
+        return degrees;
+    }
+
+    public void setDegrees(String degrees) {
+        this.degrees = degrees;
+    }
+
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public void setWorkingExperience(String workingExperience) {
+        this.workingExperience = workingExperience;
+    }
+
+    public String getCurrentlyWorking() {
+        return currentlyWorking;
+    }
+
+    public void setCurrentlyWorking(String currentlyWorking) {
+        this.currentlyWorking = currentlyWorking;
     }
 
     public void setArea(String area) {

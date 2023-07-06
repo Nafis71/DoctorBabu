@@ -63,6 +63,7 @@
 
     </RelativeLayout>
     <ScrollView
+        android:id = "@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -453,6 +454,7 @@
 
                         />
                     <TextView
+                        android:id="@+id/workingStatusText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No Information Found"
@@ -464,16 +466,18 @@
 
                         />
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/currentlyWorkingCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_marginBottom="5dp"
                         app:cardCornerRadius="2dp"
                         style="@style/Widget.Material3.CardView.Outlined"
                         app:strokeColor="#C2C2C2"
                         app:strokeWidth="1dp"
+                        android:visibility="gone"
                         >
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -554,7 +558,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="11sp"
                                 android:layout_alignParentStart="true"
-                                android:layout_marginStart="238dp"
+                                android:layout_marginStart="218dp"
                                 android:padding="5dp"
                                 android:layout_below="@+id/departmentHeader"
                                 />
@@ -627,7 +631,7 @@
                                 android:layout_marginTop="0dp"
                                 android:padding="5dp"
                                 android:layout_alignParentStart="true"
-                                android:layout_marginStart="238dp"
+                                android:layout_marginStart="218dp"
                                 android:layout_below="@+id/periodHeader"
                                 />
 
@@ -645,16 +649,35 @@
                     android:layout_marginTop="5dp"
                     android:background="#ffffff"
                     >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Past Experiences"
-                        android:fontFamily="@font/roboto"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:layout_margin="5dp"
-                        android:textStyle="bold"
-                        android:padding="10dp"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/roboto"
+                            android:padding="10dp"
+                            android:text="Past Experiences"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/pastExperienceEdit"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="19dp"
+                            android:src="@drawable/edit" />
+
+                    </RelativeLayout>
+
+
                     <com.google.android.material.divider.MaterialDivider
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -665,7 +688,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginStart="0dp"
                         android:id="@+id/recyclerView"/>
 
                 </LinearLayout>

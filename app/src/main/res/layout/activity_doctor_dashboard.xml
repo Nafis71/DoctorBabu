@@ -11,20 +11,13 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
         />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id ="@+id/bottomView"
+        android:id="@+id/bottomView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:elevation="2dp"
-        app:menu="@menu/nav_items_doctor"
-        android:background="@drawable/card_corner_white"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:padding="3dp"
-        >
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/nav_items" />
 
 </RelativeLayout>

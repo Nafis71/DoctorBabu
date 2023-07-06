@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Doctor extends Fragment {
@@ -69,12 +71,26 @@ public class Doctor extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot snap : snapshot.getChildren())
                 {
                     availableDoctorModel model = snap.getValue(availableDoctorModel.class);
                     assert model != null;
                     if(model.getRating() >= 4.8)
                     {
+                        DatabaseReference currentlyWorkingReference = database.getReference("doctorCurrentlyWorking");
+                        currentlyWorkingReference.child(model.getDoctorId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                model.setCurrentlyWorking(String.valueOf(snapshot.child("hospitalName").getValue()));
+//                                String workingExperience = calculateExperience(String.valueOf(snapshot.child("joiningDate").getValue()));
+//                                model.setWorkingExperience(workingExperience);
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                throw error.toException();
+                            }
+                        });
                         list.add(model);
                     }
                 }
@@ -87,6 +103,37 @@ public class Doctor extends Fragment {
             }
         });
 
+    }
+
+    private String calculateExperience(String date)
+    {
+        String [] splitText = date.split("/");
+        int year = Integer.parseInt(splitText[0]);
+        int month = Integer.parseInt(splitText[1]);
+        int day = Integer.parseInt(splitText[2]);
+        LocalDate bday = LocalDate.of(year,month,day);
+        LocalDate today = LocalDate.now();
+        Period age = Period.between(bday, today);
+        String years = String.valueOf(age.getYears());
+        String months = String.valueOf(age.getMonths());
+        String yearText, monthText;
+        if(age.getYears() > 1 && age.getMonths() > 1)
+        {
+            yearText = " years "; monthText =" months";
+        }
+        else if(age.getYears() < 1 && age.getMonths() > 1)
+        {
+            yearText = " year "; monthText = " months";
+        }
+        else if(age.getYears() > 1 && age.getMonths() < 1)
+        {
+            yearText = " years "; monthText = " month";
+        }
+        else
+        {
+            yearText = " year "; monthText = " month";
+        }
+        return years+yearText+months+monthText;
     }
 
     @Override
