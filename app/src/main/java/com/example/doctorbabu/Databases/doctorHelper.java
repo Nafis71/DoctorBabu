@@ -2,6 +2,7 @@ package com.example.doctorbabu.Databases;
 
 public class doctorHelper {
     String uId,doctorId,title,fullName,email,district,area,doctorType,gender,bmdc,nid,dateofBirth,photoUrl ="null";
+    int rating=0,onlineStatus=0;
 
     public String getuId() {
         return uId;
@@ -13,6 +14,14 @@ public class doctorHelper {
 
     public String getDoctorId() {
         return doctorId;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public void setDoctorId(String doctorId) {

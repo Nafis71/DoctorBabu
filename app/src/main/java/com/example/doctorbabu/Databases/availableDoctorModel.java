@@ -2,34 +2,25 @@ package com.example.doctorbabu.Databases;
 
 public class availableDoctorModel {
     String area,bmdc,dateofBirth,district,doctorId,doctorType,email,fullName,gender,nid,photoUrl,title,uId,currentlyWorking,workingExperience,degrees,specialty;
+    int onlineStatus;
     float rating;
 
     public availableDoctorModel() {
     }
-
-    public availableDoctorModel(String area, String bmdc, String dateofBirth, String district, String doctorId, String doctorType, String email, String fullName, String gender, String nid, String photoUrl, float rating, String title, String uId) {
-        this.area = area;
-        this.bmdc = bmdc;
-        this.dateofBirth = dateofBirth;
-        this.district = district;
-        this.doctorId = doctorId;
-        this.doctorType = doctorType;
-        this.email = email;
-        this.fullName = fullName;
-        this.gender = gender;
-        this.nid = nid;
-        this.photoUrl = photoUrl;
-        this.rating = rating;
-        this.title = title;
-        this.uId = uId;
-    }
-
     public String getArea() {
         return area;
     }
 
     public String getWorkingExperience() {
         return workingExperience;
+    }
+
+    public int getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public void setOnlineStatus(int onlineStatus) {
+        this.onlineStatus = onlineStatus;
     }
 
     public String getDegrees() {

@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:elevation="2dp"
-        app:menu="@menu/nav_items" />
+        app:menu="@menu/nav_items_doctor" />
 
 </RelativeLayout>

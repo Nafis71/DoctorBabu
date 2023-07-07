@@ -134,7 +134,7 @@
                             android:id="@+id/ratingbar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/bmdcNumberSuffix"
+                            android:layout_below="@+id/profilePicture"
                             android:rating="3.5"
                             android:layout_marginStart="20dp"
                             android:stepSize="0.5"

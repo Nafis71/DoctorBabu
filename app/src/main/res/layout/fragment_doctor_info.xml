@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".patient.DoctorInfo">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F7F9F9"
+            >
+            <ImageView
+                android:id = "@+id/goback"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/goback"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile"
+                android:fontFamily="@font/rubik"
+                android:layout_toEndOf="@id/goback"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                />
+            <ImageView
+                android:id="@+id/outlinedLove"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:src = "@drawable/blanklove"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F7F9F9"
+            >
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profile_picture"
+                android:scaleType="centerCrop"
+                android:id="@+id/profilePicture"
+                app:layout_constraintDimensionRatio="1:1"
+                app:shapeAppearanceOverlay="@style/RoundedSquare"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                >
+
+            </com.google.android.material.imageview.ShapeableImageView>
+            <TextView
+                android:id="@+id/doctorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tonmoy"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/profilePicture"
+                android:layout_alignParentTop="true"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/doctorDegree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="left"
+                android:text="Medical officer"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:layout_below="@+id/doctorName"
+                android:layout_toEndOf="@+id/profilePicture"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/doctorSpecialties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "General Physician"
+                android:layout_below="@+id/doctorDegree"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#4F5FDE"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/workinginText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "Working in"
+                android:layout_below="@+id/doctorSpecialties"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="11sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/currentlyWorking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "Doctor's Point Hospital"
+                android:textStyle="bold"
+                android:layout_below="@+id/workinginText"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
+                android:textSize="13sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                >
+
+            </TextView>
+            <ImageView
+                android:id = "@+id/onlineStatusBanner"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:src="@drawable/foldedbanner"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                />
+            <TextView
+                android:id = "@+id/onlineStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Online"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="27dp"
+                android:layout_marginTop="27dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:fontFamily="@font/rubik"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+            <ImageView
+                android:id = "@+id/offlineStatusBanner"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:src="@drawable/foldedbannerred"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+
+                />
+            <TextView
+                android:id = "@+id/offlineStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offline"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="27dp"
+                android:layout_marginTop="21dp"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:fontFamily="@font/rubik"
+                android:textStyle="bold"
+                android:visibility="gone"
+
+                />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/ratingTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/totalRating"
+                android:textSize="13sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                />
+            <ImageView
+                android:id = "@+id/ratingIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src = "@drawable/star"
+                android:layout_below="@+id/ratingTxt"
+                android:layout_marginStart="10dp"
+                />
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="12sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_toEndOf="@id/ratingIcon"
+                android:layout_below="@+id/ratingTxt"
+                />
+            <View
+                android:id = "@+id/firstdivider"
+                android:layout_width="2dp"
+                android:layout_height="35dp"
+                android:background="@drawable/doted"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/ratingTxt"
+                android:layout_marginStart="30dp"
+                />
+            <TextView
+                android:id="@+id/totalExperienceTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/totalexperience"
+                android:textSize="13sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                android:layout_toEndOf="@id/firstdivider"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="30dp"
+                />
+            <TextView
+                android:id="@+id/totalExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:layout_toEndOf="@id/firstdivider"
+                android:layout_marginStart="30dp"
+                android:layout_below="@+id/totalExperienceTxt"
+                />
+            <View
+                android:id = "@+id/lastdivider"
+                android:layout_width="2dp"
+                android:layout_height="35dp"
+                android:background="@drawable/doted"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/totalExperienceTxt"
+                android:layout_marginStart="30dp"
+                />
+            <TextView
+                android:id="@+id/bmdcTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bmdcNumber"
+                android:textSize="13sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                android:layout_toEndOf="@id/lastdivider"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="30dp"
+                />
+            <TextView
+                android:id="@+id/bmdc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13382"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:layout_toEndOf="@id/lastdivider"
+                android:layout_marginStart="30dp"
+                android:layout_below="@+id/bmdcTxt"
+                />
+
+        </RelativeLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/availableforText2"
+            android:id="@+id/bar"
+
+            />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dsText2"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="#F7F9F9"
+            >
+            <com.google.android.material.tabs.TabItem
+                android:id ="@+id/tabDepartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
+
+            </com.google.android.material.tabs.TabItem>
+            <com.google.android.material.tabs.TabItem
+                android:id ="@+id/tabSymptoms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.tabs.TabItem>
+            <com.google.android.material.tabs.TabItem
+                android:id ="@+id/tabReviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.tabs.TabItem>
+
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:id= "@+id/vPager"
+            >
+
+        </androidx.viewpager2.widget.ViewPager2>
+    </LinearLayout>
+</ScrollView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            app:cardElevation="29dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/consultationFeeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/consultationFee"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    >
+
+                </TextView>
+                <TextView
+                    android:id="@+id/consultationFeeAmountIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u09F3"
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#4F5FDE"
+                    android:textStyle="bold"
+                    android:layout_below="@id/consultationFeeText"
+                    >
+
+                </TextView>
+                <TextView
+                    android:id="@+id/consultationFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="210"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="#4F5FDE"
+                    android:textStyle="bold"
+                    android:layout_below="@id/consultationFeeText"
+                    android:layout_toEndOf="@+id/consultationFeeAmountIcon"
+                    >
+
+                </TextView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/currentlyWorkingCard"
+                    android:layout_width="155dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_centerVertical="true"
+                    style="@style/Widget.Material3.CardView.Outlined"
+                    app:strokeColor="#C2C2C2"
+                    app:strokeWidth="1dp"
+                    android:layout_alignParentEnd="true"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
+                            android:src="@drawable/videocall"
+                            android:layout_marginStart="5dp"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/videoCallIcon"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:text="@string/seeDoctorNow"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/roboto"
+                            android:textColor="#4F5FDE"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:padding="6dp"
+                            android:layout_toEndOf="@id/videoCallIcon"
+                            android:layout_centerVertical="true"
+                            >
+                        </TextView>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

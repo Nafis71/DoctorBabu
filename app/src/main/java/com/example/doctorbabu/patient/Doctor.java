@@ -8,13 +8,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.doctorbabu.Databases.availableDoctorAdapter;
 import com.example.doctorbabu.Databases.availableDoctorModel;
 import com.example.doctorbabu.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +40,7 @@ public class Doctor extends Fragment {
 
     availableDoctorAdapter adapter;
     ArrayList<availableDoctorModel> list;
-
+    int count = 0;
 
     public Doctor() {
         // Required empty public constructor
@@ -72,26 +77,19 @@ public class Doctor extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
+                count = 0;
                 for(DataSnapshot snap : snapshot.getChildren())
                 {
                     availableDoctorModel model = snap.getValue(availableDoctorModel.class);
                     assert model != null;
-                    if(model.getRating() >= 4.8)
+                    if(model.getRating() >= 4.8 && model.getOnlineStatus() != 0)
                     {
-                        DatabaseReference currentlyWorkingReference = database.getReference("doctorCurrentlyWorking");
-                        currentlyWorkingReference.child(model.getDoctorId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                model.setCurrentlyWorking(String.valueOf(snapshot.child("hospitalName").getValue()));
-//                                String workingExperience = calculateExperience(String.valueOf(snapshot.child("joiningDate").getValue()));
-//                                model.setWorkingExperience(workingExperience);
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                throw error.toException();
-                            }
-                        });
-                        list.add(model);
+                        if(count < 11)
+                        {
+                            list.add(model);
+                            count++;
+                        }
+
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -104,38 +102,6 @@ public class Doctor extends Fragment {
         });
 
     }
-
-    private String calculateExperience(String date)
-    {
-        String [] splitText = date.split("/");
-        int year = Integer.parseInt(splitText[0]);
-        int month = Integer.parseInt(splitText[1]);
-        int day = Integer.parseInt(splitText[2]);
-        LocalDate bday = LocalDate.of(year,month,day);
-        LocalDate today = LocalDate.now();
-        Period age = Period.between(bday, today);
-        String years = String.valueOf(age.getYears());
-        String months = String.valueOf(age.getMonths());
-        String yearText, monthText;
-        if(age.getYears() > 1 && age.getMonths() > 1)
-        {
-            yearText = " years "; monthText =" months";
-        }
-        else if(age.getYears() < 1 && age.getMonths() > 1)
-        {
-            yearText = " year "; monthText = " months";
-        }
-        else if(age.getYears() > 1 && age.getMonths() < 1)
-        {
-            yearText = " years "; monthText = " month";
-        }
-        else
-        {
-            yearText = " year "; monthText = " month";
-        }
-        return years+yearText+months+monthText;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

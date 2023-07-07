@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="0dp"
     android:orientation="vertical"
     >
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/card"
+        android:layout_marginBottom="15dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,6 +27,7 @@
                 app:cardCornerRadius="14dp"
                 >
                 <TextView
+                    android:id="@+id/onlineStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/onlineStatus"
@@ -51,7 +52,7 @@
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             >
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tonmoy"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -75,7 +76,7 @@
 
         </TextView>
         <TextView
-            android:id="@+id/doctorType"
+            android:id="@+id/doctorDegree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -85,6 +86,7 @@
             android:fontFamily="@font/roboto"
             android:textColor="#666666"
             android:textStyle="bold"
+            android:textSize="12sp"
             android:layout_below="@+id/doctorName"
             android:layout_toEndOf="@+id/profilePicture"
             >
@@ -98,7 +100,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/profilePicture"
-            android:layout_below="@+id/doctorType"
+            android:layout_below="@+id/doctorSpecialties"
             >
         </ImageView> <TextView
             android:id="@+id/rating"
@@ -111,65 +113,183 @@
             android:fontFamily="@font/roboto"
             android:textColor="#666666"
             android:textStyle="bold"
-            android:textSize="13sp"
-            android:layout_below="@+id/doctorType"
+            android:textSize="12sp"
+            android:layout_below="@+id/doctorSpecialties"
             >
 
         </TextView>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="20dp"
-                android:id = "@+id/jobbag"
-                android:src = "@drawable/jobbag"
-                android:layout_toEndOf="@+id/rating"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_below="@id/doctorType"
-                >
-            </ImageView>
+         <TextView
+             android:id="@+id/doctorSpecialties"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text = "General Physician"
+             android:layout_below="@+id/doctorDegree"
+             android:layout_toEndOf="@id/profilePicture"
+             android:layout_marginStart="20dp"
+             android:textSize="12sp"
+             android:fontFamily="@font/roboto"
+             android:textColor="#4F5FDE"
+             >
+
+         </TextView>
             <TextView
-                android:id="@+id/jobexperience"
+                android:id="@+id/workinginText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/jobbag"
-                android:layout_marginStart="3dp"
-                android:text="5+ years experience"
+                android:text = "Working in"
+                android:layout_below="@+id/rating"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
+                android:textSize="11sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/currentlyWorking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "Doctor's Point Hospital"
+                android:textStyle="bold"
+                android:layout_below="@+id/workinginText"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
+                android:textSize="13sp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:layout_below="@+id/doctorType"
+                >
 
+            </TextView>
+            <TextView
+                android:id="@+id/availableforText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "Available for"
+                android:layout_below="@+id/currentlyWorking"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="11sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="#666666"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/availableforText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "Instant Video Call"
+                android:textStyle="bold"
+                android:layout_below="@+id/availableforText"
+                android:layout_toEndOf="@id/profilePicture"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="13sp"
+                android:fontFamily="@font/rubik"
+                android:textColor="@color/green_shade_1"
                 >
 
             </TextView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@drawable/doted"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/profilePicture"
-            android:id = "@+id/bar"
-            >
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_below="@id/availableforText2"
+                android:id="@+id/bar"
 
-        </View>
+                />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#E5E8E8"
+                android:background="#ffff"
                 android:layout_below="@id/bar"
                 >
-                <com.google.android.material.button.MaterialButton
+                <TextView
+                    android:id="@+id/amounticon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text = "Take Consultancy"
-                    app:cornerRadius="8dp"
-
+                    android:text="\u09F3"
+                    android:layout_centerVertical="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rubik"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="210"
+                    android:layout_centerVertical="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rubik"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@+id/amounticon"
+                    />
+                <TextView
+                    android:id="@+id/amountDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Incl. VAT) per consultation)"
+                    android:layout_centerVertical="true"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/roboto"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/amount"
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/currentlyWorkingCard"
+                    android:layout_width="155dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_centerVertical="true"
+                    style="@style/Widget.Material3.CardView.Outlined"
+                    app:strokeColor="#C2C2C2"
+                    app:strokeWidth="1dp"
+                    android:layout_toEndOf="@+id/amountDescription"
                     >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
+                            android:src="@drawable/videocall"
+                            android:layout_marginStart="5dp"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/videoCallIcon"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:text="@string/instantVideoCall"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/roboto"
+                            android:textColor="#4F5FDE"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            android:padding="6dp"
+                            android:layout_toEndOf="@id/videoCallIcon"
+                            android:layout_centerVertical="true"
+                            >
 
-                </com.google.android.material.button.MaterialButton>
+                        </TextView>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </RelativeLayout>
 

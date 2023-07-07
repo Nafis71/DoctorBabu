@@ -156,19 +156,21 @@
                     android:layout_marginBottom="15dp"
                     android:layout_below="@id/doctorText"
                     />
+
                 <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/viewAll"
-                    android:textSize="12sp"
-                    android:textColor="#4F5FDE"
-                    android:shadowColor="@color/black_shade_1"
-                    app:cornerRadius="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_toEndOf="@id/doctorText2"
                     android:layout_alignParentTop="true"
+                    android:layout_marginStart="38dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="40dp"/>
+                    android:layout_toEndOf="@id/doctorText2"
+                    android:shadowColor="@color/black_shade_1"
+                    android:text="@string/viewAll"
+                    android:textColor="#4F5FDE"
+                    android:textSize="12sp"
+                    app:cornerRadius="8dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"

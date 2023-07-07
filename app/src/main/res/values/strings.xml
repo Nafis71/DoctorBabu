@@ -149,6 +149,14 @@
     <string name="DO">DO</string>
     <string name="ds">DS</string>
     <string name="bcs">BCS (Health)</string>
+    <string name="totalRating">Total Rating</string>
+    <string name="totalexperience">Total Experience</string>
+    <string name="instantVideoCall">Instant Video Call</string>
+    <string name="bmdcNumber">BMDC Number</string>
+    <string name="seeDoctorNow">See Doctor Now</string>
+    <string name="consultationFee">Consultation Fee</string>
+    <string name="profile">Profile</string>
+
 
 
 </resources>
