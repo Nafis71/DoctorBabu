@@ -73,6 +73,7 @@ public class Doctor extends Fragment {
         list =  new ArrayList<>();
         adapter = new availableDoctorAdapter(requireContext(),list);
         recyclerView.setAdapter(adapter);
+        recyclerView.smoothScrollToPosition(adapter.getItemCount());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -108,7 +109,6 @@ public class Doctor extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_doctor, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         return view;
     }
 }

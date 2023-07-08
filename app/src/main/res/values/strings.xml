@@ -156,7 +156,9 @@
     <string name="seeDoctorNow">See Doctor Now</string>
     <string name="consultationFee">Consultation Fee</string>
     <string name="profile">Profile</string>
-
+    <string name="tellusaboutyourself">Tell us about yourself</string>
+    <string name="writesomethingaboutyou">Write something about you</string>
+    <string name="clearAll">Clear All</string>
 
 
 </resources>

@@ -151,6 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="70dp"
             android:hint="Leaving Date"
             app:hintAnimationEnabled="true"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
@@ -163,7 +164,6 @@
                 android:inputType="none"
                 android:textSize="14sp"
                 android:padding="7dp"
-
                 />
         </com.google.android.material.textfield.TextInputLayout>
     </GridLayout>

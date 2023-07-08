@@ -77,9 +77,9 @@ String doctorId;
 FirebaseDatabase database;
 TextInputLayout hospitalNameLayout,designationLayout,joiningDateLayout,leavingDateLayout,departmentLayout;
 AutoCompleteTextView hospitalName,designation,joiningDate,department,leavingDate;
-ImageView profilePicture,editProfilePicture,medicalDegreesEdit,specialtiesEdit,currentlyWorkingAtEdit,pastExperienceEdit;
+ImageView profilePicture,editProfilePicture,medicalDegreesEdit,specialtiesEdit,currentlyWorkingAtEdit,pastExperienceEdit,aboutYouEdit;
 TextView doctorName,doctorDegree,medicalDegree,doctorSpecialties,period,doctorSpecialtiesDownField,bmdc,
-        currentHospitalName,designationName,departmentName,workingStatusText,joinDateText;
+        currentHospitalName,designationName,departmentName,workingStatusText,joinDateText,about;
 CheckBox MBBS,BMBS,MBChC,MBChB,MBBCh,MD,DO,DS,BCS,generalPhysician,gynecologist,paediatrician,
         dermatologist,psychiatrist,neurologist,ophthalmologist,nutritionist,cardiologist,workingStatus;
 Button confirmList;
@@ -160,6 +160,14 @@ doctorPastExperienceAdapter recyclerAdapter;
                 addPastExperience();
             }
         });
+        aboutYouEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(),doctorAboutYou.class);
+                intent.putExtra("DoctorId",doctorId);
+                startActivity(intent);
+            }
+        });
     }
     public void viewBinding() {
         profilePicture = requireView().findViewById(R.id.profilePicture);
@@ -184,6 +192,8 @@ doctorPastExperienceAdapter recyclerAdapter;
         bottomBar = requireActivity().findViewById(R.id.bottomView);
         joinDateText = requireView().findViewById(R.id.joinDateText);
         pastExperienceEdit = requireView().findViewById(R.id.pastExperienceEdit);
+        aboutYouEdit = requireView().findViewById(R.id.aboutYouEdit);
+        about = requireView().findViewById(R.id.about);
     }
     public void getData()
     {
@@ -215,6 +225,14 @@ doctorPastExperienceAdapter recyclerAdapter;
                 } else {
                     profilePicture.setImageResource(R.drawable.profile_picture);
                 }
+                if(!String.valueOf(snapshot.child("about").getValue()).equals("null"))
+                {
+                    about.setText(String.valueOf(snapshot.child("about").getValue()));
+                }
+                else {
+                    about.setText("Write something about you");
+                }
+                ratingBar.setRating(Float.parseFloat(String.valueOf(snapshot.child("rating").getValue())));
             }
 
             @Override
@@ -233,47 +251,55 @@ doctorPastExperienceAdapter recyclerAdapter;
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                 {
-                    workingStatusText.setVisibility(View.GONE);
-                    currentHospitalName.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
-                    designationName.setText(String.valueOf(snapshot.child("designation").getValue()));
-                    departmentName.setText(String.valueOf(snapshot.child("department").getValue()));
-                    joinDateText.setText(String.valueOf(snapshot.child("joiningDate").getValue()));
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            String date = String.valueOf(snapshot.child("joiningDate").getValue());
-                            String [] splitText = date.split("/");
-                            int year = Integer.parseInt(splitText[0]);
-                            int month = Integer.parseInt(splitText[1]);
-                            int day = Integer.parseInt(splitText[2]);
-                            LocalDate bday = LocalDate.of(year,month,day);
-                            LocalDate today = LocalDate.now();
-                            Period age = Period.between(bday, today);
-                            String years = String.valueOf(age.getYears());
-                            String months = String.valueOf(age.getMonths());
-                            String yearText, monthText;
-                            if(age.getYears() > 1 && age.getMonths() > 1)
-                            {
-                                yearText = " years "; monthText =" months";
+                    if(!String.valueOf(snapshot.child("hospitalName").getValue()).equals("null"))
+                    {
+                        workingStatusText.setVisibility(View.GONE);
+                        currentHospitalName.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                        designationName.setText(String.valueOf(snapshot.child("designation").getValue()));
+                        departmentName.setText(String.valueOf(snapshot.child("department").getValue()));
+                        joinDateText.setText(String.valueOf(snapshot.child("joiningDate").getValue()));
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                String date = String.valueOf(snapshot.child("joiningDate").getValue());
+                                String [] splitText = date.split("/");
+                                int year = Integer.parseInt(splitText[0]);
+                                int month = Integer.parseInt(splitText[1]);
+                                int day = Integer.parseInt(splitText[2]);
+                                LocalDate bday = LocalDate.of(year,month,day);
+                                LocalDate today = LocalDate.now();
+                                Period age = Period.between(bday, today);
+                                String years = String.valueOf(age.getYears());
+                                String months = String.valueOf(age.getMonths());
+                                String yearText, monthText;
+                                if(age.getYears() > 1 && age.getMonths() > 1)
+                                {
+                                    yearText = " years "; monthText =" months";
+                                }
+                                else if(age.getYears() < 1 && age.getMonths() > 1)
+                                {
+                                    yearText = " year "; monthText = " months";
+                                }
+                                else if(age.getYears() > 1 && age.getMonths() < 1)
+                                {
+                                    yearText = " years "; monthText = " month";
+                                }
+                                else
+                                {
+                                    yearText = " year "; monthText = " month";
+                                }
+                                String result = years+yearText+months+monthText;
+                                period.setText(result);
+                                currentlyWorkingCard.setVisibility(View.VISIBLE);
                             }
-                            else if(age.getYears() < 1 && age.getMonths() > 1)
-                            {
-                                yearText = " year "; monthText = " months";
-                            }
-                            else if(age.getYears() > 1 && age.getMonths() < 1)
-                            {
-                                yearText = " years "; monthText = " month";
-                            }
-                            else
-                            {
-                                yearText = " year "; monthText = " month";
-                            }
-                            String result = years+yearText+months+monthText;
-                            period.setText(result);
-                            currentlyWorkingCard.setVisibility(View.VISIBLE);
-                        }
-                    },1500);
+                        },1500);
+                    }
+                    else{
+                        workingStatusText.setVisibility(View.VISIBLE);
+                        currentlyWorkingCard.setVisibility(View.GONE);
+                    }
+
 
                 }
                 else{
@@ -522,10 +548,14 @@ doctorPastExperienceAdapter recyclerAdapter;
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists())
                 {
-                    hospitalName.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
-                    designation.setText(String.valueOf(snapshot.child("designation").getValue()));
-                    department.setText(String.valueOf(snapshot.child("department").getValue()));
-                    joiningDate.setText(String.valueOf(snapshot.child("joiningDate").getValue()));
+                    if(!String.valueOf(snapshot.child("hospitalName").getValue()).equals("null"))
+                    {
+                        hospitalName.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                        designation.setText(String.valueOf(snapshot.child("designation").getValue()));
+                        department.setText(String.valueOf(snapshot.child("department").getValue()));
+                        joiningDate.setText(String.valueOf(snapshot.child("joiningDate").getValue()));
+                    }
+
                 }
 
             }
@@ -576,15 +606,34 @@ doctorPastExperienceAdapter recyclerAdapter;
                 String leaveDate;
                 if(!workingStatus.isChecked())
                 {
+                    Random random = new Random();
+                    String serialNumber = String.valueOf(random.nextInt(500)+200);
                     leaveDate = leavingDate.getText().toString().trim();
+                    DatabaseReference reference = database.getReference("doctorPastExperience");
+                    HashMap<String,String> data = new HashMap<>();
+                    data.put("hospitalName",hospital);data.put("department",dept);
+                    data.put("designation",desig);data.put("joiningDate",joinDate);
+                    data.put("leavingDate",leaveDate);
+                    reference.child(doctorId).child(serialNumber).setValue(data);
+                    HashMap<String,String> secondData = new HashMap<>();
+                    secondData.put("hospitalName","null");secondData.put("department","null");
+                    secondData.put("designation","null");secondData.put("joiningDate","null");
+                    reference = database.getReference("doctorCurrentlyWorking");
+                    reference.child(doctorId).setValue(secondData);
+                    bottomSheetCurrentlyWorking.cancel();
+                    Snackbar.make(parentLayout,"Information Updated Sucessfully",Snackbar.LENGTH_LONG).show();
                 }
-                DatabaseReference reference = database.getReference("doctorCurrentlyWorking");
-                reference.child(doctorId).child("joiningDate").setValue(joinDate);
-                reference.child(doctorId).child("department").setValue(dept);
-                reference.child(doctorId).child("designation").setValue(desig);
-                reference.child(doctorId).child("hospitalName").setValue(hospital);
-                bottomSheetCurrentlyWorking.cancel();
-                Snackbar.make(parentLayout,"Information Updated Sucessfully",Snackbar.LENGTH_LONG).show();
+                else
+                {
+                    DatabaseReference reference = database.getReference("doctorCurrentlyWorking");
+                    HashMap<String,String> data = new HashMap<>();
+                    data.put("hospitalName",hospital);data.put("department",dept);
+                    data.put("designation",desig);data.put("joiningDate",joinDate);
+                    reference.child(doctorId).setValue(data);
+                    bottomSheetCurrentlyWorking.cancel();
+                    Snackbar.make(parentLayout,"Information Updated Sucessfully",Snackbar.LENGTH_LONG).show();
+                }
+
             }
         });
         bottomSheetCurrentlyWorking.setContentView(currentlyWorkingView);
@@ -682,6 +731,7 @@ doctorPastExperienceAdapter recyclerAdapter;
         list = new ArrayList<>();
         recyclerAdapter = new doctorPastExperienceAdapter(requireContext(),list);
         recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.smoothScrollToPosition(recyclerAdapter.getItemCount());
         DatabaseReference reference = database.getReference("doctorPastExperience");
         reference.child(doctorId).addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")

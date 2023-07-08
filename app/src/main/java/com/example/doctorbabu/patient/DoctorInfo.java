@@ -193,16 +193,19 @@ public class DoctorInfo extends Fragment {
         experienceReference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String date = String.valueOf(snapshot.child("joiningDate").getValue());
-                String [] splitText = date.split("/");
-                int year = Integer.parseInt(splitText[0]);
-                int month = Integer.parseInt(splitText[1]);
-                int day = Integer.parseInt(splitText[2]);
-                LocalDate bday = LocalDate.of(year,month,day);
-                LocalDate today = LocalDate.now();
-                Period period = Period.between(bday, today);
-                String years = String.valueOf(period.getYears());
-                periods.add(Integer.parseInt(years));
+                if(!String.valueOf(snapshot.child("joiningDate").getValue()).equals("null"))
+                {
+                    String date = String.valueOf(snapshot.child("joiningDate").getValue());
+                    String [] splitText = date.split("/");
+                    int year = Integer.parseInt(splitText[0]);
+                    int month = Integer.parseInt(splitText[1]);
+                    int day = Integer.parseInt(splitText[2]);
+                    LocalDate bday = LocalDate.of(year,month,day);
+                    LocalDate today = LocalDate.now();
+                    Period period = Period.between(bday, today);
+                    String years = String.valueOf(period.getYears());
+                    periods.add(Integer.parseInt(years));
+                }
             }
 
             @Override
@@ -223,9 +226,9 @@ public class DoctorInfo extends Fragment {
                 totalExperienceView.setText(totalExperienceString);
             }
         },1000);
-
-
-
+        doctorInfoPageAdapter adapter = new doctorInfoPageAdapter(requireActivity(),doctorId);
+        vPager.setAdapter(adapter);
+        new TabLayoutMediator(tabs,vPager,((tab, position) ->tab.setText(titles[position]))).attach();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

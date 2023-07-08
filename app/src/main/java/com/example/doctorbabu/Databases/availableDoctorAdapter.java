@@ -58,7 +58,12 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
                     if(task.getResult().exists())
                     {
                         DataSnapshot snapshot = task.getResult();
-                        holder.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                        if(!String.valueOf(snapshot.child("hospitalName").getValue()).equals("null")) {
+                            holder.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                        }
+                        else{
+                            holder.currentlyWorking.setText("N/A");
+                        }
                     }
                 }
             }

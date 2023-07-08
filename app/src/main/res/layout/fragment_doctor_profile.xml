@@ -135,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profilePicture"
-                            android:rating="3.5"
+                            android:rating="0.0"
                             android:layout_marginStart="20dp"
                             android:stepSize="0.5"
                             style="@style/Widget.AppCompat.RatingBar.Indicator"
@@ -153,12 +153,11 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="58dp"
+                            android:layout_marginTop="55dp"
                             android:layout_marginBottom="1dp"
                             android:layout_marginEnd="5dp"
                             android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
-                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
                         <TextView
@@ -166,7 +165,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto"
-                            android:text=""
                             android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorName"
                             android:layout_centerHorizontal="true"
@@ -295,9 +293,9 @@
 
                             />
                     <TextView
+                        android:id="@+id/about"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Write something about you"
                         android:fontFamily="@font/roboto"
                         android:textColor="#666666"
                         android:textSize="13sp"
@@ -404,7 +402,6 @@
                         android:id="@+id/medicalDegree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
                         android:fontFamily="@font/roboto"
                         android:textColor="#666666"
                         android:textSize="13sp"

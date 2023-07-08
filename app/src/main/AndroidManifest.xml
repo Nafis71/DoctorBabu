@@ -16,6 +16,9 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="31">
         <activity
+            android:name=".doctor.doctorAboutYou"
+            android:exported="false" />
+        <activity
             android:name=".patient.ChooseDoctor"
             android:exported="false" />
         <activity

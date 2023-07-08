@@ -48,7 +48,7 @@ import java.util.Date;
 public class SignUp extends AppCompatActivity {
     private ImageView image;
     private TextView signupText,slogan;
-    private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth,address,districtLayout,areaLayout;
+    private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth;
     private TextInputEditText birthDate, passTextfield, fullNameTextfield, emailTextfield,phoneTextfield, heightTextfield,weightTextfield,confirmPasswordTextfield;
     private AutoCompleteTextView gender,district,area;
     private Button signup, signin, buttonDialog;
@@ -271,7 +271,6 @@ public class SignUp extends AppCompatActivity {
         heightTextfield = findViewById(R.id.heightTextfield);
         weightTextfield = findViewById(R.id.weightTextfield);
         confirmPasswordTextfield = findViewById(R.id.confirmPasswordTextfield);
-        districtLayout = findViewById(R.id.districtLayout);
         district = findViewById(R.id.district);
         area = findViewById(R.id.area);
     }

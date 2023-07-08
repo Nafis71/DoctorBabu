@@ -1,7 +1,7 @@
 package com.example.doctorbabu.Databases;
 
 public class doctorHelper {
-    String uId,doctorId,title,fullName,email,district,area,doctorType,gender,bmdc,nid,dateofBirth,photoUrl ="null";
+    String uId,doctorId,title,fullName,email,district,area,doctorType,gender,bmdc,nid,dateofBirth,photoUrl ="null",about="null";
     int rating=0,onlineStatus=0;
 
     public String getuId() {
@@ -26,6 +26,22 @@ public class doctorHelper {
 
     public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public int getOnlineStatus() {
+        return onlineStatus;
+    }
+
+    public void setOnlineStatus(int onlineStatus) {
+        this.onlineStatus = onlineStatus;
     }
 
     public String getDateofBirth() {

@@ -27,6 +27,7 @@ public class DoctorDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_dashboard);
         bottomNavigation = findViewById(R.id.bottomView);
         loadFragment(new DoctorProfile(),true);
+        bottomNavigation.setSelectedItemId(R.id.nav_profile);
 //        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 //            @Override
 //            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
