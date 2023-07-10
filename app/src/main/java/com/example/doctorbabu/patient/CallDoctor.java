@@ -25,6 +25,7 @@ public class CallDoctor extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     FirebaseAuth auth;
     boolean isOkay = false;
+    boolean isIncomingSet = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class CallDoctor extends AppCompatActivity {
                     String status = String.valueOf(snapshot.child("status").getValue());
                     if(Integer.parseInt(status) == 0)
                     {
-                        if(isOkay)
+                        if(isIncomingSet)
                         {
                             return;
                         }
@@ -83,7 +84,9 @@ public class CallDoctor extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         assert user != null;
         reference.child(doctorId).child("incoming").setValue(user.getUid());
-        reference.child(doctorId).addValueEventListener(new ValueEventListener() {
+        reference.child(doctorId).child("status").setValue(1);
+        isIncomingSet = true;
+        reference.child(doctorId).child("isAvailable").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (String.valueOf(snapshot.child("isAvailable").getValue()).equals("true"))
@@ -106,5 +109,12 @@ public class CallDoctor extends AppCompatActivity {
             }
         });
 
+    }
+    public void onBackPressed()
+    {
+        DatabaseReference reference = database.getReference("callRoom");
+        reference.child(doctorId).child("incoming").setValue("null");
+        reference.child(doctorId).child("status").setValue(0);
+        finishAndRemoveTask();
     }
 }
