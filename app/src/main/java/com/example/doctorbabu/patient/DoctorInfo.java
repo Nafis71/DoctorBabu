@@ -1,10 +1,13 @@
 package com.example.doctorbabu.patient;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -40,6 +43,7 @@ public class DoctorInfo extends Fragment {
     FirebaseDatabase database;
     ViewPager2 vPager;
     TabLayout tabs;
+    CardView videoCall;
     TextView doctorNameView,doctorDegreeView,
             doctorSpecialtiesView,currentlyWorkingView,ratingView,totalExperienceView,bmdcView,onlineStatusView,offlineStatusView;
     ImageView profilePictureView,goback,outlinedLove,onlineStatusBanner,offlineStatusBanner;
@@ -96,6 +100,20 @@ public class DoctorInfo extends Fragment {
                 }
             }
         });
+        videoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(),CheckoutDoctor.class);
+                intent.putExtra("doctorId",doctorId);
+                intent.putExtra("doctorTitle",doctorTitle);
+                intent.putExtra("doctorName",doctorName);
+                intent.putExtra("doctorDegree",doctorDegree);
+                intent.putExtra("doctorSpecialty",doctorSpecialty);
+                intent.putExtra("doctorCurrentlyWorking",currentlyWorking);
+                intent.putExtra("photoUrl",photoUrl);
+                startActivity(intent);
+            }
+        });
     }
     public void viewBinding()
     {
@@ -115,6 +133,7 @@ public class DoctorInfo extends Fragment {
         onlineStatusView = requireView().findViewById(R.id.onlineStatus);
         offlineStatusBanner = requireView().findViewById(R.id.offlineStatusBanner);
         offlineStatusView = requireView().findViewById(R.id.offlineStatus);
+        videoCall = requireView().findViewById(R.id.videoCall);
     }
     public void loadData()
     {

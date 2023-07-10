@@ -28,35 +28,35 @@ public class DoctorDashboard extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottomView);
         loadFragment(new DoctorProfile(),true);
         bottomNavigation.setSelectedItemId(R.id.nav_profile);
-//        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                int id = item.getItemId();
-//                int count = 0;
-//                if(id == R.id.nav_home)
-//                {
-//                    if(bottomNavigation.getSelectedItemId() != R.id.nav_home)
-//                        loadFragment(new DoctorHome(),false);
-//
-//                }
-////                else if(id == R.id.nav_inbox)
-////                {
-////                    if(bottomNavigation.getSelectedItemId() != R.id.nav_doctor)
-////                        loadFragment(new Doctor(),false);
-////                }
-////                else if(id == R.id.nav_history)
-////                {
-////                    if(bottomNavigation.getSelectedItemId() != R.id.nav_history)
-////                        loadFragment(new PrescriptionHistory(),false);
-////                }
-////                else
-////                {
-////                    if(bottomNavigation.getSelectedItemId() != R.id.nav_profile)
-////                        loadFragment(new Profile(),false);
-////                }
-//                return true;
-//            }
-//        });
+        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                int count = 0;
+                if(id == R.id.nav_home)
+                {
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_home)
+                        loadFragment(new DoctorHome(),false);
+
+                }
+                else if(id == R.id.nav_call)
+                {
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_call)
+                        loadFragment(new DoctorCallRoom(),false);
+                }
+                else if(id == R.id.nav_history)
+                {
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_history)
+                        loadFragment(new PrescriptionHistory(),false);
+                }
+                else
+                {
+                    if(bottomNavigation.getSelectedItemId() != R.id.nav_profile)
+                        loadFragment(new DoctorProfile(),false);
+                }
+                return true;
+            }
+        });
     }
     public void loadFragment(Fragment fragment, boolean flag)
     {

@@ -42,6 +42,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Databases.doctorPastExperienceAdapter;
 import com.example.doctorbabu.Databases.doctorPastExperienceModel;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.patient.Login;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,6 +52,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -77,7 +79,7 @@ String doctorId;
 FirebaseDatabase database;
 TextInputLayout hospitalNameLayout,designationLayout,joiningDateLayout,leavingDateLayout,departmentLayout;
 AutoCompleteTextView hospitalName,designation,joiningDate,department,leavingDate;
-ImageView profilePicture,editProfilePicture,medicalDegreesEdit,specialtiesEdit,currentlyWorkingAtEdit,pastExperienceEdit,aboutYouEdit;
+ImageView profilePicture,editProfilePicture,medicalDegreesEdit,specialtiesEdit,currentlyWorkingAtEdit,pastExperienceEdit,aboutYouEdit,signout;
 TextView doctorName,doctorDegree,medicalDegree,doctorSpecialties,period,doctorSpecialtiesDownField,bmdc,
         currentHospitalName,designationName,departmentName,workingStatusText,joinDateText,about;
 CheckBox MBBS,BMBS,MBChC,MBChB,MBBCh,MD,DO,DS,BCS,generalPhysician,gynecologist,paediatrician,
@@ -168,6 +170,12 @@ doctorPastExperienceAdapter recyclerAdapter;
                 startActivity(intent);
             }
         });
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
     }
     public void viewBinding() {
         profilePicture = requireView().findViewById(R.id.profilePicture);
@@ -194,6 +202,7 @@ doctorPastExperienceAdapter recyclerAdapter;
         pastExperienceEdit = requireView().findViewById(R.id.pastExperienceEdit);
         aboutYouEdit = requireView().findViewById(R.id.aboutYouEdit);
         about = requireView().findViewById(R.id.about);
+        signout = requireView().findViewById(R.id.signout);
     }
     public void getData()
     {
@@ -992,6 +1001,16 @@ doctorPastExperienceAdapter recyclerAdapter;
 
             }
         });
+    }
+    public void signOut(){
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("loginAs","");
+        editor.apply();
+        Intent intent = new Intent(requireContext(), DoctorLogin.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

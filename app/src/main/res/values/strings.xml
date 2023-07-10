@@ -8,6 +8,7 @@
     <string name="nav_doctor_title">Find Doctor</string>
     <string name="nav_profile_title">Profile</string>
     <string name="nav_history_title">History</string>
+    <string name="nav_call">Call Room</string>
     <!-- Home Fragment Strings -->
     <string name="languageName">English</string>
     <string name="doctorSearch">Search for a doctor</string>
@@ -156,6 +157,7 @@
     <string name="seeDoctorNow">See Doctor Now</string>
     <string name="consultationFee">Consultation Fee</string>
     <string name="profile">Profile</string>
+    <string name="overview">Overview</string>
     <string name="tellusaboutyourself">Tell us about yourself</string>
     <string name="writesomethingaboutyou">Write something about you</string>
     <string name="clearAll">Clear All</string>

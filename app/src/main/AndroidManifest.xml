@@ -2,8 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -16,8 +23,17 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="31">
         <activity
-            android:name=".doctor.doctorAboutYou"
+            android:name=".patient.CheckoutDoctor"
             android:exported="false" />
+        <activity
+            android:name=".patient.PatientCall"
+            android:exported="false" />
+        <activity
+            android:name=".patient.CallDoctor"
+            android:exported="false"/>
+        <activity
+            android:name=".doctor.doctorAboutYou"
+            android:exported="false"/>
         <activity
             android:name=".patient.ChooseDoctor"
             android:exported="false" />
@@ -32,25 +48,24 @@
             android:exported="false" />
         <activity
             android:name=".LoginOptions"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".patient.EditProfile"
             android:exported="false" />
         <activity
             android:name=".patient.Dashboard"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".patient.SignUp"
             android:exported="false" />
         <activity
             android:name=".patient.Login"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

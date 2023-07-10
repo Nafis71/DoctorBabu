@@ -170,7 +170,7 @@ public class Profile extends Fragment {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("loginAs","");
                 editor.apply();
-                Intent intent = new Intent(getContext(),Login.class);
+                Intent intent = new Intent(requireContext(),Login.class);
                 startActivity(intent);
                 requireActivity().finish();
             }

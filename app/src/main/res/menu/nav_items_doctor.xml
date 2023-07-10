@@ -6,9 +6,9 @@
         android:icon="@drawable/home"
         />
     <item
-        android:id="@+id/nav_inbox"
-        android:title = "@string/nav_items_message"
-        android:icon="@drawable/message"
+        android:id="@+id/nav_call"
+        android:title = "@string/nav_call"
+        android:icon="@drawable/phonecall"
         />
     <item
         android:id="@+id/nav_history"

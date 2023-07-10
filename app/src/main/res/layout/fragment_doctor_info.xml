@@ -406,7 +406,7 @@
 
                 </TextView>
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/currentlyWorkingCard"
+                    android:id="@+id/videoCall"
                     android:layout_width="155dp"
                     android:layout_height="35dp"
                     android:layout_marginTop="15dp"
