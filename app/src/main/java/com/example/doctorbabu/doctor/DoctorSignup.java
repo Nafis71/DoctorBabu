@@ -46,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.Date;
+import java.util.HashMap;
 
 public class DoctorSignup extends AppCompatActivity {
     TextView signUpText,quoteText;
@@ -463,6 +464,11 @@ public class DoctorSignup extends AppCompatActivity {
                                 reference.child(doctorId).setValue(doctorHelper);
                                 reference = database.getReference("doctorID");
                                 reference.child("id").setValue(String.valueOf(doctorID));
+                                reference = database.getReference("callRoom");
+                                HashMap<String,Object> roomSetup = new HashMap<>();
+                                roomSetup.put("incoming","null"); roomSetup.put("isAvailable",false);
+                                roomSetup.put("status",0);
+                                reference.child(doctorId).setValue(roomSetup);
                                 storeLoginInfo();
                                 progressCircular.setVisibility(View.GONE);
                                 AlertDialog.Builder dialog =  new AlertDialog.Builder(DoctorSignup.this);
