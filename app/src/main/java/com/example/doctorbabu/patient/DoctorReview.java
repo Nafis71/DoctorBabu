@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class DoctorReview extends Fragment {
@@ -55,10 +56,11 @@ public class DoctorReview extends Fragment {
         adapter = new doctorReviewAdapter(requireContext(),list);
         recyclerView.setAdapter(adapter);
         DatabaseReference reference = database.getReference("reviews");
-        reference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(doctorId).orderByChild("rating").limitToLast(20).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 if(snapshot.exists())
                 {
                     for(DataSnapshot snap : snapshot.getChildren())
@@ -66,6 +68,7 @@ public class DoctorReview extends Fragment {
                         doctorReviewModel model = snap.getValue(doctorReviewModel.class);
                         list.add(model);
                     }
+                    Collections.reverse(list);
                     adapter.notifyDataSetChanged();
                 }
             }
