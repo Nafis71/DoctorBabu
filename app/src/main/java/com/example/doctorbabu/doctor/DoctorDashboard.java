@@ -168,19 +168,19 @@ public class DoctorDashboard extends AppCompatActivity {
             System.out.println(e);
         }
         String notificationText = callerName + " is trying to call you";
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification notification = new Notification.Builder(this)
-                .setLargeIcon(image)
-                .setSmallIcon(R.drawable.applogo)
-                .setContentText(notificationText)
-                .setSubText("New Call Room Created")
-                .setChannelId(CHANNEL_ID)
-                .build();
+    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    Notification notification = new Notification.Builder(this)
+            .setLargeIcon(image)
+            .setSmallIcon(R.drawable.applogo)
+            .setContentText(notificationText)
+            .setSubText("New Call Room Created")
+            .setChannelId(CHANNEL_ID)
+            .build();
         notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID,"Calling Channel",NotificationManager.IMPORTANCE_HIGH));
         notificationManager.notify(NOTIFICATION_ID,notification);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(VibrationEffect.createOneShot(1500, VibrationEffect.DEFAULT_AMPLITUDE));
-    }
+}
     public void onBackPressed()
     {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);

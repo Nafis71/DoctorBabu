@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import timber.log.Timber;
 
 public class CallDoctor extends AppCompatActivity {
     ImageView profilePicture;
@@ -65,7 +68,12 @@ public class CallDoctor extends AppCompatActivity {
                         {
                             return;
                         }
+                        auth = FirebaseAuth.getInstance();
+                        FirebaseUser user = auth.getCurrentUser();
+                        assert user != null;
+                        reference.child(doctorId).child("incoming").setValue(user.getUid());
                         ring();
+                        isIncomingSet = true;
                         callingWhomText.setText("Ringing");
                     }
                 }
@@ -79,36 +87,36 @@ public class CallDoctor extends AppCompatActivity {
     }
     public void ring()
     {
-        DatabaseReference reference = database.getReference("callRoom");
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        assert user != null;
-        reference.child(doctorId).child("incoming").setValue(user.getUid());
-        reference.child(doctorId).child("status").setValue(1);
-        isIncomingSet = true;
-        reference.child(doctorId).child("isAvailable").addValueEventListener(new ValueEventListener() {
+        DatabaseReference callReference = database.getReference("callRoom");
+        callReference.child(doctorId).child("isAvailable").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (String.valueOf(snapshot.child("isAvailable").getValue()).equals("true"))
+                if(snapshot.exists())
                 {
-                    if(isOkay)
+                    if(String.valueOf(snapshot.getValue()).equals("true"))
                     {
-                        return;
+                        if(isOkay)
+                        {
+                            return;
+                        }
+                        isOkay =true;
+                        Intent intent = new Intent(CallDoctor.this,PatientCall.class);
+                        auth = FirebaseAuth.getInstance();
+                        FirebaseUser user = auth.getCurrentUser();
+                        assert user != null;
+                        intent.putExtra("userId",user.getUid());
+                        intent.putExtra("doctorId",doctorId);
+                        startActivity(intent);
+                        finish();
                     }
-                    isOkay =true;
-                    Intent intent = new Intent(CallDoctor.this,PatientCall.class);
-                    intent.putExtra("userId",user.getUid());
-                    intent.putExtra("doctorId",doctorId);
-                    startActivity(intent);
-                    finish();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
     }
     public void onBackPressed()
     {
