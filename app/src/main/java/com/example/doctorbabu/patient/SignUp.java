@@ -701,7 +701,8 @@ public class SignUp extends AppCompatActivity {
         reference.child(userId).child("group").setValue("null");
         reference = rootnode.getReference("appointmentPatient");
         reference.child(userId).child("done").setValue("0");
-        reference.child(userId).child("pending").setValue("0");
+        reference = rootnode.getReference("consultancyPatient");
+        reference.child(userId).child("done").setValue(0);
         reference = rootnode.getReference("rewardPatient");
         reference.child(userId).child("reward").setValue("50");
     }

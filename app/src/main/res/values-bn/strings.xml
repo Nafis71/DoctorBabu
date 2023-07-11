@@ -9,8 +9,9 @@
     <string name="nav_doctor_title">ডাক্তার খুঁজুন</string>
     <string name="nav_profile_title">প্রোফাইল</string>
     <string name="nav_history_title">ইতিহাস</string>
-
+    <string name="nav_call">Call Room</string>
     <!-- Home Fragment Strings. -->
+    <string name="consultancyTaken">কনসালটেন্সি নেওয়া হয়েছে</string>
     <string name ="languageName">বাংলা</string>
     <string name="doctorSearch">একজন ডাক্তারের সন্ধান করুন</string>
     <string name="bookAppointment">বুক অ্যাপয়েন্টমেন্ট</string>
@@ -154,7 +155,7 @@
     <string name="totalexperience">মোট অভিজ্ঞতা</string>
     <string name="instantVideoCall">তাত্ক্ষণিক ভিডিও কল</string>
     <string name="bmdcNumber">বিএমডিসি নম্বর</string>
-    <string name="seeDoctorNow">এখন ডাক্তার দেখুন</string>
+    <string name="seeDoctorNow">ডাক্তার দেখুন</string>
     <string name="consultationFee">কনসালটেশন ফি</string>
     <string name="profile">প্রোফাইল</string>
 </resources>

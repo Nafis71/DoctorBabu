@@ -111,7 +111,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="110dp"
+            android:layout_height="115dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
@@ -159,7 +159,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="110dp"
+            android:layout_height="115dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
@@ -200,6 +200,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/appointmentDone"
                     android:textAlignment="center"
+                    android:layout_margin="4dp"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -207,7 +208,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="110dp"
+            android:layout_height="115dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="#FEFEFE"
@@ -246,7 +247,8 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
-                    android:text="@string/appointmentPending"
+                    android:text="@string/consultancyTaken"
+                    android:layout_margin="4dp"
                     android:textAlignment="center"
                     android:textSize="13sp"
                     android:textStyle="bold" />

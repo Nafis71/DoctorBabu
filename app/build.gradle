@@ -45,7 +45,7 @@ dependencies {
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     implementation 'com.firebaseui:firebase-ui-database:6.3.0'
     implementation "com.airbnb.android:lottie:6.0.1"
-    implementation ('org.jitsi.react:jitsi-meet-sdk:+') { transitive = true }
+    implementation ('org.jitsi.react:jitsi-meet-sdk:8.1.2') { transitive = true }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

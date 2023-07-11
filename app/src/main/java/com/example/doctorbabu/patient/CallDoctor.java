@@ -72,8 +72,8 @@ public class CallDoctor extends AppCompatActivity {
                         FirebaseUser user = auth.getCurrentUser();
                         assert user != null;
                         reference.child(doctorId).child("incoming").setValue(user.getUid());
-                        ring();
                         isIncomingSet = true;
+                        ring();
                         callingWhomText.setText("Ringing");
                     }
                 }
@@ -122,7 +122,6 @@ public class CallDoctor extends AppCompatActivity {
     {
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("incoming").setValue("null");
-        reference.child(doctorId).child("status").setValue(0);
         finishAndRemoveTask();
     }
 }

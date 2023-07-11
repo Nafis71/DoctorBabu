@@ -338,7 +338,20 @@ public class Profile extends Fragment {
                     {
                         DataSnapshot snapshot = task.getResult();
                         appointmentDone.setText(String.valueOf(snapshot.child("done").getValue()));
-                        appointmentPending.setText(String.valueOf(snapshot.child("pending").getValue()));
+                    }
+                }
+            }
+        });
+        reference = database.getReference("consultancyPatient");
+        reference.child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    if(task.getResult().exists())
+                    {
+                        DataSnapshot snapshot = task.getResult();
+                        appointmentPending.setText(String.valueOf(snapshot.child("done").getValue()));
                     }
                 }
             }

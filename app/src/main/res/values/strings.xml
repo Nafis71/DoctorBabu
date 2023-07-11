@@ -40,6 +40,7 @@
     <string name="neurology">Neurology</string>
     <!-- Home Fragment Bottom Sheet Ends -->
     <!-- Profile Fragment Strings -->
+    <string name="consultancyTaken">Consultancy Taken</string>
     <string name="emailVerified">Email Verified</string>
     <string name="rewardPoint">Reward Points</string>
     <string name="appointmentDone">Appointment Done</string>

@@ -25,9 +25,9 @@ public class doctorInfoPageAdapter extends FragmentStateAdapter {
             case 1:
                 return new DoctorExperience(doctorId);
             case 2:
-                return new Symptom();
+                return new DoctorReview(doctorId);
         }
-        return new Department();
+        return new DoctorExtraInfo(doctorId);
     }
 
     @Override

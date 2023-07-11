@@ -2,14 +2,12 @@ package com.example.doctorbabu.patient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
-import android.util.Log;
+
 import android.webkit.WebView;
 
 import android.widget.ImageView;
@@ -20,15 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
-import org.jitsi.meet.sdk.JitsiMeetActivityDelegate;
-import org.jitsi.meet.sdk.JitsiMeetActivityInterface;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
-import org.jitsi.meet.sdk.JitsiMeetOngoingConferenceService;
 import org.jitsi.meet.sdk.JitsiMeetUserInfo;
-import org.jitsi.meet.sdk.JitsiMeetView;
+
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -147,14 +141,45 @@ public class PatientCall extends AppCompatActivity {
     }
 
     public void callVideoScreen() {
-        JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
-        userInfo.setAvatar(url);
-        userInfo.setDisplayName(name);
-        userInfo.setEmail(email);
-        JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
-                .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
-        JitsiMeetActivity.launch(this, room);
-        finish();
+        if(userId.equals("null"))
+        {
+            JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
+            userInfo.setAvatar(url);
+            userInfo.setDisplayName(name);
+            userInfo.setEmail(email);
+            JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
+                    .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
+            JitsiMeetActivity.launch(this,room);
+            finish();
+        }
+        else{
+            JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
+            userInfo.setAvatar(url);
+            userInfo.setDisplayName(name);
+            userInfo.setEmail(email);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
+                            .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
+                    JitsiMeetActivity.launch(PatientCall.this, room);
+
+                }
+            });
+            thread.start();
+            Intent intent = new Intent(PatientCall.this, PatientReview.class);
+            intent.putExtra("doctorId",doctorId);
+            startActivity(intent);
+            finish();
+
+
+        }
+
 //        String time = String.valueOf(System.currentTimeMillis());
 //        SharedPreferences preferences = getSharedPreferences("callStatus",MODE_PRIVATE);
 //        SharedPreferences.Editor editor = preferences.edit();
