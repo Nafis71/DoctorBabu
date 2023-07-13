@@ -3,6 +3,7 @@ package com.example.doctorbabu.patient;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
@@ -92,6 +94,13 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 callLanguageChanger();
+            }
+        });
+        consultantCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(requireActivity(), AiDoctor.class);
+//                startActivity(intent);
             }
         });
       

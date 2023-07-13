@@ -18,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -46,14 +47,12 @@ public class DoctorDashboard extends AppCompatActivity {
     int check = 0;
     private static  final  String CHANNEL_ID = "Call Channel";
     private static  final  int NOTIFICATION_ID = 100;
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        loadDoctorid();
-        loadCallerId();
+        loadDoctorid(); loadCallerId();
         bottomNavigation = findViewById(R.id.bottomView);
         loadFragment(new DoctorProfile(),true);
         bottomNavigation.setSelectedItemId(R.id.nav_profile);
@@ -115,9 +114,9 @@ public class DoctorDashboard extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         doctorId = preferences.getString("doctorId","loginAs");
     }
+
     public void loadCallerId()
     {
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("incoming").addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,7 +148,13 @@ public class DoctorDashboard extends AppCompatActivity {
                 {
                     callerName = String.valueOf(snapshot.child("fullName").getValue());
                     callerPicture = String.valueOf(snapshot.child("photoUrl").getValue());
-                    notificationManager();
+                    Thread newThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            notificationManager();
+                        }
+                    });
+                    newThread.start();
                 }
             }
 

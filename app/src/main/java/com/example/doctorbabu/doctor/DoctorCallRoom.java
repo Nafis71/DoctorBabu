@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DoctorCallRoom extends Fragment {
     ImageView profilePicture;
     TextView callerIdView,noCallInfo;
-    Button disbandRoom,joinRoom;
+    Button disbandRoom,joinRoom,prescribeMedicine;
     FirebaseDatabase database;
     String doctorId,callerId;
     LottieAnimationView callBackground,noCallBackground;
@@ -54,7 +54,14 @@ public class DoctorCallRoom extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewBinding();
-        loadData();
+        Thread backgroundThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+            }
+        });
+        backgroundThread.start();
+
         joinRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +74,14 @@ public class DoctorCallRoom extends Fragment {
                 disBandRoom();
             }
         });
+        prescribeMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(), DoctorPrescribeMedicine.class);
+                intent.putExtra("patientId",callerId);
+                startActivity(intent);
+            }
+        });
     }
     public void viewBinding(){
         profilePicture = requireView().findViewById(R.id.profilePicture);
@@ -76,6 +91,7 @@ public class DoctorCallRoom extends Fragment {
         callBackground = requireView().findViewById(R.id.callBackground);
         noCallInfo = requireView().findViewById(R.id.noCallInfo);
         noCallBackground = requireView().findViewById(R.id.noCallBackground);
+        prescribeMedicine = requireView().findViewById(R.id.prescribeMedicine);
     }
     public void loadData(){
         DatabaseReference reference = database.getReference("callRoom");
@@ -95,6 +111,7 @@ public class DoctorCallRoom extends Fragment {
                         joinRoom.setVisibility(View.VISIBLE);
                         disbandRoom.setVisibility(View.VISIBLE);
                         callBackground.setVisibility(View.VISIBLE);
+                        prescribeMedicine.setVisibility(View.VISIBLE);
 
                     }
                     else{
@@ -104,6 +121,7 @@ public class DoctorCallRoom extends Fragment {
                         callBackground.setVisibility(View.GONE);
                         noCallBackground.setVisibility(View.VISIBLE);
                         noCallInfo.setVisibility(View.VISIBLE);
+                        prescribeMedicine.setVisibility(View.GONE);
                     }
                 }
             }

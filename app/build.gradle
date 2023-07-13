@@ -10,7 +10,8 @@ android {
     defaultConfig {
         applicationId "com.example.doctorbabu"
         minSdk 27
-        targetSdk 34
+        //noinspection OldTargetApi
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,6 +32,7 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    //noinspection GradleDependency
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-database:20.2.2'
@@ -45,6 +47,7 @@ dependencies {
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     implementation 'com.firebaseui:firebase-ui-database:6.3.0'
     implementation "com.airbnb.android:lottie:6.0.1"
+    //noinspection GradleDependency
     implementation ('org.jitsi.react:jitsi-meet-sdk:8.1.2') { transitive = true }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     testImplementation 'junit:junit:4.13.2'

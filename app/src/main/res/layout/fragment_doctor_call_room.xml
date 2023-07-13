@@ -24,8 +24,9 @@
             android:layout_height="wrap_content"
             android:text="Call Room"
             android:fontFamily="@font/oswald"
-            android:textSize="26sp"
+            android:textSize="25sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"/>
 
@@ -97,11 +98,25 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/joinRoom"
+            android:layout_below="@+id/prescribeMedicine"
             android:shadowColor="@color/black_shade_1"
             android:visibility="gone"
             android:text="Disband Room"
             android:id="@+id/disbandRoom"
+            android:textColor="#4F5FDE"
+            android:textSize="12sp"
+            app:cornerRadius="8dp" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/joinRoom"
+            android:shadowColor="@color/black_shade_1"
+            android:visibility="gone"
+            android:text="Prescribe Medicine"
+            android:id="@+id/prescribeMedicine"
             android:textColor="#4F5FDE"
             android:textSize="12sp"
             app:cornerRadius="8dp" />
