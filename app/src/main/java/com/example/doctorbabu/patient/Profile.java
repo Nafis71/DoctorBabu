@@ -75,7 +75,6 @@ public class Profile extends Fragment {
     }
     public void profileInfoVerify()
     {
-
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = database.getReference("patientProfileTrack");
         reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
