@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:id="@+id/card"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        app:shapeAppearanceOverlay="@style/circular"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        app:srcCompat="@drawable/profile_picture" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DoctorName"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:id="@+id/doctorName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Doctor Department"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:layout_below="@+id/doctorName"
+        android:textSize="12sp"
+        android:layout_marginStart="10dp"
+        android:textColor="#666666"
+        android:textStyle="bold"
+        android:id="@+id/doctorDepartment"/>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@id/profilePicture"
+        android:id="@+id/bar"
+
+        />
+
+
+</RelativeLayout>

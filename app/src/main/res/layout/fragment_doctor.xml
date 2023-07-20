@@ -22,7 +22,7 @@
         >
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/doctorSearch"
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -30,16 +30,40 @@
             app:defaultQueryHint="@string/doctorSearch"
             android:inputType="textPersonName"
             app:iconifiedByDefault="false"
+            android:visibility="gone"
             >
 
         </androidx.appcompat.widget.SearchView>
     </androidx.cardview.widget.CardView>
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_marginTop="0dp"
+        android:visibility="gone"
+        />
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search"
+        app:shimmer_recycler_item_count="3"
+        android:elevation="2dp"
+        android:background="#EBF5FB"
+        android:visibility="gone"
+        >
+    </com.todkars.shimmer.ShimmerRecyclerView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/doctor"
                 android:layout_width="170dp"
@@ -170,12 +194,15 @@
                     android:textColor="#4F5FDE"
                     android:textSize="12sp"
                     app:cornerRadius="8dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/shimmer_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/doctorText2"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor"
+                    app:shimmer_recycler_item_count="10"
+                    android:layout_below="@id/doctorText2"
                     />
 
             </RelativeLayout>

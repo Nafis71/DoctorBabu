@@ -27,6 +27,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
 }
 
 dependencies {
@@ -36,7 +38,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-database:20.2.2'
-    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation 'com.google.firebase:firebase-auth:22.1.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'com.google.firebase:firebase-storage:20.2.1'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
@@ -47,6 +49,8 @@ dependencies {
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     implementation 'com.firebaseui:firebase-ui-database:6.3.0'
     implementation "com.airbnb.android:lottie:6.0.1"
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.todkars:shimmer-recyclerview:0.4.1'
     //noinspection GradleDependency
     implementation ('org.jitsi.react:jitsi-meet-sdk:8.1.2') { transitive = true }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'

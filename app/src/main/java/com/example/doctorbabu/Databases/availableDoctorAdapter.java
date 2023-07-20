@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -89,7 +91,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder{
-        CardView card;
+        LinearLayout card;
         ImageView profilePicture;
         TextView doctorName, doctordegree,rating,doctorSpecialties,currentlyWorking;
 
