@@ -13,7 +13,7 @@
     <!-- Home Fragment Strings. -->
     <string name="consultancyTaken">কনসালটেন্সি নেওয়া হয়েছে</string>
     <string name ="languageName">বাংলা</string>
-    <string name="doctorSearch">একজন ডাক্তারের সন্ধান করুন</string>
+    <string name="doctorSearch">নাম/ডাক্তার কোড/বিভাগ দ্বারা ডাক্তার অনুসন্ধান করুন</string>
     <string name="bookAppointment">বুক অ্যাপয়েন্টমেন্ট</string>
     <string name="bookAppointmentDescription">এমবিবিএস এবং বিশেষজ্ঞ ডাক্তারদের সাথে অ্যাপয়েন্টমেন্ট বুক করুন</string>
     <string name="takeConsultancy">কনসালটেন্সি নিন</string>

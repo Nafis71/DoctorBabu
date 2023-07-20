@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="2dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="8dp"
@@ -30,7 +30,8 @@
             app:defaultQueryHint="@string/doctorSearch"
             android:inputType="textPersonName"
             app:iconifiedByDefault="false"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:theme="@style/AppSearchView"
             >
 
         </androidx.appcompat.widget.SearchView>
@@ -52,8 +53,9 @@
         app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search"
         app:shimmer_recycler_item_count="3"
         android:elevation="2dp"
-        android:background="#EBF5FB"
-        android:visibility="gone"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:visibility="visible"
         >
     </com.todkars.shimmer.ShimmerRecyclerView>
 

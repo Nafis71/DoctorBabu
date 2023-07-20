@@ -12,4 +12,7 @@
     <style name="color">
         <item name="colorAccent">@color/black</item>
     </style>
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

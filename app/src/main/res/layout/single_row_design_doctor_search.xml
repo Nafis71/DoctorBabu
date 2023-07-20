@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="3dp"
+    android:background="#EBF5FB"
     android:id="@+id/card"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.imageview.ShapeableImageView
@@ -41,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
-        android:layout_below="@id/profilePicture"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/doctorDepartment"
         android:id="@+id/bar"
 
         />
