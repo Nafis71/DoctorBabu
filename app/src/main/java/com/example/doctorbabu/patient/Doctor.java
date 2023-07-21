@@ -1,5 +1,6 @@
 package com.example.doctorbabu.patient;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,6 @@ import com.todkars.shimmer.ShimmerRecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import timber.log.Timber;
 
 public class Doctor extends Fragment {
     ViewPager2 vPager;
@@ -212,6 +212,7 @@ public class Doctor extends Fragment {
                     Collections.reverse(recentlyViewedModel);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
+                        @SuppressLint("NotifyDataSetChanged")
                         @Override
                         public void run() {
                             recentlyViewedRecyclerView.hideShimmer();
@@ -224,7 +225,7 @@ public class Doctor extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                    throw error.toException();
             }
         });
 

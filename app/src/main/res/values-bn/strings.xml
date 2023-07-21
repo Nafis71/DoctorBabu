@@ -28,6 +28,7 @@
     <string name="medicineInformationDescription">নির্ধারিত ওষুধ সম্পর্কে আরও জানুন</string>
     <string name="appointmentHistory">অ্যাপয়েন্টমেন্টের ইতিহাস</string>
     <string name="appointmentHistoryDescription">অ্যাপয়েন্টমেন্ট নেওয়া হয়েছে: 0</string>
+    <string name="recentlyViewed">সম্প্রতি দেখা হয়েছে</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->
     <string name="chooseSpecialization">একটি স্পেশালাইজেশন নির্বাচন করুন</string>
@@ -158,4 +159,8 @@
     <string name="seeDoctorNow">ডাক্তার দেখুন</string>
     <string name="consultationFee">কনসালটেশন ফি</string>
     <string name="profile">প্রোফাইল</string>
+    <string name="overview">Overview</string>
+    <string name="tellusaboutyourself">Tell us about yourself</string>
+    <string name="writesomethingaboutyou">Write something about you</string>
+    <string name="clearAll">Clear All</string>
 </resources>
