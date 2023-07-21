@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/profile_picture"
+        android:scaleType="centerCrop"
+        android:id="@+id/profilePicture"
+        app:layout_constraintDimensionRatio="1:1"
+        app:shapeAppearanceOverlay="@style/circular"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        >
+    </com.google.android.material.imageview.ShapeableImageView>
+    <ImageView
+        android:id="@+id/greenDot"
+        android:layout_width="12dp"
+        android:layout_height="15dp"
+        android:src = "@drawable/greendot"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:layout_marginStart="-10dp"
+        />
+
+</RelativeLayout>

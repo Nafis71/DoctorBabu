@@ -141,20 +141,61 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/tabs"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="5dp"
                         android:id= "@+id/vPager"
                         >
 
                     </androidx.viewpager2.widget.ViewPager2>
 
                 </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/recentlyViewed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@+id/DepartmentCard"
+            android:background="#ffff"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/recentlyViewedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recently viewed"
+                android:fontFamily="@font/roboto"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="2dp"
+                />
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/recentlyViewedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed"
+                app:shimmer_recycler_item_count="6"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="visible"
+                android:layout_below="@+id/recentlyViewedText"
+                >
+            </com.todkars.shimmer.ShimmerRecyclerView>
+
+        </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/availableDoctor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_below="@+id/DepartmentCard"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_below="@+id/recentlyViewed"
                 android:background="#ffff"
                 >
                 <TextView

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,9 +27,14 @@ import com.example.doctorbabu.Databases.doctorPastExperienceModel;
 import com.example.doctorbabu.Databases.joiningDates;
 import com.example.doctorbabu.Databases.leavingDates;
 import com.example.doctorbabu.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DoctorInfo extends Fragment {
     FirebaseDatabase database;
@@ -49,6 +56,9 @@ public class DoctorInfo extends Fragment {
     ImageView profilePictureView,goback,outlinedLove,onlineStatusBanner,offlineStatusBanner;
 
     String doctorId,doctorName,doctorTitle,doctorDegree,doctorSpecialty,currentlyWorking,photoUrl,bmdc;
+    RelativeLayout parentLayout;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
     float rating;
     private final String [] titles = new String[]{"Info","Experience","Reviews"};
     public DoctorInfo() {
@@ -92,6 +102,7 @@ public class DoctorInfo extends Fragment {
                 if(toggleButton) {
                     outlinedLove.setImageResource(R.drawable.filledlove);
                     toggleButton = false;
+                    addFavourite();
                 }
                 else
                 {
@@ -134,6 +145,7 @@ public class DoctorInfo extends Fragment {
         offlineStatusBanner = requireView().findViewById(R.id.offlineStatusBanner);
         offlineStatusView = requireView().findViewById(R.id.offlineStatus);
         videoCall = requireView().findViewById(R.id.videoCall);
+        parentLayout = requireView().findViewById(R.id.parentLayout);
     }
     public void loadData()
     {
@@ -248,6 +260,19 @@ public class DoctorInfo extends Fragment {
         doctorInfoPageAdapter adapter = new doctorInfoPageAdapter(requireActivity(),doctorId);
         vPager.setAdapter(adapter);
         new TabLayoutMediator(tabs,vPager,((tab, position) ->tab.setText(titles[position]))).attach();
+    }
+    public void addFavourite(){
+        HashMap<String,String> data = new HashMap<>();
+        data.put("doctorId",doctorId); data.put("photoUrl",photoUrl); data.put("fullName",doctorName); data.put("title",doctorTitle);
+        data.put("specialty",doctorSpecialty);
+        DatabaseReference reference = database.getReference();
+        reference.child("favouriteDoctors").child(user.getUid()).child(doctorId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Snackbar.make(parentLayout,doctorTitle + " "+ doctorName + " added to your favourite list",Snackbar.LENGTH_LONG).show();
+            }
+        });
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

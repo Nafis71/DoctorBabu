@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.doctorbabu.R;
@@ -18,10 +19,13 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class Dashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     FragmentManager fm;
     int check = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,6 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                int count = 0;
                 if(id == R.id.nav_home)
                 {
                     if(bottomNavigation.getSelectedItemId() != R.id.nav_home)
@@ -62,7 +65,7 @@ public class Dashboard extends AppCompatActivity {
     public void loadFragment(Fragment fragment,boolean flag)
     {
         fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true).addToBackStack(null);
+        FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         if(flag)
         {
@@ -70,10 +73,6 @@ public class Dashboard extends AppCompatActivity {
             {
                 ft.add(R.id.container,fragment);
                 check++;
-            }
-            else
-            {
-                ft.replace(R.id.container,fragment);
             }
         }
         else
@@ -83,8 +82,7 @@ public class Dashboard extends AppCompatActivity {
         ft.commit();
 
     }
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Quitting App").setMessage("Are you sure you want to quit?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

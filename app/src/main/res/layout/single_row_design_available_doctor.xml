@@ -45,8 +45,8 @@
 
             </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:src="@drawable/profile_picture"
             android:scaleType="centerCrop"
             android:id="@+id/profilePicture"
@@ -56,67 +56,66 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             >
 
         </com.google.android.material.imageview.ShapeableImageView>
-        <TextView
-            android:id="@+id/doctorName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tonmoy"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_gravity="left"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/profilePicture"
-            android:layout_alignParentTop="true"
-            >
 
-        </TextView>
+            <TextView
+                android:id="@+id/doctorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="left"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/profilePicture"
+                android:fontFamily="@font/roboto"
+                android:text="Tonmoy"
+                android:textColor="@color/black"
+                android:textSize="12.5sp"
+                android:textStyle="bold">
+
+            </TextView>
         <TextView
             android:id="@+id/doctorDegree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_gravity="left"
             android:text="Medical officer"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/roboto"
             android:textColor="#666666"
             android:textStyle="bold"
-            android:textSize="12sp"
+            android:textSize="11.5sp"
             android:layout_below="@+id/doctorName"
             android:layout_toEndOf="@+id/profilePicture"
             >
 
         </TextView>
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:id = "@+id/ratingStar"
             android:src = "@drawable/star"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="6dp"
-            android:layout_toEndOf="@+id/profilePicture"
-            android:layout_below="@+id/doctorSpecialties"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="0dp"
+            android:layout_below="@+id/profilePicture"
             >
         </ImageView> <TextView
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/ratingStar"
+            android:text="4.6"
             android:layout_marginStart="3dp"
-            android:text=""
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/roboto"
-            android:textColor="#666666"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="12sp"
-            android:layout_below="@+id/doctorSpecialties"
+            android:textSize="17sp"
+            android:layout_below="@+id/profilePicture"
             >
 
         </TextView>
@@ -127,8 +126,8 @@
              android:text = "General Physician"
              android:layout_below="@+id/doctorDegree"
              android:layout_toEndOf="@id/profilePicture"
-             android:layout_marginStart="20dp"
-             android:textSize="12sp"
+             android:layout_marginStart="10dp"
+             android:textSize="11.5sp"
              android:fontFamily="@font/roboto"
              android:textColor="#4F5FDE"
              >
@@ -139,11 +138,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text = "Working in"
-                android:layout_below="@+id/rating"
+                android:layout_below="@+id/doctorSpecialties"
                 android:layout_toEndOf="@id/profilePicture"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:textSize="11sp"
+                android:textSize="11.5sp"
                 android:fontFamily="@font/roboto"
                 android:textColor="#666666"
                 >
@@ -157,26 +156,26 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/workinginText"
                 android:layout_toEndOf="@id/profilePicture"
-                android:layout_marginStart="20dp"
-                android:textSize="13sp"
+                android:layout_marginStart="10dp"
+                android:textSize="12.5sp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 >
 
             </TextView>
+
             <TextView
                 android:id="@+id/availableforText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "Available for"
                 android:layout_below="@+id/currentlyWorking"
-                android:layout_toEndOf="@id/profilePicture"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:textSize="11sp"
+                android:layout_toEndOf="@id/profilePicture"
                 android:fontFamily="@font/roboto"
+                android:text="Available for"
                 android:textColor="#666666"
-                >
+                android:textSize="11.5sp">
 
             </TextView>
             <TextView
@@ -187,7 +186,7 @@
                 android:textStyle="bold"
                 android:layout_below="@+id/availableforText"
                 android:layout_toEndOf="@id/profilePicture"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:textSize="13sp"
                 android:fontFamily="@font/rubik"
@@ -201,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_below="@id/availableforText2"
+                android:layout_below="@id/ratingStar"
                 android:id="@+id/bar"
 
                 />

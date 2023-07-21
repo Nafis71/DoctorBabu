@@ -2,6 +2,7 @@ package com.example.doctorbabu.Databases;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctorAdapter.myViewHolder>{
 
     Context context;
     ArrayList<availableDoctorModel> model;
+    String userId;
 
     @NonNull
     @Override
@@ -37,9 +42,10 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         return new myViewHolder(view);
     }
 
-    public availableDoctorAdapter(Context context, ArrayList<availableDoctorModel> model) {
+    public availableDoctorAdapter(Context context, ArrayList<availableDoctorModel> model,String userId) {
         this.context = context;
         this.model = model;
+        this.userId = userId;
     }
 
     @Override
@@ -77,9 +83,21 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity)context;
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(),dbModel.getFullName(),dbModel.getTitle(),dbModel.getDegrees(),dbModel.getSpecialty(),holder.currentlyWorking.getText().toString(),dbModel.getPhotoUrl(),dbModel.getRating(),dbModel.getBmdc())).commit();
+                DatabaseReference reference = database.getReference();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                String currentTime = sdf.format(new Date());
+                HashMap<String,Object> data =  new HashMap<>();
+                data.put("doctorId", dbModel.getDoctorId()); data.put("photoUrl", dbModel.getPhotoUrl());
+                data.put("time",currentTime);
+                reference.child("recentlyViewed").child(userId).child(dbModel.getDoctorId()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        AppCompatActivity activity = (AppCompatActivity)context;
+                        activity.getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(),dbModel.getFullName(),dbModel.getTitle(),dbModel.getDegrees(),dbModel.getSpecialty(),holder.currentlyWorking.getText().toString(),dbModel.getPhotoUrl(),dbModel.getRating(),dbModel.getBmdc())).commit();
+                    }
+                });
+
             }
         });
 
