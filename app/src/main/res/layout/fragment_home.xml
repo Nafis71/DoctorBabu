@@ -14,24 +14,55 @@
         android:background="#ffff"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
+        android:elevation="2dp"
         >
 
         <ImageView
             android:id="@+id/doctorBabuLogo"
-            android:layout_width="200dp"
-            android:layout_height="112dp"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="-2dp"
             android:layout_marginEnd="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/headerlogo" />
+            android:scaleType="fitStart"
+            android:src="@drawable/doctorbabulogo" />
+        <TextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto"
+            android:text="Doctor"
+            android:layout_marginStart="-35dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            />
+        <TextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto"
+            android:layout_toEndOf="@+id/headerText"
+            android:text="Babu"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:layout_marginStart="2dp"
+            android:textStyle="bold"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+            />
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profilePicture"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/doctorBabuLogo"
-            android:layout_marginStart="140dp"
+            android:layout_marginStart="260dp"
             app:srcCompat="@drawable/profile_picture"
             app:shapeAppearanceOverlay="@style/circular"
             android:visibility="invisible"
@@ -57,9 +88,9 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src = "@drawable/languages"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:layout_toEndOf="@+id/headerText2"
             android:layout_centerVertical="true"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="22dp"
             />
 
 
@@ -142,7 +173,7 @@
                android:layout_marginTop="20dp"
                android:layout_marginEnd="-8dp"
                android:padding="20dp"
-               app:cardElevation="4dp"
+               app:cardElevation="2dp"
                app:strokeColor="@color/white"
                android:layout_below="@+id/sliderCard"
                >
@@ -152,24 +183,25 @@
                    android:layout_height="match_parent"
                    android:background="#ffff"
                    android:orientation="vertical">
-                   <ImageView
-                       android:layout_width="75dp"
-                       android:layout_height="75dp"
-                       android:src="@drawable/doctor2"
+                   <com.airbnb.lottie.LottieAnimationView
+                       android:layout_width="180dp"
+                       android:layout_height="170dp"
+                       app:lottie_rawRes="@raw/doctorappointment"
+                       app:lottie_autoPlay="true"
+                       app:lottie_loop="true"
                        android:layout_gravity="center"
-                       android:layout_marginTop="20dp"
-                       android:layout_marginBottom="10dp"
                        />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
                        android:text="@string/bookAppointment"
-                       android:fontFamily="@font/overpass_bold"
+                       android:fontFamily="@font/roboto"
                        android:textColor="#666666"
                        android:shadowColor="@color/black"
                        android:textStyle="bold"
-                       android:textSize="16sp"
+                       android:textSize="13sp"
+                       android:layout_marginTop="-20dp"
                        />
                    <TextView
                        android:layout_width="wrap_content"
@@ -179,7 +211,7 @@
                        android:fontFamily="@font/roboto"
                        android:layout_marginTop="5dp"
                        android:layout_marginStart="5dp"
-                       android:textSize="13sp"
+                       android:textSize="12sp"
                        android:layout_gravity="center"
                        android:textAlignment="center"
                        android:padding="5dp"
@@ -208,24 +240,24 @@
                    android:layout_height="match_parent"
                    android:background="#ffff"
                    android:orientation="vertical">
-                   <ImageView
-                       android:layout_width="75dp"
-                       android:layout_height="75dp"
-                       android:src="@drawable/consultant"
+                   <com.airbnb.lottie.LottieAnimationView
+                       android:layout_width="180dp"
+                       android:layout_height="170dp"
+                       app:lottie_rawRes="@raw/consultation"
+                       app:lottie_autoPlay="true"
+                       app:lottie_loop="true"
                        android:layout_gravity="center"
-                       android:layout_marginTop="20dp"
-                       android:layout_marginBottom="10dp"
                        />
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_gravity="center"
                        android:text="@string/takeConsultancy"
-                       android:fontFamily="@font/overpass_bold"
+                       android:fontFamily="@font/roboto"
                        android:textColor="#666666"
                        android:shadowColor="@color/black"
                        android:textStyle="bold"
-                       android:textSize="16sp"
+                       android:textSize="13sp"
                        />
                    <TextView
                        android:layout_width="wrap_content"
@@ -233,11 +265,12 @@
                        android:text="@string/takeConsultancyDescription"
                        android:textColor="#666666"
                        android:layout_marginTop="5dp"
-                       android:textSize="13sp"
+                       android:textSize="12sp"
                        android:layout_gravity="center"
                        android:padding="5dp"
                        android:layout_marginBottom="10dp"
                        android:layout_marginEnd="5dp"
+                       android:fontFamily="@font/roboto"
                        />
                </LinearLayout>
 
