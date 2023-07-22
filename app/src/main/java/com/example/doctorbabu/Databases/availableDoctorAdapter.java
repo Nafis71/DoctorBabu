@@ -34,6 +34,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     Context context;
     ArrayList<availableDoctorModel> model;
     String userId;
+    StringBuilder stringBuilder = new StringBuilder();
 
     @NonNull
     @Override
@@ -51,8 +52,9 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         availableDoctorModel dbModel = model.get(position);
-        String name = dbModel.getTitle() + " " + dbModel.getFullName();
-        holder.doctorName.setText(name);
+        stringBuilder.append(dbModel.getTitle()).append(" ").append(dbModel.getFullName());
+        holder.doctorName.setText(stringBuilder.toString());
+        stringBuilder.setLength(0);
         holder.doctordegree.setText(dbModel.getDegrees());
         holder.rating.setText(String.valueOf(dbModel.getRating()));
         holder.doctorSpecialties.setText(dbModel.getSpecialty());

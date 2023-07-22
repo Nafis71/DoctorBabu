@@ -50,7 +50,6 @@ public class DoctorReview extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyler);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         list =  new ArrayList<>();
         adapter = new doctorReviewAdapter(requireContext(),list);

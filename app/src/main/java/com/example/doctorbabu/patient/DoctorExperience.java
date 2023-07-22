@@ -48,7 +48,6 @@ public class DoctorExperience extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         list =  new ArrayList<>();
         adapter = new doctorPastExperienceAdapter(requireContext(),list);

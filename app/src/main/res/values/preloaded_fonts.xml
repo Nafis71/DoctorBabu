@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/nunito</item>
+        <item>@font/open_sans</item>
         <item>@font/oswald</item>
         <item>@font/poppins</item>
         <item>@font/roboto_medium</item>

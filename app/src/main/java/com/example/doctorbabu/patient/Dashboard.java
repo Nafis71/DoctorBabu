@@ -1,6 +1,6 @@
 package com.example.doctorbabu.patient;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,21 +8,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+
 
 import com.example.doctorbabu.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
-import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+
 
 public class Dashboard extends AppCompatActivity {
-    BottomNavigationView bottomNavigation;
+    ChipNavigationBar bottomNavigation;
     FragmentManager fm;
     int check = 0;
 
@@ -31,36 +31,36 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        bottomNavigation = findViewById(R.id.bottomView);
-        loadFragment(new Home(),true);
-        bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        ScheduledExecutorService backgroundTask = Executors.newSingleThreadScheduledExecutor();
+        backgroundTask.execute(new Runnable() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if(id == R.id.nav_home)
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_home)
-                        loadFragment(new Home(),false);
-
-                }
-                else if(id == R.id.nav_doctor)
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_doctor)
-                        loadFragment(new Doctor(),false);
-                }
-                else if(id == R.id.nav_history)
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_history)
-                        loadFragment(new PrescriptionHistory(),false);
-                }
-                else
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_profile)
-                        loadFragment(new Profile(),false);
-                }
-                return true;
+            public void run() {
+                bottomNavigation = findViewById(R.id.bottomBar);
+                bottomNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(int id) {
+                        if(id == R.id.nav_doctor_video)
+                        {
+                            loadFragment(new Doctor(),false);
+                        }else if(id == R.id.nav_home)
+                        {
+                            loadFragment(new Home(),false);
+                        }else if(id == R.id.nav_history)
+                        {
+                            loadFragment(new PrescriptionHistory(),false);
+                        }else if(id == R.id.nav_profile)
+                        {
+                            loadFragment(new Profile(),false);
+                        }
+                    }
+                });
+                loadFragment(new Home(),true);
+                bottomNavigation.setItemSelected(R.id.nav_home,true);
+                bottomNavigation.showBadge(R.id.nav_doctor_video,24);
             }
         });
+
+
     }
     public void loadFragment(Fragment fragment,boolean flag)
     {

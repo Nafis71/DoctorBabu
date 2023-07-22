@@ -6,7 +6,7 @@
     <string name="custom_dialog_registration_successfull">নিবন্ধন সফল!</string>
     <string name="custom_dialog_okay_button">ঠিক আছে</string>
     <string name="nav_home_title">হোম</string>
-    <string name="nav_doctor_title">ডাক্তার খুঁজুন</string>
+    <string name="nav_video_consultation_title">পরামর্শ</string>
     <string name="nav_profile_title">প্রোফাইল</string>
     <string name="nav_history_title">ইতিহাস</string>
     <string name="nav_call">Call Room</string>
@@ -163,4 +163,6 @@
     <string name="tellusaboutyourself">Tell us about yourself</string>
     <string name="writesomethingaboutyou">Write something about you</string>
     <string name="clearAll">Clear All</string>
+    <string name="departmentTab">বিভাগসমূহ</string>
+    <string name="symptomsTab">লক্ষ্ণণ</string>
 </resources>

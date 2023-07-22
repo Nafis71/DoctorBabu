@@ -7,13 +7,66 @@
     android:background="#F7F9F9"
     android:orientation="vertical"
     tools:context=".patient.Doctor">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#ffff"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        >
+
+        <TextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto"
+            android:text="Doctor"
+            android:layout_marginStart="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            />
+        <TextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto"
+            android:layout_toEndOf="@+id/headerText"
+            android:text="Consultation"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:layout_marginStart="2dp"
+            android:textStyle="bold"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+        />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/headerText2"
+            android:layout_marginStart="180dp"
+            app:srcCompat="@drawable/profile_picture"
+            app:shapeAppearanceOverlay="@style/circular"
+            android:visibility="invisible"
+            app:layout_constraintDimensionRatio="1:1"
+
+            />
+
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="2dp"
@@ -56,33 +109,45 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:visibility="visible"
+        android:focusableInTouchMode="true"
         >
     </com.todkars.shimmer.ShimmerRecyclerView>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/doctor"
-                android:layout_width="170dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/onliendoctor"
-                />
-
+           <com.airbnb.lottie.LottieAnimationView
+               android:layout_width="200dp"
+               android:layout_height="130dp"
+               app:lottie_rawRes="@raw/consultation"
+               android:id="@+id/consultationAnim"
+               app:lottie_autoPlay="true"
+               app:lottie_loop="true"
+               app:lottie_speed="1"
+               app:lottie_cacheComposition="true"
+               app:lottie_renderMode="hardware"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="200dp"
+                android:layout_height="130dp"
+                app:lottie_rawRes="@raw/bookconsultation"
+                android:layout_toEndOf="@+id/consultationAnim"
+                android:id="@+id/consultationAnim2"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_speed="1"
+                app:lottie_cacheComposition="true"
+                app:lottie_renderMode="hardware"/>
                 <RelativeLayout
                     android:id ="@+id/DepartmentCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_below="@+id/doctor"
+                    android:layout_below="@+id/consultationAnim"
                     android:background="#ffff"
                     >
                     <TextView
@@ -119,20 +184,20 @@
                         android:layout_below="@id/dsText2"
                         android:layout_marginTop="7dp"
                         android:layout_marginBottom="5dp"
-                        android:background="#F7F9F9"
+                        android:background="#ffff"
+                        app:tabMode="fixed"
+                        app:tabTextAppearance="@style/MineCustomTabText"
                         >
                         <com.google.android.material.tabs.TabItem
-                            android:id ="@+id/tabDepartment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             >
 
                         </com.google.android.material.tabs.TabItem>
                         <com.google.android.material.tabs.TabItem
-                            android:id ="@+id/tabSymptoms"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            >
 
                         </com.google.android.material.tabs.TabItem>
 
@@ -210,6 +275,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="2dp"
+                    android:focusableInTouchMode="true"
                     />
                 <TextView
                     android:id="@+id/doctorText2"
@@ -238,7 +304,7 @@
                     android:textSize="12sp"
                     app:cornerRadius="8dp" />
                 <com.todkars.shimmer.ShimmerRecyclerView
-                    android:id="@+id/shimmer_recycler_view"
+                    android:id="@+id/availableDoctorRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -253,6 +319,6 @@
 
         </RelativeLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -47,6 +47,8 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
 
+
+
 public class Home extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
@@ -57,7 +59,6 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english,bengali;
     Animation leftAnim,rightAnim;
-    BottomNavigationView bottomBar;
 
 
 
@@ -154,7 +155,6 @@ public class Home extends Fragment {
         appointmentHistory =requireView().findViewById(R.id.appointmentHistory);
         onlineCosultantCard = requireView().findViewById(R.id.onlineCosultantCard);
         medicineCard = requireView().findViewById(R.id.medicineCard);
-        bottomBar = requireActivity().findViewById(R.id.bottomView);
         leftAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.left_animation);
         rightAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.right_anim);
         appointmentCard.setAnimation(leftAnim);
@@ -183,12 +183,10 @@ public class Home extends Fragment {
         sliderView.startAutoCycle();
     }
     public void callProfileFragment() {
-        BottomNavigationView bottomNavigation = requireActivity().findViewById(R.id.bottomView);
         FragmentManager fm = requireActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.container, new Profile());
         ft.commit();
-        bottomNavigation.setSelectedItemId(R.id.nav_profile);
     }
     public void callAppointmentBottomSheet()
     {

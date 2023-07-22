@@ -6,9 +6,9 @@
        android:icon="@drawable/home"
        />
    <item
-       android:id="@+id/nav_doctor"
-       android:title = "@string/nav_doctor_title"
-       android:icon="@drawable/doctor"
+       android:id="@+id/nav_doctor_video"
+       android:title = "@string/nav_video_consultation_title"
+       android:icon="@drawable/videoconsultation"
        />
    <item
        android:id="@+id/nav_history"

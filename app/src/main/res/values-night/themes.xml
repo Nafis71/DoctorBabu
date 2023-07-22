@@ -19,6 +19,11 @@
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <!-- Bottom Sheet Styles. -->
     <style name="Theme.DoctorBabu" parent="Base.Theme.DoctorBabu" />
 </resources>

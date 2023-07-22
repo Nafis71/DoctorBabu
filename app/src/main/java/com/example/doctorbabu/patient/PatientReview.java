@@ -145,16 +145,15 @@ public class PatientReview extends AppCompatActivity {
 
         DatabaseReference reference = database.getReference("rewardPatient");
         reference.child(user.getUid()).child("reward").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    String value = String.valueOf(snapshot.getValue());
-                    rewardPoint = Integer.parseInt(value) + 50;
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists())
+                    {
+                        String value = String.valueOf(snapshot.getValue());
+                        rewardPoint = Integer.parseInt(value) + 50;
+                    }
                 }
-            }
-
-            @Override
+                @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }

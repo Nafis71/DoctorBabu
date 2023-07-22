@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">#4F5FDE</item>
         <item name="android:textColorPrimary">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
@@ -26,5 +26,10 @@
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">#E5E7E9</item>
         <item name="colorControlActivated">#FFD700</item>
+    </style>
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

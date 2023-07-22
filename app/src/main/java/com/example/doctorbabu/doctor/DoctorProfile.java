@@ -736,7 +736,6 @@ doctorPastExperienceAdapter recyclerAdapter;
     }
 
     public void getPastWorkingExperience(){
-        recyclerView.setHasFixedSize(true);
         list = new ArrayList<>();
         recyclerAdapter = new doctorPastExperienceAdapter(requireContext(),list);
         recyclerView.setAdapter(recyclerAdapter);
