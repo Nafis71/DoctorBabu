@@ -39,8 +39,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -116,30 +118,27 @@ public class Home extends Fragment {
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = database.getReference("users");
-        reference.child(uId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        reference.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful())
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(isAdded())
                 {
-                    if(task.getResult().exists())
+                    if(!String.valueOf(snapshot.child("photoUrl").getValue()).equals("null")) {
+                        Glide.with(requireContext()).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(profilePicture);
+                        profilePicture.setVisibility(View.VISIBLE);
+                    }
+                    else
                     {
-                        DataSnapshot snapshot = task.getResult();
-                        if(!String.valueOf(snapshot.child("photoUrl").getValue()).equals("null")) {
-                            Glide.with(requireContext()).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(profilePicture);
-                            profilePicture.setVisibility(View.VISIBLE);
-                        }
-                        else
-                        {
-                            profilePicture.setImageResource(R.drawable.profile_picture);
-                            profilePicture.setVisibility(View.VISIBLE);
-                        }
-
+                        profilePicture.setImageResource(R.drawable.profile_picture);
+                        profilePicture.setVisibility(View.VISIBLE);
                     }
                 }
-                else
-                {
-                    Toast.makeText(getContext(), "Profile picture couldn't be loaded", Toast.LENGTH_SHORT).show();
-                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

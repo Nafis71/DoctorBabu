@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,20 +8,20 @@
     android:orientation="vertical"
     tools:context=".patient.Doctor">
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#ffff"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
-        android:elevation="2dp"
         >
 
         <TextView
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:fontFamily="@font/roboto"
+            android:layout_centerVertical="true"
             android:text="Doctor"
             android:layout_marginStart="15dp"
             android:textStyle="bold"
@@ -34,9 +34,9 @@
             android:id="@+id/headerText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:fontFamily="@font/roboto"
             android:layout_toEndOf="@+id/headerText"
+            android:layout_centerVertical="true"
             android:text="Consultation"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
@@ -50,79 +50,85 @@
             android:id="@+id/profilePicture"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/headerText2"
             android:layout_marginStart="180dp"
             app:srcCompat="@drawable/profile_picture"
             app:shapeAppearanceOverlay="@style/circular"
             android:visibility="invisible"
             app:layout_constraintDimensionRatio="1:1"
-
+            android:layout_centerVertical="true"
             />
 
     </RelativeLayout>
-    <androidx.cardview.widget.CardView
-        android:id="@+id/searchCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="2dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="8dp"
-        >
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:closeIcon="@drawable/close"
-            app:defaultQueryHint="@string/doctorSearch"
-            android:inputType="textPersonName"
-            app:iconifiedByDefault="false"
-            android:visibility="visible"
-            android:theme="@style/AppSearchView"
-            >
-
-        </androidx.appcompat.widget.SearchView>
-    </androidx.cardview.widget.CardView>
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:layout_marginTop="0dp"
-        android:visibility="gone"
-        />
-    <com.todkars.shimmer.ShimmerRecyclerView
-        android:id="@+id/searchRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search"
-        app:shimmer_recycler_item_count="3"
-        android:elevation="2dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="visible"
-        android:focusableInTouchMode="true"
-        >
-    </com.todkars.shimmer.ShimmerRecyclerView>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F7F9F9"
+        android:fillViewport="true"
+        android:layout_below="@id/header"
         >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
+
             >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/searchCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="10dp"
+                >
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:closeIcon="@drawable/close"
+                    app:defaultQueryHint="@string/doctorSearch"
+                    android:inputType="textPersonName"
+                    app:iconifiedByDefault="false"
+                    android:visibility="visible"
+                    android:theme="@style/AppSearchView"
+                    >
+
+                </androidx.appcompat.widget.SearchView>
+            </androidx.cardview.widget.CardView>
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_marginTop="0dp"
+                android:visibility="gone"
+                />
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/searchRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search"
+                app:shimmer_recycler_item_count="3"
+                android:elevation="4dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:visibility="gone"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/custom_button_back"
+                android:layout_below="@+id/searchCard"
+                >
+            </com.todkars.shimmer.ShimmerRecyclerView>
 
            <com.airbnb.lottie.LottieAnimationView
                android:layout_width="200dp"
@@ -132,6 +138,7 @@
                app:lottie_autoPlay="true"
                app:lottie_loop="true"
                app:lottie_speed="1"
+               android:layout_below="@+id/searchCard"
                app:lottie_cacheComposition="true"
                app:lottie_renderMode="hardware"/>
             <com.airbnb.lottie.LottieAnimationView
@@ -143,6 +150,7 @@
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_speed="1"
+                android:layout_below="@+id/searchCard"
                 app:lottie_cacheComposition="true"
                 app:lottie_renderMode="hardware"/>
                 <RelativeLayout
@@ -216,18 +224,18 @@
 
                     </androidx.viewpager2.widget.ViewPager2>
 
-                </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/recentlyViewed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_below="@+id/DepartmentCard"
-            android:background="#ffff"
-            android:visibility="gone"
-            >
-            <TextView
+                    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/recentlyViewed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/DepartmentCard"
+                android:background="#ffff"
+                android:visibility="gone"
+                >
+                <TextView
                 android:id="@+id/recentlyViewedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -314,8 +322,9 @@
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor"
-                    app:shimmer_recycler_item_count="10"
+                    app:shimmer_recycler_item_count="4"
                     android:layout_below="@id/doctorText2"
+                    android:animationCache="true"
                     />
 
             </RelativeLayout>
@@ -325,4 +334,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+</RelativeLayout>

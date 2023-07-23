@@ -16,6 +16,7 @@ import android.util.Log;
 import com.example.doctorbabu.R;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -31,34 +32,28 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        ScheduledExecutorService backgroundTask = Executors.newSingleThreadScheduledExecutor();
-        backgroundTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                bottomNavigation = findViewById(R.id.bottomBar);
-                bottomNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(int id) {
-                        if(id == R.id.nav_doctor_video)
-                        {
-                            loadFragment(new Doctor(),false);
-                        }else if(id == R.id.nav_home)
-                        {
-                            loadFragment(new Home(),false);
-                        }else if(id == R.id.nav_history)
-                        {
-                            loadFragment(new PrescriptionHistory(),false);
-                        }else if(id == R.id.nav_profile)
-                        {
-                            loadFragment(new Profile(),false);
-                        }
-                    }
-                });
-                loadFragment(new Home(),true);
-                bottomNavigation.setItemSelected(R.id.nav_home,true);
-                bottomNavigation.showBadge(R.id.nav_doctor_video,24);
+        bottomNavigation = findViewById(R.id.bottomBar);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> bottomNavigation.setOnItemSelectedListener(id -> {
+            if(id == R.id.nav_doctor_video)
+            {
+                loadFragment(new Doctor(),false);
+            }else if(id == R.id.nav_home)
+            {
+                loadFragment(new Home(),false);
+            }else if(id == R.id.nav_history)
+            {
+                loadFragment(new PrescriptionHistory(),false);
+            }else if(id == R.id.nav_profile)
+            {
+                loadFragment(new Profile(),false);
             }
-        });
+        }));
+
+        loadFragment(new Home(),true);
+        bottomNavigation.setItemSelected(R.id.nav_home,true);
+        bottomNavigation.showBadge(R.id.nav_doctor_video,24);
+
 
 
     }

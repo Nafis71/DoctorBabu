@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@drawable/background"
+        android:background="@drawable/background2"
         android:padding="10dp">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -354,7 +354,7 @@
                         android:backgroundTint="#5499C7"
                         />
                             <com.google.android.flexbox.FlexboxLayout
-                                android:id="@+id/alergyHistory"
+                                android:id="@+id/allergyHistory"
                                 android:layout_height="match_parent"
                                 android:layout_width="match_parent"
                                 app:flexWrap="wrap"
@@ -362,7 +362,7 @@
                                 android:padding="5dp"
                                 >
                                  <TextView
-                                android:id="@+id/alergy"
+                                android:id="@+id/allergy"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"

@@ -81,6 +81,8 @@
     <string name="stroke">Stroke</string>
     <string name="ulcer">Ulcer</string>
     <string name="bmi">Body Mass Index (BMI)</string>
+    <string name="addressNotSet">Address is not set</string>
+    <string name="noInfoFound">No information found</string>
     <!-- Profile Fragment Strings End -->
     <!-- Edit Profile Strings -->
     <string name="fullName">Full Name</string>
