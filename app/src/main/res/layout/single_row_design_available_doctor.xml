@@ -47,7 +47,6 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:src="@drawable/profile_picture"
             android:scaleType="centerCrop"
             android:id="@+id/profilePicture"
             app:layout_constraintDimensionRatio="1:1"

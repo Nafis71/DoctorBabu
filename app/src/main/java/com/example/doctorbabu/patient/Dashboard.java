@@ -50,7 +50,7 @@ public class Dashboard extends AppCompatActivity {
             }
         }));
 
-        loadFragment(new Home(),true);
+//        loadFragment(new Home(),true);
         bottomNavigation.setItemSelected(R.id.nav_home,true);
         bottomNavigation.showBadge(R.id.nav_doctor_video,24);
 

@@ -82,25 +82,22 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         {
             Glide.with(context).load(dbModel.getPhotoUrl()).into(holder.profilePicture);
         }
-        holder.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference reference = database.getReference();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                String currentTime = sdf.format(new Date());
-                HashMap<String,Object> data =  new HashMap<>();
-                data.put("doctorId", dbModel.getDoctorId()); data.put("photoUrl", dbModel.getPhotoUrl());
-                data.put("time",currentTime);
-                reference.child("recentlyViewed").child(userId).child(dbModel.getDoctorId()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        AppCompatActivity activity = (AppCompatActivity)context;
-                        activity.getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(),dbModel.getFullName(),dbModel.getTitle(),dbModel.getDegrees(),dbModel.getSpecialty(),holder.currentlyWorking.getText().toString(),dbModel.getPhotoUrl(),dbModel.getRating(),dbModel.getBmdc())).commit();
-                    }
-                });
+        holder.card.setOnClickListener(view -> {
+            DatabaseReference reference = database.getReference();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentTime = sdf.format(new Date());
+            HashMap<String,Object> data =  new HashMap<>();
+            data.put("doctorId", dbModel.getDoctorId()); data.put("photoUrl", dbModel.getPhotoUrl());
+            data.put("time",currentTime);
+            reference.child("recentlyViewed").child(userId).child(dbModel.getDoctorId()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    AppCompatActivity activity = (AppCompatActivity)context;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(),dbModel.getFullName(),dbModel.getTitle(),dbModel.getDegrees(),dbModel.getSpecialty(),holder.currentlyWorking.getText().toString(),dbModel.getPhotoUrl(),dbModel.getRating(),dbModel.getBmdc())).commit();
+                }
+            });
 
-            }
         });
 
     }

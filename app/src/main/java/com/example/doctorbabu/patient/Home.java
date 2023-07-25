@@ -48,7 +48,8 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import java.util.ArrayList;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Home extends Fragment {
@@ -61,7 +62,7 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english,bengali;
     Animation leftAnim,rightAnim;
-
+    ExecutorService imageSliderExecutor;
 
 
 
@@ -73,12 +74,13 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        imageSliderExecutor = Executors.newSingleThreadExecutor();
 
     }
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadImageSlider();
+        imageSliderExecutor.execute(this::loadImageSlider);
         viewBinding();
         firebaseAuth();
         profilePicture.setOnClickListener(new View.OnClickListener() {
@@ -249,6 +251,10 @@ public class Home extends Fragment {
             }
         });
         dialog.show();
+    }
+    public void onDestroyView(){
+        super.onDestroyView();
+        imageSliderExecutor.shutdown();
     }
 
     public void restart()

@@ -19,16 +19,13 @@
         android:layout_height="?attr/actionBarSize"
         app:cnb_menuResource="@menu/nav_items"
         app:cnb_orientationMode="horizontal"
-        app:cnb_addBottomInset="false"
-        app:cnb_addLeftInset="false"
-        app:cnb_addRightInset="false"
-        app:cnb_addTopInset="false"
         app:cnb_unselectedColor="#FF000000"
         app:cnb_badgeColor="@color/gph_dark_red"
         app:cnb_radius="10dp"
         app:cnb_iconSize="24dp"
         android:layout_alignParentBottom="true"
-        app:cnb_animationDuration="175">
+        android:animationCache="false"
+        app:cnb_animationDuration="275">
 
     </com.ismaeldivita.chipnavigation.ChipNavigationBar>
 

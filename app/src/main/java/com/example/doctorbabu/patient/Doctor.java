@@ -2,16 +2,17 @@ package com.example.doctorbabu.patient;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.doctorbabu.Databases.availableDoctorAdapter;
 import com.example.doctorbabu.Databases.availableDoctorModel;
 import com.example.doctorbabu.Databases.doctorSearchAdapter;
@@ -31,8 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 public class Doctor extends Fragment {
@@ -50,40 +49,45 @@ public class Doctor extends Fragment {
     ValueEventListener listener;
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
-    ExecutorService searchExecutor,recentlyViewedExecutor;
-    Thread loadDoctorThread;
+    Thread doctorThread, recentlyViewedThread,searchThread;
+
     public Doctor() {
         // Required empty public constructor
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        count = 0;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setPageAdapter();
         setRecyclerView();
-        loadDoctorThread = new Thread(this::loadAvailableDoctor);
-        loadDoctorThread.start();
-        searchExecutor = Executors.newSingleThreadScheduledExecutor();
-        searchExecutor.execute(this::searchDoctor);
-        recentlyViewedExecutor = Executors.newSingleThreadScheduledExecutor();
-        recentlyViewedExecutor.execute(this::loadRecentlyViewed);
+        binding.progressBar.setVisibility(View.VISIBLE);
+        doctorThread = new Thread(this::loadAvailableDoctor);
+        doctorThread.start();
+        recentlyViewedThread = new Thread(this::loadRecentlyViewed);
+        recentlyViewedThread.start();
+        searchThread = new Thread(this::searchDoctor);
+        searchThread.start();
         binding.consultationAnim2.setOnClickListener(view1 -> {
             binding.availableDoctorRecyclerView.requestFocus();
             binding.availableDoctorRecyclerView.clearFocus();
         });
-        binding.searchCard.canScrollVertically(2);
     }
     public void setRecyclerView(){
-        binding.recentlyViewedRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false),R.layout.shimmer_layout_recently_viewed);
-        recentlyViewedAdapter = new recentlyViewedDoctorAdapter(requireContext(),recentlyViewedModel);
-        binding.recentlyViewedRecyclerView.setAdapter(recentlyViewedAdapter);
-        binding.availableDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()), R.layout.shimmer_layout_available_doctor);
-        binding.searchRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()),R.layout.shimmer_layout_doctor_search);
-        list = new ArrayList<>();
-        adapter = new availableDoctorAdapter(requireContext(), list,user.getUid());
-        binding.availableDoctorRecyclerView.setAdapter(adapter);
+        if(isAdded())
+        {
+            binding.recentlyViewedRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false),R.layout.shimmer_layout_recently_viewed);
+            recentlyViewedAdapter = new recentlyViewedDoctorAdapter(requireContext(),recentlyViewedModel);
+            binding.recentlyViewedRecyclerView.setAdapter(recentlyViewedAdapter);
+            binding.availableDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()), R.layout.shimmer_layout_available_doctor);
+            binding.searchRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()),R.layout.shimmer_layout_doctor_search);
+            list = new ArrayList<>();
+            adapter = new availableDoctorAdapter(requireContext(), list,user.getUid());
+            binding.availableDoctorRecyclerView.setAdapter(adapter);
+        }
+
     }
 
     public void setPageAdapter() {
@@ -97,8 +101,8 @@ public class Doctor extends Fragment {
         if(isVisible())
         {
             availableDoctorReference = database.getReference("doctorInfo");
-            binding.availableDoctorRecyclerView.showShimmer();
             doctorNameID = new StringBuilder();
+            binding.availableDoctorRecyclerView.showShimmer();
             listener = new ValueEventListener() {
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
@@ -149,12 +153,12 @@ public class Doctor extends Fragment {
                     requireActivity().runOnUiThread(() -> {
                         binding.searchRecyclerView.setVisibility(View.VISIBLE);
                         binding.searchRecyclerView.showShimmer();
-
+                        searchThread.interrupt();
                     });
                     filterList(newText);
                 } else {
                     requireActivity().runOnUiThread(() -> binding.searchRecyclerView.setVisibility(View.GONE));
-
+                    searchThread.interrupt();
                 }
                 return true;
             }
@@ -162,7 +166,6 @@ public class Doctor extends Fragment {
 
     }
     private void filterList(String searchedDoctor) {
-        Thread newSearchThread =  new Thread(() -> {
             ArrayList<doctorSearchResultModel> filteredList =  new ArrayList<>();
             searchAdapter = new doctorSearchAdapter(requireContext(),filteredList);
             for(doctorSearchResultModel doctor : doctorList){
@@ -185,15 +188,11 @@ public class Doctor extends Fragment {
                     binding.searchRecyclerView.hideShimmer();
                 },2000);
             }
-        });
-        newSearchThread.start();
-
     }
 
     public void loadRecentlyViewed(){
         if(isAdded())
         {
-                binding.recentlyViewedRecyclerView.showShimmer();
                 DatabaseReference reference = database.getReference("recentlyViewed");
                 reference.child(user.getUid()).orderByChild("time").limitToFirst(15).addListenerForSingleValueEvent(new ValueEventListener() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -202,6 +201,7 @@ public class Doctor extends Fragment {
                         recentlyViewedModel.clear();
                         if(snapshot.exists()){
                             requireActivity().runOnUiThread(() -> binding.recentlyViewed.setVisibility(View.VISIBLE));
+                            binding.recentlyViewedRecyclerView.showShimmer();
                             for(DataSnapshot snap : snapshot.getChildren())
                             {
                                 recentlyViewedDoctorModel model = snap.getValue(recentlyViewedDoctorModel.class);
@@ -210,8 +210,12 @@ public class Doctor extends Fragment {
                             Collections.reverse(recentlyViewedModel);
                             recentlyViewedAdapter.notifyDataSetChanged();
                             binding.recentlyViewedRecyclerView.hideShimmer();
+                            recentlyViewedThread.interrupt();
                         }else{
-                            requireActivity().runOnUiThread(() -> binding.recentlyViewed.setVisibility(View.GONE));
+                            requireActivity().runOnUiThread(() -> {
+                                binding.recentlyViewed.setVisibility(View.GONE);
+                                recentlyViewedThread.interrupt();
+                            });
                         }
                     }
                     @Override
@@ -244,14 +248,10 @@ public class Doctor extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        availableDoctorReference.removeEventListener(listener);
-        searchExecutor.shutdown();
-        recentlyViewedExecutor.shutdown();
+        doctorThread.interrupt();
     }
     @Override
     public  void onDestroy(){
         super.onDestroy();
-        availableDoctorReference.removeEventListener(listener);
-
     }
 }
