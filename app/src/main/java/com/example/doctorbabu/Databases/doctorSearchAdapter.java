@@ -27,7 +27,7 @@ public class doctorSearchAdapter extends RecyclerView.Adapter<doctorSearchAdapte
     @NonNull
     @Override
     public doctorSearchAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_doctor_search,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_doctor_search, parent, false);
         return new myViewHolder(view);
     }
 
@@ -39,9 +39,10 @@ public class doctorSearchAdapter extends RecyclerView.Adapter<doctorSearchAdapte
         holder.doctorDepartment.setText(model.getDepartment());
 
     }
-    public static class myViewHolder extends RecyclerView.ViewHolder{
+
+    public static class myViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicture;
-        TextView doctorName,doctorDepartment;
+        TextView doctorName, doctorDepartment;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -17,11 +17,11 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
 
 public class CheckoutDoctor extends AppCompatActivity {
-    TextView doctorNameView,doctorDegreeView,doctorSpecialtiesView,currentlyWorkingView;
-    ImageView profilePicture,goBack;
-    CardView bkash,nagad;
-    String doctorId,doctorTitle,doctorName,doctorDegree,doctorSpecialty,doctorCurrentlyWorking,photoUrl;
-    String [] permissions = new String[]{Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO};
+    TextView doctorNameView, doctorDegreeView, doctorSpecialtiesView, currentlyWorkingView;
+    ImageView profilePicture, goBack;
+    CardView bkash, nagad;
+    String doctorId, doctorTitle, doctorName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl;
+    String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
     int requestCode = 1;
 
     @Override
@@ -46,15 +46,15 @@ public class CheckoutDoctor extends AppCompatActivity {
         bkash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isPermissionGranted()) {
-                    Intent intent = new Intent(CheckoutDoctor.this,CallDoctor.class);
-                    intent.putExtra("doctorId",doctorId);
-                    intent.putExtra("doctorTitle",doctorTitle);
-                    intent.putExtra("doctorName",doctorName);
-                    intent.putExtra("photoUrl",photoUrl);
+                if (isPermissionGranted()) {
+                    Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
+                    intent.putExtra("doctorId", doctorId);
+                    intent.putExtra("doctorTitle", doctorTitle);
+                    intent.putExtra("doctorName", doctorName);
+                    intent.putExtra("photoUrl", photoUrl);
                     startActivity(intent);
                     finish();
-                } else{
+                } else {
                     askPermission();
                 }
 
@@ -63,15 +63,15 @@ public class CheckoutDoctor extends AppCompatActivity {
         nagad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isPermissionGranted()) {
-                    Intent intent = new Intent(CheckoutDoctor.this,CallDoctor.class);
-                    intent.putExtra("doctorId",doctorId);
-                    intent.putExtra("doctorTitle",doctorTitle);
-                    intent.putExtra("doctorName",doctorName);
-                    intent.putExtra("photoUrl",photoUrl);
+                if (isPermissionGranted()) {
+                    Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
+                    intent.putExtra("doctorId", doctorId);
+                    intent.putExtra("doctorTitle", doctorTitle);
+                    intent.putExtra("doctorName", doctorName);
+                    intent.putExtra("photoUrl", photoUrl);
                     startActivity(intent);
                     finish();
-                } else{
+                } else {
                     askPermission();
                 }
             }
@@ -79,7 +79,8 @@ public class CheckoutDoctor extends AppCompatActivity {
 
 
     }
-    private void viewBinding(){
+
+    private void viewBinding() {
         doctorNameView = findViewById(R.id.doctorName);
         doctorDegreeView = findViewById(R.id.doctorDegree);
         doctorSpecialtiesView = findViewById(R.id.doctorSpecialties);
@@ -89,19 +90,21 @@ public class CheckoutDoctor extends AppCompatActivity {
         bkash = findViewById(R.id.bkash);
         nagad = findViewById(R.id.nagad);
     }
+
     private void askPermission() {
-        ActivityCompat.requestPermissions(this,permissions,requestCode);
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
-    private boolean isPermissionGranted(){
-        for(String permission : permissions)
-        {
-            if(ActivityCompat.checkSelfPermission(this,permission)!= PackageManager.PERMISSION_GRANTED) {
+
+    private boolean isPermissionGranted() {
+        for (String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
         return true;
     }
-    private void loadData(){
+
+    private void loadData() {
         String name = doctorTitle + doctorName;
         doctorNameView.setText(name);
         doctorDegreeView.setText(doctorDegree);

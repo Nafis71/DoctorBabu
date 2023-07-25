@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,6 +49,7 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -56,14 +59,13 @@ public class Home extends Fragment {
     FirebaseAuth auth;
     FirebaseUser user;
     String uId;
-    ImageView profilePicture,languageImage;
+    ImageView profilePicture, languageImage;
     BottomSheetDialog bookAppointmentSheet;
-    CardView appointmentCard,sliderCard,consultantCard,medicineReminderCard,reportCard,appointmentHistory,onlineCosultantCard,medicineCard;
+    CardView appointmentCard, sliderCard, consultantCard, medicineReminderCard, reportCard, appointmentHistory, onlineCosultantCard, medicineCard;
     Button buttonDialog;
-    RadioButton english,bengali;
-    Animation leftAnim,rightAnim;
+    RadioButton english, bengali;
+    Animation leftAnim, rightAnim;
     ExecutorService imageSliderExecutor;
-
 
 
     public Home() {
@@ -77,6 +79,7 @@ public class Home extends Fragment {
         imageSliderExecutor = Executors.newSingleThreadExecutor();
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -108,14 +111,13 @@ public class Home extends Fragment {
 //                startActivity(intent);
             }
         });
-      
+
     }
-    public void firebaseAuth()
-    {
+
+    public void firebaseAuth() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        if(user != null)
-        {
+        if (user != null) {
             uId = user.getUid();
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
@@ -123,14 +125,11 @@ public class Home extends Fragment {
         reference.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(isAdded())
-                {
-                    if(!String.valueOf(snapshot.child("photoUrl").getValue()).equals("null")) {
+                if (isAdded()) {
+                    if (!String.valueOf(snapshot.child("photoUrl").getValue()).equals("null")) {
                         Glide.with(requireContext()).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(profilePicture);
                         profilePicture.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
+                    } else {
                         profilePicture.setImageResource(R.drawable.profile_picture);
                         profilePicture.setVisibility(View.VISIBLE);
                     }
@@ -144,20 +143,20 @@ public class Home extends Fragment {
             }
         });
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
         profilePicture = requireView().findViewById(R.id.profilePicture);
-        appointmentCard =requireView().findViewById(R.id.appointmentCard);
+        appointmentCard = requireView().findViewById(R.id.appointmentCard);
         languageImage = requireView().findViewById(R.id.languageImage);
         sliderCard = requireView().findViewById(R.id.sliderCard);
-        consultantCard =  requireView().findViewById(R.id.consultantCard);
+        consultantCard = requireView().findViewById(R.id.consultantCard);
         medicineReminderCard = requireView().findViewById(R.id.medicineReminderCard);
-        reportCard =  requireView().findViewById(R.id.reportCard);
-        appointmentHistory =requireView().findViewById(R.id.appointmentHistory);
+        reportCard = requireView().findViewById(R.id.reportCard);
+        appointmentHistory = requireView().findViewById(R.id.appointmentHistory);
         onlineCosultantCard = requireView().findViewById(R.id.onlineCosultantCard);
         medicineCard = requireView().findViewById(R.id.medicineCard);
-        leftAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.left_animation);
-        rightAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.right_anim);
+        leftAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.left_animation);
+        rightAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.right_anim);
         appointmentCard.setAnimation(leftAnim);
         sliderCard.setAnimation(rightAnim);
         consultantCard.setAnimation(rightAnim);
@@ -169,10 +168,9 @@ public class Home extends Fragment {
 
     }
 
-    public void loadImageSlider()
-    {
+    public void loadImageSlider() {
         SliderView sliderView;
-        ArrayList<Integer> images =  new ArrayList<>();
+        ArrayList<Integer> images = new ArrayList<>();
         images.add(R.drawable.banner1);
         images.add(R.drawable.banner2);
         images.add(R.drawable.banner3);
@@ -183,57 +181,50 @@ public class Home extends Fragment {
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
     }
+
     public void callProfileFragment() {
         FragmentManager fm = requireActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.container, new Profile());
         ft.commit();
     }
-    public void callAppointmentBottomSheet()
-    {
-        bookAppointmentSheet = new BottomSheetDialog(requireContext(),R.style.bottomSheetTheme);
-        View appointmentView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_book_doctor,null);
+
+    public void callAppointmentBottomSheet() {
+        bookAppointmentSheet = new BottomSheetDialog(requireContext(), R.style.bottomSheetTheme);
+        View appointmentView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_book_doctor, null);
         bookAppointmentSheet.setContentView(appointmentView);
         bookAppointmentSheet.show();
     }
-    public void callLanguageChanger()
-    {
+
+    public void callLanguageChanger() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.custom_language_dialog);
         dialog.setCancelable(true);
         buttonDialog = dialog.findViewById(R.id.dialogButton);
         english = dialog.findViewById(R.id.english);
         bengali = dialog.findViewById(R.id.bengali);
-        SharedPreferences preferences = requireActivity().getSharedPreferences("language",Context.MODE_PRIVATE);
-        String language = preferences.getString("lang","");
-        if(language.equals("en"))
-        {
+        SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
+        String language = preferences.getString("lang", "");
+        if (language.equals("en")) {
             english.setChecked(true);
-        }
-        else if(language.equals("bn"))
-        {
+        } else if (language.equals("bn")) {
             bengali.setChecked(true);
-        }
-        else
-        {
+        } else {
             english.setChecked(true);
         }
         buttonDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(english.isChecked())
-                {
+                if (english.isChecked()) {
                     SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("lang","en");
+                    editor.putString("lang", "en");
                     editor.apply();
 
-                }
-                else
-                {
+                } else {
                     SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("lang","bn");
+                    editor.putString("lang", "bn");
                     editor.apply();
                 }
                 dialog.cancel();
@@ -252,15 +243,16 @@ public class Home extends Fragment {
         });
         dialog.show();
     }
-    public void onDestroyView(){
+
+    public void onDestroyView() {
         super.onDestroyView();
         imageSliderExecutor.shutdown();
     }
 
-    public void restart()
-    {
+    public void restart() {
         ProcessPhoenix.triggerRebirth(requireActivity());
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

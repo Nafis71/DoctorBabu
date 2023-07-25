@@ -2,9 +2,11 @@ package com.example.doctorbabu.Databases;
 
 public class doctorPastExperienceModel {
 
-    String hospitalName,department,designation,joiningDate,leavingDate;
+    String hospitalName, department, designation, joiningDate, leavingDate;
 
-    public doctorPastExperienceModel() {}
+    public doctorPastExperienceModel() {
+    }
+
     public doctorPastExperienceModel(String hospitalName, String department, String designation, String joiningDate, String leavingDate) {
         this.hospitalName = hospitalName;
         this.department = department;

@@ -26,8 +26,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.doctorbabu.Databases.userHelper;
 import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,123 +49,96 @@ import java.util.Date;
 
 public class SignUp extends AppCompatActivity {
     private ImageView image;
-    private TextView signupText,slogan;
-    private TextInputLayout name, email, phone, pass, confirmPass,height,weight,dateofBirth;
-    private TextInputEditText birthDate, passTextfield, fullNameTextfield, emailTextfield,phoneTextfield, heightTextfield,weightTextfield,confirmPasswordTextfield;
-    private AutoCompleteTextView gender,district,area;
+    private TextView signupText, slogan;
+    private TextInputLayout name, email, phone, pass, confirmPass, height, weight, dateofBirth;
+    private TextInputEditText birthDate, passTextfield, fullNameTextfield, emailTextfield, phoneTextfield, heightTextfield, weightTextfield, confirmPasswordTextfield;
+    private AutoCompleteTextView gender, district, area;
     private Button signup, signin, buttonDialog;
     private ProgressBar loading;
     private FirebaseAuth auth;
-    private boolean validateFullName()
-    {
+
+    private boolean validateFullName() {
         String value = name.getEditText().getText().toString();
         String check = "^[a-zA-Z\\u0020]*$";
-        if(value.isEmpty())
-        {
+        if (value.isEmpty()) {
             name.setError("Field can't be empty");
             return false;
-        }
-        else if(!value.matches(check))
-        {
+        } else if (!value.matches(check)) {
             name.setError("Invalid Name");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
-    private boolean validateEmail()
-    {
+
+    private boolean validateEmail() {
         String value = email.getEditText().getText().toString();
         String emailPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+"; //regex expression
-        if(value.isEmpty())
-        {
+        if (value.isEmpty()) {
             email.setError("Field can't be empty");
             return false;
-        }
-        else if(!value.matches(emailPattern))
-        {
+        } else if (!value.matches(emailPattern)) {
             email.setError("Invalid email address");
             return false;
-        }
-        else
-        {
+        } else {
 
             return true;
         }
     }
-    private boolean validatePhone()
-    {
+
+    private boolean validatePhone() {
         String value = phone.getEditText().getText().toString();
-        if(value.isEmpty())
-        {
+        if (value.isEmpty()) {
             phone.setError("Field can't be empty");
             return false;
-        }
-        else
-        {
+        } else {
 
             return true;
         }
     }
-    private boolean validatePassword()
-    {
+
+    private boolean validatePassword() {
         String password = pass.getEditText().getText().toString();
-        String passwordSpecial = "^" +"(?=.*[@#$%^&+=])"+".{3,}"+"$";
-        if(password.isEmpty())
-        {
+        String passwordSpecial = "^" + "(?=.*[@#$%^&+=])" + ".{3,}" + "$";
+        if (password.isEmpty()) {
             pass.setError("Password field can't be empty");
             return false;
-        }
-        else if(password.length() <= 6)
-        {
+        } else if (password.length() <= 6) {
             pass.setError("Password needs to be atleast 6 characters");
             return false;
-        }
-        else if(!password.matches(passwordSpecial))
-        {
+        } else if (!password.matches(passwordSpecial)) {
             pass.setError("Password is too weak. Add at least 1 special Character");
             return false;
-        }
-        else
-        {
+        } else {
 
             return true;
         }
     }
-    private boolean validateConfirmPassword()
-    {
+
+    private boolean validateConfirmPassword() {
         String confirmPassword = confirmPass.getEditText().getText().toString();
-        if(confirmPassword.isEmpty())
-        {
+        if (confirmPassword.isEmpty()) {
             confirmPass.setError("Confirm password field can't be empty");
             return false;
-        }
-        else if(!pass.getEditText().getText().toString().matches(confirmPass.getEditText().getText().toString()))
-        {
+        } else if (!pass.getEditText().getText().toString().matches(confirmPass.getEditText().getText().toString())) {
             confirmPass.setError("Password Didn't match");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
 
     }
-    private boolean validateUserAge()
-    {
+
+    private boolean validateUserAge() {
         String age = birthDate.getText().toString();
-        if(age.equals("Enter Date of Birth"))
-        {
+        if (age.equals("Enter Date of Birth")) {
             dateofBirth.setError("This field can't be empty");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
+
     private boolean validateUserHeight() {
         String userHeight = height.getEditText().getText().toString();
         if (userHeight.isEmpty()) {
@@ -175,56 +150,53 @@ public class SignUp extends AppCompatActivity {
         } else if (Float.parseFloat(userHeight) < 121.92) {
             height.setError("Invalid height");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
-    private boolean validateUserWeight()
-    {
+
+    private boolean validateUserWeight() {
         String userWeight = weight.getEditText().getText().toString();
-        if(userWeight.isEmpty()) {
+        if (userWeight.isEmpty()) {
             weight.setError("Field can't be empty");
             return false;
-        } else if(Float.parseFloat(userWeight) > 200.00){
+        } else if (Float.parseFloat(userWeight) > 200.00) {
             weight.setError("Invalid weight!");
             return false;
-        } else if(Float.parseFloat(userWeight)  <  30.00 ){
+        } else if (Float.parseFloat(userWeight) < 30.00) {
             weight.setError("Invalid weight");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
-    private boolean validateUserGender()
-    {
-        String userGender =  gender.getText().toString();
-        if(userGender.isEmpty())
-        {
+
+    private boolean validateUserGender() {
+        String userGender = gender.getText().toString();
+        if (userGender.isEmpty()) {
             gender.setError("Field can't be empty");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
-    private boolean validateUserDistrict()
-    {
-        String userDistrict =  district.getText().toString();
-        if(userDistrict.isEmpty())
-        {
+
+    private boolean validateUserDistrict() {
+        String userDistrict = district.getText().toString();
+        if (userDistrict.isEmpty()) {
             district.setError("Field can't be empty");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
-    private boolean validateUserArea()
-    {
+
+    private boolean validateUserArea() {
         String userArea = area.getText().toString();
-        if(userArea.isEmpty())
-        {
+        if (userArea.isEmpty()) {
             area.setError("Field can't be empty");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
@@ -245,8 +217,8 @@ public class SignUp extends AppCompatActivity {
         });
 
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
         name = findViewById(R.id.fullName);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
@@ -274,85 +246,68 @@ public class SignUp extends AppCompatActivity {
         district = findViewById(R.id.district);
         area = findViewById(R.id.area);
     }
-    public void genderSelection()
-    {
-        String  [] items = {"Male", "Female"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.drop_menu, items);
+
+    public void genderSelection() {
+        String[] items = {"Male", "Female"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
         gender.setAdapter(adapter);
     }
-    public void districtSelection()
-    {
-        String [] items = {"Dhaka","Chittagong","Gazipur","Barishal","Jamalpur","Khulna","Rajshahi","Sherpur","Sylhet ","Rangpur"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this,R.layout.drop_menu,items);
+
+    public void districtSelection() {
+        String[] items = {"Dhaka", "Chittagong", "Gazipur", "Barishal", "Jamalpur", "Khulna", "Rajshahi", "Sherpur", "Sylhet ", "Rangpur"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
         district.setAdapter(adapter);
     }
+
     public void areaSelection(String area) {
         if (area.equals("Dhaka")) {
             String[] items = {"Badda", "Mirpur", "Dhanmondi", "Mohammadpur", "Demra", "Gulshan", "Khilgaon",
                     "Khilkhet", "Ramna ", "Savar"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Chittagong"))
-        {
+        } else if (area.equals("Chittagong")) {
             String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania",
-                    "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali",
-                    "Bandarban","Patenga"};
+                    "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish", "Fatikchhari ", "Hathazari ", "Lohagara ", "Pahartali",
+                    "Bandarban", "Patenga"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Gazipur"))
-        {
+        } else if (area.equals("Gazipur")) {
             String[] items = {"Gazipur Sadar", "Kapasia", "Tongi town", "Sripur", "Kaliganj", "Kaliakior"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Barishal"))
-        {
+        } else if (area.equals("Barishal")) {
             String[] items = {"Barishal Sadar", "Banaripara", "Bakerganj", "Babuganj", "Gaurnadi", "Hizla",
                     "Mehendiganj", "Agailjhara", "Wazirpur", "Muladi"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Jamalpur"))
-        {
+        } else if (area.equals("Jamalpur")) {
             String[] items = {"Jamalpur Sadar", "Baksiganj ", "Dewanganj", "Islampur", "Madarganj", "Sarishabari"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Khulna"))
-        {
-            String[] items = {"Dumuria", "Batiaghata ", "Dacope", "Phultala", "Dighalia", "Koyra","Terokhada","Rupsha","Paikgachha"};
+        } else if (area.equals("Khulna")) {
+            String[] items = {"Dumuria", "Batiaghata ", "Dacope", "Phultala", "Dighalia", "Koyra", "Terokhada", "Rupsha", "Paikgachha"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Rajshahi"))
-        {
-            String[] items = {"Godagari", "Tanore", "Mohanpur", "Bagmara", "Durgapur", "Bagmara","Bagha","Charghat","Puthia","Paba "};
+        } else if (area.equals("Rajshahi")) {
+            String[] items = {"Godagari", "Tanore", "Mohanpur", "Bagmara", "Durgapur", "Bagmara", "Bagha", "Charghat", "Puthia", "Paba "};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Sherpur"))
-        {
+        } else if (area.equals("Sherpur")) {
             String[] items = {"Sherpur Sadar", "Nakla", "Sreebardi", "Nalitabari", "Jhenaigati"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Sylhet"))
-        {
-            String[] items = {"Sylhet Sadar", "Beanibazar", "Golapganj", "Companiganj", "Fenchuganj","Bishwanath","Bishwanath","Jaintiapur","Kanaighat","Balaganj"};
+        } else if (area.equals("Sylhet")) {
+            String[] items = {"Sylhet Sadar", "Beanibazar", "Golapganj", "Companiganj", "Fenchuganj", "Bishwanath", "Bishwanath", "Jaintiapur", "Kanaighat", "Balaganj"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Rangpur"))
-        {
-            String[] items = {"Rangpur Sadar", "Badarganj", "Kaunia", "Gangachhara", "Mithapukur","Taraganj","Pirganj","Pirgachha"};
+        } else if (area.equals("Rangpur")) {
+            String[] items = {"Rangpur Sadar", "Badarganj", "Kaunia", "Gangachhara", "Mithapukur", "Taraganj", "Pirganj", "Pirgachha"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(SignUp.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
         }
     }
-    public void stateObserver()
-    {
+
+    public void stateObserver() {
         fullNameTextfield.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -541,9 +496,8 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-    public void getDate()
-    {
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MM/dd");
+    public void getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date(System.currentTimeMillis());
         String tempDate = formatter.format(date);
         String[] CurrentDate = tempDate.split("/");
@@ -553,18 +507,17 @@ public class SignUp extends AppCompatActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String date = String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth);
+                String date = String.valueOf(year) + "/" + String.valueOf(month + 1) + "/" + String.valueOf(dayOfMonth);
                 birthDate.setText(date);
             }
         }, currentYear, currentMonth, currentDay);
         dialog.show();
     }
-    public void register(View view)
-    {
-        if(!validateFullName() | !validateEmail() | !validatePassword() | !validateConfirmPassword()
+
+    public void register(View view) {
+        if (!validateFullName() | !validateEmail() | !validatePassword() | !validateConfirmPassword()
                 | !validatePhone() | !validateUserAge() | !validateUserHeight()
-                    | !validateUserWeight() | !validateUserGender()| !validateUserArea() | !validateUserDistrict())
-        {
+                | !validateUserWeight() | !validateUserGender() | !validateUserArea() | !validateUserDistrict()) {
             return;
         }
         String fullName = name.getEditText().getText().toString();
@@ -585,8 +538,7 @@ public class SignUp extends AppCompatActivity {
         dialog.setCancelable(false);
         buttonDialog = dialog.findViewById(R.id.dialogButton);
         boolean internetStatus = isInternetAvailable(this);
-        if(internetStatus)
-        {
+        if (internetStatus) {
             auth.createUserWithEmailAndPassword(userEmail, userPass)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -598,7 +550,7 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         String uid = user.getUid();
-                                        database(fullName, userEmail, userPhone, uid, userBirthdate, userGender, userHeight,userWeight,userDistrict,userArea);
+                                        database(fullName, userEmail, userPhone, uid, userBirthdate, userGender, userHeight, userWeight, userDistrict, userArea);
                                         miscellaneousAdd(user.getUid());
                                         loading.setVisibility(View.GONE);
                                         storeLoginInfo();
@@ -632,43 +584,41 @@ public class SignUp extends AppCompatActivity {
                             }
                         }
                     });
-        } else
-        {
+        } else {
             loading.setVisibility(View.GONE);
             alertDialog();
 
         }
 
     }
-    public void storeLoginInfo()
-    {
-        SharedPreferences preferences = getSharedPreferences("loginDetails",MODE_PRIVATE);
+
+    public void storeLoginInfo() {
+        SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("loginAs","patient");
+        editor.putString("loginAs", "patient");
         editor.apply();
     }
-    public void callSignIn(View view)
-    {
-        Intent intent = new Intent(SignUp.this,Login.class);
+
+    public void callSignIn(View view) {
+        Intent intent = new Intent(SignUp.this, Login.class);
         Pair[] pairs = new Pair[7];
-        pairs[0] = new Pair<View,String>(image,"imageTransition");
-        pairs[1] = new Pair<View,String>(signupText,"textTransition1");
-        pairs[2] = new Pair<View,String>(slogan,"textTransition2");
-        pairs[3] = new Pair<View,String>(name,"usernameTransition");
-        pairs[4] = new Pair<View,String>(pass,"passwordTransition");
-        pairs[5] = new Pair<View,String>(signup,"signinTransition");
-        pairs[6] = new Pair<View,String>(signin,"signupTransition");
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this,pairs);
-        startActivity(intent,options.toBundle());
+        pairs[0] = new Pair<View, String>(image, "imageTransition");
+        pairs[1] = new Pair<View, String>(signupText, "textTransition1");
+        pairs[2] = new Pair<View, String>(slogan, "textTransition2");
+        pairs[3] = new Pair<View, String>(name, "usernameTransition");
+        pairs[4] = new Pair<View, String>(pass, "passwordTransition");
+        pairs[5] = new Pair<View, String>(signup, "signinTransition");
+        pairs[6] = new Pair<View, String>(signin, "signupTransition");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this, pairs);
+        startActivity(intent, options.toBundle());
 
     }
 
-    public void database(String fullName, String userEmail, String userPhone, String uid, String userBirthdate, String userGender, String userHeight, String userWeight, String userDistrict, String userArea)
-    {
+    public void database(String fullName, String userEmail, String userPhone, String uid, String userBirthdate, String userGender, String userHeight, String userWeight, String userDistrict, String userArea) {
 
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = rootNode.getReference("users");
-        userHelper addUser = new userHelper(fullName, userEmail ,userPhone,userBirthdate,userGender,userHeight,userWeight,userDistrict,userArea);
+        userHelper addUser = new userHelper(fullName, userEmail, userPhone, userBirthdate, userGender, userHeight, userWeight, userDistrict, userArea);
         reference.child(uid).setValue(addUser).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -677,12 +627,12 @@ public class SignUp extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"Database Write Error");
+                Log.d(TAG, "Database Write Error");
             }
         });
     }
-    public void miscellaneousAdd(String userId)
-    {
+
+    public void miscellaneousAdd(String userId) {
         FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = rootnode.getReference("allergy");
         reference.child(userId).child("cloth").setValue("null");
@@ -706,40 +656,36 @@ public class SignUp extends AppCompatActivity {
         reference = rootnode.getReference("rewardPatient");
         reference.child(userId).child("reward").setValue("50");
     }
-    public static boolean isInternetAvailable(Context context)
-    {
+
+    public static boolean isInternetAvailable(Context context) {
         NetworkInfo info = ((ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 
-        if (info == null)
-        {
-            Log.d(TAG,"no internet connection");
+        if (info == null) {
+            Log.d(TAG, "no internet connection");
             return false;
-        }
-        else
-        {
-            if(info.isConnected())
-            {
-                Log.d(TAG," internet connection available...");
+        } else {
+            if (info.isConnected()) {
+                Log.d(TAG, " internet connection available...");
                 return true;
-            }
-            else
-            {
-                Log.d(TAG," internet connection");
+            } else {
+                Log.d(TAG, " internet connection");
                 return true;
             }
 
         }
     }
-    public void alertDialog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this); builder.setTitle("Network Issue").setMessage("No internet Connection!").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialogInterface, int i) {
-            dialogInterface.cancel();
-            signup.setVisibility(View.VISIBLE);
-            signin.setVisibility(View.VISIBLE);
-        }});
+
+    public void alertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Network Issue").setMessage("No internet Connection!").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+                signup.setVisibility(View.VISIBLE);
+                signin.setVisibility(View.VISIBLE);
+            }
+        });
         builder.create().show();
     }
 

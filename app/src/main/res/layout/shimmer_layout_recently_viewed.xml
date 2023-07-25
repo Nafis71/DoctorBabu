@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="70dp"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profilePicture"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        android:id="@+id/profilePicture"
-        app:layout_constraintDimensionRatio="1:1"
-        app:shapeAppearanceOverlay="@style/circular"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
-        android:layout_centerHorizontal="true"
         android:background="#DDDDDD"
-        >
-    </com.google.android.material.imageview.ShapeableImageView>
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:shapeAppearanceOverlay="@style/circular"></com.google.android.material.imageview.ShapeableImageView>
 
 </RelativeLayout>

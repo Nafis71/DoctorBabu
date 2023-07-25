@@ -33,23 +33,23 @@ public class MainActivity extends AppCompatActivity {
     TextView text1, text2;
     String language;
     int requestCode = 1;
-    String [] permissions = new String[]{android.Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,Manifest.permission.POST_NOTIFICATIONS};
-    public void onStart()
-    {
+    String[] permissions = new String[]{android.Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.POST_NOTIFICATIONS};
+
+    public void onStart() {
         super.onStart();
         SharedPreferences preferences = getSharedPreferences("language", Context.MODE_PRIVATE);
-         language = preferences.getString("lang","");
-         if(!language.isEmpty())
-         {
-             setLanguage(language);
-         }
+        language = preferences.getString("lang", "");
+        if (!language.isEmpty()) {
+            setLanguage(language);
+        }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
-        bottomanim =  AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
+        fadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        bottomanim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
         image = findViewById(R.id.splash_img);
         text1 = findViewById(R.id.text1);
         text2 = findViewById(R.id.text2);
@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         text2.setAnimation(bottomanim);
         loadNext();
     }
-    public void loadNext(){
+
+    public void loadNext() {
         new Handler().postDelayed(() -> {
-            if(isPermissionGranted())
-            {
-                Intent intent = new Intent(MainActivity.this,LoginOptions.class);
+            if (isPermissionGranted()) {
+                Intent intent = new Intent(MainActivity.this, LoginOptions.class);
                 startActivity(intent);
                 finish();
-            }else{
+            } else {
                 askPermission();
                 MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(MainActivity.this);
                 dialog.setTitle("Permission").setIcon(R.drawable.done)
@@ -80,25 +80,26 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SplashScreen);
     }
+
     private void askPermission() {
-        ActivityCompat.requestPermissions(this,permissions,requestCode);
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
-    private boolean isPermissionGranted(){
-        for(String permission : permissions)
-        {
-            if(ActivityCompat.checkSelfPermission(this,permission)!= PackageManager.PERMISSION_GRANTED) {
+
+    private boolean isPermissionGranted() {
+        for (String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
         return true;
     }
-    public void setLanguage(String language)
-    {
+
+    public void setLanguage(String language) {
         Resources resources = this.getResources();
         Configuration configuration = resources.getConfiguration();
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         configuration.setLocale(locale);
-        resources.updateConfiguration(configuration,resources.getDisplayMetrics());
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }

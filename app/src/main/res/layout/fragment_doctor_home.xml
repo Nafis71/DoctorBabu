@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".doctor.DoctorHome"
     android:background="#F7F9F9"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context=".doctor.DoctorHome">
 
 
 </LinearLayout>

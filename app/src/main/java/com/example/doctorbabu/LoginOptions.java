@@ -22,34 +22,32 @@ import com.google.firebase.auth.FirebaseUser;
 import pl.droidsonroids.gif.GifImageView;
 
 public class LoginOptions extends AppCompatActivity {
-    Animation topAnim,bottomAnim;
+    Animation topAnim, bottomAnim;
     ImageView doctorIMG;
     TextView helloText;
-    CardView patientCard,doctorCard;
+    CardView patientCard, doctorCard;
     GifImageView helloGif;
-    public void onStart()
-    {
+
+    public void onStart() {
         super.onStart();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
-        if(user!=null)
-        {
-            SharedPreferences preferences = getSharedPreferences("loginDetails",MODE_PRIVATE);
-            String login = preferences.getString("loginAs","");
-            if(login.equals("patient"))
-            {
+        if (user != null) {
+            SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
+            String login = preferences.getString("loginAs", "");
+            if (login.equals("patient")) {
                 Intent intent = new Intent(LoginOptions.this, Dashboard.class);
                 startActivity(intent);
                 finish();
             }
-            if(login.equals("doctor"))
-            {
+            if (login.equals("doctor")) {
                 Intent intent = new Intent(LoginOptions.this, DoctorDashboard.class);
                 startActivity(intent);
                 finish();
             }
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,14 +71,14 @@ public class LoginOptions extends AppCompatActivity {
         });
 
     }
-    public void viewBinding()
-    {
-        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
-        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
+
+    public void viewBinding() {
+        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
         doctorIMG = findViewById(R.id.doctorIMG);
         helloText = findViewById(R.id.text1);
         patientCard = findViewById(R.id.patientCard);
-        doctorCard= findViewById(R.id.doctorCard);
+        doctorCard = findViewById(R.id.doctorCard);
         helloGif = findViewById(R.id.helloGif);
         doctorIMG.setAnimation(topAnim);
         helloText.setAnimation(bottomAnim);

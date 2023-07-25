@@ -1,9 +1,11 @@
 package com.example.doctorbabu.Databases;
 
 public class doctorReviewModel {
-    String comment,userId;
+    String comment, userId;
     int rating;
-    doctorReviewModel(){}
+
+    public doctorReviewModel() {
+    }
 
     public doctorReviewModel(String comment, String userId, int rating) {
         this.comment = comment;

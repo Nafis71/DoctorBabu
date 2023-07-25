@@ -51,21 +51,22 @@ public class DoctorInfo extends Fragment {
     ViewPager2 vPager;
     TabLayout tabs;
     CardView videoCall;
-    TextView doctorNameView,doctorDegreeView,
-            doctorSpecialtiesView,currentlyWorkingView,ratingView,totalExperienceView,bmdcView,onlineStatusView,offlineStatusView;
-    ImageView profilePictureView,goback,outlinedLove,onlineStatusBanner,offlineStatusBanner;
+    TextView doctorNameView, doctorDegreeView,
+            doctorSpecialtiesView, currentlyWorkingView, ratingView, totalExperienceView, bmdcView, onlineStatusView, offlineStatusView;
+    ImageView profilePictureView, goback, outlinedLove, onlineStatusBanner, offlineStatusBanner;
 
-    String doctorId,doctorName,doctorTitle,doctorDegree,doctorSpecialty,currentlyWorking,photoUrl,bmdc;
+    String doctorId, doctorName, doctorTitle, doctorDegree, doctorSpecialty, currentlyWorking, photoUrl, bmdc;
     RelativeLayout parentLayout;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     float rating;
-    private final String [] titles = new String[]{"Info","Experience","Reviews"};
+    private final String[] titles = new String[]{"Info", "Experience", "Reviews"};
+
     public DoctorInfo() {
         // Required empty public constructor
     }
 
-    public DoctorInfo(String doctorId, String doctorName,String doctorTitle, String doctorDegree,String doctorSpecialty, String currentlyWorking, String photoUrl, float rating, String bmdc) {
+    public DoctorInfo(String doctorId, String doctorName, String doctorTitle, String doctorDegree, String doctorSpecialty, String currentlyWorking, String photoUrl, float rating, String bmdc) {
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorDegree = doctorDegree;
@@ -91,21 +92,20 @@ public class DoctorInfo extends Fragment {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new Doctor()).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new Doctor()).commit();
             }
         });
         outlinedLove.setOnClickListener(new View.OnClickListener() {
             boolean toggleButton = true;
+
             @Override
             public void onClick(View view) {
 
-                if(toggleButton) {
+                if (toggleButton) {
                     outlinedLove.setImageResource(R.drawable.filledlove);
                     toggleButton = false;
                     addFavourite();
-                }
-                else
-                {
+                } else {
                     outlinedLove.setImageResource(R.drawable.blanklove);
                     toggleButton = true;
                 }
@@ -114,20 +114,20 @@ public class DoctorInfo extends Fragment {
         videoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(requireActivity(),CheckoutDoctor.class);
-                intent.putExtra("doctorId",doctorId);
-                intent.putExtra("doctorTitle",doctorTitle);
-                intent.putExtra("doctorName",doctorName);
-                intent.putExtra("doctorDegree",doctorDegree);
-                intent.putExtra("doctorSpecialty",doctorSpecialty);
-                intent.putExtra("doctorCurrentlyWorking",currentlyWorking);
-                intent.putExtra("photoUrl",photoUrl);
+                Intent intent = new Intent(requireActivity(), CheckoutDoctor.class);
+                intent.putExtra("doctorId", doctorId);
+                intent.putExtra("doctorTitle", doctorTitle);
+                intent.putExtra("doctorName", doctorName);
+                intent.putExtra("doctorDegree", doctorDegree);
+                intent.putExtra("doctorSpecialty", doctorSpecialty);
+                intent.putExtra("doctorCurrentlyWorking", currentlyWorking);
+                intent.putExtra("photoUrl", photoUrl);
                 startActivity(intent);
             }
         });
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
         doctorNameView = requireView().findViewById(R.id.doctorName);
         doctorDegreeView = requireView().findViewById(R.id.doctorDegree);
         doctorSpecialtiesView = requireView().findViewById(R.id.doctorSpecialties);
@@ -137,7 +137,7 @@ public class DoctorInfo extends Fragment {
         bmdcView = requireView().findViewById(R.id.bmdc);
         profilePictureView = requireView().findViewById(R.id.profilePicture);
         vPager = requireView().findViewById(R.id.vPager);
-        tabs =  requireView().findViewById(R.id.tabs);
+        tabs = requireView().findViewById(R.id.tabs);
         goback = requireView().findViewById(R.id.goback);
         outlinedLove = requireView().findViewById(R.id.outlinedLove);
         onlineStatusBanner = requireView().findViewById(R.id.onlineStatusBanner);
@@ -147,8 +147,8 @@ public class DoctorInfo extends Fragment {
         videoCall = requireView().findViewById(R.id.videoCall);
         parentLayout = requireView().findViewById(R.id.parentLayout);
     }
-    public void loadData()
-    {
+
+    public void loadData() {
         String doctorName = this.doctorTitle + this.doctorName;
         doctorNameView.setText(doctorName);
         doctorDegreeView.setText(doctorDegree);
@@ -161,18 +161,14 @@ public class DoctorInfo extends Fragment {
         reference.child(doctorId).child("onlineStatus").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     String status = String.valueOf(snapshot.getValue());
-                    if(Integer.parseInt(status) != 0)
-                    {
+                    if (Integer.parseInt(status) != 0) {
                         onlineStatusBanner.setVisibility(View.VISIBLE);
                         onlineStatusView.setVisibility(View.VISIBLE);
                         offlineStatusBanner.setVisibility(View.GONE);
                         offlineStatusView.setVisibility(View.GONE);
-                    }
-                    else
-                    {
+                    } else {
                         offlineStatusBanner.setVisibility(View.VISIBLE);
                         offlineStatusView.setVisibility(View.VISIBLE);
                         onlineStatusBanner.setVisibility(View.GONE);
@@ -183,7 +179,7 @@ public class DoctorInfo extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
+                throw error.toException();
             }
         });
         ArrayList<Integer> periods = new ArrayList<>();
@@ -191,24 +187,23 @@ public class DoctorInfo extends Fragment {
         experienceReference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot snap : snapshot.getChildren())
-                {
+                for (DataSnapshot snap : snapshot.getChildren()) {
                     joiningDates model = snap.getValue(joiningDates.class);
                     assert model != null;
                     leavingDates model2 = snap.getValue(leavingDates.class);
                     assert model2 != null;
                     String joiningDate = model.getJoiningDate();
                     String leavingDate = model2.getLeavingDate();
-                    String [] splitText = joiningDate.split("/");
+                    String[] splitText = joiningDate.split("/");
                     int year = Integer.parseInt(splitText[0]);
                     int month = Integer.parseInt(splitText[1]);
                     int day = Integer.parseInt(splitText[2]);
-                    LocalDate beginningDay = LocalDate.of(year,month,day);
+                    LocalDate beginningDay = LocalDate.of(year, month, day);
                     splitText = leavingDate.split("/");
                     year = Integer.parseInt(splitText[0]);
                     month = Integer.parseInt(splitText[1]);
                     day = Integer.parseInt(splitText[2]);
-                    LocalDate endDay =LocalDate.of(year,month,day);
+                    LocalDate endDay = LocalDate.of(year, month, day);
                     Period period = Period.between(beginningDay, endDay);
                     String years = String.valueOf(period.getYears());
                     periods.add(Integer.parseInt(years));
@@ -217,21 +212,20 @@ public class DoctorInfo extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
+                throw error.toException();
             }
         });
         experienceReference = database.getReference("doctorCurrentlyWorking");
         experienceReference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!String.valueOf(snapshot.child("joiningDate").getValue()).equals("null"))
-                {
+                if (!String.valueOf(snapshot.child("joiningDate").getValue()).equals("null")) {
                     String date = String.valueOf(snapshot.child("joiningDate").getValue());
-                    String [] splitText = date.split("/");
+                    String[] splitText = date.split("/");
                     int year = Integer.parseInt(splitText[0]);
                     int month = Integer.parseInt(splitText[1]);
                     int day = Integer.parseInt(splitText[2]);
-                    LocalDate bday = LocalDate.of(year,month,day);
+                    LocalDate bday = LocalDate.of(year, month, day);
                     LocalDate today = LocalDate.now();
                     Period period = Period.between(bday, today);
                     String years = String.valueOf(period.getYears());
@@ -248,32 +242,36 @@ public class DoctorInfo extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int totalExperience= 0;
-                for(int i=0; i<periods.size(); i++)
-                {
+                int totalExperience = 0;
+                for (int i = 0; i < periods.size(); i++) {
                     totalExperience = totalExperience + periods.get(i);
                 }
                 String totalExperienceString = String.valueOf(totalExperience) + "+ years";
                 totalExperienceView.setText(totalExperienceString);
             }
-        },1000);
-        doctorInfoPageAdapter adapter = new doctorInfoPageAdapter(requireActivity(),doctorId);
+        }, 1000);
+        doctorInfoPageAdapter adapter = new doctorInfoPageAdapter(requireActivity(), doctorId);
         vPager.setAdapter(adapter);
-        new TabLayoutMediator(tabs,vPager,((tab, position) ->tab.setText(titles[position]))).attach();
+        new TabLayoutMediator(tabs, vPager, ((tab, position) -> tab.setText(titles[position]))).attach();
     }
-    public void addFavourite(){
-        HashMap<String,String> data = new HashMap<>();
-        data.put("doctorId",doctorId); data.put("photoUrl",photoUrl); data.put("fullName",doctorName); data.put("title",doctorTitle);
-        data.put("specialty",doctorSpecialty);
+
+    public void addFavourite() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("doctorId", doctorId);
+        data.put("photoUrl", photoUrl);
+        data.put("fullName", doctorName);
+        data.put("title", doctorTitle);
+        data.put("specialty", doctorSpecialty);
         DatabaseReference reference = database.getReference();
         reference.child("favouriteDoctors").child(user.getUid()).child(doctorId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Snackbar.make(parentLayout,doctorTitle + " "+ doctorName + " added to your favourite list",Snackbar.LENGTH_LONG).show();
+                Snackbar.make(parentLayout, doctorTitle + " " + doctorName + " added to your favourite list", Snackbar.LENGTH_LONG).show();
             }
         });
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

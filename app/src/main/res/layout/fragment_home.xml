@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#F7F9F9 "
+    android:orientation="vertical"
     tools:context=".patient.Home">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#ffff"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
-        android:elevation="2dp"
-        >
+        android:background="#ffff"
+        android:elevation="2dp">
 
         <ImageView
             android:id="@+id/doctorBabuLogo"
@@ -26,607 +25,607 @@
             android:layout_marginEnd="10dp"
             android:scaleType="fitStart"
             android:src="@drawable/doctorbabulogo" />
+
         <TextView
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:fontFamily="@font/roboto"
-            android:text="Doctor"
             android:layout_marginStart="-35dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
-            />
+            android:text="Doctor"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/headerText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:fontFamily="@font/roboto"
+            android:layout_marginStart="2dp"
             android:layout_toEndOf="@+id/headerText"
-            android:text="Babu"
+            android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
-            android:layout_marginStart="2dp"
-            android:textStyle="bold"
+            android:text="Babu"
             android:textColor="#4E5EDE"
             android:textSize="20sp"
-            />
+            android:textStyle="bold" />
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profilePicture"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
             android:layout_marginStart="260dp"
-            app:srcCompat="@drawable/profile_picture"
-            app:shapeAppearanceOverlay="@style/circular"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
             android:visibility="invisible"
             app:layout_constraintDimensionRatio="1:1"
+            app:shapeAppearanceOverlay="@style/circular"
+            app:srcCompat="@drawable/profile_picture"
 
             />
+
         <TextView
             android:id="@+id/languageName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/languageName"
-            android:fontFamily="@font/roboto"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/languageImage"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
-            >
+            android:layout_toEndOf="@+id/languageImage"
+            android:fontFamily="@font/roboto"
+            android:text="@string/languageName"
+            android:textSize="12sp"
+            android:textStyle="bold">
 
         </TextView>
+
         <ImageView
             android:id="@+id/languageImage"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src = "@drawable/languages"
-            android:layout_toEndOf="@+id/headerText2"
             android:layout_centerVertical="true"
             android:layout_marginStart="22dp"
-            />
+            android:layout_toEndOf="@+id/headerText2"
+            android:src="@drawable/languages" />
 
 
     </RelativeLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="2dp"
         app:cardCornerRadius="5dp"
-        app:cardElevation="8dp"
-        >
+        app:cardElevation="8dp">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/doctorSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:inputType="textPersonName"
             app:closeIcon="@drawable/close"
             app:defaultQueryHint="@string/doctorSearch"
-            android:inputType="textPersonName"
-            app:iconifiedByDefault="false"
-            >
+            app:iconifiedByDefault="false">
 
         </androidx.appcompat.widget.SearchView>
     </androidx.cardview.widget.CardView>
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id ="@+id/scroll"
-       >
 
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-           >
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/sliderCard"
-               android:layout_width="match_parent"
-               android:layout_height="150dp"
-               android:layout_marginStart="10dp"
-               android:layout_marginTop="20dp"
-               android:layout_marginEnd="10dp"
-               android:padding="20dp"
-               app:cardCornerRadius="5dp"
-               app:cardElevation="8dp"
-               app:strokeColor="@color/white"
-               >
-               <com.smarteist.autoimageslider.SliderView
-                   android:id="@+id/imageSlider"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   app:sliderAnimationDuration="900"
-                   app:sliderAutoCycleDirection="back_and_forth"
-                   app:sliderAutoCycleEnabled="true"
-                   app:sliderIndicatorAnimationDuration="900"
-                   app:sliderIndicatorEnabled="true"
-                   app:sliderIndicatorGravity="center_horizontal|bottom"
-                   app:sliderIndicatorMargin="15dp"
-                   app:sliderIndicatorOrientation="horizontal"
-                   app:sliderIndicatorPadding="3dp"
-                   app:sliderIndicatorRadius="2dp"
-                   app:sliderIndicatorSelectedColor="#5A5A5A"
-                   app:sliderIndicatorUnselectedColor="#FFF"
-                   app:sliderScrollTimeInSec="2"
-                   app:sliderStartAutoCycle="true" />
-           </com.google.android.material.card.MaterialCardView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
+            >
 
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/appointmentCard"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="-8dp"
-               android:layout_marginTop="20dp"
-               android:layout_marginEnd="-8dp"
-               android:padding="20dp"
-               app:cardElevation="2dp"
-               app:strokeColor="@color/white"
-               android:layout_below="@+id/sliderCard"
-               >
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/sliderCard"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:padding="20dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="8dp"
+                app:strokeColor="@color/white">
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:background="#ffff"
-                   android:orientation="vertical">
-                   <com.airbnb.lottie.LottieAnimationView
-                       android:layout_width="180dp"
-                       android:layout_height="170dp"
-                       app:lottie_rawRes="@raw/doctorappointment"
-                       app:lottie_autoPlay="true"
-                       app:lottie_loop="true"
-                       android:layout_gravity="center"
-                       />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:text="@string/bookAppointment"
-                       android:fontFamily="@font/roboto"
-                       android:textColor="#666666"
-                       android:shadowColor="@color/black"
-                       android:textStyle="bold"
-                       android:textSize="13sp"
-                       android:layout_marginTop="-20dp"
-                       />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/bookAppointmentDescription"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:layout_marginTop="5dp"
-                       android:layout_marginStart="5dp"
-                       android:textSize="12sp"
-                       android:layout_gravity="center"
-                       android:textAlignment="center"
-                       android:padding="5dp"
-                       android:layout_marginBottom="10dp"
-                       android:layout_marginEnd="5dp"
-                       />
-               </LinearLayout>
-
-           </com.google.android.material.card.MaterialCardView>
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/consultantCard"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_below="@+id/appointmentCard"
-               android:layout_marginStart="-8dp"
-               android:layout_marginTop="12dp"
-               android:layout_marginEnd="-8dp"
-               android:padding="20dp"
-               app:cardElevation="4dp"
-               app:strokeColor="@color/white"
-
-               >
-
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:background="#ffff"
-                   android:orientation="vertical">
-                   <com.airbnb.lottie.LottieAnimationView
-                       android:layout_width="180dp"
-                       android:layout_height="170dp"
-                       app:lottie_rawRes="@raw/consultation"
-                       app:lottie_autoPlay="true"
-                       app:lottie_loop="true"
-                       android:layout_gravity="center"
-                       />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:text="@string/takeConsultancy"
-                       android:fontFamily="@font/roboto"
-                       android:textColor="#666666"
-                       android:shadowColor="@color/black"
-                       android:textStyle="bold"
-                       android:textSize="13sp"
-                       />
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/takeConsultancyDescription"
-                       android:textColor="#666666"
-                       android:layout_marginTop="5dp"
-                       android:textSize="12sp"
-                       android:layout_gravity="center"
-                       android:padding="5dp"
-                       android:layout_marginBottom="10dp"
-                       android:layout_marginEnd="5dp"
-                       android:fontFamily="@font/roboto"
-                       />
-               </LinearLayout>
-
-           </com.google.android.material.card.MaterialCardView>
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/medicineReminderCard"
-               android:layout_width="180dp"
-               android:layout_height="wrap_content"
-               android:layout_below="@+id/consultantCard"
-               app:cardCornerRadius="11dp"
-               app:cardElevation="8dp"
-               android:layout_marginTop="10dp"
-               android:layout_marginEnd="4dp"
-               android:layout_marginStart="10dp"
-               android:layout_marginBottom="5dp"
-               app:cardPreventCornerOverlap="true"
-               >
-
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:orientation="vertical"
-                   android:background="#fff"
-                   >
-                   <ImageView
-                       android:layout_width="110dp"
-                       android:layout_height="85dp"
-                       android:src = "@drawable/pillremind"
-                       android:layout_below="@+id/medicineReminderDescription"
-                       android:layout_marginBottom="5dp"
-                       android:layout_marginTop="2dp"
-                       android:layout_centerHorizontal="true"
-                       android:scaleType="centerCrop"
-                       />
-                   <TextView
-                       android:id="@+id/medicineRemindText"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="@string/medicalReminder"
-                       android:textSize="13sp"
-                       android:textStyle="bold"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginStart="20dp"
-                       android:layout_centerHorizontal="true"
-                       >
-
-                   </TextView>
-                   <TextView
-                       android:id="@+id/medicineReminderDescription"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="@string/medicalReminderDescription"
-                       android:textSize="12sp"
-                       android:layout_gravity="center"
-                       android:layout_marginStart="9dp"
-                       android:layout_below="@+id/medicineRemindText"
-                       android:layout_alignParentStart="true"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:padding="2dp"
-
-                       >
-
-                   </TextView>
-               </RelativeLayout>
-
-           </com.google.android.material.card.MaterialCardView>
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/reportCard"
-               android:layout_width="180dp"
-               android:layout_height="wrap_content"
-               android:layout_below="@+id/medicineReminderCard"
-               app:cardCornerRadius="11dp"
-               app:cardElevation="8dp"
-               android:layout_marginTop="2dp"
-               android:layout_marginEnd="4dp"
-               android:layout_marginStart="10dp"
-               android:layout_marginBottom="5dp"
-               app:cardPreventCornerOverlap="true"
-               >
-
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:orientation="vertical"
-                   android:background="#fff"
-                   >
-                   <ImageView
-                       android:layout_width="110dp"
-                       android:layout_height="90dp"
-                       android:src = "@drawable/report"
-                       android:layout_marginTop="2dp"
-                       android:layout_centerHorizontal="true"
-                       android:layout_marginBottom="5dp"
-                       android:scaleType="centerCrop"
-                       android:layout_below="@+id/medicalReportDescription"
-                       />
-                   <TextView
-                       android:id="@+id/reportText"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="@string/medicalReport"
-                       android:textSize="13sp"
-                       android:textStyle="bold"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginStart="20dp"
-                       android:layout_centerHorizontal="true"
-                       >
-
-                   </TextView>
-                   <TextView
-                       android:id="@+id/medicalReportDescription"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/medicalReportDescription"
-                       android:textSize="12sp"
-                       android:layout_gravity="center"
-                       android:layout_marginStart="8.5dp"
-                       android:layout_below="@+id/reportText"
-                       android:layout_alignParentStart="true"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:padding="2dp"
-
-                       >
-
-                   </TextView>
-               </RelativeLayout>
-
-           </com.google.android.material.card.MaterialCardView>
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/appointmentHistory"
-               android:layout_width="180dp"
-               android:layout_height="150dp"
-               android:layout_below="@+id/reportCard"
-               app:cardCornerRadius="11dp"
-               app:cardElevation="8dp"
-               android:layout_marginTop="2dp"
-               android:layout_marginEnd="4dp"
-               android:layout_marginStart="10dp"
-               android:layout_marginBottom="10dp"
-               app:cardPreventCornerOverlap="true"
-               >
-
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:orientation="vertical"
-                   android:background="#fff"
-                   >
-                   <ImageView
-                       android:layout_width="110dp"
-                       android:layout_height="90dp"
-                       android:src = "@drawable/appointmenthistory"
-                       android:layout_centerHorizontal="true"
-                       android:layout_marginBottom="5dp"
-                       android:layout_marginTop="2dp"
-                       android:scaleType="centerCrop"
-                       android:layout_below="@+id/appointmentHistoryDescription"
-                       />
-                   <TextView
-                       android:id="@+id/apointmentHistoryText"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="@string/appointmentHistory"
-                       android:textSize="13sp"
-                       android:textStyle="bold"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginStart="20dp"
-                       android:layout_centerHorizontal="true"
-                       >
-
-                   </TextView>
-                   <TextView
-                       android:id="@+id/appointmentHistoryDescription"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/appointmentHistoryDescription"
-                       android:textSize="12sp"
-                       android:layout_gravity="center"
-                       android:layout_marginStart="8.5dp"
-                       android:layout_below="@+id/apointmentHistoryText"
-                       android:layout_alignParentStart="true"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:padding="2dp"
-
-                       >
-
-                   </TextView>
-               </RelativeLayout>
-
-           </com.google.android.material.card.MaterialCardView>
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/onlineCosultantCard"
-           android:layout_width="210dp"
-           android:layout_height="270dp"
-           android:layout_marginStart="0dp"
-           android:layout_marginTop="10dp"
-           android:layout_marginEnd="10dp"
-           android:layout_marginBottom="5dp"
-           android:layout_toEndOf="@id/medicineReminderCard"
-               android:layout_below="@+id/consultantCard"
-           app:cardCornerRadius="11dp"
-           app:cardElevation="8dp"
-           >
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="vertical"
-               android:background="#ffff"
-               >
-
-               <ImageView
-                   android:layout_width="120dp"
-                   android:layout_height="175dp"
-                   android:layout_alignParentStart="true"
-                   android:layout_alignParentTop="true"
-                   android:layout_alignParentBottom="true"
-                   android:layout_gravity="center"
-                   android:layout_marginStart="87dp"
-                   android:layout_marginTop="35dp"
-                   android:layout_marginBottom="0dp"
-                   android:scaleType="centerCrop"
-                   android:src="@drawable/doctor1" />
-
-               <ImageView
-                   android:layout_width="120dp"
-                   android:layout_height="170dp"
-                   android:src = "@drawable/doctor3"
-                   android:layout_below="@id/onlineText"
-                   android:layout_alignParentTop="true"
-                   android:layout_alignParentStart="true"
-                   android:layout_alignParentBottom="true"
-                   android:layout_marginStart="-35dp"
-                   android:layout_marginTop="50dp"
-                   android:scaleType="centerCrop"
-                   />
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:sliderAnimationDuration="900"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="900"
+                    app:sliderIndicatorEnabled="true"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5A5A5A"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="2"
+                    app:sliderStartAutoCycle="true" />
+            </com.google.android.material.card.MaterialCardView>
 
 
-               <TextView
-                   android:id="@+id/doctorText"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="@string/onlineConsultant"
-                   android:textSize="13sp"
-                   android:textColor="#666666"
-                   android:fontFamily="@font/roboto"
-                   android:textStyle="bold"
-                   android:layout_alignParentTop="true"
-                   android:layout_alignParentStart="true"
-                   android:layout_marginStart="10dp"
-                   android:layout_marginTop="10dp"
-                   />
-               <TextView
-                   android:id="@+id/onlineText"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="@string/onlineConsultantDescription"
-                   android:textSize="12sp"
-                   android:layout_below="@+id/doctorText"
-                   android:layout_gravity="center"
-                   android:layout_marginStart="8dp"
-                   android:textColor="#666666"
-                   android:fontFamily="@font/roboto"
-                   android:padding="2dp"
-                   >
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/appointmentCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sliderCard"
+                android:layout_marginStart="-8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="-8dp"
+                android:padding="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/white">
 
-               </TextView>
-               <ImageView
-                   android:layout_width="12dp"
-                   android:layout_height="15dp"
-                   android:src = "@drawable/greendot"
-                   android:layout_toEndOf="@+id/onlineText"
-                   android:layout_alignParentTop="true"
-                   android:layout_marginTop="32dp"
-                   />
-           </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffff"
+                    android:orientation="vertical">
 
-       </com.google.android.material.card.MaterialCardView>
-           <com.google.android.material.card.MaterialCardView
-               android:id="@+id/medicineCard"
-               android:layout_width="185dp"
-               android:layout_height="180dp"
-               android:layout_below="@+id/onlineCosultantCard"
-               app:cardCornerRadius="11dp"
-               app:cardElevation="8dp"
-               android:layout_marginTop="2dp"
-               android:layout_marginEnd="10dp"
-               android:layout_marginStart="1dp"
-               android:layout_marginBottom="10dp"
-               app:cardPreventCornerOverlap="true"
-               android:layout_alignParentEnd="true"
-               android:layout_toEndOf="@id/reportCard"
-               >
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="180dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/doctorappointment" />
 
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:orientation="vertical"
-                   android:background="#fff"
-                   >
-                   <ImageView
-                       android:layout_width="110dp"
-                       android:layout_height="90dp"
-                       android:src = "@drawable/medicinepicture"
-                       android:layout_centerHorizontal="true"
-                       android:layout_marginBottom="5dp"
-                       android:layout_marginTop="2dp"
-                       android:scaleType="centerCrop"
-                       android:adjustViewBounds="true"
-                       android:layout_below="@+id/medicineInformationDescription"/>
-                   <TextView
-                       android:id="@+id/medicineText"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="@string/medicineInformation"
-                       android:textSize="13sp"
-                       android:textStyle="bold"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:layout_marginTop="15dp"
-                       android:layout_marginStart="20dp"
-                       android:layout_centerHorizontal="true"
-                       >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-20dp"
+                        android:fontFamily="@font/roboto"
+                        android:shadowColor="@color/black"
+                        android:text="@string/bookAppointment"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
-                   </TextView>
-                   <TextView
-                       android:id="@+id/medicineInformationDescription"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="@string/medicineInformationDescription"
-                       android:textSize="12sp"
-                       android:layout_gravity="center"
-                       android:layout_marginStart="9dp"
-                       android:layout_below="@+id/medicineText"
-                       android:layout_alignParentStart="true"
-                       android:textColor="#666666"
-                       android:fontFamily="@font/roboto"
-                       android:padding="2dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp"
+                        android:text="@string/bookAppointmentDescription"
+                        android:textAlignment="center"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
-                       >
+            </com.google.android.material.card.MaterialCardView>
 
-                   </TextView>
-               </RelativeLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/consultantCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appointmentCard"
+                android:layout_marginStart="-8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="-8dp"
+                android:padding="20dp"
+                app:cardElevation="4dp"
+                app:strokeColor="@color/white"
 
-           </com.google.android.material.card.MaterialCardView>
+                >
 
-       </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffff"
+                    android:orientation="vertical">
 
-   </ScrollView>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="180dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/consultation" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/roboto"
+                        android:shadowColor="@color/black"
+                        android:text="@string/takeConsultancy"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp"
+                        android:text="@string/takeConsultancyDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/medicineReminderCard"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/consultantCard"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="85dp"
+                        android:layout_below="@+id/medicineReminderDescription"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pillremind" />
+
+                    <TextView
+                        android:id="@+id/medicineRemindText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/medicalReminder"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/medicineReminderDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/medicineRemindText"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="9dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/medicalReminderDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+
+                        >
+
+                    </TextView>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/reportCard"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/medicineReminderCard"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="90dp"
+                        android:layout_below="@+id/medicalReportDescription"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/report" />
+
+                    <TextView
+                        android:id="@+id/reportText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/medicalReport"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/medicalReportDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/reportText"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8.5dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/medicalReportDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+
+                        >
+
+                    </TextView>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/appointmentHistory"
+                android:layout_width="180dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/reportCard"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="90dp"
+                        android:layout_below="@+id/appointmentHistoryDescription"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/appointmenthistory" />
+
+                    <TextView
+                        android:id="@+id/apointmentHistoryText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/appointmentHistory"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/appointmentHistoryDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/apointmentHistoryText"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8.5dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/appointmentHistoryDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+
+                        >
+
+                    </TextView>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/onlineCosultantCard"
+                android:layout_width="210dp"
+                android:layout_height="270dp"
+                android:layout_below="@+id/consultantCard"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_toEndOf="@id/medicineReminderCard"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#ffff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="175dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="87dp"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="0dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/doctor1" />
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="170dp"
+                        android:layout_below="@id/onlineText"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="-35dp"
+                        android:layout_marginTop="50dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/doctor3" />
+
+
+                    <TextView
+                        android:id="@+id/doctorText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/onlineConsultant"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/onlineText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/doctorText"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/onlineConsultantDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="32dp"
+                        android:layout_toEndOf="@+id/onlineText"
+                        android:src="@drawable/greendot" />
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/medicineCard"
+                android:layout_width="185dp"
+                android:layout_height="180dp"
+                android:layout_below="@+id/onlineCosultantCard"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/reportCard"
+                app:cardCornerRadius="11dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="90dp"
+                        android:layout_below="@+id/medicineInformationDescription"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/medicinepicture" />
+
+                    <TextView
+                        android:id="@+id/medicineText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/medicineInformation"
+                        android:textColor="#666666"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/medicineInformationDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/medicineText"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="9dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/medicineInformationDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+
+                        >
+
+                    </TextView>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>

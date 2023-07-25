@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient;
 
 import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,23 +45,23 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EditProfile extends AppCompatActivity {
-    String uid,userGender,email;
-    ImageView backButton,editButton,profileImage;
+    String uid, userGender, email;
+    ImageView backButton, editButton, profileImage;
     RadioGroup radioGroup;
-    RadioButton radioButton,male,female;
-    TextInputEditText userName,userAddress, birthDate,userHeight,userWeight,userPhone;
-    AutoCompleteTextView district,area;
-    TextInputLayout fullNameLayout, phoneLayout, addressLayout, ageLayout,heightLayout, weightLayout,districtLayout,areaLayout;
+    RadioButton radioButton, male, female;
+    TextInputEditText userName, userAddress, birthDate, userHeight, userWeight, userPhone;
+    AutoCompleteTextView district, area;
+    TextInputLayout fullNameLayout, phoneLayout, addressLayout, ageLayout, heightLayout, weightLayout, districtLayout, areaLayout;
     ProgressBar loadingCircle;
     Uri filepath;
     Bitmap bitmap;
     Button update;
-
 
 
     @Override
@@ -73,7 +74,7 @@ public class EditProfile extends AppCompatActivity {
         birthDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 Date date = new Date(System.currentTimeMillis());
                 String tempDate = formatter.format(date);
                 String[] CurrentDate = tempDate.split("/");
@@ -83,7 +84,7 @@ public class EditProfile extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(EditProfile.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String date = String.valueOf(year)+"/"+String.valueOf(month+1)+"/"+String.valueOf(dayOfMonth);
+                        String date = String.valueOf(year) + "/" + String.valueOf(month + 1) + "/" + String.valueOf(dayOfMonth);
                         birthDate.setText(date);
                     }
                 }, currentYear, currentMonth, currentDay);
@@ -92,8 +93,8 @@ public class EditProfile extends AppCompatActivity {
         });
 
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
         uid = getIntent().getStringExtra("uId");
         email = getIntent().getStringExtra("email");
         setContentView(R.layout.activity_edit_profile);
@@ -122,79 +123,62 @@ public class EditProfile extends AppCompatActivity {
         districtLayout = findViewById(R.id.districtLayout);
         areaLayout = findViewById(R.id.areaLayout);
     }
-    public void districtSelection()
-    {
-        String [] items = {"Dhaka","Chittagong","Gazipur","Barishal","Jamalpur","Khulna","Rajshahi","Sherpur","Sylhet ","Rangpur"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this,R.layout.drop_menu,items);
+
+    public void districtSelection() {
+        String[] items = {"Dhaka", "Chittagong", "Gazipur", "Barishal", "Jamalpur", "Khulna", "Rajshahi", "Sherpur", "Sylhet ", "Rangpur"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
         district.setAdapter(adapter);
     }
+
     public void areaSelection(String area) {
         if (area.equals("Dhaka")) {
             String[] items = {"Badda", "Mirpur", "Dhanmondi", "Mohammadpur", "Demra", "Gulshan", "Khilgaon",
                     "Khilkhet", "Ramna ", "Savar"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Chittagong"))
-        {
+        } else if (area.equals("Chittagong")) {
             String[] items = {"Mirsharai", "Mirsharai", "Patiya", "Raozan", "Sandwip", "Satkania",
-                    "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish","Fatikchhari ","Hathazari ","Lohagara ","Pahartali",
-                    "Bandarban","Patenga"};
+                    "Sitakunda", "Banshkhali", "Boalkhali", "Chandanaish", "Fatikchhari ", "Hathazari ", "Lohagara ", "Pahartali",
+                    "Bandarban", "Patenga"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Gazipur"))
-        {
+        } else if (area.equals("Gazipur")) {
             String[] items = {"Gazipur Sadar", "Kapasia", "Tongi town", "Sripur", "Kaliganj", "Kaliakior"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Barishal"))
-        {
+        } else if (area.equals("Barishal")) {
             String[] items = {"Barishal Sadar", "Banaripara", "Bakerganj", "Babuganj", "Gaurnadi", "Hizla",
                     "Mehendiganj", "Agailjhara", "Wazirpur", "Muladi"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Jamalpur"))
-        {
+        } else if (area.equals("Jamalpur")) {
             String[] items = {"Jamalpur Sadar", "Baksiganj ", "Dewanganj", "Islampur", "Madarganj", "Sarishabari"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Khulna"))
-        {
-            String[] items = {"Dumuria", "Batiaghata ", "Dacope", "Phultala", "Dighalia", "Koyra","Terokhada","Rupsha","Paikgachha"};
+        } else if (area.equals("Khulna")) {
+            String[] items = {"Dumuria", "Batiaghata ", "Dacope", "Phultala", "Dighalia", "Koyra", "Terokhada", "Rupsha", "Paikgachha"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Rajshahi"))
-        {
-            String[] items = {"Godagari", "Tanore", "Mohanpur", "Bagmara", "Durgapur", "Bagmara","Bagha","Charghat","Puthia","Paba "};
+        } else if (area.equals("Rajshahi")) {
+            String[] items = {"Godagari", "Tanore", "Mohanpur", "Bagmara", "Durgapur", "Bagmara", "Bagha", "Charghat", "Puthia", "Paba "};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Sherpur"))
-        {
+        } else if (area.equals("Sherpur")) {
             String[] items = {"Sherpur Sadar", "Nakla", "Sreebardi", "Nalitabari", "Jhenaigati"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Sylhet"))
-        {
-            String[] items = {"Sylhet Sadar", "Beanibazar", "Golapganj", "Companiganj", "Fenchuganj","Bishwanath","Bishwanath","Jaintiapur","Kanaighat","Balaganj"};
+        } else if (area.equals("Sylhet")) {
+            String[] items = {"Sylhet Sadar", "Beanibazar", "Golapganj", "Companiganj", "Fenchuganj", "Bishwanath", "Bishwanath", "Jaintiapur", "Kanaighat", "Balaganj"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
-        }
-        else if(area.equals("Rangpur"))
-        {
-            String[] items = {"Rangpur Sadar", "Badarganj", "Kaunia", "Gangachhara", "Mithapukur","Taraganj","Pirganj","Pirgachha"};
+        } else if (area.equals("Rangpur")) {
+            String[] items = {"Rangpur Sadar", "Badarganj", "Kaunia", "Gangachhara", "Mithapukur", "Taraganj", "Pirganj", "Pirgachha"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(EditProfile.this, R.layout.drop_menu, items);
             this.area.setAdapter(adapter);
         }
     }
-    public void stateObserver()
-    {
+
+    public void stateObserver() {
         userName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -298,141 +282,108 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
-    public boolean validateFullName()
-    {
+
+    public boolean validateFullName() {
         String value = userName.getText().toString();
         String check = "^[a-zA-Z\\u0020]*$";
-        if(value.isEmpty())
-        {
+        if (value.isEmpty()) {
             fullNameLayout.setError("Field can't be empty");
             return false;
-        }
-        else if(!value.matches(check))
-        {
+        } else if (!value.matches(check)) {
             fullNameLayout.setError("Invalid Name");
             return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    public boolean validateAddress()
-    {
-        String value = userAddress.getText().toString();
-        if(value.isEmpty())
-        {
-            addressLayout.setError("Field can't be empty");
-            return false;
-        }
-        if(value.equals("Not set"))
-        {
-            addressLayout.setError("Please update your address");
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    public boolean validatePhone()
-    {
-        String value = userPhone.getText().toString();
-        if(value.isEmpty())
-        {
-            phoneLayout.setError("Field can't be empty");
-            return false;
-        }
-        else if(value.length() > 11)
-        {
-            phoneLayout.setError("Phone number exceeds limit");
-            return  false;
-        }
-        else if(value.length() < 11)
-        {
-            phoneLayout.setError("Invalid Phone Number");
-            return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
 
-    public boolean validateHeight()
-    {
-        String value =  userHeight.getText().toString();
-        if(value.isEmpty())
-        {
+    public boolean validateAddress() {
+        String value = userAddress.getText().toString();
+        if (value.isEmpty()) {
+            addressLayout.setError("Field can't be empty");
+            return false;
+        }
+        if (value.equals("Not set")) {
+            addressLayout.setError("Please update your address");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validatePhone() {
+        String value = userPhone.getText().toString();
+        if (value.isEmpty()) {
+            phoneLayout.setError("Field can't be empty");
+            return false;
+        } else if (value.length() > 11) {
+            phoneLayout.setError("Phone number exceeds limit");
+            return false;
+        } else if (value.length() < 11) {
+            phoneLayout.setError("Invalid Phone Number");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validateHeight() {
+        String value = userHeight.getText().toString();
+        if (value.isEmpty()) {
             heightLayout.setError("Field can't be empty");
             return false;
-        }
-        else if(Float.parseFloat(value) < 121.92)
-        {
+        } else if (Float.parseFloat(value) < 121.92) {
             heightLayout.setError("Invalid height");
             return false;
-        }
-        else if(Float.parseFloat(value) > 243.84)
-        {
+        } else if (Float.parseFloat(value) > 243.84) {
             heightLayout.setError("Invalid height");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
-    public boolean validateWeight()
-    {
+
+    public boolean validateWeight() {
         String value = userWeight.getText().toString();
-        if(value.isEmpty())
-        {
+        if (value.isEmpty()) {
             weightLayout.setError("Field can't be empty");
             return false;
-        }
-        else if(Float.parseFloat(value) > 200.00)
-        {
+        } else if (Float.parseFloat(value) > 200.00) {
             weightLayout.setError("Invalid weight");
             return false;
-        }
-        else if(Float.parseFloat(value) < 30.00)
-        {
+        } else if (Float.parseFloat(value) < 30.00) {
             weightLayout.setError("Invalid weight");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
-    private boolean validateUserDistrict()
-    {
-        String userDistrict =  district.getText().toString();
-        if(userDistrict.isEmpty())
-        {
+
+    private boolean validateUserDistrict() {
+        String userDistrict = district.getText().toString();
+        if (userDistrict.isEmpty()) {
             district.setError("Field can't be empty");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
-    private boolean validateUserArea()
-    {
+
+    private boolean validateUserArea() {
         String userArea = area.getText().toString();
-        if(userArea.isEmpty())
-        {
+        if (userArea.isEmpty()) {
             area.setError("Field can't be empty");
             return false;
-        } else{
+        } else {
             return true;
         }
     }
-    public void browse(View view)
-    {
+
+    public void browse(View view) {
         ImagePicker.with(this)
-                .crop(1f, 1f)	    			//Crop image(Optional), Check Customization for more option
-                .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .crop(1f, 1f)                    //Crop image(Optional), Check Customization for more option
+                .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
                 .start();
     }
 
@@ -440,32 +391,31 @@ public class EditProfile extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         assert data != null;
         filepath = data.getData();
-            try{
-                InputStream inputStream = getContentResolver().openInputStream(filepath);
-                bitmap = BitmapFactory.decodeStream(inputStream);
-                profileImage.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(filepath);
+            bitmap = BitmapFactory.decodeStream(inputStream);
+            profileImage.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
-    public void firebaseUpdateData(View view)
-    {
-        if(!validateFullName() | !validateHeight() | !validateWeight() | !validateAddress() | !validatePhone()|!validateUserArea()|!validateUserDistrict())
-        {
+
+    public void firebaseUpdateData(View view) {
+        if (!validateFullName() | !validateHeight() | !validateWeight() | !validateAddress() | !validatePhone() | !validateUserArea() | !validateUserDistrict()) {
             return;
         }
         String fullname = userName.getText().toString();
-        String address  = userAddress.getText().toString();
-        String phone  = userPhone.getText().toString();
+        String address = userAddress.getText().toString();
+        String phone = userPhone.getText().toString();
         String birthdate = birthDate.getText().toString();
         String height = userHeight.getText().toString();
         String weight = userWeight.getText().toString();
         String userDistrict = district.getText().toString();
         String userArea = area.getText().toString();
         String gender = userGender;
-        if(filepath != null) {
+        if (filepath != null) {
             ProgressDialog dialog = new ProgressDialog(this);
             dialog.setTitle("Uploading...");
             dialog.show();
@@ -478,7 +428,7 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             dialog.dismiss();
-                            userHelper userData = new userHelper(fullname, email, phone,birthdate,gender,height,weight,address,userDistrict,userArea);
+                            userHelper userData = new userHelper(fullname, email, phone, birthdate, gender, height, weight, address, userDistrict, userArea);
                             userData.setPhotoUrl(uri.toString());
                             FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
                             DatabaseReference reference = database.getReference("users");
@@ -514,9 +464,7 @@ public class EditProfile extends AppCompatActivity {
                     Toast.makeText(EditProfile.this, "Update Failed", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
-        else
-        {
+        } else {
             loadingCircle.setVisibility(View.VISIBLE);
             FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
             DatabaseReference reference = database.getReference("users");
@@ -535,17 +483,15 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    public void readFirebaseUserData()
-    {
+    public void readFirebaseUserData() {
         loadingCircle.setVisibility(View.VISIBLE);
         DatabaseReference reference = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("users");
         reference.child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful())
-                { loadingCircle.setVisibility(View.GONE);
-                    if(task.getResult().exists())
-                    {
+                if (task.isSuccessful()) {
+                    loadingCircle.setVisibility(View.GONE);
+                    if (task.getResult().exists()) {
                         DataSnapshot snapShot = task.getResult();
                         userName.setText(String.valueOf(snapShot.child("fullName").getValue()));
                         userPhone.setText(String.valueOf(snapShot.child("phone").getValue()));
@@ -553,110 +499,83 @@ public class EditProfile extends AppCompatActivity {
                         area.setText(String.valueOf(snapShot.child("area").getValue()));
                         districtSelection();
                         areaSelection(district.getText().toString());
-                        Log.i("distric loaded","District");
+                        Log.i("distric loaded", "District");
                         String address = String.valueOf(snapShot.child("address").getValue());
-                        if(!address.equals("null"))
-                        {
+                        if (!address.equals("null")) {
                             userAddress.setText(address);
-                        }
-                        else
-                        {
+                        } else {
                             userAddress.setText("Not set");
                         }
                         String birthDate = String.valueOf(snapShot.child("birthDate").getValue());
-                        if(!birthDate.equals("null"))
-                        {
+                        if (!birthDate.equals("null")) {
                             EditProfile.this.birthDate.setText(birthDate);
-                        }
-                        else
-                        {
+                        } else {
                             EditProfile.this.birthDate.setText("Not set");
                         }
                         String height = String.valueOf(snapShot.child("height").getValue());
-                        if(!height.equals("null"))
-                        {
+                        if (!height.equals("null")) {
                             userHeight.setText(height);
-                        }
-                        else
-                        {
+                        } else {
                             userHeight.setText("Not set");
                         }
                         String weight = String.valueOf(snapShot.child("weight").getValue());
-                        if(!height.equals("null"))
-                        {
+                        if (!height.equals("null")) {
                             userWeight.setText(weight);
-                        }
-                        else
-                        {
+                        } else {
                             userWeight.setText("Not set");
                         }
                         String photoUrl = String.valueOf(snapShot.child("photoUrl").getValue());
-                        if(!photoUrl.equals("null"))
-                        {
+                        if (!photoUrl.equals("null")) {
                             Glide.with(EditProfile.this).load(photoUrl).into(profileImage);
-                             //loading image from firebase using glide tool.
-                        }
-                        else
-                        {
-                           profileImage.setImageResource(R.drawable.profile_picture);
+                            //loading image from firebase using glide tool.
+                        } else {
+                            profileImage.setImageResource(R.drawable.profile_picture);
                         }
                         String gender = String.valueOf(snapShot.child("gender").getValue());
-                        if(!gender.equals("null"))
-                        {
-                            if(gender.equals("Male"))
-                            {
+                        if (!gender.equals("null")) {
+                            if (gender.equals("Male")) {
                                 male.setChecked(true);
                                 userGender = "Male";
-                            }
-                            else
-                            {
+                            } else {
                                 female.setChecked(true);
                                 userGender = "Female";
                             }
-                        }
-                        else
-                        {
-                           return;
+                        } else {
+                            return;
                         }
 
+                    } else {
+                        Toast.makeText(EditProfile.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Toast.makeText(EditProfile.this,"User doesn't exist",Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else
-                {
-                    Toast.makeText(EditProfile.this,"Failed to read data from the server",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EditProfile.this, "Failed to read data from the server", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"Database Read Error");
+                Log.d(TAG, "Database Read Error");
             }
         });
     }
-    public void back(View view)
-    {
+
+    public void back(View view) {
         finish();
     }
+
     public void checkButton(View view)  //for radio button
     {
         int radioId = radioGroup.getCheckedRadioButtonId(); //check which button is pressed
         radioButton = findViewById(radioId);
         userGender = radioButton.getText().toString();
-        if(userGender.equals("Male")||userGender.equals("পুরুষ"))
-        {
+        if (userGender.equals("Male") || userGender.equals("পুরুষ")) {
             userGender = "Male";
-        }
-        else
-        {
+        } else {
             userGender = "Female";
         }
     }
-    public void alertDialog()
-    {
+
+    public void alertDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(EditProfile.this);
         dialog.setTitle("Updated")
                 .setMessage("Information updated successfully")

@@ -1,7 +1,7 @@
 package com.example.doctorbabu.Databases;
 
 public class recentlyViewedDoctorModel {
-        String doctorId,photoUrl;
+    String doctorId, photoUrl;
 
     public recentlyViewedDoctorModel() {
     }

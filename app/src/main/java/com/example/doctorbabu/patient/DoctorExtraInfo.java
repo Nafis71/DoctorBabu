@@ -21,15 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class DoctorExtraInfo extends Fragment {
-    TextView doctorCode,about;
+    TextView doctorCode, about;
     String doctorId;
 
     public DoctorExtraInfo() {
         // Required empty public constructor
     }
 
-    public DoctorExtraInfo(String doctorId)
-    {
+    public DoctorExtraInfo(String doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -40,24 +39,23 @@ public class DoctorExtraInfo extends Fragment {
         doctorCode.setText(doctorId);
         loadAbout();
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
 
         doctorCode = requireView().findViewById(R.id.doctorCode);
         about = requireView().findViewById(R.id.about);
     }
-    public void loadAbout(){
+
+    public void loadAbout() {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference reference = database.getReference("doctorInfo");
         reference.child(doctorId).child("about").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    if(!String.valueOf(snapshot.getValue()).equals("null")){
+                if (snapshot.exists()) {
+                    if (!String.valueOf(snapshot.getValue()).equals("null")) {
                         about.setText(String.valueOf(snapshot.getValue()));
-                    }
-                    else
-                    {
+                    } else {
                         about.setText("Didn't find any relevent data");
                     }
                 }
@@ -65,7 +63,7 @@ public class DoctorExtraInfo extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
+                throw error.toException();
             }
         });
     }

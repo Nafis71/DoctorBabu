@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class PrescriptionHistory extends Fragment {
 
 
-
     public PrescriptionHistory() {
     }
 
@@ -29,7 +28,8 @@ public class PrescriptionHistory extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    public void onViewCreated(View view, Bundle savedInstanceState){
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 

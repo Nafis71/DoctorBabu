@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FEFEFE"
+    android:orientation="vertical"
     tools:context=".patient.Profile">
 
     <RelativeLayout
@@ -196,11 +196,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/appointmentDone"
                     android:layout_centerHorizontal="true"
+                    android:layout_margin="4dp"
                     android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
                     android:text="@string/appointmentDone"
                     android:textAlignment="center"
-                    android:layout_margin="4dp"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -245,45 +245,46 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/appointmentPending"
                     android:layout_centerHorizontal="true"
+                    android:layout_margin="4dp"
                     android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
                     android:text="@string/consultancyTaken"
-                    android:layout_margin="4dp"
                     android:textAlignment="center"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <com.google.android.material.card.MaterialCardView
-            android:id = "@+id/warningCard"
+            android:id="@+id/warningCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:padding="5dp"
             android:layout_weight="1"
+            android:padding="5dp"
             app:cardBackgroundColor="#F7DC6F"
             app:cardCornerRadius="4dp"
-            app:cardElevation="2dp"
-        >
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profileInformationMissing"
-            android:textColor="@color/black"
-            android:fontFamily="@font/overpass_semibold"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            >
+            app:cardElevation="2dp">
 
-        </com.google.android.material.textview.MaterialTextView>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/overpass_semibold"
+                android:text="@string/profileInformationMissing"
+                android:textColor="@color/black"
+                android:textSize="16sp">
 
-    </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.textview.MaterialTextView>
+
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -291,28 +292,29 @@
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="10dp"
-        app:cornerRadius="12dp"
         android:background="@drawable/custom_button_back"
         android:fontFamily="@font/roboto_medium"
         android:onClick="edit"
         android:text="@string/editProfile"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:strokeColor="@color/white"
         app:backgroundTint="#2C3E50  "
-        app:elevation="500dp"/>
+        app:cornerRadius="12dp"
+        app:elevation="500dp"
+        app:strokeColor="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="2dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -322,6 +324,7 @@
                 app:cardBackgroundColor="#FEFEFE"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="3dp">
+
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -330,76 +333,75 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/overpass_bold"
-                        android:text="@string/medicalInformation"
-                        android:textColor="@color/black"
                         android:layout_marginTop="20dp"
                         android:drawablePadding="10dp"
-                        app:drawableBottomCompat="@drawable/doctor_tool"
-                        android:textAllCaps="true"
+                        android:fontFamily="@font/overpass_bold"
+                        android:text="@string/medicalInformation"
                         android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:drawableBottomCompat="@drawable/doctor_tool" />
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/alergyHistoryInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/edit"
                         android:editable="false"
                         android:inputType=""
                         android:padding="12dp"
                         android:text="@string/allergyHistory"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"
-                        />
-                            <com.google.android.flexbox.FlexboxLayout
-                                android:id="@+id/allergyHistory"
-                                android:layout_height="match_parent"
-                                android:layout_width="match_parent"
-                                app:flexWrap="wrap"
-                                app:alignContent="stretch"
-                                android:padding="5dp"
-                                >
-                                 <TextView
-                                android:id="@+id/allergy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginBottom="15dp"
-                                android:text=""
-                                     android:layout_marginTop="6dp"
-                                />
-                            </com.google.android.flexbox.FlexboxLayout>
+                        android:textSize="16sp" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/allergyHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        app:alignContent="stretch"
+                        app:flexWrap="wrap">
+
+                        <TextView
+                            android:id="@+id/allergy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
+                    </com.google.android.flexbox.FlexboxLayout>
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/pastMedicalHistoryText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/edit"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/pastMedicalHistory"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
+
                     <com.google.android.flexbox.FlexboxLayout
                         android:id="@+id/pastMedicalHistory"
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:flexWrap="wrap"
-                        app:alignContent="stretch"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        >
+                        app:alignContent="stretch"
+                        app:flexWrap="wrap">
+
                         <TextView
                             android:id="@+id/pastMedicalHistoryInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </com.google.android.flexbox.FlexboxLayout>
 
 
@@ -407,29 +409,31 @@
                         android:id="@+id/bloodGroupText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/edit"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/bloodGroup"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/bloodGroupInfo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </LinearLayout>
 
                 </TableLayout>
             </com.google.android.material.card.MaterialCardView>
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -438,267 +442,269 @@
                 app:cardBackgroundColor="#FEFEFE"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="3dp">
+
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp">
+
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/overpass_bold"
-                        android:text="@string/patientInformation"
-                        android:textColor="@color/black"
                         android:layout_marginTop="20dp"
                         android:drawablePadding="10dp"
-                        app:drawableBottomCompat="@drawable/patient_info"
-                        android:textAllCaps="true"
+                        android:fontFamily="@font/overpass_bold"
+                        android:text="@string/patientInformation"
                         android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:drawableBottomCompat="@drawable/patient_info" />
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
+                        android:clickable="false"
                         android:drawableEnd="@drawable/phone_2"
                         android:editable="false"
                         android:inputType=""
                         android:padding="15dp"
                         android:text="@string/phoneNumber"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"
-                        android:clickable="false"
-                        />
+                        android:textSize="16sp" />
+
                     <com.google.android.flexbox.FlexboxLayout
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:flexWrap="wrap"
-                        app:alignContent="stretch"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        >
+                        app:alignContent="stretch"
+                        app:flexWrap="wrap">
+
                         <TextView
                             android:id="@+id/userPhone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="15dp"
-                            android:text=""
-                            android:layout_marginTop="6dp"
-                            />
+                            android:text="" />
                     </com.google.android.flexbox.FlexboxLayout>
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/building"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/district"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
+
                     <com.google.android.flexbox.FlexboxLayout
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:flexWrap="wrap"
-                        app:alignContent="stretch"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        >
+                        app:alignContent="stretch"
+                        app:flexWrap="wrap">
+
                         <TextView
                             android:id="@+id/district"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </com.google.android.flexbox.FlexboxLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/map"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/area"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
+
                     <com.google.android.flexbox.FlexboxLayout
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:flexWrap="wrap"
-                        app:alignContent="stretch"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        >
+                        app:alignContent="stretch"
+                        app:flexWrap="wrap">
+
                         <TextView
                             android:id="@+id/area"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </com.google.android.flexbox.FlexboxLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/location_2"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/address"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
+
                     <com.google.android.flexbox.FlexboxLayout
-                        android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        app:flexWrap="wrap"
-                        app:alignContent="stretch"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
-                        >
+                        app:alignContent="stretch"
+                        app:flexWrap="wrap">
+
                         <TextView
                             android:id="@+id/userAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </com.google.android.flexbox.FlexboxLayout>
 
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/gender"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/gender"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
 
-                     <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/userGender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </LinearLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/age"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/age"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/userAge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </LinearLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/height"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/height"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/userHeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </LinearLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/weight"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/weight"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/userWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </LinearLayout>
+
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#5499C7"
                         android:drawableEnd="@drawable/weight"
                         android:editable="false"
                         android:padding="12dp"
                         android:text="@string/bmi"
-                        android:textSize="16sp"
-                        android:backgroundTint="#5499C7"/>
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/bmi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="15dp"
                             android:layout_marginEnd="10dp"
-                            />
+                            android:layout_marginBottom="15dp"
+                            android:text="" />
                     </LinearLayout>
 
                 </TableLayout>
 
 
-
-
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
-
-
-
 
 
 </LinearLayout>

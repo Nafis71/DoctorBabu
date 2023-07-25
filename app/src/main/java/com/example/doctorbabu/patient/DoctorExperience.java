@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.doctorbabu.Databases.doctorPastExperienceAdapter;
 import com.example.doctorbabu.Databases.doctorPastExperienceModel;
 import com.example.doctorbabu.R;
@@ -25,14 +26,16 @@ import java.util.ArrayList;
 
 public class DoctorExperience extends Fragment {
 
-  RecyclerView recyclerView;
+    RecyclerView recyclerView;
     ArrayList<doctorPastExperienceModel> list;
     doctorPastExperienceAdapter adapter;
     String doctorId;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
     public DoctorExperience() {
         // Required empty public constructor
     }
+
     public DoctorExperience(String doctorId) {
         this.doctorId = doctorId;
     }
@@ -49,8 +52,8 @@ public class DoctorExperience extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        list =  new ArrayList<>();
-        adapter = new doctorPastExperienceAdapter(requireContext(),list);
+        list = new ArrayList<>();
+        adapter = new doctorPastExperienceAdapter(requireContext(), list);
         recyclerView.setAdapter(adapter);
         DatabaseReference reference = database.getReference("doctorPastExperience");
         reference.child(doctorId).addValueEventListener(new ValueEventListener() {
@@ -58,10 +61,8 @@ public class DoctorExperience extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                if(snapshot.exists())
-                {
-                    for(DataSnapshot snap : snapshot.getChildren())
-                    {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         doctorPastExperienceModel model = snap.getValue(doctorPastExperienceModel.class);
                         list.add(model);
                     }

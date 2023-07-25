@@ -1,13 +1,13 @@
 package com.example.doctorbabu.Databases;
 
 public class userHelper {
-    String fullName, email ,phone, birthDate = "null", address = "null",photoUrl ="null",height="null",weight="null",gender="null",district="null",area="null";
+    String fullName, email, phone, birthDate = "null", address = "null", photoUrl = "null", height = "null", weight = "null", gender = "null", district = "null", area = "null";
 
-    public userHelper(){}  //just for the firebase so that it can't throw any error
+    public userHelper() {
+    }  //just for the firebase so that it can't throw any error
 
 
-
-    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String district,String area) {
+    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String district, String area) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -18,7 +18,8 @@ public class userHelper {
         this.district = district;
         this.area = area;
     }
-    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String address,String district,String area) {
+
+    public userHelper(String fullName, String email, String phone, String birthDate, String gender, String height, String weight, String address, String district, String area) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -30,6 +31,7 @@ public class userHelper {
         this.area = area;
         this.address = address;
     }
+
     public String getBirthDate() {
         return birthDate;
     }
@@ -53,6 +55,7 @@ public class userHelper {
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
+
     public String getPhotoUrl() {
         return photoUrl;
     }

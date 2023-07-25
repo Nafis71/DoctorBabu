@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class DoctorPrescribeMedicine extends AppCompatActivity {
     LinearProgressIndicator progressBar;
-    TextView patientName,pastMedicalHistory,allergy,bloodGroup,height,weight,age;
+    TextView patientName, pastMedicalHistory, allergy, bloodGroup, height, weight, age;
     CardView patientInfoCard;
     String patientId;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -37,7 +37,8 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         loadPatientData();
     }
-    public void viewBinding(){
+
+    public void viewBinding() {
         patientInfoCard = findViewById(R.id.patientInfoCard);
         patientName = findViewById(R.id.patientName);
         pastMedicalHistory = findViewById(R.id.pastMedicalHistory);
@@ -48,24 +49,24 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         age = findViewById(R.id.age);
         progressBar = findViewById(R.id.progressBar);
     }
-    public void loadPatientData(){
+
+    public void loadPatientData() {
         DatabaseReference userInfoReference = database.getReference("users");
         userInfoReference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     patientName.setText(String.valueOf(snapshot.child("fullName").getValue()));
                     String dbheight = snapshot.child("height").getValue() + " CM";
                     height.setText(dbheight);
                     String dbweight = snapshot.child("weight").getValue() + " KGS";
                     weight.setText(dbweight);
                     String birthDate = String.valueOf(snapshot.child("birthDate").getValue());
-                    String [] splitText = birthDate.split("/");
+                    String[] splitText = birthDate.split("/");
                     int year = Integer.parseInt(splitText[0]);
                     int month = Integer.parseInt(splitText[1]);
                     int day = Integer.parseInt(splitText[2]);
-                    LocalDate from = LocalDate.of(year,month,day);
+                    LocalDate from = LocalDate.of(year, month, day);
                     LocalDate to = LocalDate.now();
                     Period calculateAge = Period.between(from, to);
                     String calculatedYears = String.valueOf(calculateAge.getYears());
@@ -73,6 +74,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                     age.setText(years);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -83,14 +85,15 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         medicalHistoryReference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot snap : snapshot.getChildren()){
-                        if(!String.valueOf(snap.getValue()).equals("null")) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        if (!String.valueOf(snap.getValue()).equals("null")) {
                             medicalHistoryList.add(String.valueOf(snap.getValue()));
                         }
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -100,15 +103,12 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(medicalHistoryList.size() != 0) {
+                if (medicalHistoryList.size() != 0) {
                     StringBuilder stringBuilder = new StringBuilder();
-                    for(int i =0; i < medicalHistoryList.size(); i++){
-                        if(medicalHistoryList.size() -1 == i)
-                        {
+                    for (int i = 0; i < medicalHistoryList.size(); i++) {
+                        if (medicalHistoryList.size() - 1 == i) {
                             stringBuilder.append(medicalHistoryList.get(i));
-                        }
-                        else
-                        {
+                        } else {
                             stringBuilder.append(medicalHistoryList.get(i)).append(",").append(" ");
                         }
                     }
@@ -117,68 +117,69 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                     pastMedicalHistory.setText("N/A");
                 }
             }
-        },2000);
-    DatabaseReference allergyReference = database.getReference("allergy");
-    ArrayList<String> allergyList = new ArrayList<>();
-    allergyReference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            if(snapshot.exists()) {
-                for(DataSnapshot snap : snapshot.getChildren()){
-                    if(!String.valueOf(snap.getValue()).equals("null")){
-                        allergyList.add(String.valueOf(snap.getValue()));
+        }, 2000);
+        DatabaseReference allergyReference = database.getReference("allergy");
+        ArrayList<String> allergyList = new ArrayList<>();
+        allergyReference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        if (!String.valueOf(snap.getValue()).equals("null")) {
+                            allergyList.add(String.valueOf(snap.getValue()));
+                        }
                     }
                 }
             }
-        }
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-            throw error.toException();
-        }
-    });
-    handler.postDelayed(new Runnable() {
-        @Override
-        public void run() {
-            if(allergyList.size() != 0) {
-                StringBuilder stringBuilder = new StringBuilder();
-                for(int i = 0; i < allergyList.size(); i++) {
-                    if(allergyList.size()-1 == i) {
-                        stringBuilder.append(allergyList.get(i));
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (allergyList.size() != 0) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int i = 0; i < allergyList.size(); i++) {
+                        if (allergyList.size() - 1 == i) {
+                            stringBuilder.append(allergyList.get(i));
+                        } else {
+                            stringBuilder.append(allergyList.get(i)).append(",").append(" ");
+                        }
+                        allergy.setText(stringBuilder.toString());
+                    }
+                } else {
+                    allergy.setText("N/A");
+                }
+            }
+        }, 2000);
+
+        DatabaseReference bloodGroupReference = database.getReference("bloodgroup");
+        bloodGroupReference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    if (!String.valueOf(snapshot.child("group")).equals("null")) {
+                        bloodGroup.setText(String.valueOf(snapshot.child("group").getValue()));
                     } else {
-                        stringBuilder.append(allergyList.get(i)).append(",").append(" ");
+                        bloodGroup.setText("N/A");
                     }
-                    allergy.setText(stringBuilder.toString());
-                }
-            } else{
-                allergy.setText("N/A");
-            }
-        }
-    },2000);
-
-    DatabaseReference bloodGroupReference = database.getReference("bloodgroup");
-    bloodGroupReference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            if(snapshot.exists()) {
-                if(!String.valueOf(snapshot.child("group")).equals("null")) {
-                    bloodGroup.setText(String.valueOf(snapshot.child("group").getValue()));
-                } else{
-                    bloodGroup.setText("N/A");
                 }
             }
-        }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-            throw error.toException();
-        }
-    });
-    handler.postDelayed(new Runnable() {
-        @Override
-        public void run() {
-            patientInfoCard.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
-        }
-    },2500);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                patientInfoCard.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+        }, 2500);
     }
 }

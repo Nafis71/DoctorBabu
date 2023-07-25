@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".patient.Login"
-    android:orientation="vertical"
     android:background="#fff"
+    android:orientation="vertical"
     android:padding="20dp"
-    android:textColor = "?android:textColorPrimary">
+    android:textColor="?android:textColorPrimary"
+    tools:context=".patient.Login">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="220dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/logindoctor"
-        android:layout_gravity="center"
-        android:transitionName="imageTransition" />
-</LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="220dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/logindoctor"
+            android:transitionName="imageTransition" />
+    </LinearLayout>
 
 
     <TextView
@@ -45,14 +44,14 @@
         android:id="@+id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
         android:layout_marginStart="5dp"
+        android:fontFamily="@font/oswald"
         android:text="@string/treatsomepatient"
         android:textAlignment="viewStart"
         android:textColor="#B7101010"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:transitionName="textTransition2"/>
+        android:transitionName="textTransition2" />
 
     <TextView
         android:id="@+id/text3"
@@ -66,117 +65,122 @@
         android:textSize="15sp"
         android:textStyle="bold"
         android:transitionName="textTransition2" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id ="@+id/email"
-            android:hint="@string/email"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxBackgroundMode="filled"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-            app:boxStrokeWidth="3dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id = "@+id/emailText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:drawableStart="@drawable/email"
-                android:drawablePadding="15dp"
-                android:transitionName="usernameTransition"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:id ="@+id/password"
-            android:hint="@string/password"
-            app:passwordToggleEnabled="true"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxBackgroundMode="filled"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-            app:boxStrokeWidth="3dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:drawableStart="@drawable/password"
-                android:drawablePadding="15dp"
+                android:hint="@string/email"
+                app:boxBackgroundMode="filled"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="3dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/email"
+                    android:drawablePadding="15dp"
+                    android:inputType="textEmailAddress"
+                    android:transitionName="usernameTransition" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/password"
+                app:boxBackgroundMode="filled"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="3dp"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/password"
+                    android:drawablePadding="15dp"
+                    android:inputType="textPassword"
+                    android:transitionName="passwordTransition" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/forgetPass"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="#00000000"
+                android:elevation="0dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/forgetPassword"
+                android:textColor="@color/black"
+                android:textSize="12.5sp"
+                android:textStyle="bold"
                 android:transitionName="passwordTransition" />
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/forgetPass"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="5dp"
-            android:background="#00000000"
-            android:elevation="0dp"
-            android:fontFamily="@font/poppins"
-            android:text="@string/forgetPassword"
-            android:textColor="@color/black"
-            android:textSize="12.5sp"
-            android:textStyle="bold"
-            android:transitionName="passwordTransition"/>
+            <Button
+                android:id="@+id/signIn"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/custom_button_back"
+                android:onClick="logIn"
+                android:text="@string/signIn"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:transitionName="signinTransition"
+                app:backgroundTint="#273746" />
 
-        <Button
-            android:id="@+id/signIn"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_button_back"
-            android:onClick="logIn"
-            android:text="@string/signIn"
-            android:textColor="#fff"
-            android:textSize="16sp"
-            android:transitionName="signinTransition"
-            app:backgroundTint="#273746" />
-        <Button
-            android:id="@+id/newUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="5dp"
-            android:background="#00000000"
-            android:elevation="0dp"
-            android:fontFamily="@font/poppins"
-            android:text="@string/signin"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="13.5sp"
+            <Button
+                android:id="@+id/newUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:background="#00000000"
+                android:elevation="0dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/signin"
+                android:textColor="@color/black"
+                android:textSize="13.5sp"
+                android:textStyle="bold"
 
-            android:transitionName="signupTransition"/>
-        <ProgressBar
-            android:id="@+id/progressCircular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/progress_back"
-            android:visibility="gone"
+                android:transitionName="signupTransition" />
 
-            />
+            <ProgressBar
+                android:id="@+id/progressCircular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/progress_back"
+                android:visibility="gone"
+
+                />
 
 
-
-    </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
 </LinearLayout>

@@ -1,65 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/currentlyWorkingCard"
+        style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
         app:cardCornerRadius="2dp"
-        style="@style/Widget.Material3.CardView.Outlined"
         app:strokeColor="#C2C2C2"
-        app:strokeWidth="1dp"
-        >
+        app:strokeWidth="1dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/hospitalName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hospital Name"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/roboto"
+                android:padding="10dp"
+                android:text="Hospital Name"
                 android:textColor="@color/black"
                 android:textSize="13sp"
-                android:layout_marginStart="5dp"
-                android:padding="10dp"
                 android:textStyle="bold"
-                android:layout_alignParentStart="true"
 
                 />
+
             <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/hospitalName"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="3dp"
-                android:layout_below="@+id/hospitalName"
-                android:id ="@+id/divider"
 
                 />
+
             <TextView
                 android:id="@+id/designationHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Designation"
+                android:layout_below="@+id/divider"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="Designation"
                 android:textColor="#666666"
                 android:textSize="12sp"
-                android:layout_marginStart="10dp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/divider"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/departmentHeader"
@@ -80,116 +82,115 @@
                 android:id="@+id/designationName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cardiology"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="11sp"
-                android:layout_marginStart="10dp"
-                android:padding="5dp"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/designationHeader"
-                />
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="Cardiology"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/departmentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medicine"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="11sp"
+                android:layout_below="@+id/departmentHeader"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="218dp"
+                android:fontFamily="@font/roboto"
                 android:padding="5dp"
-                android:layout_below="@+id/departmentHeader"
-                />
+                android:text="Medicine"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/employmentStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Employment Status"
-                android:fontFamily="@font/roboto"
-                android:textColor="#666666"
-                android:textSize="11.5sp"
+                android:layout_below="@+id/designationName"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
+                android:fontFamily="@font/roboto"
                 android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/designationName"
-                />
+                android:text="Employment Status"
+                android:textColor="#666666"
+                android:textSize="11.5sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/joinDateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2007/5/4"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="11sp"
+                android:layout_below="@+id/employmentStatus"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
+                android:fontFamily="@font/roboto"
                 android:padding="5dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/employmentStatus"
-                />
+                android:text="2007/5/4"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="to"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="11sp"
+                android:layout_below="@+id/employmentStatus"
                 android:layout_marginStart="-5dp"
                 android:layout_marginTop="3dp"
-                android:padding="5dp"
-                android:layout_toEndOf="@id/joinDateText"
-                android:layout_below="@+id/employmentStatus"
                 android:layout_marginBottom="10dp"
-                />
+                android:layout_toEndOf="@id/joinDateText"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="to"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/leavedateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2009/07/9"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="11sp"
+                android:layout_below="@+id/employmentStatus"
                 android:layout_marginStart="-5dp"
                 android:layout_marginTop="3dp"
-                android:padding="5dp"
-                android:layout_toEndOf="@id/to"
-                android:layout_below="@+id/employmentStatus"
                 android:layout_marginBottom="10dp"
-                />
+                android:layout_toEndOf="@id/to"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="2009/07/9"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
+
             <TextView
                 android:id="@+id/periodHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Period"
+                android:layout_below="@+id/departmentName"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="118dp"
                 android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="Period"
                 android:textColor="#666666"
                 android:textSize="12sp"
-                android:layout_marginEnd="118dp"
-                android:layout_marginTop="3dp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/departmentName"
-                />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2007/5/4"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="11sp"
-                android:layout_marginTop="0dp"
-                android:padding="5dp"
+                android:layout_below="@+id/periodHeader"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="218dp"
-                android:layout_below="@+id/periodHeader"
-                />
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="2007/5/4"
+                android:textColor="@color/black"
+                android:textSize="11sp" />
 
 
         </RelativeLayout>

@@ -31,7 +31,7 @@ public class doctorAboutYou extends AppCompatActivity {
     TextInputEditText aboutyou;
     ImageView goBack;
     String doctorId;
-    Button confirmList,clear;
+    Button confirmList, clear;
     ProgressBar progressCircular;
     LinearLayout parentLayout;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -62,8 +62,8 @@ public class doctorAboutYou extends AppCompatActivity {
         });
         stateObserver();
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
         aboutyouLayout = findViewById(R.id.aboutyouLayout);
         aboutyou = findViewById(R.id.aboutyou);
         goBack = findViewById(R.id.goBack);
@@ -72,7 +72,8 @@ public class doctorAboutYou extends AppCompatActivity {
         progressCircular = findViewById(R.id.progressCircular);
         clear = findViewById(R.id.clear);
     }
-    public void stateObserver(){
+
+    public void stateObserver() {
         aboutyou.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -90,42 +91,40 @@ public class doctorAboutYou extends AppCompatActivity {
             }
         });
     }
-    public void loadData(){
+
+    public void loadData() {
         doctorId = getIntent().getStringExtra("DoctorId");
         DatabaseReference reference = database.getReference("doctorInfo");
         reference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists() && !String.valueOf(snapshot.child("about").getValue()).equals("null"))
-                {
+                if (snapshot.exists() && !String.valueOf(snapshot.child("about").getValue()).equals("null")) {
                     aboutyou.setText(String.valueOf(snapshot.child("about").getValue()));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
+                throw error.toException();
             }
         });
     }
-    private boolean validateAboutYou(){
+
+    private boolean validateAboutYou() {
         String value = aboutyou.getText().toString().trim();
-        if(value.isEmpty()) {
+        if (value.isEmpty()) {
             aboutyouLayout.setError("Field can't be empty");
             return false;
-        }
-        else if(value.length()>5500) {
+        } else if (value.length() > 5500) {
             aboutyouLayout.setError("Limit exceeded");
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
-    public void saveData(){
-        if(!validateAboutYou())
-        {
+    public void saveData() {
+        if (!validateAboutYou()) {
             return;
         }
         progressCircular.setVisibility(View.VISIBLE);
@@ -139,16 +138,16 @@ public class doctorAboutYou extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Snackbar.make(parentLayout,"Information Updated",Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(parentLayout, "Information Updated", Snackbar.LENGTH_LONG).show();
                         progressCircular.setVisibility(View.GONE);
                         confirmList.setVisibility(View.VISIBLE);
                     }
-                },2000);
+                }, 2000);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Snackbar.make(parentLayout,"Failed to update",Snackbar.LENGTH_LONG).show();
+                Snackbar.make(parentLayout, "Failed to update", Snackbar.LENGTH_LONG).show();
                 progressCircular.setVisibility(View.GONE);
                 confirmList.setVisibility(View.VISIBLE);
             }

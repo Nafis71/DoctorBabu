@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.patient.DoctorInfo;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctorAdapter.myViewHolder>{
+public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctorAdapter.myViewHolder> {
 
     Context context;
     ArrayList<availableDoctorModel> model;
@@ -39,11 +40,11 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_available_doctor,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_available_doctor, parent, false);
         return new myViewHolder(view);
     }
 
-    public availableDoctorAdapter(Context context, ArrayList<availableDoctorModel> model,String userId) {
+    public availableDoctorAdapter(Context context, ArrayList<availableDoctorModel> model, String userId) {
         this.context = context;
         this.model = model;
         this.userId = userId;
@@ -63,38 +64,35 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         currentlyWorkingReference.child(dbModel.getDoctorId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    if(task.getResult().exists())
-                    {
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
                         DataSnapshot snapshot = task.getResult();
-                        if(!String.valueOf(snapshot.child("hospitalName").getValue()).equals("null")) {
+                        if (!String.valueOf(snapshot.child("hospitalName").getValue()).equals("null")) {
                             holder.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
-                        }
-                        else{
+                        } else {
                             holder.currentlyWorking.setText("N/A");
                         }
                     }
                 }
             }
         });
-        if(!dbModel.photoUrl.equals("null"))
-        {
+        if (!dbModel.photoUrl.equals("null")) {
             Glide.with(context).load(dbModel.getPhotoUrl()).into(holder.profilePicture);
         }
         holder.card.setOnClickListener(view -> {
             DatabaseReference reference = database.getReference();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             String currentTime = sdf.format(new Date());
-            HashMap<String,Object> data =  new HashMap<>();
-            data.put("doctorId", dbModel.getDoctorId()); data.put("photoUrl", dbModel.getPhotoUrl());
-            data.put("time",currentTime);
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("doctorId", dbModel.getDoctorId());
+            data.put("photoUrl", dbModel.getPhotoUrl());
+            data.put("time", currentTime);
             reference.child("recentlyViewed").child(userId).child(dbModel.getDoctorId()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    AppCompatActivity activity = (AppCompatActivity)context;
+                    AppCompatActivity activity = (AppCompatActivity) context;
                     activity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(),dbModel.getFullName(),dbModel.getTitle(),dbModel.getDegrees(),dbModel.getSpecialty(),holder.currentlyWorking.getText().toString(),dbModel.getPhotoUrl(),dbModel.getRating(),dbModel.getBmdc())).commit();
+                            .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(), dbModel.getFullName(), dbModel.getTitle(), dbModel.getDegrees(), dbModel.getSpecialty(), holder.currentlyWorking.getText().toString(), dbModel.getPhotoUrl(), dbModel.getRating(), dbModel.getBmdc())).commit();
                 }
             });
 
@@ -107,10 +105,10 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         return model.size();
     }
 
-    public static class myViewHolder extends RecyclerView.ViewHolder{
+    public static class myViewHolder extends RecyclerView.ViewHolder {
         LinearLayout card;
         ImageView profilePicture;
-        TextView doctorName, doctordegree,rating,doctorSpecialties,currentlyWorking;
+        TextView doctorName, doctordegree, rating, doctorSpecialties, currentlyWorking;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -119,7 +117,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
             doctordegree = itemView.findViewById(R.id.doctorDegree);
             rating = itemView.findViewById(R.id.rating);
             doctorSpecialties = itemView.findViewById(R.id.doctorSpecialties);
-            currentlyWorking =itemView.findViewById(R.id.currentlyWorking);
+            currentlyWorking = itemView.findViewById(R.id.currentlyWorking);
             card = itemView.findViewById(R.id.card);
         }
     }

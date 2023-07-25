@@ -2,39 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
-    android:padding="10dp"
     android:animateLayoutChanges="true"
+    android:background="#fff"
+    android:orientation="vertical"
     android:outlineAmbientShadowColor="@color/black"
-    android:orientation="vertical">
+    android:padding="10dp">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:src ="@drawable/cloud_done"
-        android:background="#fff"
-        android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        />
+        android:layout_marginBottom="15dp"
+        android:background="#fff"
+        android:src="@drawable/cloud_done" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
-        <TextView
-            android:id = "@+id/dialogStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/custom_dialog_registration_successfull"
-            android:textStyle="bold"
-            android:textColor="@color/green_shade_2"
-            android:textSize="16sp"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:fontFamily="@font/poppins"
-            />
 
         <TextView
-            android:id = "@+id/dialogText1"
+            android:id="@+id/dialogStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:text="@string/custom_dialog_registration_successfull"
+            android:textColor="@color/green_shade_2"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dialogText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -47,7 +48,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id = "@+id/dialogText2"
+            android:id="@+id/dialogText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"

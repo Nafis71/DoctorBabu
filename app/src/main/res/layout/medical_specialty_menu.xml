@@ -2,9 +2,8 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Sample"
-    android:padding="5dp"
     android:layout_margin="2dp"
-    >
+    android:padding="5dp"
+    android:text="Sample">
 
 </TextView>

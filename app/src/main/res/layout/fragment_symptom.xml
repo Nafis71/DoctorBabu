@@ -1,374 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".patient.Symptom">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:rowCount="3"
-        android:columnCount="3"
-        >
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/fever"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:columnCount="3"
+            android:padding="5dp"
+            android:rowCount="3">
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/fever"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/fever"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/fever"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-            </LinearLayout>
+                    android:orientation="vertical">
 
 
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/wightlossgain"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/wightlossgain"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weightlossgain"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/skinDisease"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/skindisease"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/skindiseases"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="8dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/fever" />
 
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/abdominalPain"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/abdominalpain"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/abdominalpain"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/acidity"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/acidity"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/acidity"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/headacheMigrane"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/headache"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/headacheMigrane"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/childDisease"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/childdisease"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/childdisease"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/stressDepression"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/stressdepression"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stressdepression"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-        <com.google.android.material.card.MaterialCardView
-            android:id ="@+id/pregnancyComplications"
-            android:layout_height="135dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
-            android:layout_margin="7dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="80dp"
-                    android:src = "@drawable/pregnancycomplications"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pregnancyComplications"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="2dp"
+                            android:fontFamily="@font/roboto"
+                            android:padding="2dp"
+                            android:text="@string/fever"
+                            android:textAlignment="center"
+                            android:textColor="#2C3E50"
+                            android:textSize="13sp"
+                            android:textStyle="bold"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
 
 
-    </GridLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/wightlossgain"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/wightlossgain" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/weightlossgain"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/skinDisease"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/skindisease" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/skindiseases"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/abdominalPain"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/abdominalpain" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/abdominalpain"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/acidity"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/acidity" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/acidity"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/headacheMigrane"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/headache" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/headacheMigrane"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/childDisease"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/childdisease" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/childdisease"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stressDepression"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/stressdepression" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/stressdepression"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pregnancyComplications"
+                android:layout_width="115dp"
+                android:layout_height="135dp"
+                android:layout_margin="7dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pregnancycomplications" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="@string/pregnancyComplications"
+                        android:textAlignment="center"
+                        android:textColor="#2C3E50"
+                        android:textSize="13sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </GridLayout>
     </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

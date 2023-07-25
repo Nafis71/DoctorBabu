@@ -7,25 +7,24 @@
     tools:context=".patient.Dashboard">
 
     <FrameLayout
-        android:id ="@+id/container"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        />
+        android:layout_marginBottom="?attr/actionBarSize" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:cnb_menuResource="@menu/nav_items"
-        app:cnb_orientationMode="horizontal"
-        app:cnb_unselectedColor="#FF000000"
-        app:cnb_badgeColor="@color/gph_dark_red"
-        app:cnb_radius="10dp"
-        app:cnb_iconSize="24dp"
         android:layout_alignParentBottom="true"
         android:animationCache="false"
-        app:cnb_animationDuration="275">
+        app:cnb_animationDuration="275"
+        app:cnb_badgeColor="@color/gph_dark_red"
+        app:cnb_iconSize="24dp"
+        app:cnb_menuResource="@menu/nav_items"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_radius="10dp"
+        app:cnb_unselectedColor="#FF000000">
 
     </com.ismaeldivita.chipnavigation.ChipNavigationBar>
 

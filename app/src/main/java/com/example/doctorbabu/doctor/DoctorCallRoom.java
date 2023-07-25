@@ -29,24 +29,22 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DoctorCallRoom extends Fragment {
     ImageView profilePicture;
-    TextView callerIdView,noCallInfo;
-    Button disbandRoom,joinRoom,prescribeMedicine;
+    TextView callerIdView, noCallInfo;
+    Button disbandRoom, joinRoom, prescribeMedicine;
     FirebaseDatabase database;
-    String doctorId,callerId;
-    LottieAnimationView callBackground,noCallBackground;
+    String doctorId, callerId;
+    LottieAnimationView callBackground, noCallBackground;
 
     public DoctorCallRoom() {
         // Required empty public constructor
     }
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
-        doctorId = preferences.getString("doctorId","loginAs");
+        doctorId = preferences.getString("doctorId", "loginAs");
         database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     }
 
@@ -65,7 +63,7 @@ public class DoctorCallRoom extends Fragment {
         joinRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               joinRoom();
+                joinRoom();
             }
         });
         disbandRoom.setOnClickListener(new View.OnClickListener() {
@@ -78,12 +76,13 @@ public class DoctorCallRoom extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(requireActivity(), DoctorPrescribeMedicine.class);
-                intent.putExtra("patientId",callerId);
+                intent.putExtra("patientId", callerId);
                 startActivity(intent);
             }
         });
     }
-    public void viewBinding(){
+
+    public void viewBinding() {
         profilePicture = requireView().findViewById(R.id.profilePicture);
         callerIdView = requireView().findViewById(R.id.callerId);
         joinRoom = requireView().findViewById(R.id.joinRoom);
@@ -93,16 +92,15 @@ public class DoctorCallRoom extends Fragment {
         noCallBackground = requireView().findViewById(R.id.noCallBackground);
         prescribeMedicine = requireView().findViewById(R.id.prescribeMedicine);
     }
-    public void loadData(){
+
+    public void loadData() {
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("incoming").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
 
-                    if(!String.valueOf(snapshot.getValue()).equals("null"))
-                    {
+                    if (!String.valueOf(snapshot.getValue()).equals("null")) {
                         callerId = String.valueOf(snapshot.getValue());
                         loadCaller();
                         noCallBackground.setVisibility(View.GONE);
@@ -113,8 +111,7 @@ public class DoctorCallRoom extends Fragment {
                         callBackground.setVisibility(View.VISIBLE);
                         prescribeMedicine.setVisibility(View.VISIBLE);
 
-                    }
-                    else{
+                    } else {
                         profilePicture.setVisibility(View.GONE);
                         joinRoom.setVisibility(View.GONE);
                         disbandRoom.setVisibility(View.GONE);
@@ -132,8 +129,8 @@ public class DoctorCallRoom extends Fragment {
             }
         });
     }
-    public void loadCaller()
-    {
+
+    public void loadCaller() {
         DatabaseReference reference = database.getReference("users");
         reference.child(callerId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -149,17 +146,18 @@ public class DoctorCallRoom extends Fragment {
             }
         });
     }
-    public void joinRoom()
-    {
+
+    public void joinRoom() {
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("isAvailable").setValue(true);
         reference.child(doctorId).child("status").setValue(1);
         Intent intent = new Intent(requireActivity(), PatientCall.class);
-        intent.putExtra("userId","null");
-        intent.putExtra("doctorId",doctorId);
+        intent.putExtra("userId", "null");
+        intent.putExtra("doctorId", doctorId);
         startActivity(intent);
     }
-    public void disBandRoom(){
+
+    public void disBandRoom() {
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("connId").removeValue();
         reference.child(doctorId).child("incoming").setValue("null");

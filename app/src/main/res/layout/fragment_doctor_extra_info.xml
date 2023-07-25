@@ -1,297 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".patient.DoctorExtraInfo">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/headerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="At a Glance"
-                    android:fontFamily="@font/rubik"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textColor="#4F5FDE"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    />
+                    android:fontFamily="@font/rubik"
+                    android:text="At a Glance"
+                    android:textColor="#4F5FDE"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <RelativeLayout
                     android:id="@+id/consultationCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/headerText"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="5dp"
-                    >
+                    app:cardCornerRadius="5dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#F7F9F9">
+
                         <TextView
                             android:id="@+id/consultationTimeHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Instant Consultation Time"
-                            android:textSize="13sp"
-                            android:layout_marginTop="10dp"
                             android:layout_marginStart="10dp"
-                            android:textColor="@color/black"
+                            android:layout_marginTop="10dp"
                             android:fontFamily="@font/roboto"
-                            />
+                            android:text="Instant Consultation Time"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <com.google.android.material.divider.MaterialDivider
+                            android:id="@+id/bar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginTop="10dp"
-                            android:id = "@+id/bar"
                             android:layout_below="@id/consultationTimeHeader"
-                            />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp" />
 
                         <TextView
                             android:id="@+id/dayName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="\u2022 Sat - Fri"
-                            android:textSize="13sp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
                             android:layout_below="@+id/bar"
-                            />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="\u2022 Sat - Fri"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <TextView
                             android:id="@+id/consultationTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="(12.00AM - 11.55PM)"
-                            android:textSize="13sp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
                             android:layout_below="@+id/bar"
-                            android:layout_toEndOf="@+id/dayName"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="15dp"
-                            />
+                            android:layout_toEndOf="@+id/dayName"
+                            android:fontFamily="@font/roboto"
+                            android:text="(12.00AM - 11.55PM)"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
                 </RelativeLayout>
+
                 <RelativeLayout
-                    android:id = "@+id/otherInfoCard"
+                    android:id="@+id/otherInfoCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/consultationCard"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    app:cardCornerRadius="5dp"
-                    >
+                    app:cardCornerRadius="5dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#F7F9F9">
+
                         <TextView
                             android:id="@+id/consultationFeeHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Consultation Fee"
-                            android:textSize="13sp"
-                            android:textColor="#666666"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/roboto"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="30dp"
                             android:layout_alignParentStart="true"
-                            />
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="Consultation Fee"
+                            android:textColor="#666666"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/moneySign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="\u09F3"
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
-                            android:layout_marginStart="30dp"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/consultationFeeHeader"
-                            />
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="30dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="\u09F3"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <TextView
                             android:id="@+id/amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="210"
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
-                            android:layout_toEndOf="@+id/moneySign"
                             android:layout_below="@+id/consultationFeeHeader"
-                            />
+                            android:layout_toEndOf="@+id/moneySign"
+                            android:fontFamily="@font/roboto"
+                            android:text="210"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <TextView
                             android:id="@+id/amountSideText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" (Incl. VAT)"
-                            android:textSize="11sp"
-                            android:fontFamily="@font/roboto"
-                            android:layout_toEndOf="@+id/amount"
-                            android:layout_marginTop="1dp"
                             android:layout_below="@+id/consultationFeeHeader"
-                            />
+                            android:layout_marginTop="1dp"
+                            android:layout_toEndOf="@+id/amount"
+                            android:fontFamily="@font/roboto"
+                            android:text=" (Incl. VAT)"
+                            android:textSize="11sp" />
+
                         <TextView
                             android:id="@+id/followupHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Follow-up Fee"
-                            android:textSize="13sp"
-                            android:textColor="#666666"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/roboto"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="50dp"
-                            android:layout_alignParentEnd="true"
-                            />
+                            android:fontFamily="@font/roboto"
+                            android:text="Follow-up Fee"
+                            android:textColor="#666666"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/moneySignF"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="\u09F3"
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
-                            android:layout_marginStart="262dp"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/consultationFeeHeader"
-                            />
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="262dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="\u09F3"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <TextView
                             android:id="@+id/amountFollowup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="110"
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
-                            android:layout_toEndOf="@+id/moneySignF"
                             android:layout_below="@+id/consultationFeeHeader"
-                            />
+                            android:layout_toEndOf="@+id/moneySignF"
+                            android:fontFamily="@font/roboto"
+                            android:text="110"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <TextView
                             android:id="@+id/amountFollowupSideText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" (Incl. VAT)"
-                            android:textSize="11sp"
-                            android:fontFamily="@font/roboto"
-                            android:layout_toEndOf="@+id/amountFollowup"
-                            android:layout_marginTop="1dp"
                             android:layout_below="@+id/consultationFeeHeader"
-                            />
+                            android:layout_marginTop="1dp"
+                            android:layout_toEndOf="@+id/amountFollowup"
+                            android:fontFamily="@font/roboto"
+                            android:text=" (Incl. VAT)"
+                            android:textSize="11sp" />
+
                         <TextView
                             android:id="@+id/patientCountHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Patient Attended"
-                            android:textSize="13sp"
-                            android:textColor="#666666"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/roboto"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="30dp"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/amount"
-                            />
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="Patient Attended"
+                            android:textColor="#666666"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/patientCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="510"
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
+                            android:layout_below="@+id/patientCountHeader"
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="30dp"
                             android:layout_marginBottom="10dp"
-                            android:layout_below="@+id/patientCountHeader"
-                            />
+                            android:fontFamily="@font/roboto"
+                            android:text="510"
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
+
                         <TextView
                             android:id="@+id/doctorCodeHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Doctor Code"
-                            android:textSize="13sp"
-                            android:textColor="#666666"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/roboto"
+                            android:layout_below="@+id/amount"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="57dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_below="@+id/amount"
-                            />
+                            android:fontFamily="@font/roboto"
+                            android:text="Doctor Code"
+                            android:textColor="#666666"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/doctorCode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
-                            android:textSize="13sp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
-                            android:layout_marginStart="263dp"
-                            android:layout_alignParentStart="true"
                             android:layout_below="@+id/doctorCodeHeader"
-                            />
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="263dp"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="13sp" />
 
                     </RelativeLayout>
                 </RelativeLayout>
+
                 <TextView
                     android:id="@+id/aboutDoctorHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="About Doctor"
-                    android:fontFamily="@font/rubik"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textColor="#4F5FDE"
+                    android:layout_below="@+id/otherInfoCard"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_below="@+id/otherInfoCard"
-                    />
+                    android:fontFamily="@font/rubik"
+                    android:text="About Doctor"
+                    android:textColor="#4F5FDE"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#F7F9F9"
                     android:layout_below="@+id/aboutDoctorHeader"
                     android:layout_margin="10dp"
-                    >
+                    android:background="#F7F9F9">
+
                     <TextView
                         android:id="@+id/about"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="About Doctor info"
-                        android:fontFamily="@font/roboto"
-                        android:textSize="13sp"
-                        android:textColor="@color/black"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginEnd="10dp"
-                        />
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="About Doctor info"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
                 </RelativeLayout>
 
             </RelativeLayout>

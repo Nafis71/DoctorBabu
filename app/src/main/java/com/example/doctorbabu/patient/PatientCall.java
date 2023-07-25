@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.webkit.WebView;
 
 import android.widget.ImageView;
+
 import com.example.doctorbabu.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
@@ -31,12 +34,9 @@ import java.util.UUID;
 import timber.log.Timber;
 
 public class PatientCall extends AppCompatActivity {
-    ImageView closeCall, audioButton, videoButton;
-    WebView webView;
     String uniqueId, userId, doctorId, photoUrl, name, email;
-    FirebaseAuth auth;
+
     URL url;
-    boolean isPeerConnected = false, isAudio = true, isVideo = true, pageExit = false;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
@@ -141,18 +141,16 @@ public class PatientCall extends AppCompatActivity {
     }
 
     public void callVideoScreen() {
-        if(userId.equals("null"))
-        {
+        if (userId.equals("null")) {
             JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
             userInfo.setAvatar(url);
             userInfo.setDisplayName(name);
             userInfo.setEmail(email);
             JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
                     .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
-            JitsiMeetActivity.launch(this,room);
+            JitsiMeetActivity.launch(this, room);
             finish();
-        }
-        else{
+        } else {
             JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
             userInfo.setAvatar(url);
             userInfo.setDisplayName(name);
@@ -173,7 +171,7 @@ public class PatientCall extends AppCompatActivity {
             });
             thread.start();
             Intent intent = new Intent(PatientCall.this, PatientReview.class);
-            intent.putExtra("doctorId",doctorId);
+            intent.putExtra("doctorId", doctorId);
             startActivity(intent);
             finish();
 
@@ -190,8 +188,8 @@ public class PatientCall extends AppCompatActivity {
     public String getUniqueId() {
         return UUID.randomUUID().toString();
     }
-    public void onBackPressed()
-    {
+
+    public void onBackPressed() {
         finish();
     }
 }

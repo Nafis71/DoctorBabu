@@ -1,147 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".doctor.DoctorCallRoom">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Call Room"
-            android:fontFamily="@font/oswald"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"/>
+            android:orientation="vertical">
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginTop="-5dp"
-            android:layout_centerHorizontal="true"
-            app:lottie_rawRes="@raw/call"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:id="@+id/callBackground"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"
-            app:lottie_rawRes="@raw/callbackground"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="30dp"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            app:layout_constraintDimensionRatio="1:1"
-            app:shapeAppearanceOverlay="@style/circular"
-            app:srcCompat="@drawable/profile_picture" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profilePicture"
-            android:text="Nafis Hasan Tonmoy"
-            android:id="@+id/callerId"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto"
-            android:textSize="16sp"/>
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/callerId"
-            android:shadowColor="@color/black_shade_1"
-            android:visibility="gone"
-            android:text="Join Room"
-            android:id="@+id/joinRoom"
-            android:textColor="#4F5FDE"
-            android:textSize="12sp"
-            app:cornerRadius="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/oswald"
+                    android:text="Call Room"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/prescribeMedicine"
-            android:shadowColor="@color/black_shade_1"
-            android:visibility="gone"
-            android:text="Disband Room"
-            android:id="@+id/disbandRoom"
-            android:textColor="#4F5FDE"
-            android:textSize="12sp"
-            app:cornerRadius="8dp" />
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/joinRoom"
-            android:shadowColor="@color/black_shade_1"
-            android:visibility="gone"
-            android:text="Prescribe Medicine"
-            android:id="@+id/prescribeMedicine"
-            android:textColor="#4F5FDE"
-            android:textSize="12sp"
-            app:cornerRadius="8dp" />
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="270dp"
-            android:layout_height="270dp"
-            android:id="@+id/noCallBackground"
-            android:layout_centerHorizontal="true"
-            app:lottie_rawRes="@raw/nocall"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/noCallBackground"
-            android:text="No call requests for you right now"
-            android:id="@+id/noCallInfo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/black"
-            android:textSize="18sp"/>
-    </RelativeLayout>
+            </RelativeLayout>
 
-</LinearLayout> </ScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-5dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/call" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/callBackground"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/callbackground" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profilePicture"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:shapeAppearanceOverlay="@style/circular"
+                    app:srcCompat="@drawable/profile_picture" />
+
+                <TextView
+                    android:id="@+id/callerId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profilePicture"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Nafis Hasan Tonmoy"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/joinRoom"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/callerId"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:shadowColor="@color/black_shade_1"
+                    android:text="Join Room"
+                    android:textColor="#4F5FDE"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:cornerRadius="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/disbandRoom"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prescribeMedicine"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:shadowColor="@color/black_shade_1"
+                    android:text="Disband Room"
+                    android:textColor="#4F5FDE"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:cornerRadius="8dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/prescribeMedicine"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/joinRoom"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:shadowColor="@color/black_shade_1"
+                    android:text="Prescribe Medicine"
+                    android:textColor="#4F5FDE"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:cornerRadius="8dp" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/noCallBackground"
+                    android:layout_width="270dp"
+                    android:layout_height="270dp"
+                    android:layout_centerHorizontal="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/nocall" />
+
+                <TextView
+                    android:id="@+id/noCallInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/noCallBackground"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="No call requests for you right now"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

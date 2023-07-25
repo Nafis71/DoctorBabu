@@ -6,20 +6,22 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class doctorInfoPageAdapter extends FragmentStateAdapter {
-    private String [] titles = new String[]{"Info","Experience","Reviews"};
+    private final String[] titles = new String[]{"Info", "Experience", "Reviews"};
     String doctorId;
+
     public doctorInfoPageAdapter(@NonNull FragmentActivity fragmentActivity, String doctorId) {
         super(fragmentActivity);
         this.doctorId = doctorId;
     }
+
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch(position)
-        {
+        switch (position) {
             case 0:
                 return new DoctorExtraInfo(doctorId);
             case 1:

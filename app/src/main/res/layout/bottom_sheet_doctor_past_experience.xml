@@ -3,186 +3,193 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="2dp"
     android:background="@drawable/bottom_sheet_design"
-    >
+    android:orientation="vertical"
+    android:padding="2dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/roboto"
             android:text="Add your past working experience"
-            android:textColor="@color/black"
             android:textAlignment="center"
-            android:layout_marginStart="20dp"
-            android:layout_centerVertical="true"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold">
-        </com.google.android.material.textview.MaterialTextView>
+            android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/hospital"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
-            />
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/hospital" />
     </RelativeLayout>
+
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
-        />
+        android:layout_marginEnd="20dp" />
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="1"
-        android:rowCount="1"
+        android:layout_gravity="center"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        >
+        android:columnCount="1"
+        android:rowCount="1">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id = "@+id/hospitalNameLayout"
+            android:id="@+id/hospitalNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:hint="Hospital Name"
-            app:hintAnimationEnabled="true"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
             app:boxStrokeWidth="1dp"
-            style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+            app:hintAnimationEnabled="true">
+
             <AutoCompleteTextView
                 android:id="@+id/hospitalName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textSize="14sp"
                 android:padding="7dp"
-                />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id = "@+id/departmentLayout"
+            android:id="@+id/departmentLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:hint="Department"
-            app:hintAnimationEnabled="true"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
             app:boxStrokeWidth="1dp"
-            style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+            app:hintAnimationEnabled="true">
+
             <AutoCompleteTextView
                 android:id="@+id/department"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textSize="14sp"
                 android:padding="7dp"
-                />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </GridLayout>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="2"
+        android:layout_gravity="center"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        >
+        android:columnCount="2"
+        android:rowCount="2">
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id = "@+id/designationLayout"
+            android:id="@+id/designationLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
             android:hint="Designation"
-            app:hintAnimationEnabled="true"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
             app:boxStrokeWidth="1dp"
-            style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            app:hintAnimationEnabled="true">
+
             <AutoCompleteTextView
                 android:id="@+id/designation"
                 android:layout_width="180dp"
                 android:layout_height="50dp"
                 android:inputType="text"
-                android:textSize="14sp"
                 android:padding="7dp"
-                />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id = "@+id/joiningDateLayout"
+            android:id="@+id/joiningDateLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
             android:hint="Joining Date"
-            app:hintAnimationEnabled="true"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
             app:boxStrokeWidth="1dp"
-            style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            app:hintAnimationEnabled="true">
+
             <AutoCompleteTextView
                 android:id="@+id/joiningDate"
                 android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:inputType="none"
-                android:textSize="14sp"
                 android:padding="7dp"
+                android:textSize="14sp"
 
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id = "@+id/leavingDateLayout"
+            android:id="@+id/leavingDateLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="70dp"
             android:hint="Leaving Date"
-            app:hintAnimationEnabled="true"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
             app:boxStrokeWidth="1dp"
-            style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            app:hintAnimationEnabled="true">
+
             <AutoCompleteTextView
                 android:id="@+id/leavingDate"
                 android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:inputType="none"
-                android:textSize="14sp"
                 android:padding="7dp"
-                />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </GridLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/confirmList"
             android:layout_width="250dp"
             android:layout_height="57dp"
-            android:text="@string/confirm"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            app:backgroundTint = "#4F5FDE"
-            app:cornerRadius="20dp"
-            app:buttonTint="#4F5FDE"
             android:layout_centerHorizontal="true"
-            app:elevation="4dp"
             android:layout_marginBottom="30dp"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:backgroundTint="#4F5FDE"
+            app:buttonTint="#4F5FDE"
+            app:cornerRadius="20dp"
+            app:elevation="4dp"
 
             >
 

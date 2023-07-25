@@ -3,185 +3,187 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="2dp"
     android:background="@drawable/bottom_sheet_design"
-    >
+    android:orientation="vertical"
+    android:padding="2dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/roboto"
             android:text="@string/chooseSpecialty"
-            android:textColor="@color/black"
             android:textAlignment="center"
-            android:layout_marginStart="20dp"
-            android:layout_centerVertical="true"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold">
-        </com.google.android.material.textview.MaterialTextView>
+            android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/star"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/star" />
     </RelativeLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
 
         />
 
-        <GridLayout
-            android:layout_width="match_parent"
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="2"
+        android:padding="18dp"
+        android:rowCount="2">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/generalPhysician"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:padding="18dp"
-            android:rowCount="2"
-            android:columnCount="2"
-            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/generalPhysician"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/gynecologist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/gynecologist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/paediatrician"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/paediatrician"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/dermatologist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/dermatologist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/psychiatrist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/psychiatrist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/neurologist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/neurologist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ophthalmologist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/ophthalmologist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/nutritionist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/nutritionist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cardiologist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/cardiologist"
+            android:textSize="15sp"
+            app:buttonTint="#4F5FDE">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+    </GridLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirmList"
+            android:layout_width="250dp"
+            android:layout_height="57dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:backgroundTint="#4F5FDE"
+            app:buttonTint="#4F5FDE"
+            app:cornerRadius="20dp"
+            app:elevation="4dp"
+
             >
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/generalPhysician"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/generalPhysician"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:textSize="15sp"
-                >
 
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/gynecologist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/gynecologist"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/paediatrician"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/paediatrician"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/dermatologist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dermatologist"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/psychiatrist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/psychiatrist"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/neurologist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/neurologist"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/ophthalmologist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ophthalmologist"
-                android:textSize="15sp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                app:buttonTint="#4F5FDE"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/nutritionist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nutritionist"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/cardiologist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cardiologist"
-                android:textSize="15sp"
-                app:buttonTint="#4F5FDE"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                >
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-        </GridLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/confirmList"
-        android:layout_width="250dp"
-        android:layout_height="57dp"
-        android:text="@string/confirm"
-        android:textSize="15sp"
-        android:textColor="@color/white"
-        app:backgroundTint = "#4F5FDE"
-        app:cornerRadius="20dp"
-        app:buttonTint="#4F5FDE"
-        android:layout_centerHorizontal="true"
-        app:elevation="4dp"
-
-        >
-
-    </com.google.android.material.button.MaterialButton>
-</RelativeLayout>
+        </com.google.android.material.button.MaterialButton>
+    </RelativeLayout>
 
 
 </LinearLayout>

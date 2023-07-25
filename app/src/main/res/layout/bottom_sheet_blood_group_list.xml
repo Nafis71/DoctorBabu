@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
     android:background="@drawable/bottom_sheet_design"
-    >
+    android:orientation="vertical"
+    android:padding="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="60dp"
             android:layout_height="52dp"
-            android:src = "@drawable/blood_bag"
-            android:layout_marginStart="20dp">
+            android:layout_marginStart="20dp"
+            android:src="@drawable/blood_bag">
 
         </pl.droidsonroids.gif.GifImageView>
 
@@ -26,128 +27,128 @@
             android:layout_marginStart="70dp"
             android:fontFamily="@font/roboto"
             android:text="@string/bloodGroup"
-            android:textColor="@color/black"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold">
 
         </com.google.android.material.textview.MaterialTextView>
+
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="60dp"
             android:layout_height="52dp"
-            android:src = "@drawable/blood_test"
-            android:layout_marginStart="50dp">
-        </pl.droidsonroids.gif.GifImageView>
+            android:layout_marginStart="50dp"
+            android:src="@drawable/blood_test"></pl.droidsonroids.gif.GifImageView>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#ABB2B9"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
-        >
+        android:layout_marginEnd="20dp"
+        android:background="#ABB2B9">
 
     </View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="horizontal">
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/aPositive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
             android:text="@string/aPositive"
             android:textSize="16sp"
-            android:layout_marginStart="55dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/abPositive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/abPositive"
             android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/aNegative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/aNegative"
             android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/abNegative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/abNegative"
             android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/bPositive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
             android:text="@string/bPositive"
             android:textSize="16sp"
-            android:layout_marginStart="55dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/oPositive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
             android:text="@string/oPositive"
             android:textSize="16sp"
-            android:layout_marginStart="21dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/bNegative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="29dp"
             android:text="@string/bNegative"
             android:textSize="16sp"
-            android:layout_marginStart="29dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/oNegative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/oNegative"
             android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:buttonTint="#76D7C4"
-            >
+            app:buttonTint="#76D7C4">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
     </LinearLayout>
@@ -157,17 +158,16 @@
         android:id="@+id/confirmList"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:text="@string/confirm"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:backgroundTint = "#76D7C4"
-        app:cornerRadius="20dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="15dp"
         android:layout_gravity="center"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:text="@string/confirm"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:backgroundTint="#76D7C4"
         app:buttonTint="#76D7C4"
-        >
+        app:cornerRadius="20dp">
 
     </com.google.android.material.button.MaterialButton>
 

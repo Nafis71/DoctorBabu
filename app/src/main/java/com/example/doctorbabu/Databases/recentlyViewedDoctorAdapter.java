@@ -27,7 +27,7 @@ public class recentlyViewedDoctorAdapter extends RecyclerView.Adapter<recentlyVi
     @NonNull
     @Override
     public recentlyViewedDoctorAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_recently_viewed,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_recently_viewed, parent, false);
         return new myViewHolder(view);
     }
 
@@ -37,8 +37,10 @@ public class recentlyViewedDoctorAdapter extends RecyclerView.Adapter<recentlyVi
         Glide.with(context).load(dbmodel.getPhotoUrl()).into(holder.profilePicture);
 
     }
-    public static class myViewHolder extends RecyclerView.ViewHolder{
-        ImageView profilePicture,greenDot;
+
+    public static class myViewHolder extends RecyclerView.ViewHolder {
+        ImageView profilePicture, greenDot;
+
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicture = itemView.findViewById(R.id.profilePicture);

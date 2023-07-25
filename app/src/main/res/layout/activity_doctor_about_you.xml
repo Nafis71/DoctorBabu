@@ -2,85 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id = "@+id/parentLayout"
     tools:context=".doctor.doctorAboutYou">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
+                    android:id="@+id/goBack"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src = "@drawable/goback"
-                    android:id = "@+id/goBack"
-                    android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
-                    
-                    >
-                </ImageView>
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/goback"
+
+                    ></ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tellusaboutyourself"
-                    android:layout_toEndOf="@+id/goBack"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="10dp"
-                    android:textSize="20sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toEndOf="@+id/goBack"
                     android:fontFamily="@font/rubik"
-                    android:textStyle="bold"
+                    android:text="@string/tellusaboutyourself"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id ="@+id/aboutyouLayout"
+                    android:id="@+id/aboutyouLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="175dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
-                    android:hint="@string/writesomethingaboutyou"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="5500"
                     android:autofillHints="name"
-                    app:boxCornerRadiusBottomEnd="20dp"
+                    android:hint="@string/writesomethingaboutyou"
                     app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                     app:boxStrokeWidth="2dp"
-                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    app:counterEnabled="true"
+                    app:counterMaxLength="5500">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/aboutyou"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:inputType="textMultiLine"
-                        android:transitionName="usernameTransition"
-                        android:textSize="15sp"
                         android:scrollbars="vertical"
-                        />
+                        android:textSize="15sp"
+                        android:transitionName="usernameTransition" />
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:id="@+id/clear"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -91,34 +95,35 @@
                     android:textSize="12sp"
                     app:cornerRadius="8dp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/confirmList"
                     android:layout_width="250dp"
                     android:layout_height="57dp"
-                    android:text="@string/confirm"
-                    android:textSize="15sp"
-                    android:textColor="@color/white"
-                    app:backgroundTint = "#4F5FDE"
-                    app:cornerRadius="20dp"
-                    app:buttonTint="#4F5FDE"
                     android:layout_centerHorizontal="true"
-                    app:elevation="4dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginTop="20dp"
-                    >
-                </com.google.android.material.button.MaterialButton>
+                    android:layout_marginBottom="30dp"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    app:backgroundTint="#4F5FDE"
+                    app:buttonTint="#4F5FDE"
+                    app:cornerRadius="20dp"
+                    app:elevation="4dp"></com.google.android.material.button.MaterialButton>
+
                 <ProgressBar
                     android:id="@+id/progressCircular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="5dp"
                     android:indeterminate="true"
                     android:indeterminateDrawable="@drawable/progress_back"
-                   android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
                     android:visibility="gone"
 
 

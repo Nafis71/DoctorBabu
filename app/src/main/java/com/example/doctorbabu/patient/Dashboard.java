@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 
-
 public class Dashboard extends AppCompatActivity {
     ChipNavigationBar bottomNavigation;
     FragmentManager fm;
@@ -35,48 +34,40 @@ public class Dashboard extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottomBar);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(() -> bottomNavigation.setOnItemSelectedListener(id -> {
-            if(id == R.id.nav_doctor_video)
-            {
-                loadFragment(new Doctor(),false);
-            }else if(id == R.id.nav_home)
-            {
-                loadFragment(new Home(),false);
-            }else if(id == R.id.nav_history)
-            {
-                loadFragment(new PrescriptionHistory(),false);
-            }else if(id == R.id.nav_profile)
-            {
-                loadFragment(new Profile(),false);
+            if (id == R.id.nav_doctor_video) {
+                loadFragment(new Doctor(), false);
+            } else if (id == R.id.nav_home) {
+                loadFragment(new Home(), false);
+            } else if (id == R.id.nav_history) {
+                loadFragment(new PrescriptionHistory(), false);
+            } else if (id == R.id.nav_profile) {
+                loadFragment(new Profile(), false);
             }
         }));
 
 //        loadFragment(new Home(),true);
-        bottomNavigation.setItemSelected(R.id.nav_home,true);
-        bottomNavigation.showBadge(R.id.nav_doctor_video,24);
-
+        bottomNavigation.setItemSelected(R.id.nav_home, true);
+        bottomNavigation.showBadge(R.id.nav_doctor_video, 24);
 
 
     }
-    public void loadFragment(Fragment fragment,boolean flag)
-    {
+
+    public void loadFragment(Fragment fragment, boolean flag) {
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        if(flag)
-        {
-            if(check == 0)
-            {
-                ft.add(R.id.container,fragment);
+        if (flag) {
+            if (check == 0) {
+                ft.add(R.id.container, fragment);
                 check++;
             }
-        }
-        else
-        {
-            ft.replace(R.id.container,fragment);
+        } else {
+            ft.replace(R.id.container, fragment);
         }
         ft.commit();
 
     }
+
     public void onBackPressed() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Quitting App").setMessage("Are you sure you want to quit?")

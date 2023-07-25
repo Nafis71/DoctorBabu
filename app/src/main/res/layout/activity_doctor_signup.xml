@@ -4,22 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".patient.SignUp"
-    android:orientation="vertical"
     android:background="#fff"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".patient.SignUp">
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="140dp"
+        android:layout_gravity="center"
         android:layout_marginTop="-3dp"
         android:src="@drawable/doctorsignup"
-        android:layout_gravity="center"
         android:transitionName="imageTransition" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/text1"
             android:layout_width="wrap_content"
@@ -31,13 +34,14 @@
             android:textColor="#B7101010"
             android:textSize="34sp"
             android:textStyle="bold"
-            android:transitionName="textTransition1"/>
+            android:transitionName="textTransition1" />
+
         <ProgressBar
             android:id="@+id/progressCircular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="180dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/progress_back"
@@ -46,69 +50,75 @@
 
             />
     </LinearLayout>
-    <TextView android:id="@+id/text3"
+
+    <TextView
+        android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
         android:layout_marginStart="5dp"
+        android:fontFamily="@font/poppins"
         android:text="@string/doctorSignupQuote"
         android:textAlignment="viewStart"
         android:textColor="#9A101010"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:transitionName="textTransition2"/>
+        android:transitionName="textTransition2" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/titleLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                android:hint="@string/title"
-                app:boxCornerRadiusBottomEnd="20dp"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusTopStart="20dp"
-                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-                <AutoCompleteTextView
-                    android:id = "@+id/title"
+                    android:id="@+id/titleLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:padding="15dp"
-                    android:drawableStart="@drawable/medal"
-                    android:drawablePadding="8dp"
-                    android:textSize="15sp"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/title"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/medal"
+                        android:drawablePadding="8dp"
+                        android:inputType="none"
+                        android:padding="15dp"
+                        android:textSize="15sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+            </LinearLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id ="@+id/fullNameLayout"
+                android:id="@+id/fullNameLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/fullName"
                 android:autofillHints="name"
-                app:boxCornerRadiusBottomEnd="20dp"
+                android:hint="@string/fullName"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fullName"
@@ -117,167 +127,174 @@
                     android:drawableStart="@drawable/card"
                     android:drawablePadding="10dp"
                     android:inputType="textPersonName"
-                    android:transitionName="usernameTransition"
                     android:textSize="15sp"
+                    android:transitionName="usernameTransition"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/emailLayout"
+                android:id="@+id/emailLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/email"
-                app:hintAnimationEnabled="true"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:hintAnimationEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="10dp"
-                    android:transitionName="textTransition2"
+                    android:inputType="textEmailAddress"
                     android:textSize="15sp"
-                    />
+                    android:transitionName="textTransition2" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/districtLayout"
+                android:id="@+id/districtLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/district"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                app:boxStrokeWidth="2dp">
+
                 <AutoCompleteTextView
-                    android:id = "@+id/district"
+                    android:id="@+id/district"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:padding="15dp"
-                    android:transitionName="textTransition2"
                     android:drawableStart="@drawable/building"
                     android:drawablePadding="8dp"
+                    android:inputType="none"
+                    android:padding="15dp"
                     android:textSize="15sp"
-                    />
+                    android:transitionName="textTransition2" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/areaLayout"
+                android:id="@+id/areaLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/area"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                app:boxStrokeWidth="2dp">
+
                 <AutoCompleteTextView
-                    android:id = "@+id/area"
+                    android:id="@+id/area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:padding="15dp"
-                    android:transitionName="textTransition2"
                     android:drawableStart="@drawable/map"
                     android:drawablePadding="8dp"
+                    android:inputType="none"
+                    android:padding="15dp"
                     android:textSize="15sp"
-                    />
+                    android:transitionName="textTransition2" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/dateofBirthLayout"
+                android:id="@+id/dateofBirthLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dateofBirth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contextClickable="true"
                     android:drawableStart="@drawable/calender"
                     android:drawablePadding="10dp"
-                    android:textSize="14sp"
                     android:editable="false"
                     android:inputType="none"
                     android:keyboardNavigationCluster="false"
                     android:text="@string/birthDate"
                     android:textColor="#666666"
-                    android:contextClickable="true"
+                    android:textSize="14sp"
                     android:transitionName="usernameTransition">
 
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id = "@+id/doctorTypeLayout"
+                    android:id="@+id/doctorTypeLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:hint="@string/doctorType"
-                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="20dp"
                     app:boxCornerRadiusTopStart="20dp"
                     app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                    app:boxStrokeWidth="2dp"
-                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                    app:boxStrokeWidth="2dp">
+
                     <AutoCompleteTextView
-                        android:id = "@+id/doctorType"
+                        android:id="@+id/doctorType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:padding="15dp"
-                        android:transitionName="textTransition2"
                         android:drawableStart="@drawable/doctoricon"
                         android:drawablePadding="5dp"
-                        android:textSize="15sp"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_toEndOf="@+id/doctorTypeLayout"
-                    android:id = "@+id/genderLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="15dp"
-                    android:hint="@string/gender"
-                    app:boxCornerRadiusBottomEnd="20dp"
-                    app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="20dp"
-                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                    app:boxStrokeWidth="2dp"
-                    style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-                    <AutoCompleteTextView
-                        android:id = "@+id/gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:inputType="none"
                         android:padding="15dp"
-                        android:transitionName="textTransition2"
+                        android:textSize="15sp"
+                        android:transitionName="textTransition2" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/genderLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/doctorTypeLayout"
+                    android:hint="@string/gender"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                    app:boxStrokeWidth="2dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:drawableStart="@drawable/gender"
                         android:drawablePadding="5dp"
+                        android:inputType="none"
+                        android:padding="15dp"
                         android:textSize="15sp"
+                        android:transitionName="textTransition2"
 
                         />
 
@@ -288,102 +305,104 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
-                android:id = "@+id/bmdcLayout"
+                android:id="@+id/bmdcLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/registrationNumber"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:boxStrokeWidth="2dp">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/bmdc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:inputType="number"
-                    android:transitionName="usernameTransition"
                     android:drawableStart="@drawable/idcardmedical"
                     android:drawablePadding="8dp"
+                    android:inputType="number"
+                    android:padding="16dp"
                     android:textSize="15sp"
-                    />
+                    android:transitionName="usernameTransition" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/nidLayout"
+                android:id="@+id/nidLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="@string/nid"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-                app:boxStrokeWidth="2dp"
 
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:boxStrokeWidth="2dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:inputType="number"
-                    android:transitionName="usernameTransition"
                     android:drawableStart="@drawable/nid"
                     android:drawablePadding="8dp"
+                    android:inputType="number"
+                    android:padding="16dp"
                     android:textSize="15sp"
-                    />
+                    android:transitionName="usernameTransition" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/passwordLayout"
+                android:id="@+id/passwordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                app:passwordToggleEnabled="true"
-                app:boxCornerRadiusBottomEnd="20dp"
                 android:layout_marginTop="10dp"
+                android:hint="@string/password"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:passwordToggleEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:transitionName="passwordTransition"
                     android:drawableStart="@drawable/password"
                     android:drawablePadding="8dp"
+                    android:inputType="textPassword"
                     android:textSize="15sp"
-                    />
+                    android:transitionName="passwordTransition" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/confirmPasswordLayout"
+                android:id="@+id/confirmPasswordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="@string/confirmPassword"
-                app:passwordToggleEnabled="true"
-                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 app:boxStrokeWidth="2dp"
-                style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                app:passwordToggleEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/confirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:transitionName="passwordTransition"
                     android:drawableStart="@drawable/confirm_password"
                     android:drawablePadding="8dp"
+                    android:inputType="textPassword"
                     android:textSize="15sp"
+                    android:transitionName="passwordTransition"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
@@ -394,11 +413,11 @@
                 android:layout_height="58dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="5dp"
+                android:background="@drawable/custom_button_back"
                 android:onClick="register"
                 android:text="@string/signup"
                 android:textColor="#fff"
                 android:textSize="16sp"
-                android:background="@drawable/custom_button_back"
                 android:transitionName="signinTransition"
                 app:backgroundTint="#273746 " />
 
@@ -419,8 +438,6 @@
                 android:transitionName="signupTransition" />
         </LinearLayout>
     </ScrollView>
-
-
 
 
 </LinearLayout>

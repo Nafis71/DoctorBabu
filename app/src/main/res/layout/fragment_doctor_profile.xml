@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".doctor.DoctorHome"
     android:background="#EFF5F5"
-    android:id = "@+id/parentLayout"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".doctor.DoctorHome">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#ffff"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
-        >
+        android:background="#ffff">
 
         <ImageView
             android:id="@+id/doctorBabuLogo"
@@ -25,80 +25,84 @@
             android:layout_marginEnd="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/headerlogo" />
+
         <ImageView
             android:id="@+id/settings"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
-            app:layout_constraintDimensionRatio="1:1"
             android:src="@drawable/settings"
+            app:layout_constraintDimensionRatio="1:1"
 
             />
+
         <ImageView
             android:id="@+id/signout"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="80dp"
-            app:layout_constraintDimensionRatio="1:1"
             android:src="@drawable/signout1"
+            app:layout_constraintDimensionRatio="1:1"
 
             />
+
         <TextView
             android:id="@+id/languageName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/languageName"
-            android:fontFamily="@font/roboto"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/languageImage"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
-            >
+            android:layout_toEndOf="@+id/languageImage"
+            android:fontFamily="@font/roboto"
+            android:text="@string/languageName"
+            android:textSize="12sp"
+            android:textStyle="bold">
 
         </TextView>
+
         <ImageView
             android:id="@+id/languageImage"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src = "@drawable/languages"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
             android:layout_centerVertical="true"
             android:layout_marginStart="2dp"
-            />
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:src="@drawable/languages" />
 
 
     </RelativeLayout>
+
     <ScrollView
-        android:id = "@+id/scroll"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
                     app:cardCornerRadius="18dp"
-                    app:cardElevation="6dp"
-                    >
+                    app:cardElevation="6dp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/profileDetails"
@@ -109,51 +113,51 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="@font/roboto"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
                             android:text="Profile Overview"
-                            android:textSize="20sp">
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold">
 
 
                         </TextView>
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id = "@+id/profilePicture"
+                            android:id="@+id/profilePicture"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/profile_picture"
+                            android:layout_below="@id/profileDetails"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:layout_marginStart="20dp"
+                            android:src="@drawable/profile_picture"
                             app:layout_constraintDimensionRatio="1:1"
                             app:shapeAppearanceOverlay="@style/RoundedSquare"
-                            android:layout_below="@id/profileDetails"
 
                             >
 
                         </com.google.android.material.imageview.ShapeableImageView>
+
                         <ImageView
-                            android:id= "@+id/editProfilePicture"
+                            android:id="@+id/editProfilePicture"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:src="@drawable/camera"
-                            android:layout_toEndOf="@id/profilePicture"
-                            android:layout_marginTop="120dp"
                             android:layout_marginStart="-20dp"
-                            />
+                            android:layout_marginTop="120dp"
+                            android:layout_toEndOf="@id/profilePicture"
+                            android:src="@drawable/camera" />
+
                         <RatingBar
                             android:id="@+id/ratingbar"
+                            style="@style/Widget.AppCompat.RatingBar.Indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/profilePicture"
-                            android:rating="0.0"
                             android:layout_marginStart="20dp"
-                            android:stepSize="0.5"
-                            style="@style/Widget.AppCompat.RatingBar.Indicator"
-                            android:layout_marginBottom="12dp"
                             android:layout_marginTop="10dp"
-                            android:theme="@style/RatingBar"
-                            >
+                            android:layout_marginBottom="12dp"
+                            android:rating="0.0"
+                            android:stepSize="0.5"
+                            android:theme="@style/RatingBar">
 
                         </RatingBar>
 
@@ -165,110 +169,107 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="55dp"
-                            android:layout_marginBottom="1dp"
                             android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="1dp"
                             android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
+
                         <TextView
                             android:id="@+id/doctorDegree"
+                            style="@style/Widget.MaterialComponents.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorName"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="1dp"
-                            android:layout_marginTop="1dp"
                             android:layout_marginStart="20dp"
+                            android:layout_marginTop="1dp"
                             android:layout_marginEnd="5dp"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.TextView"
-                            >
-                        </TextView>
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:fontFamily="@font/roboto"
+                            android:textSize="12sp"></TextView>
+
                         <TextView
                             android:id="@+id/doctorTraining"
+                            style="@style/Widget.MaterialComponents.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="Training/Courses: None"
-                            android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorDegree"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="1dp"
-                            android:layout_marginTop="1dp"
                             android:layout_marginStart="20dp"
+                            android:layout_marginTop="1dp"
                             android:layout_marginEnd="5dp"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.TextView"
-                            >
-                        </TextView>
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:fontFamily="@font/roboto"
+                            android:text="Training/Courses: None"
+                            android:textSize="12sp"></TextView>
+
                         <TextView
                             android:id="@+id/doctorSpecialties"
+                            style="@style/Widget.MaterialComponents.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text=""
-                            android:layout_toEndOf="@+id/profilePicture"
                             android:layout_below="@+id/doctorTraining"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="1dp"
-                            android:layout_marginTop="1dp"
                             android:layout_marginStart="20dp"
+                            android:layout_marginTop="1dp"
                             android:layout_marginEnd="10dp"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.TextView"
-                            android:textColor="#4F5FDE"
-                            >
-                        </TextView>
-                        <TextView
-                            android:id="@+id/bmdcNumberSuffix"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:text="Bmdc Number: "
-                            android:layout_toEndOf="@+id/profilePicture"
-                            android:layout_below="@+id/doctorSpecialties"
-                            android:layout_centerHorizontal="true"
                             android:layout_marginBottom="1dp"
-                            android:layout_marginTop="1dp"
-                            android:layout_marginStart="20dp"
-                            android:textSize="12sp"
-                            style="@style/Widget.MaterialComponents.TextView"
-
-                            >
-                        </TextView>
-                        <TextView
-                            android:id="@+id/bmdc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:text=""
-                            android:layout_toEndOf="@+id/bmdcNumberSuffix"
+                            android:textColor="#4F5FDE"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/bmdcNumberSuffix"
+                            style="@style/Widget.MaterialComponents.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_below="@+id/doctorSpecialties"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="1dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="1dp"
-                            android:layout_marginStart="0dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/profilePicture"
+                            android:fontFamily="@font/roboto"
+                            android:text="Bmdc Number: "
                             android:textSize="12sp"
-                            android:textStyle="bold"
+
+                            ></TextView>
+
+                        <TextView
+                            android:id="@+id/bmdc"
                             style="@style/Widget.MaterialComponents.TextView"
-                            />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/doctorSpecialties"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:layout_toEndOf="@+id/bmdcNumberSuffix"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
 
                     </RelativeLayout>
 
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="5dp"
                     android:background="#ffffff"
-                    >
+                    android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -287,31 +288,34 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/aboutYouEdit"
                             android:layout_width="29dp"
                             android:layout_height="29dp"
-                            android:src="@drawable/edit"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="20dp"
-                            android:layout_marginTop="12dp"/>
+                            android:src="@drawable/edit" />
                     </RelativeLayout>
-                        <com.google.android.material.divider.MaterialDivider
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="20dp"
 
-                            />
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="20dp"
+
+                        />
+
                     <TextView
                         android:id="@+id/about"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/roboto"
+                        android:padding="10dp"
                         android:textColor="#666666"
                         android:textSize="13sp"
-                        android:layout_marginStart="5dp"
-                        android:padding="10dp"
 
                         />
                 </LinearLayout>
@@ -319,10 +323,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="5dp"
                     android:background="#ffffff"
-                    >
+                    android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -340,15 +344,17 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/specialtiesEdit"
                             android:layout_width="29dp"
                             android:layout_height="29dp"
-                            android:src="@drawable/edit"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="20dp"
-                            android:layout_marginTop="12dp"/>
+                            android:src="@drawable/edit" />
                     </RelativeLayout>
+
                     <com.google.android.material.divider.MaterialDivider
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -361,22 +367,21 @@
                         android:id="@+id/doctorSpecialtiesDownField"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:fontFamily="@font/roboto"
-                        android:textColor="#666666"
-                        android:textSize="13sp"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/roboto"
                         android:padding="10dp"
-                        />
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="5dp"
                     android:background="#ffffff"
-                    >
+                    android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -394,39 +399,41 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/medicalDegreesEdit"
                             android:layout_width="29dp"
                             android:layout_height="29dp"
-                            android:src="@drawable/edit"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="20dp"
-                            android:layout_marginTop="12dp"/>
+                            android:src="@drawable/edit" />
                     </RelativeLayout>
+
                     <com.google.android.material.divider.MaterialDivider
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="20dp"
-                        />
+                        android:layout_marginEnd="20dp" />
+
                     <TextView
                         android:id="@+id/medicalDegree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:textColor="#666666"
-                        android:textSize="13sp"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/roboto"
                         android:padding="10dp"
-                        />
+                        android:textColor="#666666"
+                        android:textSize="13sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="5dp"
                     android:background="#ffffff"
-                    >
+                    android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -454,6 +461,7 @@
                             android:layout_marginEnd="19dp"
                             android:src="@drawable/edit" />
                     </RelativeLayout>
+
                     <com.google.android.material.divider.MaterialDivider
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -461,73 +469,77 @@
                         android:layout_marginEnd="20dp"
 
                         />
+
                     <TextView
                         android:id="@+id/workingStatusText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No Information Found"
+                        android:layout_marginStart="5dp"
                         android:fontFamily="@font/roboto"
+                        android:padding="10dp"
+                        android:text="No Information Found"
                         android:textColor="#666666"
                         android:textSize="13sp"
-                        android:layout_marginStart="5dp"
-                        android:padding="10dp"
 
                         />
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/currentlyWorkingCard"
+                        style="@style/Widget.Material3.CardView.Outlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
                         android:layout_marginBottom="5dp"
-                        app:cardCornerRadius="2dp"
-                        style="@style/Widget.Material3.CardView.Outlined"
-                        app:strokeColor="#C2C2C2"
-                        app:strokeWidth="1dp"
                         android:visibility="gone"
-                        >
+                        app:cardCornerRadius="2dp"
+                        app:strokeColor="#C2C2C2"
+                        app:strokeWidth="1dp">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/currentHospitalName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Hospital Name"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="5dp"
                                 android:fontFamily="@font/roboto"
+                                android:padding="10dp"
+                                android:text="Hospital Name"
                                 android:textColor="@color/black"
                                 android:textSize="13sp"
-                                android:layout_marginStart="5dp"
-                                android:padding="10dp"
                                 android:textStyle="bold"
-                                android:layout_alignParentStart="true"
 
                                 />
+
                             <com.google.android.material.divider.MaterialDivider
+                                android:id="@+id/divider"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_below="@+id/currentHospitalName"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginEnd="20dp"
                                 android:layout_marginBottom="3dp"
-                                android:layout_below="@+id/currentHospitalName"
-                                android:id ="@+id/divider"
 
                                 />
+
                             <TextView
                                 android:id="@+id/designationHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Designation"
+                                android:layout_below="@+id/divider"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="10dp"
                                 android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="Designation"
                                 android:textColor="#666666"
                                 android:textSize="12sp"
-                                android:layout_marginStart="10dp"
-                                android:padding="5dp"
-                                android:textStyle="bold"
-                                android:layout_alignParentStart="true"
-                                android:layout_below="@+id/divider"
-                                />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/departmentHeader"
@@ -548,100 +560,99 @@
                                 android:id="@+id/designationName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Cardiology"
-                                android:fontFamily="@font/roboto"
-                                android:textColor="@color/black"
-                                android:textSize="11sp"
-                                android:layout_marginStart="10dp"
-                                android:padding="5dp"
-                                android:layout_alignParentStart="true"
                                 android:layout_below="@+id/designationHeader"
-                                />
+                                android:layout_alignParentStart="true"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="Cardiology"
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
+
                             <TextView
                                 android:id="@+id/departmentName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Medicine"
-                                android:fontFamily="@font/roboto"
-                                android:textColor="@color/black"
-                                android:textSize="11sp"
+                                android:layout_below="@+id/departmentHeader"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginStart="218dp"
+                                android:fontFamily="@font/roboto"
                                 android:padding="5dp"
-                                android:layout_below="@+id/departmentHeader"
-                                />
+                                android:text="Medicine"
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
+
                             <TextView
                                 android:id="@+id/employmentStatus"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Employment Status"
-                                android:fontFamily="@font/roboto"
-                                android:textColor="#666666"
-                                android:textSize="11.5sp"
+                                android:layout_below="@+id/designationName"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="3dp"
+                                android:fontFamily="@font/roboto"
                                 android:padding="5dp"
-                                android:textStyle="bold"
-                                android:layout_alignParentStart="true"
-                                android:layout_below="@+id/designationName"
-                                />
+                                android:text="Employment Status"
+                                android:textColor="#666666"
+                                android:textSize="11.5sp"
+                                android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/joinDateText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2007/5/4"
-                                android:fontFamily="@font/roboto"
-                                android:textColor="@color/black"
-                                android:textSize="11sp"
+                                android:layout_below="@+id/employmentStatus"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="3dp"
+                                android:fontFamily="@font/roboto"
                                 android:padding="5dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_below="@+id/employmentStatus"
-                                />
+                                android:text="2007/5/4"
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="- Present"
-                                android:fontFamily="@font/roboto"
-                                android:textColor="@color/black"
-                                android:textSize="11sp"
+                                android:layout_below="@+id/employmentStatus"
                                 android:layout_marginStart="-5dp"
                                 android:layout_marginTop="3dp"
-                                android:padding="5dp"
-                                android:layout_toEndOf="@id/joinDateText"
-                                android:layout_below="@+id/employmentStatus"
                                 android:layout_marginBottom="10dp"
-                                />
+                                android:layout_toEndOf="@id/joinDateText"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="- Present"
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
+
                             <TextView
                                 android:id="@+id/periodHeader"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Period"
+                                android:layout_below="@+id/departmentName"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginEnd="118dp"
                                 android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="Period"
                                 android:textColor="#666666"
                                 android:textSize="12sp"
-                                android:layout_marginEnd="118dp"
-                                android:layout_marginTop="3dp"
-                                android:padding="5dp"
-                                android:textStyle="bold"
-                                android:layout_alignParentEnd="true"
-                                android:layout_below="@+id/departmentName"
-                                />
+                                android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/period"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2007/5/4"
-                                android:fontFamily="@font/roboto"
-                                android:textColor="@color/black"
-                                android:textSize="11sp"
-                                android:layout_marginTop="0dp"
-                                android:padding="5dp"
+                                android:layout_below="@+id/periodHeader"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginStart="218dp"
-                                android:layout_below="@+id/periodHeader"
-                                />
+                                android:layout_marginTop="0dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5dp"
+                                android:text="2007/5/4"
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
 
 
                         </RelativeLayout>
@@ -653,10 +664,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="5dp"
                     android:background="#ffffff"
-                    >
+                    android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -674,6 +685,7 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/pastExperienceEdit"
                             android:layout_width="29dp"
@@ -693,18 +705,19 @@
                         android:layout_marginEnd="20dp"
 
                         />
+
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="0dp"
-                        android:id="@+id/recyclerView"/>
+                        android:layout_marginStart="0dp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
 
-       </RelativeLayout>
+        </RelativeLayout>
 
 
     </ScrollView>

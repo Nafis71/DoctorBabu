@@ -1,7 +1,7 @@
 package com.example.doctorbabu.Databases;
 
 public class doctorSearchResultModel {
-    String doctorNameAndId, department,profilePicture;
+    String doctorNameAndId, department, profilePicture;
 
     public doctorSearchResultModel() {
     }

@@ -16,9 +16,11 @@
     <style name="bottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
+
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">13sp</item>
         <item name="android:fontFamily">@font/roboto</item>

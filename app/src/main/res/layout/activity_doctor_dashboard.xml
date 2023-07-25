@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".doctor.DoctorDashboard">
+
     <FrameLayout
-        android:id ="@+id/container"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        />
+        android:layout_marginBottom="?attr/actionBarSize" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomView"

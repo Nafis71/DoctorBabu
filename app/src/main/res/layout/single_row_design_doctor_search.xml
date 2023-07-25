@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/custom_card_radius"
-    android:id="@+id/card"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/custom_card_radius">
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profilePicture"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        app:shapeAppearanceOverlay="@style/circular"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:shapeAppearanceOverlay="@style/circular"
         app:srcCompat="@drawable/profile_picture" />
+
     <TextView
+        android:id="@+id/doctorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DoctorName"
-        android:layout_toEndOf="@+id/profilePicture"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/black"
-        android:id="@+id/doctorName"/>
+        android:layout_toEndOf="@+id/profilePicture"
+        android:text="DoctorName"
+        android:textColor="@color/black" />
+
     <TextView
+        android:id="@+id/doctorDepartment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Doctor Department"
-        android:layout_toEndOf="@+id/profilePicture"
         android:layout_below="@+id/doctorName"
-        android:textSize="12sp"
         android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/profilePicture"
+        android:text="Doctor Department"
         android:textColor="#666666"
-        android:textStyle="bold"
-        android:id="@+id/doctorDepartment"/>
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
     <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/doctorDepartment"
-        android:id="@+id/bar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
 
         />
 

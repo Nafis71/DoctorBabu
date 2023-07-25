@@ -45,11 +45,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class DoctorLogin extends AppCompatActivity {
-    TextInputLayout email,password;
+    TextInputLayout email, password;
     TextInputEditText emailText;
-    TextView greetingText,secondGreetingText;
+    TextView greetingText, secondGreetingText;
     ImageView image;
-    Button signIn,signUp,forgetPass;
+    Button signIn, signUp, forgetPass;
     FirebaseAuth auth;
     FirebaseUser user;
     ProgressBar progressCircular;
@@ -77,8 +77,8 @@ public class DoctorLogin extends AppCompatActivity {
             }
         });
     }
-    public void viewBinding()
-    {
+
+    public void viewBinding() {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         forgetPass = findViewById(R.id.forgetPass);
@@ -89,11 +89,11 @@ public class DoctorLogin extends AppCompatActivity {
         progressCircular = findViewById(R.id.progressCircular);
         emailText = findViewById(R.id.emailText);
         signIn = findViewById(R.id.signIn);
-        auth =  FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
     }
-    public void stateObserver()
-    {
+
+    public void stateObserver() {
         emailText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,13 +111,12 @@ public class DoctorLogin extends AppCompatActivity {
             }
         });
     }
-    public void signIn()
-    {
-        if(!validateEmail())
-        {
+
+    public void signIn() {
+        if (!validateEmail()) {
             return;
         }
-        if(isInternetAvailable(this)) {
+        if (isInternetAvailable(this)) {
             progressCircular.setVisibility(View.VISIBLE);
             String email = this.email.getEditText().getText().toString();
             String password = this.password.getEditText().getText().toString();
@@ -126,8 +125,7 @@ public class DoctorLogin extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(!patientCredential)
-                    {
+                    if (!patientCredential) {
                         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -140,11 +138,11 @@ public class DoctorLogin extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             if (!user.isEmailVerified()) { //TODO I have to set it to true in future
-                                                Log.i("DoctorID : ",doctorId);
+                                                Log.i("DoctorID : ", doctorId);
                                                 SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
                                                 SharedPreferences.Editor editor = preferences.edit();
                                                 editor.putString("loginAs", "doctor");
-                                                editor.putString("doctorId",doctorId);
+                                                editor.putString("doctorId", doctorId);
                                                 editor.apply();
                                                 progressCircular.setVisibility(View.GONE);
                                                 Intent intent = new Intent(DoctorLogin.this, DoctorDashboard.class);
@@ -167,18 +165,14 @@ public class DoctorLogin extends AppCompatActivity {
                                 Toast.makeText(DoctorLogin.this, "Wrong Credentials", Toast.LENGTH_LONG).show();
                             }
                         });
-                    }
-                    else
-                    {
+                    } else {
                         progressCircular.setVisibility(View.GONE);
                         Toast.makeText(DoctorLogin.this, "Wrong Credentials", Toast.LENGTH_LONG).show();
                     }
                 }
-            },1000);
+            }, 1000);
 
-        }
-        else
-        {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle("No Internet").setMessage("Please check your internet connection and try again").setPositiveButton("Try again", new DialogInterface.OnClickListener() {
                 @Override
@@ -195,63 +189,58 @@ public class DoctorLogin extends AppCompatActivity {
             dialog.create().show();
         }
     }
-    public void firebaseUserCheck(String email)
-    {
+
+    public void firebaseUserCheck(String email) {
         DatabaseReference reference = database.getReference("users");
         reference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 patientCredential = snapshot.exists();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-    public void getDoctorId(String uid)
-    {
-      DatabaseReference reference = database.getReference("doctorInfo");
-      reference.orderByChild("uId").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-          @Override
-          public void onDataChange(@NonNull DataSnapshot snapshot) {
-              if(snapshot.exists())
-              {
-                  for(DataSnapshot snap : snapshot.getChildren())
-                  {
-                     doctorId = String.valueOf(snap.child("doctorId").getValue());
-                  }
 
-              }
+    public void getDoctorId(String uid) {
+        DatabaseReference reference = database.getReference("doctorInfo");
+        reference.orderByChild("uId").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        doctorId = String.valueOf(snap.child("doctorId").getValue());
+                    }
 
-          }
+                }
 
-          @Override
-          public void onCancelled(@NonNull DatabaseError error) {
+            }
 
-          }
-      });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
-    private boolean validateEmail()
-    {
+
+    private boolean validateEmail() {
         String value = email.getEditText().getText().toString();
         String emailPattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+"; //regex expression
-        if(value.isEmpty())
-        {
+        if (value.isEmpty()) {
             email.setError("Field can't be empty");
             return false;
-        }
-        else if(!value.matches(emailPattern))
-        {
+        } else if (!value.matches(emailPattern)) {
             email.setError("Invalid email address");
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
-    public void resendEmail(String title, String message, boolean cancelable){
+
+    public void resendEmail(String title, String message, boolean cancelable) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title).setMessage(message).setPositiveButton("Resend Email", new DialogInterface.OnClickListener() {
             @Override
@@ -281,47 +270,41 @@ public class DoctorLogin extends AppCompatActivity {
         }).setCancelable(cancelable);
         dialog.create().show();
     }
-    public static boolean isInternetAvailable(Context context)
-    {
+
+    public static boolean isInternetAvailable(Context context) {
         NetworkInfo info = ((ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 
-        if (info == null)
-        {
-            Log.d(TAG,"no internet connection");
+        if (info == null) {
+            Log.d(TAG, "no internet connection");
             return false;
-        }
-        else
-        {
-            if(info.isConnected())
-            {
-                Log.d(TAG," internet connection available...");
+        } else {
+            if (info.isConnected()) {
+                Log.d(TAG, " internet connection available...");
                 return true;
-            }
-            else
-            {
-                Log.d(TAG," internet connection");
+            } else {
+                Log.d(TAG, " internet connection");
                 return true;
             }
 
         }
     }
-    public void callSignUp(View view)
-    {
+
+    public void callSignUp(View view) {
         Intent intent = new Intent(DoctorLogin.this, DoctorSignup.class);
         Pair[] pairs = new Pair[7];
-        pairs[0] = new Pair<View,String>(image, "imageTransition");
-        pairs[1] = new Pair<View,String>(greetingText, "textTransition1");
-        pairs[2] = new Pair<View,String>(secondGreetingText, "textTransition2");
-        pairs[3] = new Pair<View,String>(email, "usernameTransition");
-        pairs[4] = new Pair<View,String>(password, "passwordTransition");
-        pairs[5] = new Pair<View,String>(signIn, "signinTransition");
-        pairs[6] = new Pair<View,String>(signUp, "signupTransition");
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DoctorLogin.this,pairs);
+        pairs[0] = new Pair<View, String>(image, "imageTransition");
+        pairs[1] = new Pair<View, String>(greetingText, "textTransition1");
+        pairs[2] = new Pair<View, String>(secondGreetingText, "textTransition2");
+        pairs[3] = new Pair<View, String>(email, "usernameTransition");
+        pairs[4] = new Pair<View, String>(password, "passwordTransition");
+        pairs[5] = new Pair<View, String>(signIn, "signinTransition");
+        pairs[6] = new Pair<View, String>(signUp, "signupTransition");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(DoctorLogin.this, pairs);
         startActivity(intent, options.toBundle());
     }
-    public void onBackPressed()
-    {
+
+    public void onBackPressed() {
         Intent intent = new Intent(DoctorLogin.this, LoginOptions.class);
         startActivity(intent);
         finish();

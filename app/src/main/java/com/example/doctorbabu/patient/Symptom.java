@@ -24,10 +24,12 @@ public class Symptom extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-    public void onViewCreated(View view, Bundle savedInstanceState){
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

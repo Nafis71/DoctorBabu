@@ -23,6 +23,7 @@ import android.os.StrictMode;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.MenuItem;
+
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.patient.Doctor;
 import com.example.doctorbabu.patient.Home;
@@ -40,91 +41,78 @@ import java.io.IOException;
 import java.net.URL;
 
 public class DoctorDashboard extends AppCompatActivity {
-    String doctorId,callerId,callerName,callerPicture;
+    String doctorId, callerId, callerName, callerPicture;
     BottomNavigationView bottomNavigation;
     FragmentManager fm;
     Bitmap image;
     int check = 0;
-    private static  final  String CHANNEL_ID = "Call Channel";
-    private static  final  int NOTIFICATION_ID = 100;
+    private static final String CHANNEL_ID = "Call Channel";
+    private static final int NOTIFICATION_ID = 100;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
-        loadDoctorid(); loadCallerId();
+        loadDoctorid();
+        loadCallerId();
         bottomNavigation = findViewById(R.id.bottomView);
-        loadFragment(new DoctorProfile(),true);
+        loadFragment(new DoctorProfile(), true);
         bottomNavigation.setSelectedItemId(R.id.nav_profile);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 int count = 0;
-                if(id == R.id.nav_home)
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_home)
-                        loadFragment(new DoctorHome(),false);
+                if (id == R.id.nav_home) {
+                    if (bottomNavigation.getSelectedItemId() != R.id.nav_home)
+                        loadFragment(new DoctorHome(), false);
 
-                }
-                else if(id == R.id.nav_call)
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_call)
-                        loadFragment(new DoctorCallRoom(),false);
-                }
-                else if(id == R.id.nav_history)
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_history)
-                        loadFragment(new PrescriptionHistory(),false);
-                }
-                else
-                {
-                    if(bottomNavigation.getSelectedItemId() != R.id.nav_profile)
-                        loadFragment(new DoctorProfile(),false);
+                } else if (id == R.id.nav_call) {
+                    if (bottomNavigation.getSelectedItemId() != R.id.nav_call)
+                        loadFragment(new DoctorCallRoom(), false);
+                } else if (id == R.id.nav_history) {
+                    if (bottomNavigation.getSelectedItemId() != R.id.nav_history)
+                        loadFragment(new PrescriptionHistory(), false);
+                } else {
+                    if (bottomNavigation.getSelectedItemId() != R.id.nav_profile)
+                        loadFragment(new DoctorProfile(), false);
                 }
                 return true;
             }
         });
     }
-    public void loadFragment(Fragment fragment, boolean flag)
-    {
+
+    public void loadFragment(Fragment fragment, boolean flag) {
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true).addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        if(flag)
-        {
-            if(check == 0)
-            {
-                ft.add(R.id.container,fragment);
+        if (flag) {
+            if (check == 0) {
+                ft.add(R.id.container, fragment);
                 check++;
+            } else {
+                ft.replace(R.id.container, fragment);
             }
-            else
-            {
-                ft.replace(R.id.container,fragment);
-            }
-        }
-        else
-        {
-            ft.replace(R.id.container,fragment);
+        } else {
+            ft.replace(R.id.container, fragment);
         }
         ft.commit();
 
     }
-    public void loadDoctorid(){
+
+    public void loadDoctorid() {
         SharedPreferences preferences = getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
-        doctorId = preferences.getString("doctorId","loginAs");
+        doctorId = preferences.getString("doctorId", "loginAs");
     }
 
-    public void loadCallerId()
-    {
+    public void loadCallerId() {
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("incoming").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    if(!String.valueOf(snapshot.getValue()).equals("null"))
-                    {
+                if (snapshot.exists()) {
+                    if (!String.valueOf(snapshot.getValue()).equals("null")) {
                         callerId = String.valueOf(snapshot.getValue());
                         loadCallerDetails();
                     }
@@ -133,19 +121,18 @@ public class DoctorDashboard extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                throw  error.toException();
+                throw error.toException();
             }
         });
     }
-    public void loadCallerDetails()
-    {
+
+    public void loadCallerDetails() {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference reference = database.getReference("users");
         reference.child(callerId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     callerName = String.valueOf(snapshot.child("fullName").getValue());
                     callerPicture = String.valueOf(snapshot.child("photoUrl").getValue());
                     Thread newThread = new Thread(new Runnable() {
@@ -160,10 +147,11 @@ public class DoctorDashboard extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
+                throw error.toException();
             }
         });
     }
+
     public void notificationManager() {
         try {
             URL url = new URL(callerPicture);
@@ -173,21 +161,21 @@ public class DoctorDashboard extends AppCompatActivity {
             System.out.println(e);
         }
         String notificationText = callerName + " is trying to call you";
-    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-    Notification notification = new Notification.Builder(this)
-            .setLargeIcon(image)
-            .setSmallIcon(R.drawable.applogo)
-            .setContentText(notificationText)
-            .setSubText("New Call Room Created")
-            .setChannelId(CHANNEL_ID)
-            .build();
-        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID,"Calling Channel",NotificationManager.IMPORTANCE_HIGH));
-        notificationManager.notify(NOTIFICATION_ID,notification);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification.Builder(this)
+                .setLargeIcon(image)
+                .setSmallIcon(R.drawable.applogo)
+                .setContentText(notificationText)
+                .setSubText("New Call Room Created")
+                .setChannelId(CHANNEL_ID)
+                .build();
+        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, "Calling Channel", NotificationManager.IMPORTANCE_HIGH));
+        notificationManager.notify(NOTIFICATION_ID, notification);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(VibrationEffect.createOneShot(1500, VibrationEffect.DEFAULT_AMPLITUDE));
-}
-    public void onBackPressed()
-    {
+    }
+
+    public void onBackPressed() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Quitting App").setMessage("Are you sure you want to quit?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

@@ -50,6 +50,7 @@ public class PatientReview extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,7 @@ public class PatientReview extends AppCompatActivity {
                 reviewTextInputLayout.setVisibility(View.VISIBLE);
                 postReview.setVisibility(View.VISIBLE);
             }
-        },5000);
+        }, 5000);
         reviewTextField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -83,8 +84,9 @@ public class PatientReview extends AppCompatActivity {
             }
         });
     }
-    public void viewBinding(){
-        reviewAnimation =  findViewById(R.id.reviewAnimation);
+
+    public void viewBinding() {
+        reviewAnimation = findViewById(R.id.reviewAnimation);
         reviewText = findViewById(R.id.reviewText);
         ratingBar = findViewById(R.id.ratingBar);
         reviewTextField = findViewById(R.id.reviewTextField);
@@ -93,107 +95,107 @@ public class PatientReview extends AppCompatActivity {
         parentLayout = findViewById(R.id.parentLayout);
         progressRail = findViewById(R.id.progressRail);
     }
-    public void post()
-    {
-        if(!validateRatingBar())
-        {
+
+    public void post() {
+        if (!validateRatingBar()) {
             return;
         }
         progressRail.setVisibility(View.VISIBLE);
-        String review =  reviewTextField.getText().toString().trim();
+        String review = reviewTextField.getText().toString().trim();
         float rating = ratingBar.getRating();
 
-            String uniqueID = getUniqueId();
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            FirebaseUser user = auth.getCurrentUser();
-            HashMap<String,Object> reviewData =  new HashMap<>();
-            assert user != null;
-            if(review.isEmpty()){
-                reviewData.put("userId",user.getUid()); reviewData.put("rating",rating);
-                reviewData.put("comment","null");
+        String uniqueID = getUniqueId();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        HashMap<String, Object> reviewData = new HashMap<>();
+        assert user != null;
+        if (review.isEmpty()) {
+            reviewData.put("userId", user.getUid());
+            reviewData.put("rating", rating);
+            reviewData.put("comment", "null");
+        } else {
+            reviewData.put("userId", user.getUid());
+            reviewData.put("rating", rating);
+            reviewData.put("comment", review);
+        }
+        DatabaseReference reference = database.getReference("reviews");
+        reference.child(doctorId).child(uniqueID).setValue(reviewData);
+        reference = database.getReference("consultancyPatient");
+        reference.child(user.getUid()).child("done").setValue(consultancyDone);
+        Snackbar.make(parentLayout, "You have awarded 50 reward points", Snackbar.LENGTH_LONG).show();
+        reference = database.getReference("rewardPatient");
+        reference.child(user.getUid()).child("reward").setValue(String.valueOf(rewardPoint));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressRail.setVisibility(View.GONE);
+                MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(PatientReview.this);
+                dialog.setTitle("Successful").setIcon(R.drawable.done)
+                        .setMessage("Your review has been recorded,thanks!")
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finishAndRemoveTask();
+                            }
+                        }).setCancelable(false);
+                dialog.create().show();
             }
-            else{
-                reviewData.put("userId",user.getUid()); reviewData.put("rating",rating);
-                reviewData.put("comment",review);
-            }
-            DatabaseReference reference = database.getReference("reviews");
-            reference.child(doctorId).child(uniqueID).setValue(reviewData);
-            reference = database.getReference("consultancyPatient");
-            reference.child(user.getUid()).child("done").setValue(consultancyDone);
-            Snackbar.make(parentLayout,"You have awarded 50 reward points",Snackbar.LENGTH_LONG).show();
-            reference = database.getReference("rewardPatient");
-            reference.child(user.getUid()).child("reward").setValue(String.valueOf(rewardPoint));
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    progressRail.setVisibility(View.GONE);
-                    MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(PatientReview.this);
-                            dialog.setTitle("Successful").setIcon(R.drawable.done)
-                            .setMessage("Your review has been recorded,thanks!")
-                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    finishAndRemoveTask();
-                                }
-                            }).setCancelable(false);
-                            dialog.create().show();
-                }
-            },4000);
+        }, 4000);
     }
-    public void loadReward(){
+
+    public void loadReward() {
 
         DatabaseReference reference = database.getReference("rewardPatient");
         reference.child(user.getUid()).child("reward").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists())
-                    {
-                        String value = String.valueOf(snapshot.getValue());
-                        rewardPoint = Integer.parseInt(value) + 50;
-                    }
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String value = String.valueOf(snapshot.getValue());
+                    rewardPoint = Integer.parseInt(value) + 50;
                 }
-                @Override
+            }
+
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
         });
     }
-    public void loadConsultancyPatient(){
+
+    public void loadConsultancyPatient() {
         DatabaseReference reference = database.getReference("consultancyPatient");
         reference.child(user.getUid()).child("done").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     String value = String.valueOf(snapshot.getValue());
                     consultancyDone = Integer.parseInt(value) + 1;
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
             }
         });
     }
-    public boolean validateRatingBar()
-    {
+
+    public boolean validateRatingBar() {
         float rating = ratingBar.getRating();
-        if(rating == 0.0)
-        {
-            Snackbar.make(parentLayout,"Please Give a Review first to post your comment",Snackbar.LENGTH_LONG).show();
+        if (rating == 0.0) {
+            Snackbar.make(parentLayout, "Please Give a Review first to post your comment", Snackbar.LENGTH_LONG).show();
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
+
     public String getUniqueId() {
         return UUID.randomUUID().toString();
     }
-    public void onBackPressed()
-    {
+
+    public void onBackPressed() {
         DatabaseReference reference = database.getReference("consultancyPatient");
         reference.child(user.getUid()).child("done").setValue(consultancyDone);
         reference = database.getReference("rewardPatient");

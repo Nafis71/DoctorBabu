@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/currentlyWorkingCard"
+        style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
         app:cardCornerRadius="5dp"
-        style="@style/Widget.Material3.CardView.Outlined"
         app:strokeColor="#C2C2C2"
-        app:strokeWidth="1dp"
-        >
+        app:strokeWidth="1dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profilePicture"
                 android:layout_width="40dp"
@@ -31,72 +32,73 @@
                 android:layout_marginBottom="5dp"
                 app:shapeAppearanceOverlay="@style/circular"
                 app:srcCompat="@drawable/profile_picture" />
+
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nafis Hasan Tonmoy"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/black"
-                android:textSize="13sp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="7dp"
                 android:layout_toEndOf="@+id/profilePicture"
+                android:fontFamily="@font/roboto"
                 android:padding="10dp"
-                android:textStyle="bold"
-                />
+                android:text="Nafis Hasan Tonmoy"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="60dp"
                 android:fontFamily="@font/roboto"
+                android:text="5"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginTop="7dp"
-                android:layout_alignParentEnd="true"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
             <RatingBar
                 android:id="@+id/ratingIndicator"
+                style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/RatingBar"
-                style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_below="@+id/rating"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="15dp"
                 android:rating="3.5"
-                >
+                android:theme="@style/RatingBar">
 
             </RatingBar>
+
             <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/ratingIndicator"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="3dp"
-                android:layout_below="@+id/ratingIndicator"
-                android:id ="@+id/divider"
 
                 />
+
             <TextView
                 android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comment"
-                android:fontFamily="@font/roboto"
-                android:textColor="#666666"
-                android:textSize="13sp"
+                android:layout_below="@+id/divider"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_below="@+id/divider"
+                android:fontFamily="@font/roboto"
                 android:padding="10dp"
-                android:textStyle="bold"
-                />
+                android:text="Comment"
+                android:textColor="#666666"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>

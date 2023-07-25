@@ -2,22 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id = "@+id/parentLayout"
     tools:context=".patient.PatientReview">
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressRail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="2dp"
-        android:visibility="gone"
-        />
+        android:indeterminate="true"
+        android:visibility="gone" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -25,89 +27,90 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/reviewAnimation"
                         android:layout_width="300dp"
                         android:layout_height="180dp"
-                        app:lottie_rawRes="@raw/review"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="50dp"
                         android:layout_marginBottom="20dp"
                         android:visibility="gone"
-                        >
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/review">
 
                     </com.airbnb.lottie.LottieAnimationView>
+
                     <TextView
                         android:id="@+id/reviewText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_below="@id/reviewAnimation"
-                        android:text="Review the doctor"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/oswald"
-                        android:visibility="gone"
+                        android:text="Review the doctor"
                         android:textSize="22sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
                     <RatingBar
                         android:id="@+id/ratingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/reviewText"
-                        android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
-                        android:visibility="gone"
-                        />
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone" />
+
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id ="@+id/reviewTextInputLayout"
+                        android:id="@+id/reviewTextInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="175dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:hint="Write your review"
-                        app:hintAnimationEnabled="true"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="2500"
-                        android:autofillHints="name"
-                        app:boxCornerRadiusBottomEnd="20dp"
-                        android:visibility="gone"
                         android:layout_below="@+id/ratingBar"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:autofillHints="name"
+                        android:hint="Write your review"
+                        android:visibility="gone"
                         app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="20dp"
                         app:boxCornerRadiusTopStart="20dp"
                         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                         app:boxStrokeWidth="2dp"
-                        style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                        app:counterEnabled="true"
+                        app:counterMaxLength="2500"
+                        app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/reviewTextField"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:inputType="textMultiLine"
-                            android:transitionName="usernameTransition"
-                            android:textSize="15sp"
-                            android:scrollbars="vertical"
                             android:gravity="center"
-                            />
+                            android:inputType="textMultiLine"
+                            android:scrollbars="vertical"
+                            android:textSize="15sp"
+                            android:transitionName="usernameTransition" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/postReview"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="200dp"
                         android:layout_height="65dp"
+                        android:layout_below="@+id/reviewTextInputLayout"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
-                        android:layout_below="@+id/reviewTextInputLayout"
                         android:shadowColor="@color/black_shade_1"
                         android:text="Post Review"
-                        android:id="@+id/postReview"
                         android:textColor="#4F5FDE"
                         android:textSize="12sp"
                         android:visibility="gone"

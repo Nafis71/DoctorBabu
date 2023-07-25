@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".patient.Department">
@@ -10,330 +10,318 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:rowCount="3"
         android:columnCount="3"
-        >
+        android:padding="5dp"
+        android:rowCount="3">
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/physician"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/physician" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/generalPhysician"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/gynecologist"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/gynecologist" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/gynecology"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/pediatrics"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/pediatrics" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/pediatrics"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/dermatologist"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/dermatologist" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/dermatology"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/psychiatrist"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/psychiatrist" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/psychiatry"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/cardiology"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/cardiology" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/cardiology"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/nutritionist"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/nutritionist" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/nutritionDietetic"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/ophthalmology"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/ophthalmology" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
                     android:text="@string/ophthalmology"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
                     android:textColor="#2C3E50"
-                    android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
+            android:layout_width="115dp"
             android:layout_height="115dp"
-            android:layout_width ="115dp"
-            app:cardElevation="2dp"
             android:layout_margin="7dp"
-            >
+            app:cardElevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src = "@drawable/neurology"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    />
+                    android:src="@drawable/neurology" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/neurology"
-                    android:textSize="13sp"
-                    android:fontFamily="@font/roboto"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:textColor="#2C3E50"
                     android:layout_marginBottom="2dp"
-                    >
-                </TextView>
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="@string/neurology"
+                    android:textAlignment="center"
+                    android:textColor="#2C3E50"
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
-
 
 
     </GridLayout>

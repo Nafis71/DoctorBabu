@@ -6,11 +6,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class pageAdapter extends FragmentStateAdapter {
-    private String [] titles = new String[]{"Departments","Symptoms"};
+    private String[] titles = new String[]{"Departments", "Symptoms"};
 
     public pageAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
+
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
@@ -18,8 +19,7 @@ public class pageAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch(position)
-        {
+        switch (position) {
             case 0:
                 return new Department();
 
@@ -31,6 +31,6 @@ public class pageAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-       return titles.length;
+        return titles.length;
     }
 }

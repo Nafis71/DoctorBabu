@@ -3,175 +3,173 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="2dp"
     android:background="@drawable/bottom_sheet_design"
-    >
+    android:orientation="vertical"
+    android:padding="2dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/roboto"
             android:text="@string/chooseDegree"
-            android:textColor="@color/black"
             android:textAlignment="center"
-            android:layout_marginStart="20dp"
-            android:layout_centerVertical="true"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold">
-        </com.google.android.material.textview.MaterialTextView>
+            android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/degree"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/degree" />
     </RelativeLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
-        />
+        android:layout_marginEnd="20dp" />
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="18dp"
-        android:rowCount="4"
         android:columnCount="3"
-        android:layout_gravity="center"
-        >
+        android:padding="18dp"
+        android:rowCount="4">
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/MBBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mbbs"
-            app:buttonTint="#4F5FDE"
             android:layout_margin="10dp"
+            android:text="@string/mbbs"
             android:textSize="15sp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/BMBS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/bmbs"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/MBChC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/mbchc"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/MBChB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="MBChB"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/MBBCh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/mbbch"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/MD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/md"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/DO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/DO"
             android:textSize="15sp"
-            android:layout_margin="10dp"
-            app:buttonTint="#4F5FDE"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/DS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/ds"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
+
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/BCS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/bcs"
             android:textSize="15sp"
-            app:buttonTint="#4F5FDE"
-            android:layout_margin="10dp"
-            >
+            app:buttonTint="#4F5FDE">
 
         </com.google.android.material.checkbox.MaterialCheckBox>
     </GridLayout>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/confirmList"
-        android:layout_width="250dp"
-        android:layout_height="57dp"
-        android:text="@string/confirm"
-        android:textSize="15sp"
-        android:textColor="@color/white"
-        app:backgroundTint = "#4F5FDE"
-        app:cornerRadius="20dp"
-        app:buttonTint="#4F5FDE"
-        android:layout_centerHorizontal="true"
-        app:elevation="4dp"
-        >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirmList"
+            android:layout_width="250dp"
+            android:layout_height="57dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:backgroundTint="#4F5FDE"
+            app:buttonTint="#4F5FDE"
+            app:cornerRadius="20dp"
+            app:elevation="4dp">
 
-    </com.google.android.material.button.MaterialButton>
+        </com.google.android.material.button.MaterialButton>
 
-</RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>
