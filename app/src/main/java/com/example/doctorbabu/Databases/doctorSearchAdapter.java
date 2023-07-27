@@ -1,5 +1,6 @@
 package com.example.doctorbabu.Databases;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +32,13 @@ public class doctorSearchAdapter extends RecyclerView.Adapter<doctorSearchAdapte
         return new myViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull doctorSearchAdapter.myViewHolder holder, int position) {
         doctorSearchResultModel model = doctorSearchModel.get(position);
-        Glide.with(context).load(model.getProfilePicture()).into(holder.profilePicture);
-        holder.doctorName.setText(model.getDoctorNameAndId());
-        holder.doctorDepartment.setText(model.getDepartment());
+        Glide.with(context).load(model.getPhotoUrl()).into(holder.profilePicture);
+        holder.doctorName.setText(model.getTitle() + " " + model.getFullName() + " " +"("+model.getDoctorId()+")");
+        holder.doctorDepartment.setText(model.getSpecialty());
 
     }
 

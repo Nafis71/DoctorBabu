@@ -1,0 +1,6 @@
+-obfuscationdictionary "C:\Dictionary\dic.txt"
+-classobfuscationdictionary "C:\Dictionary\dic.txt"
+-packageobfuscationdictionary "C:\Dictionary\dic.txt"
+-mergeinterfacesaggressively
+-overloadaggressively
+-repackageclasses 'com.example.doctorbabu'

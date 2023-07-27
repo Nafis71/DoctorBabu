@@ -1,17 +1,15 @@
 package com.example.doctorbabu.patient;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
@@ -37,43 +35,32 @@ public class CheckoutDoctor extends AppCompatActivity {
         photoUrl = getIntent().getStringExtra("photoUrl");
         viewBinding();
         loadData();
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        goBack.setOnClickListener(view -> finish());
+        bkash.setOnClickListener(view -> {
+            if (isPermissionGranted()) {
+                Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
+                intent.putExtra("doctorId", doctorId);
+                intent.putExtra("doctorTitle", doctorTitle);
+                intent.putExtra("doctorName", doctorName);
+                intent.putExtra("photoUrl", photoUrl);
+                startActivity(intent);
                 finish();
+            } else {
+                askPermission();
             }
-        });
-        bkash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isPermissionGranted()) {
-                    Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
-                    intent.putExtra("doctorId", doctorId);
-                    intent.putExtra("doctorTitle", doctorTitle);
-                    intent.putExtra("doctorName", doctorName);
-                    intent.putExtra("photoUrl", photoUrl);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    askPermission();
-                }
 
-            }
         });
-        nagad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isPermissionGranted()) {
-                    Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
-                    intent.putExtra("doctorId", doctorId);
-                    intent.putExtra("doctorTitle", doctorTitle);
-                    intent.putExtra("doctorName", doctorName);
-                    intent.putExtra("photoUrl", photoUrl);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    askPermission();
-                }
+        nagad.setOnClickListener(view -> {
+            if (isPermissionGranted()) {
+                Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
+                intent.putExtra("doctorId", doctorId);
+                intent.putExtra("doctorTitle", doctorTitle);
+                intent.putExtra("doctorName", doctorName);
+                intent.putExtra("photoUrl", photoUrl);
+                startActivity(intent);
+                finish();
+            } else {
+                askPermission();
             }
         });
 

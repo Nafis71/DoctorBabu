@@ -80,7 +80,6 @@
                             android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/consultationTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/bar"
@@ -149,7 +148,6 @@
                             android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/amountSideText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/consultationFeeHeader"
@@ -160,7 +158,6 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:id="@+id/followupHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -196,7 +193,6 @@
                             android:textSize="13sp" />
 
                         <TextView
-                            android:id="@+id/amountFollowupSideText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/consultationFeeHeader"
@@ -221,7 +217,6 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/patientCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/patientCountHeader"

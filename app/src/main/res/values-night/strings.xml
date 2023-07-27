@@ -6,7 +6,6 @@
     <string name="custom_dialog_registration_successfull">Registration Successful!</string>
     <string name="custom_dialog_okay_button">Okay</string>
     <string name="nav_home_title">Home</string>
-    <string name="nav_doctor_title">Find Doctor</string>
     <string name="nav_profile_title">Profile</string>
     <string name="nav_history_title">History</string>
     <!-- Home Fragment Strings. -->

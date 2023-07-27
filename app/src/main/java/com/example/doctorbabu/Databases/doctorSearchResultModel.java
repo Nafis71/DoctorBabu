@@ -1,32 +1,53 @@
 package com.example.doctorbabu.Databases;
 
 public class doctorSearchResultModel {
-    String doctorNameAndId, department, profilePicture;
+    String fullName, title, specialty, photoUrl, doctorId;
 
     public doctorSearchResultModel() {
     }
 
-    public String getDoctorNameAndId() {
-        return doctorNameAndId;
+    public String getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctorNameAndId(String doctorNameAndId) {
-        this.doctorNameAndId = doctorNameAndId;
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getSpecialty() {
+        return specialty;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+
+
+
 }

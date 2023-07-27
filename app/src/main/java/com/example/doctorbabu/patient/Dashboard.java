@@ -54,8 +54,8 @@ public class Dashboard extends AppCompatActivity {
 
     public void loadFragment(Fragment fragment, boolean flag) {
         fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction().setReorderingAllowed(true);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         if (flag) {
             if (check == 0) {
                 ft.add(R.id.container, fragment);

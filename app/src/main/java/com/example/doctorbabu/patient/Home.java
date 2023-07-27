@@ -49,6 +49,7 @@ import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -86,30 +87,14 @@ public class Home extends Fragment {
         imageSliderExecutor.execute(this::loadImageSlider);
         viewBinding();
         firebaseAuth();
-        profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callProfileFragment();
-            }
-        });
-        appointmentCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callAppointmentBottomSheet();
-            }
-        });
-        languageImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callLanguageChanger();
-            }
-        });
-        consultantCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        PushDownAnim.setPushDownAnimTo(consultantCard, appointmentCard)
+                .setScale(PushDownAnim.MODE_SCALE, 0.90f);
+        profilePicture.setOnClickListener(v -> callProfileFragment());
+        appointmentCard.setOnClickListener(v -> callAppointmentBottomSheet());
+        languageImage.setOnClickListener(v -> callLanguageChanger());
+        consultantCard.setOnClickListener(view1 -> {
 //                Intent intent = new Intent(requireActivity(), AiDoctor.class);
 //                startActivity(intent);
-            }
         });
 
     }

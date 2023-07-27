@@ -52,7 +52,7 @@ public class Doctor extends Fragment {
     ValueEventListener listener;
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
-    ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor;
+    ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor,loadAllDoctorExecutor;
 
     public Doctor() {
         // Required empty public constructor
@@ -63,6 +63,7 @@ public class Doctor extends Fragment {
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
+        loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
         userId = user.getUid();
 
     }
@@ -75,6 +76,7 @@ public class Doctor extends Fragment {
         recentlyViewedExecutor.execute(this::loadRecentlyViewed);
         loadDoctorExecutor.execute(this::loadAvailableDoctor);
         searchExecutor.execute(this::searchDoctor);
+        loadAllDoctorExecutor.execute(this::loadAllDoctor);
         binding.consultationAnim2.setOnClickListener(view1 -> {
             binding.availableDoctorRecyclerView.requestFocus();
             binding.availableDoctorRecyclerView.clearFocus();
@@ -103,7 +105,7 @@ public class Doctor extends Fragment {
     }
 
     public void loadAvailableDoctor() {
-        if (isVisible()) {
+        if (isAdded()) {
             availableDoctorReference = database.getReference("doctorInfo");
             doctorNameID = new StringBuilder();
             binding.availableDoctorRecyclerView.showShimmer();
@@ -116,19 +118,12 @@ public class Doctor extends Fragment {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         availableDoctorModel model = snap.getValue(availableDoctorModel.class);
                         assert model != null;
-                        if (model.getRating() >= 4.8 && model.getOnlineStatus() != 0) {
+                        if (model.getRating() >= 4.8) {
                             if (count < 11) {
                                 list.add(model);
                                 count++;
                             }
                         }
-                        doctorNameID.append(model.getFullName()).append(" ").append("(").append(model.getDoctorId()).append(")");
-                        doctorSearchResultModel searchModel = new doctorSearchResultModel();
-                        searchModel.setDoctorNameAndId(doctorNameID.toString());
-                        searchModel.setDepartment(model.getSpecialty());
-                        searchModel.setProfilePicture(model.getPhotoUrl());
-                        doctorList.add(searchModel);
-                        doctorNameID.setLength(0);
                     }
                     adapter.notifyDataSetChanged();
                     binding.availableDoctorRecyclerView.hideShimmer();
@@ -140,9 +135,28 @@ public class Doctor extends Fragment {
 
                 }
             };
-            availableDoctorReference.addValueEventListener(listener);
+            availableDoctorReference.orderByChild("onlineStatus").equalTo(1).addValueEventListener(listener);
         }
 
+    }
+    public void loadAllDoctor(){
+        DatabaseReference allDoctorReference = database.getReference("doctorInfo");
+        allDoctorReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        doctorSearchResultModel searchModel = snap.getValue(doctorSearchResultModel.class);
+                        doctorList.add(searchModel);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void searchDoctor() {
@@ -173,7 +187,7 @@ public class Doctor extends Fragment {
         ArrayList<doctorSearchResultModel> filteredList = new ArrayList<>();
         searchAdapter = new doctorSearchAdapter(requireContext(), filteredList);
         for (doctorSearchResultModel doctor : doctorList) {
-            if (doctor.getDoctorNameAndId().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getDepartment().toLowerCase().contains(searchedDoctor.toLowerCase())) {
+            if (doctor.getFullName().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getSpecialty().toLowerCase().contains(searchedDoctor.toLowerCase())| doctor.getDoctorId().toLowerCase().contains(searchedDoctor.toLowerCase())){
                 filteredList.add(doctor);
             }
         }
@@ -217,6 +231,7 @@ public class Doctor extends Fragment {
                         });
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     throw error.toException();

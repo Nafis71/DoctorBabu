@@ -84,7 +84,6 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/tickSign"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_below="@+id/userEmail"
@@ -93,7 +92,6 @@
             android:src="@drawable/verified" />
 
         <ImageView
-            android:id="@+id/notVerified"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="5dp"

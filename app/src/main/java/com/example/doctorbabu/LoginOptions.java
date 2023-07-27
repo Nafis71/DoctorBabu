@@ -6,7 +6,6 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -53,21 +52,15 @@ public class LoginOptions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_options);
         viewBinding();
-        patientCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginOptions.this, Login.class);
-                startActivity(intent);
-                finish();
-            }
+        patientCard.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginOptions.this, Login.class);
+            startActivity(intent);
+            finish();
         });
-        doctorCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginOptions.this, DoctorLogin.class);
-                startActivity(intent);
-                finish();
-            }
+        doctorCard.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginOptions.this, DoctorLogin.class);
+            startActivity(intent);
+            finish();
         });
 
     }

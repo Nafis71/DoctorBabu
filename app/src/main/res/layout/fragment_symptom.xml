@@ -24,7 +24,6 @@
             android:rowCount="3">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/fever"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -68,7 +67,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/wightlossgain"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -104,7 +102,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/skinDisease"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -140,7 +137,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/abdominalPain"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -176,7 +172,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/acidity"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -212,7 +207,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/headacheMigrane"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -248,7 +242,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/childDisease"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -284,7 +277,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/stressDepression"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"
@@ -320,7 +312,6 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/pregnancyComplications"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
                 android:layout_margin="7dp"

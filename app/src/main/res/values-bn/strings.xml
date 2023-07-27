@@ -46,7 +46,6 @@
     <string name="emailVerified">ই-মেইল ভেরিফাইড</string>
     <string name="rewardPoint">রিওয়ার্ড পয়েন্ট</string>
     <string name="appointmentDone">অ্যাপয়েন্টমেন্ট সম্পন্ন</string>
-    <string name="appointmentPending">অ্যাপয়েন্টমেন্ট মুলতুবি আছে</string>
     <string name="profileInformationMissing">কিছু প্রোফাইল তথ্য অনুপস্থিত!</string>
     <string name="editProfile">প্রোফাইল সম্পাদনা করুন</string>
     <string name="medicalInformation">মেডিকেল তথ্য</string>
@@ -120,7 +119,6 @@
     <string name="doctorSignupQuote">মানুষকে সুস্বাস্থ্য প্রদান করা আমাদের কর্তব্য</string>
     <string name="ChoosedepartmentSymptoms">একটি বিভাগ বা লক্ষণ নির্বাচন করুন</string>
     <string name="clinicalAreas">10+ ক্লিনিকাল অঞ্চল থেকে আপনার ডাক্তারকে সন্ধান করুন</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fever">জ্বর বা সর্দি</string>
     <string name="weightlossgain">ওজন হ্রাস / বৃদ্ধি</string>
     <string name="skindiseases">ত্বকের রোগ</string>
@@ -134,8 +132,6 @@
     <string name="onlineStatus">Online</string>
     <string name="takeInstantConsultancy">উপলব্ধ ডাক্তারদের কাছ থেকে তাত্ক্ষণিক পরামর্শ নিন</string>
     <string name="viewAll">সব দেখুন</string>
-    <string name="nav_appointmentHistory">Appointment History</string>
-    <string name="nav_items_message">Inbox</string>
     <string name="chooseSpecialty">Choose Your Specialty</string>
     <string name="gynecologist">Gynecologist</string>
     <string name="paediatrician">Paediatrician</string>
