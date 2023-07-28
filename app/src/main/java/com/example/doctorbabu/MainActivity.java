@@ -70,12 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(MainActivity.this);
                 dialog.setTitle("Permission").setIcon(R.drawable.done)
                         .setMessage("Please accept all permissions to continue")
-                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                loadNext();
-                            }
-                        }).setCancelable(false);
+                        .setPositiveButton("Okay", (dialogInterface, i) -> loadNext()).setCancelable(false);
                 dialog.create().show();
             }
         }, SplashScreen);

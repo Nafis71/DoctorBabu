@@ -216,8 +216,8 @@ public class Login extends AppCompatActivity {
             boolean internetStatus = isInternetAvailable(this);
             if (internetStatus) {
                 progressBar.setVisibility(View.VISIBLE);
-                String email = userEmail.getEditText().getText().toString();
-                String password = userPassword.getEditText().getText().toString();
+                String email = userEmail.getEditText().getText().toString().trim();
+                String password = userPassword.getEditText().getText().toString().trim();
                 firebaseUserCheck(email);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -246,7 +246,6 @@ public class Login extends AppCompatActivity {
                                                 }
                                             }
                                         }, 5000);
-
 
                                     }
                                 }

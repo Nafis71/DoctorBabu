@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -65,13 +66,15 @@ public class Doctor extends Fragment {
         searchExecutor = Executors.newSingleThreadExecutor();
         loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
         userId = user.getUid();
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setPageAdapter();
         setRecyclerView();
+    }
+    public void onStart(){
+        super.onStart();
         binding.progressBar.setVisibility(View.VISIBLE);
         recentlyViewedExecutor.execute(this::loadRecentlyViewed);
         loadDoctorExecutor.execute(this::loadAvailableDoctor);
@@ -80,6 +83,13 @@ public class Doctor extends Fragment {
         binding.consultationAnim2.setOnClickListener(view1 -> {
             binding.availableDoctorRecyclerView.requestFocus();
             binding.availableDoctorRecyclerView.clearFocus();
+        });
+        binding.viewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
+                startActivity(intent);
+            }
         });
     }
 
@@ -124,6 +134,7 @@ public class Doctor extends Fragment {
                                 count++;
                             }
                         }
+
                     }
                     adapter.notifyDataSetChanged();
                     binding.availableDoctorRecyclerView.hideShimmer();
@@ -142,17 +153,17 @@ public class Doctor extends Fragment {
     public void loadAllDoctor(){
         DatabaseReference allDoctorReference = database.getReference("doctorInfo");
         allDoctorReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    for(DataSnapshot snap : snapshot.getChildren()){
-                        doctorSearchResultModel searchModel = snap.getValue(doctorSearchResultModel.class);
-                        doctorList.add(searchModel);
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()) {
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            doctorSearchResultModel searchModel = snap.getValue(doctorSearchResultModel.class);
+                            doctorList.add(searchModel);
+                        }
                     }
                 }
-            }
 
-            @Override
+                @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
@@ -191,15 +202,14 @@ public class Doctor extends Fragment {
                 filteredList.add(doctor);
             }
         }
+        Handler handler = new Handler(Looper.getMainLooper());
         if (filteredList.isEmpty()) {
-            Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {
                 binding.searchRecyclerView.hideShimmer();
                 binding.searchRecyclerView.setVisibility(View.GONE);
             }, 2000);
 
         } else {
-            Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {
                 binding.searchRecyclerView.setAdapter(searchAdapter);
                 binding.searchRecyclerView.hideShimmer();
@@ -226,9 +236,7 @@ public class Doctor extends Fragment {
                         recentlyViewedAdapter.notifyDataSetChanged();
                         binding.recentlyViewedRecyclerView.hideShimmer();
                     } else {
-                        requireActivity().runOnUiThread(() -> {
-                            binding.recentlyViewed.setVisibility(View.GONE);
-                        });
+                        requireActivity().runOnUiThread(() -> binding.recentlyViewed.setVisibility(View.GONE));
                     }
                 }
 

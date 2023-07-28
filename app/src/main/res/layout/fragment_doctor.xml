@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#ffff"
     android:orientation="vertical"
     tools:context=".patient.Doctor">
@@ -47,18 +47,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="180dp"
-            android:layout_toEndOf="@+id/headerText2"
-            android:visibility="invisible"
-            app:layout_constraintDimensionRatio="1:1"
-            app:shapeAppearanceOverlay="@style/circular"
-            app:srcCompat="@drawable/profile_picture" />
-
     </RelativeLayout>
 
 
@@ -67,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/header"
         android:background="#F7F9F9"
+        android:id="@+id/scroll"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -125,7 +114,9 @@
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:shimmer_recycler_item_count="3"
-                app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search"></com.todkars.shimmer.ShimmerRecyclerView>
+                app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search">
+
+            </com.todkars.shimmer.ShimmerRecyclerView>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/consultationAnim"
@@ -260,7 +251,9 @@
                     android:visibility="visible"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="6"
-                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed"></com.todkars.shimmer.ShimmerRecyclerView>
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+
+                </com.todkars.shimmer.ShimmerRecyclerView>
 
             </RelativeLayout>
 
@@ -293,7 +286,6 @@
                     android:layout_below="@id/doctorText"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="15dp"
-
                     android:fontFamily="@font/roboto"
                     android:text="@string/takeInstantConsultancy"
                     android:textSize="12sp" />
@@ -309,16 +301,17 @@
                     android:shadowColor="@color/black_shade_1"
                     android:text="@string/viewAll"
                     android:textColor="#4F5FDE"
+                    android:id="@+id/viewAll"
                     android:textSize="12sp"
                     app:cornerRadius="8dp" />
-
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/availableDoctorRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/doctorText2"
                     android:animationCache="true"
                     android:orientation="vertical"
+                    android:overScrollMode="ifContentScrolls"
+                    android:layout_below="@+id/doctorText2"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="4"
                     app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
@@ -329,5 +322,7 @@
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
 
 </RelativeLayout>
