@@ -23,7 +23,9 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"></com.google.android.material.textview.MaterialTextView>
+            android:textStyle="bold">
+
+        </com.google.android.material.textview.MaterialTextView>
 
         <ImageView
             android:layout_width="40dp"
