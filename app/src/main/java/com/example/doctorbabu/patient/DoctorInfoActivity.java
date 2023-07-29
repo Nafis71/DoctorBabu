@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Databases.joiningDates;
 import com.example.doctorbabu.Databases.leavingDates;
@@ -28,11 +29,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DoctorInfoActivity extends AppCompatActivity {
-    String doctorId,doctorName,doctorTitle,doctorDegree,doctorSpecialties,doctorCurrentlyWorking,doctorRating,bmdc,photoUrl;
+    String doctorId, doctorName, doctorTitle, doctorDegree, doctorSpecialties, doctorCurrentlyWorking, doctorRating, bmdc, photoUrl;
     ActivityDoctorInfoBinding binding;
     ExecutorService loadDataExecutor;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     private final String[] titles = new String[]{"Info", "Experience", "Reviews"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class DoctorInfoActivity extends AppCompatActivity {
         loadDataExecutor.execute(this::loadData);
         binding.outlinedLove.setOnClickListener(new View.OnClickListener() {
             boolean toggleButton = true;
+
             @Override
             public void onClick(View view) {
 
@@ -76,10 +79,11 @@ public class DoctorInfoActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
     @SuppressLint("SetTextI18n")
     public void loadData() {
         runOnUiThread(() -> Glide.with(DoctorInfoActivity.this).load(photoUrl).into(binding.profilePicture));
-        binding.doctorName.setText(doctorTitle +" "+ doctorName);
+        binding.doctorName.setText(doctorTitle + " " + doctorName);
         binding.doctorDegree.setText(doctorDegree);
         binding.doctorSpecialties.setText(doctorSpecialties);
         binding.currentlyWorking.setText(doctorCurrentlyWorking);
@@ -182,8 +186,9 @@ public class DoctorInfoActivity extends AppCompatActivity {
             new TabLayoutMediator(binding.tabs, binding.vPager, ((tab, position) -> tab.setText(titles[position]))).attach();
         });
     }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Intent intent = new Intent(this, ViewAllDoctor.class);
         startActivity(intent);
         finish();
