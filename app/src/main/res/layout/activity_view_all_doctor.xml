@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F9F9"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".patient.ViewAllDoctor">
 
@@ -15,6 +15,7 @@
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
@@ -82,7 +83,7 @@
             android:layout_marginStart="3dp"
             android:layout_toEndOf="@+id/doctorCount"
             android:fontFamily="@font/helveticaneue"
-            android:text="Doctor's Found"
+            android:text="Doctors Found"
             android:textColor="@color/black"
             android:textSize="13sp" />
 
@@ -137,13 +138,16 @@
 
     <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/doctorRecyclerView"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/doctorText2"
         android:animationCache="true"
         android:orientation="vertical"
         android:overScrollMode="ifContentScrolls"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:shimmer_recycler_item_count="4"
         app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
 </LinearLayout>

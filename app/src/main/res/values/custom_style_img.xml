@@ -6,6 +6,9 @@
     <style name="RoundedSquare">
         <item name="cornerSize">10%</item>
     </style>
+    <style name="minRoundedSquare">
+        <item name="cornerSize">5%</item>
+    </style>
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
         <item name="android:textSize">13sp</item>

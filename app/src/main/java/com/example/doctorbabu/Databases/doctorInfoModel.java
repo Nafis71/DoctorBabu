@@ -1,11 +1,11 @@
 package com.example.doctorbabu.Databases;
 
-public class availableDoctorModel {
+public class doctorInfoModel {
     String area, bmdc, dateofBirth, district, doctorId, doctorType, email, fullName, gender, nid, photoUrl, title, uId, currentlyWorking, workingExperience, degrees, specialty;
     int onlineStatus;
     float rating;
 
-    public availableDoctorModel() {
+    public doctorInfoModel() {
     }
 
     public String getArea() {

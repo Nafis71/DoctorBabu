@@ -1,19 +1,15 @@
 package com.example.doctorbabu.Databases;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +29,7 @@ import java.util.HashMap;
 public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctorAdapter.myViewHolder> {
 
     Context context;
-    ArrayList<availableDoctorModel> model;
+    ArrayList<doctorInfoModel> model;
     String userId;
     StringBuilder stringBuilder = new StringBuilder();
 
@@ -44,7 +40,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         return new myViewHolder(view);
     }
 
-    public availableDoctorAdapter(Context context, ArrayList<availableDoctorModel> model, String userId) {
+    public availableDoctorAdapter(Context context, ArrayList<doctorInfoModel> model, String userId) {
         this.context = context;
         this.model = model;
         this.userId = userId;
@@ -52,7 +48,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        availableDoctorModel dbModel = model.get(position);
+        doctorInfoModel dbModel = model.get(position);
         stringBuilder.append(dbModel.getTitle()).append(" ").append(dbModel.getFullName());
         holder.doctorName.setText(stringBuilder.toString());
         stringBuilder.setLength(0);

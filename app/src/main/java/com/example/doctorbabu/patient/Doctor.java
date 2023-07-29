@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.doctorbabu.Databases.availableDoctorAdapter;
-import com.example.doctorbabu.Databases.availableDoctorModel;
+import com.example.doctorbabu.Databases.doctorInfoModel;
 import com.example.doctorbabu.Databases.doctorSearchAdapter;
 import com.example.doctorbabu.Databases.doctorSearchResultModel;
 import com.example.doctorbabu.Databases.recentlyViewedDoctorAdapter;
@@ -41,7 +41,7 @@ public class Doctor extends Fragment {
     availableDoctorAdapter adapter;
     doctorSearchAdapter searchAdapter;
     recentlyViewedDoctorAdapter recentlyViewedAdapter;
-    ArrayList<availableDoctorModel> list;
+    ArrayList<doctorInfoModel> list;
     ArrayList<doctorSearchResultModel> doctorList = new ArrayList<>();
     ArrayList<recentlyViewedDoctorModel> recentlyViewedModel = new ArrayList<>();
     StringBuilder doctorNameID = new StringBuilder();
@@ -84,12 +84,9 @@ public class Doctor extends Fragment {
             binding.availableDoctorRecyclerView.requestFocus();
             binding.availableDoctorRecyclerView.clearFocus();
         });
-        binding.viewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
-                startActivity(intent);
-            }
+        binding.viewAll.setOnClickListener(view -> {
+            Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
+            startActivity(intent);
         });
     }
 
@@ -126,7 +123,7 @@ public class Doctor extends Fragment {
                     list.clear();
                     count = 0;
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        availableDoctorModel model = snap.getValue(availableDoctorModel.class);
+                        doctorInfoModel model = snap.getValue(doctorInfoModel.class);
                         assert model != null;
                         if (model.getRating() >= 4.8) {
                             if (count < 11) {
@@ -155,6 +152,7 @@ public class Doctor extends Fragment {
         allDoctorReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    doctorList.clear();
                     if(snapshot.exists()) {
                         for(DataSnapshot snap : snapshot.getChildren()){
                             doctorSearchResultModel searchModel = snap.getValue(doctorSearchResultModel.class);

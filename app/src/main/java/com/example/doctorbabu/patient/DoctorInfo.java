@@ -1,7 +1,5 @@
 package com.example.doctorbabu.patient;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,8 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Handler;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.Databases.availableDoctorModel;
-import com.example.doctorbabu.Databases.doctorPastExperienceModel;
 import com.example.doctorbabu.Databases.joiningDates;
 import com.example.doctorbabu.Databases.leavingDates;
 import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

@@ -16,16 +16,19 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/doctorbabulogo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/doctorbabulogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".patient.DoctorInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".patient.ViewAllDoctor"
             android:exported="false" />
