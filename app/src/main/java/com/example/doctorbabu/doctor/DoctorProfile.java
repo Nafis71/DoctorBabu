@@ -16,9 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -28,7 +25,6 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,13 +39,11 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Databases.doctorPastExperienceAdapter;
 import com.example.doctorbabu.Databases.doctorPastExperienceModel;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.Login;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -93,7 +87,6 @@ public class DoctorProfile extends Fragment {
     Bitmap bitmap;
     StringBuilder stringBuilder;
     LinearLayout parentLayout;
-    BottomNavigationView bottomBar;
     RecyclerView recyclerView;
 
     ArrayList<doctorPastExperienceModel> list;
@@ -121,7 +114,6 @@ public class DoctorProfile extends Fragment {
         super.onCreate(savedInstanceState);
         SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         doctorId = preferences.getString("doctorId", "loginAs");
-        Log.i("DoctorID : ", doctorId);
         database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
 
     }
@@ -199,7 +191,6 @@ public class DoctorProfile extends Fragment {
         period = requireView().findViewById(R.id.period);
         workingStatusText = requireView().findViewById(R.id.workingStatusText);
         currentlyWorkingCard = requireView().findViewById(R.id.currentlyWorkingCard);
-        bottomBar = requireActivity().findViewById(R.id.bottomView);
         joinDateText = requireView().findViewById(R.id.joinDateText);
         pastExperienceEdit = requireView().findViewById(R.id.pastExperienceEdit);
         aboutYouEdit = requireView().findViewById(R.id.aboutYouEdit);

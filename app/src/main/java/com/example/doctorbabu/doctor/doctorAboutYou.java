@@ -1,8 +1,5 @@
 package com.example.doctorbabu.doctor;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -13,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.doctorbabu.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,24 +39,9 @@ public class doctorAboutYou extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_about_you);
         viewBinding();
         loadData();
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        confirmList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveData();
-            }
-        });
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                aboutyou.setText(null);
-            }
-        });
+        goBack.setOnClickListener(view -> finish());
+        confirmList.setOnClickListener(view -> saveData());
+        clear.setOnClickListener(view -> aboutyou.setText(null));
         stateObserver();
     }
 
@@ -131,26 +113,17 @@ public class doctorAboutYou extends AppCompatActivity {
         confirmList.setVisibility(View.GONE);
         String about = aboutyou.getText().toString().trim();
         DatabaseReference reference = database.getReference("doctorInfo");
-        reference.child(doctorId).child("about").setValue(about).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Snackbar.make(parentLayout, "Information Updated", Snackbar.LENGTH_LONG).show();
-                        progressCircular.setVisibility(View.GONE);
-                        confirmList.setVisibility(View.VISIBLE);
-                    }
-                }, 2000);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Snackbar.make(parentLayout, "Failed to update", Snackbar.LENGTH_LONG).show();
+        reference.child(doctorId).child("about").setValue(about).addOnCompleteListener(task -> {
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                Snackbar.make(parentLayout, "Information Updated", Snackbar.LENGTH_LONG).show();
                 progressCircular.setVisibility(View.GONE);
                 confirmList.setVisibility(View.VISIBLE);
-            }
+            }, 2000);
+        }).addOnFailureListener(e -> {
+            Snackbar.make(parentLayout, "Failed to update", Snackbar.LENGTH_LONG).show();
+            progressCircular.setVisibility(View.GONE);
+            confirmList.setVisibility(View.VISIBLE);
         });
 
     }

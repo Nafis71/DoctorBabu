@@ -18,7 +18,7 @@
 
         >
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,11 +51,12 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header"
         android:background="#F7F9F9"
-        android:id="@+id/scroll"
+        android:visibility="gone"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -144,123 +145,137 @@
                 app:lottie_speed="1" />
 
             <RelativeLayout
-                android:id="@+id/DepartmentCard"
+                android:id="@+id/pagerCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consultationAnim"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="5dp"
-                android:background="#ffff">
+                android:background="#F7F9F9">
 
-                <TextView
-                    android:id="@+id/dsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="3dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/ChoosedepartmentSymptoms"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/dsText2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/dsText"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/clinicalAreas"
-                    android:textSize="12sp">
-
-                </TextView>
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
+                <RelativeLayout
+                    android:id="@+id/DepartmentCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/dsText2"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#ffff">
+
+                    <TextView
+                        android:id="@+id/dsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="3dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/ChoosedepartmentSymptoms"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/dsText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dsText"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/clinicalAreas"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/dsText2"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#ffff"
+                        app:tabMode="fixed"
+                        app:tabTextAppearance="@style/MineCustomTabText">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.tabs.TabItem>
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        </com.google.android.material.tabs.TabItem>
+
+                    </com.google.android.material.tabs.TabLayout>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/tabs"
+                        android:layout_marginBottom="0dp">
+
+                    </androidx.viewpager2.widget.ViewPager2>
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/recentlyViewedCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pagerCard"
+                android:background="#F7F9F9">
+
+                <RelativeLayout
+                    android:id="@+id/recentlyViewed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
                     android:layout_marginBottom="5dp"
                     android:background="#ffff"
-                    app:tabMode="fixed"
-                    app:tabTextAppearance="@style/MineCustomTabText">
+                    android:visibility="visible">
 
-                    <com.google.android.material.tabs.TabItem
+                    <TextView
+                        android:id="@+id/recentlyViewedText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/recentlyViewed"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    </com.google.android.material.tabs.TabItem>
+                    <com.todkars.shimmer.ShimmerRecyclerView
+                        android:id="@+id/recentlyViewedRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/recentlyViewedText"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:shimmer_recycler_item_count="6"
+                        app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    </com.todkars.shimmer.ShimmerRecyclerView>
 
-                    </com.google.android.material.tabs.TabItem>
-
-                </com.google.android.material.tabs.TabLayout>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/tabs"
-                    android:layout_marginBottom="5dp">
-
-                </androidx.viewpager2.widget.ViewPager2>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/recentlyViewed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/DepartmentCard"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#ffff"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/recentlyViewedText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/recentlyViewed"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <com.todkars.shimmer.ShimmerRecyclerView
-                    android:id="@+id/recentlyViewedRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/recentlyViewedText"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:visibility="visible"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:shimmer_recycler_item_count="6"
-                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
-
-                </com.todkars.shimmer.ShimmerRecyclerView>
-
+                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/recentlyViewed"
+                android:layout_below="@+id/recentlyViewedCard"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
                 android:background="#ffff">
@@ -291,6 +306,7 @@
                     android:textSize="12sp" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/viewAll"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -301,28 +317,27 @@
                     android:shadowColor="@color/black_shade_1"
                     android:text="@string/viewAll"
                     android:textColor="#4F5FDE"
-                    android:id="@+id/viewAll"
                     android:textSize="12sp"
                     app:cornerRadius="8dp" />
+
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/availableDoctorRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/doctorText2"
+                    android:layout_marginTop="16dp"
                     android:animationCache="true"
                     android:orientation="vertical"
                     android:overScrollMode="ifContentScrolls"
-                    android:layout_below="@+id/doctorText2"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="4"
                     app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
 
             </RelativeLayout>
 
-
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </RelativeLayout>

@@ -12,12 +12,20 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomView"
+    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:elevation="2dp"
-        app:menu="@menu/nav_items_doctor" />
+        android:animationCache="false"
+        app:cnb_animationDuration="275"
+        app:cnb_badgeColor="@color/gph_dark_red"
+        app:cnb_iconSize="24dp"
+        app:cnb_menuResource="@menu/nav_items_doctor"
+        app:cnb_orientationMode="horizontal"
+        app:cnb_radius="10dp"
+        app:cnb_unselectedColor="#FF000000">
+
+    </com.ismaeldivita.chipnavigation.ChipNavigationBar>
 
 </RelativeLayout>

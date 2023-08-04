@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import com.example.doctorbabu.Databases.recentlyViewedDoctorAdapter;
 import com.example.doctorbabu.Databases.recentlyViewedDoctorModel;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorBinding;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +47,7 @@ public class Doctor extends Fragment {
     ArrayList<doctorSearchResultModel> doctorList = new ArrayList<>();
     ArrayList<recentlyViewedDoctorModel> recentlyViewedModel = new ArrayList<>();
     StringBuilder doctorNameID = new StringBuilder();
-    int count = 0;
+    int count = 0, code = 0;
     String userId;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
@@ -53,11 +55,17 @@ public class Doctor extends Fragment {
     ValueEventListener listener;
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
-    ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor,loadAllDoctorExecutor;
+    ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor, loadAllDoctorExecutor;
+    ArrayList<LinearProgressIndicator> progressbar = new ArrayList<>();
 
     public Doctor() {
         // Required empty public constructor
     }
+
+    public Doctor(int code) {
+        this.code = code;
+    }
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,22 +80,52 @@ public class Doctor extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setPageAdapter();
         setRecyclerView();
+
     }
-    public void onStart(){
+
+    public void onStart() {
         super.onStart();
-        binding.progressBar.setVisibility(View.VISIBLE);
-        recentlyViewedExecutor.execute(this::loadRecentlyViewed);
-        loadDoctorExecutor.execute(this::loadAvailableDoctor);
-        searchExecutor.execute(this::searchDoctor);
-        loadAllDoctorExecutor.execute(this::loadAllDoctor);
-        binding.consultationAnim2.setOnClickListener(view1 -> {
-            binding.availableDoctorRecyclerView.requestFocus();
-            binding.availableDoctorRecyclerView.clearFocus();
-        });
-        binding.viewAll.setOnClickListener(view -> {
-            Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
-            startActivity(intent);
-        });
+        progressbar.add(binding.progressBar);
+        if (code == 0) {
+            Dialog dialog = new Dialog(requireContext());
+            dialog.setContentView(R.layout.loading_screen);
+            dialog.setCancelable(false);
+            dialog.show();
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(() -> {
+                binding.scroll.setVisibility(View.VISIBLE);
+                progressbar.get(0).setVisibility(View.VISIBLE);
+                recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
+                loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
+                searchExecutor.execute(Doctor.this::searchDoctor);
+                loadAllDoctorExecutor.execute(Doctor.this::loadAllDoctor);
+                dialog.dismiss();
+                binding.consultationAnim2.setOnClickListener(view1 -> {
+                    binding.availableDoctorRecyclerView.requestFocus();
+                    binding.availableDoctorRecyclerView.clearFocus();
+                });
+                binding.viewAll.setOnClickListener(view -> {
+                    Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
+                    startActivity(intent);
+                });
+                code = 1;
+            }, 1500);
+        } else {
+            binding.scroll.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
+            recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
+            loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
+            searchExecutor.execute(Doctor.this::searchDoctor);
+            loadAllDoctorExecutor.execute(Doctor.this::loadAllDoctor);
+            binding.consultationAnim2.setOnClickListener(view1 -> {
+                binding.availableDoctorRecyclerView.requestFocus();
+                binding.availableDoctorRecyclerView.clearFocus();
+            });
+            binding.viewAll.setOnClickListener(view -> {
+                Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
+                startActivity(intent);
+            });
+        }
     }
 
     public void setRecyclerView() {
@@ -147,21 +185,22 @@ public class Doctor extends Fragment {
         }
 
     }
-    public void loadAllDoctor(){
+
+    public void loadAllDoctor() {
         DatabaseReference allDoctorReference = database.getReference("doctorInfo");
         allDoctorReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    doctorList.clear();
-                    if(snapshot.exists()) {
-                        for(DataSnapshot snap : snapshot.getChildren()){
-                            doctorSearchResultModel searchModel = snap.getValue(doctorSearchResultModel.class);
-                            doctorList.add(searchModel);
-                        }
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                doctorList.clear();
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        doctorSearchResultModel searchModel = snap.getValue(doctorSearchResultModel.class);
+                        doctorList.add(searchModel);
                     }
                 }
+            }
 
-                @Override
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
@@ -196,7 +235,7 @@ public class Doctor extends Fragment {
         ArrayList<doctorSearchResultModel> filteredList = new ArrayList<>();
         searchAdapter = new doctorSearchAdapter(requireContext(), filteredList);
         for (doctorSearchResultModel doctor : doctorList) {
-            if (doctor.getFullName().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getSpecialty().toLowerCase().contains(searchedDoctor.toLowerCase())| doctor.getDoctorId().toLowerCase().contains(searchedDoctor.toLowerCase())){
+            if (doctor.getFullName().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getSpecialty().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getDoctorId().toLowerCase().contains(searchedDoctor.toLowerCase())) {
                 filteredList.add(doctor);
             }
         }

@@ -36,21 +36,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="-5dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/call" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                >
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/callBackground"

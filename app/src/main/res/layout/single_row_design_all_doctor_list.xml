@@ -6,6 +6,13 @@
     android:layout_marginTop="5dp"
     android:orientation="vertical">
 
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    app:cardElevation="2.5dp"
+    app:cardCornerRadius="8dp"
+    >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -14,23 +21,23 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profilePicture"
-                android:layout_width="185dp"
-                android:layout_height="140dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                android:layout_width="160dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
                 android:scaleType="center"
                 app:shapeAppearanceOverlay="@style/minRoundedSquare"
                 >
 
             </com.google.android.material.imageview.ShapeableImageView>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/doctorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profilePicture"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="Dr. Tonmoy"
@@ -38,45 +45,45 @@
                 android:textSize="11.5sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/doctorDegree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorName"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:fontFamily="@font/roboto"
                 android:text="MBBS"
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/doctorSpecialties"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorDegree"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto"
-                android:layout_marginStart="5dp"
                 android:text="General Physician"
                 android:textColor="#4F5FDE"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ratingStar"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_below="@+id/doctorSpecialties"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
                 android:src="@drawable/star">
 
-            </ImageView>
+            </androidx.appcompat.widget.AppCompatImageView>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/doctorRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,23 +97,23 @@
                 android:textSize="12sp"
                 android:textStyle="bold">
 
-            </TextView>
+            </androidx.appcompat.widget.AppCompatTextView>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/amounticon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ratingStar"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="15dp"
                 android:fontFamily="@font/rubik"
                 android:text="\u09F3"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +128,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/amountDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,11 +143,11 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/takeConsultation"
                 style="@style/Widget.Material3.CardView.Outlined"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/profilePicture"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="120dp"
                 android:layout_marginBottom="5dp"
                 app:cardCornerRadius="6dp"
                 app:cardElevation="1dp"
@@ -151,7 +158,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/videoCallIcon"
                         android:layout_width="29dp"
                         android:layout_height="29dp"
@@ -159,7 +166,7 @@
                         android:layout_marginStart="5dp"
                         android:src="@drawable/videocall" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -169,15 +176,16 @@
                         android:layout_toEndOf="@id/videoCallIcon"
                         android:fontFamily="@font/roboto"
                         android:padding="6dp"
-                        android:text="Take Consultation"
+                        android:text="Check out"
                         android:textColor="#4F5FDE"
                         android:textSize="13sp"
                         android:textStyle="bold">
 
-                    </TextView>
+                    </androidx.appcompat.widget.AppCompatTextView>
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

@@ -1,12 +1,12 @@
 package com.example.doctorbabu.patient;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.doctorbabu.Databases.doctorInfoModel;
 import com.example.doctorbabu.Databases.viewAllDoctorAdapter;
@@ -18,8 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ViewAllDoctor extends AppCompatActivity {
     viewAllDoctorAdapter adapter;
@@ -44,7 +42,9 @@ public class ViewAllDoctor extends AppCompatActivity {
             }
         });
         allDoctorLoadExecutor.start();
-        binding.back.setOnClickListener(view -> finish());
+        binding.back.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     public void loadAll() {
@@ -76,8 +76,13 @@ public class ViewAllDoctor extends AppCompatActivity {
         });
 
     }
+
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    public void onBackPressed() {
+        finish();
     }
 }

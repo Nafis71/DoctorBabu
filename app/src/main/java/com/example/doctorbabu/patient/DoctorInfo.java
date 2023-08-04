@@ -85,7 +85,7 @@ public class DoctorInfo extends Fragment {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new Doctor()).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new Doctor(1)).commit();
             }
         });
         outlinedLove.setOnClickListener(new View.OnClickListener() {

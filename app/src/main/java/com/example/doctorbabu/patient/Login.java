@@ -2,10 +2,6 @@ package com.example.doctorbabu.patient;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,10 +23,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+
 import com.example.doctorbabu.LoginOptions;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.doctor.DoctorDashboard;
-import com.example.doctorbabu.doctor.DoctorLogin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -59,6 +57,23 @@ public class Login extends AppCompatActivity {
     FirebaseUser user;
     boolean doctorCredentials;
 
+    public static boolean isInternetAvailable(Context context) {
+        NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+
+        if (info == null) {
+            Log.d(TAG, "no internet connection");
+            return false;
+        } else {
+            if (info.isConnected()) {
+                Log.d(TAG, " internet connection available...");
+                return true;
+            } else {
+                Log.d(TAG, " internet connection");
+                return true;
+            }
+
+        }
+    }
 
     private boolean validateEmail() {
         String value = userEmail.getEditText().getText().toString();
@@ -181,23 +196,21 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
-                            dialog.setTitle("Done").setMessage("Password Reset Link has been sent to your email.")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.cancel();
-                                        }
-                                    });
+                            dialog.setTitle("Done").setMessage("Password Reset Link has been sent to your email.").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
                             dialog.create().show();
                         } else {
                             AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);
-                            dialog.setTitle("Failed").setMessage("Failed to send email to this address")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.cancel();
-                                        }
-                                    });
+                            dialog.setTitle("Failed").setMessage("Failed to send email to this address").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
                             dialog.create().show();
                         }
                     }
@@ -302,25 +315,6 @@ public class Login extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("loginAs", "patient");
         editor.apply();
-    }
-
-    public static boolean isInternetAvailable(Context context) {
-        NetworkInfo info = ((ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-
-        if (info == null) {
-            Log.d(TAG, "no internet connection");
-            return false;
-        } else {
-            if (info.isConnected()) {
-                Log.d(TAG, " internet connection available...");
-                return true;
-            } else {
-                Log.d(TAG, " internet connection");
-                return true;
-            }
-
-        }
     }
 
     public void resendEmail(String title, String message, boolean cancelable) {

@@ -197,34 +197,31 @@ public class Home extends Fragment {
         } else {
             english.setChecked(true);
         }
-        buttonDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (english.isChecked()) {
-                    SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("lang", "en");
-                    editor.apply();
+        buttonDialog.setOnClickListener(v -> {
+            if (english.isChecked()) {
+                SharedPreferences preferences1 = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences1.edit();
+                editor.putString("lang", "en");
+                editor.apply();
 
-                } else {
-                    SharedPreferences preferences = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("lang", "bn");
-                    editor.apply();
-                }
-                dialog.cancel();
-                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-                builder.setTitle("Language Change").setMessage("Language is changing, Please wait....").setCancelable(false);
-                builder.create().show();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        restart();
-                    }
-                }, 1500);
-
+            } else {
+                SharedPreferences preferences1 = requireActivity().getSharedPreferences("language", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences1.edit();
+                editor.putString("lang", "bn");
+                editor.apply();
             }
+            dialog.cancel();
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Language Change").setMessage("Language is changing, Please wait....").setCancelable(false);
+            builder.create().show();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    restart();
+                }
+            }, 1500);
+
         });
         dialog.show();
     }
