@@ -18,11 +18,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ViewAllDoctor extends AppCompatActivity {
     viewAllDoctorAdapter adapter;
     ArrayList<doctorInfoModel> doctors = new ArrayList<>();
-    Thread allDoctorLoadExecutor;
+    ExecutorService allDoctorLoadExecutor;
     ActivityViewAllDoctorBinding binding;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
@@ -31,17 +33,12 @@ public class ViewAllDoctor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityViewAllDoctorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        allDoctorLoadExecutor = Executors.newSingleThreadExecutor();
     }
 
     protected void onStart() {
         super.onStart();
-        allDoctorLoadExecutor = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                loadAll();
-            }
-        });
-        allDoctorLoadExecutor.start();
+        allDoctorLoadExecutor.execute(this::loadAll);
         binding.back.setOnClickListener(view -> {
             finish();
         });
@@ -75,6 +72,12 @@ public class ViewAllDoctor extends AppCompatActivity {
             }
         });
 
+    }
+    protected void onResume(){
+        super.onResume();
+    }
+    protected void onPause(){
+        super.onPause();
     }
 
     protected void onDestroy() {

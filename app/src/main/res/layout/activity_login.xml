@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="29dp"
             android:layout_height="29dp"
             android:layout_gravity="center"
@@ -23,7 +23,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/languages">
 
-        </ImageView>
+        </androidx.appcompat.widget.AppCompatImageView>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/languageSwitch"
@@ -53,7 +53,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@drawable/loginimage"
             android:transitionName="imageTransition" />
     </RelativeLayout>

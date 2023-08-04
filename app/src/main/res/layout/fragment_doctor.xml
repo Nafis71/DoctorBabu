@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffff"
-    android:orientation="vertical"
     tools:context=".patient.Doctor">
+
 
     <RelativeLayout
         android:id="@+id/header"
@@ -14,9 +14,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
-        android:background="#ffff"
-
-        >
+        android:background="#ffff">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText"
@@ -49,12 +47,11 @@
 
     </RelativeLayout>
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"
+        android:layout_below="@+id/header"
         android:background="#F7F9F9"
         android:visibility="gone"
         android:fillViewport="true">
@@ -63,7 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
-
             >
 
             <androidx.cardview.widget.CardView
