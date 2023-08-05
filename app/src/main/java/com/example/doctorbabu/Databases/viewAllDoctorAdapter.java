@@ -3,6 +3,7 @@ package com.example.doctorbabu.Databases;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
     public void onBindViewHolder(@NonNull viewAllDoctorAdapter.myViewHolder holder, int position) {
         doctorInfoModel dbmodel = model.get(position);
         Glide.with(context).load(dbmodel.getPhotoUrl()).into(holder.profilePicture);
+        holder.profilePicture.setBackgroundColor(Color.parseColor("#DDDDDD"));
         holder.doctorName.setText(dbmodel.getTitle() + " " + dbmodel.getFullName());
         holder.doctorDegree.setText(dbmodel.getDegrees());
         holder.doctorSpecialties.setText(dbmodel.getSpecialty());
