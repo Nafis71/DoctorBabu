@@ -408,7 +408,7 @@ public class DoctorSignup extends AppCompatActivity {
     }
 
     public void signUp() {
-        if (!validateNid() | !validateArea() | !validateBmdc() | !validateDistrict() | !validateEmail() | !validateGender() | !validateFullName()
+        if (!validateArea() | !validateDistrict() | !validateEmail() | !validateGender() | !validateFullName()
                 | !validateDoctorType() | !validateConfirmPassword() | !validatePassword() | !validateTitle() | !validateDateOfBirth()) {
             return;
         }
