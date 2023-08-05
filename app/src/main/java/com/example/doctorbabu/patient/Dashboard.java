@@ -42,6 +42,7 @@ public class Dashboard extends AppCompatActivity {
                 loadFragment(new Profile(), false);
             }
         }));
+        loadFragment(new Home(),true);
         bottomNavigation.setItemSelected(R.id.nav_home, true);
 
 

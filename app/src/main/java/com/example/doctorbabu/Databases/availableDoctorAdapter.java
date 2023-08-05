@@ -1,6 +1,12 @@
 package com.example.doctorbabu.Databases;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +27,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +40,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     Context context;
     ArrayList<doctorInfoModel> model;
     String userId;
+    Bitmap avatar;
     StringBuilder stringBuilder = new StringBuilder();
 
     @NonNull
@@ -74,6 +84,8 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         });
         if (!dbModel.photoUrl.equals("null")) {
             Glide.with(context).load(dbModel.getPhotoUrl()).into(holder.profilePicture);
+            holder.profilePicture.setBackgroundColor(Color.parseColor("#DDDDDD"));
+//            holder.profilePicture.setAlpha(50);
         }
         holder.card.setOnClickListener(view -> {
             DatabaseReference reference = database.getReference();
@@ -116,6 +128,25 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
             currentlyWorking = itemView.findViewById(R.id.currentlyWorking);
             card = itemView.findViewById(R.id.card);
         }
+    }
+    public static Bitmap eraseColor(Bitmap src, int color) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        Bitmap b = src.copy(Bitmap.Config.ARGB_8888, true);
+        b.setHasAlpha(true);
+
+        int[] pixels = new int[width * height];
+        src.getPixels(pixels, 0, width, 0, 0, width, height);
+
+        for (int i = 0; i < width * height; i++) {
+            if (pixels[i] == color) {
+                pixels[i] = 0;
+            }
+        }
+
+        b.setPixels(pixels, 0, width, 0, 0, width, height);
+
+        return b;
     }
 
 

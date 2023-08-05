@@ -43,21 +43,35 @@
                 </TextView>
 
             </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/profilePicture"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="110dp"
                 android:layout_height="110dp"
+                android:id="@+id/profilePictureCard"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="1:1"
-                app:shapeAppearanceOverlay="@style/RoundedSquare">
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profilePicture"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:scaleType="centerCrop"
+                        android:elevation="2dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare">
 
-            </com.google.android.material.imageview.ShapeableImageView>
+                    </com.google.android.material.imageview.ShapeableImageView>
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
 
             <TextView
                 android:id="@+id/doctorName"
@@ -67,7 +81,7 @@
                 android:layout_gravity="left"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_toEndOf="@+id/profilePicture"
+                android:layout_toEndOf="@+id/profilePictureCard"
                 android:fontFamily="@font/roboto"
                 android:text="Tonmoy"
                 android:textColor="@color/black"
@@ -84,7 +98,7 @@
                 android:layout_gravity="left"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/profilePicture"
+                android:layout_toEndOf="@+id/profilePictureCard"
                 android:fontFamily="@font/roboto"
                 android:text="Medical officer"
                 android:textColor="#666666"
@@ -97,7 +111,7 @@
                 android:id="@+id/ratingStar"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_below="@+id/profilePicture"
+                android:layout_below="@+id/profilePictureCard"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="0dp"
                 android:src="@drawable/star"></ImageView>
@@ -106,7 +120,7 @@
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profilePicture"
+                android:layout_below="@+id/profilePictureCard"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="4dp"
                 android:layout_toEndOf="@+id/ratingStar"
@@ -124,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorDegree"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/profilePicture"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
                 android:text="General Physician"
                 android:textColor="#4F5FDE"
@@ -139,7 +153,7 @@
                 android:layout_below="@+id/doctorSpecialties"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@id/profilePicture"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
                 android:text="Working in"
                 android:textColor="#666666"
@@ -153,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/workinginText"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/profilePicture"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
                 android:text="Doctor's Point Hospital"
                 android:textColor="@color/black"
@@ -169,7 +183,7 @@
                 android:layout_below="@+id/currentlyWorking"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@id/profilePicture"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
                 android:text="Available for"
                 android:textColor="#666666"
@@ -184,7 +198,7 @@
                 android:layout_below="@+id/availableforText"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/profilePicture"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/rubik"
                 android:text="Instant Video Call"
                 android:textColor="@color/green_shade_1"

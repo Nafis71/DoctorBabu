@@ -558,7 +558,7 @@ public class DoctorSignup extends AppCompatActivity {
         if (pass.isEmpty()) {
             passwordLayout.setError("Password field can't be empty");
             return false;
-        } else if (pass.length() <= 6) {
+        } else if (pass.length() < 6) {
             passwordLayout.setError("Password needs to be atleast 6 characters");
             return false;
         } else if (!pass.matches(passwordSpecial)) {

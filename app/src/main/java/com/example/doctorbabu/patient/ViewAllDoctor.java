@@ -2,11 +2,14 @@ package com.example.doctorbabu.patient;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.doctorbabu.Databases.doctorInfoModel;
 import com.example.doctorbabu.Databases.viewAllDoctorAdapter;
@@ -33,21 +36,36 @@ public class ViewAllDoctor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityViewAllDoctorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.doctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        adapter = new viewAllDoctorAdapter(this, doctors);
+        binding.doctorRecyclerView.setAdapter(adapter);
         allDoctorLoadExecutor = Executors.newSingleThreadExecutor();
-    }
-
-    protected void onStart() {
-        super.onStart();
         allDoctorLoadExecutor.execute(this::loadAll);
         binding.back.setOnClickListener(view -> {
             finish();
         });
     }
 
+    protected void onStart() {
+        super.onStart();
+       binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+           @Override
+           public void onRefresh() {
+               Handler handler = new Handler();
+               handler.postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                       loadAll();
+                       binding.swipe.setRefreshing(false);
+                   }
+               },1000);
+
+           }
+       });
+    }
+
     public void loadAll() {
-        binding.doctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new viewAllDoctorAdapter(this, doctors);
-        binding.doctorRecyclerView.setAdapter(adapter);
+        binding.progressBar.setVisibility(View.VISIBLE);
         binding.doctorRecyclerView.showShimmer();
         DatabaseReference loadAllDataReference = database.getReference("doctorInfo");
         loadAllDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,6 +101,7 @@ public class ViewAllDoctor extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+        allDoctorLoadExecutor.shutdown();
     }
 
     public void onBackPressed() {

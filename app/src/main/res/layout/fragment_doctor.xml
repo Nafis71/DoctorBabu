@@ -53,14 +53,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
         android:background="#F7F9F9"
-        android:visibility="gone"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            >
+            android:background="#fff">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/searchCard"
@@ -71,6 +70,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="4dp"
+                android:visibility="gone"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="10dp">
 
@@ -120,6 +120,7 @@
                 android:layout_width="200dp"
                 android:layout_height="130dp"
                 android:layout_below="@+id/searchCard"
+                android:visibility="gone"
                 app:lottie_autoPlay="true"
                 app:lottie_cacheComposition="true"
                 app:lottie_loop="true"
@@ -133,6 +134,7 @@
                 android:layout_height="130dp"
                 android:layout_below="@+id/searchCard"
                 android:layout_toEndOf="@+id/consultationAnim"
+                android:visibility="gone"
                 app:lottie_autoPlay="true"
                 app:lottie_cacheComposition="true"
                 app:lottie_loop="true"

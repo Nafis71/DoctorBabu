@@ -53,7 +53,9 @@
                     android:visibility="visible"
                     app:closeIcon="@drawable/close"
                     app:defaultQueryHint="Search doctor by name/code"
-                    app:iconifiedByDefault="false"></androidx.appcompat.widget.SearchView>
+                    app:iconifiedByDefault="false">
+
+                </androidx.appcompat.widget.SearchView>
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
@@ -135,7 +137,11 @@
         android:layout_marginTop="0dp"
         android:indeterminate="true"
         android:visibility="visible" />
-
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/swipe"
+    >
     <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/doctorRecyclerView"
         android:layout_marginTop="5dp"
@@ -150,4 +156,6 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:shimmer_recycler_item_count="4"
         app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </LinearLayout>

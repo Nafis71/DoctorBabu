@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -23,7 +22,6 @@ import com.example.doctorbabu.Databases.recentlyViewedDoctorAdapter;
 import com.example.doctorbabu.Databases.recentlyViewedDoctorModel;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorBinding;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,11 +30,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 public class Doctor extends Fragment {
@@ -56,7 +54,7 @@ public class Doctor extends Fragment {
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
     ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor, loadAllDoctorExecutor;
-    ArrayList<LinearProgressIndicator> progressbar = new ArrayList<>();
+    ScheduledExecutorService scheduledThread;
 
     public Doctor() {
         // Required empty public constructor
@@ -73,6 +71,7 @@ public class Doctor extends Fragment {
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
         loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
+        scheduledThread = Executors.newSingleThreadScheduledExecutor();
         userId = user.getUid();
     }
 
@@ -80,38 +79,45 @@ public class Doctor extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setPageAdapter();
         setRecyclerView();
-
+        binding.vPager.setVisibility(View.GONE);
+        binding.consultationAnim2.setVisibility(View.VISIBLE);
+        binding.consultationAnim.setVisibility(View.VISIBLE);
     }
 
     public void onStart() {
         super.onStart();
-        progressbar.add(binding.progressBar);
         if (code == 0) {
             Dialog dialog = new Dialog(requireContext());
             dialog.setContentView(R.layout.loading_screen);
             dialog.setCancelable(false);
             dialog.show();
+            binding.progressBar.setVisibility(View.VISIBLE);
+            binding.availableDoctorRecyclerView.showShimmer();
+            binding.consultationAnim2.setOnClickListener(view1 -> {
+                binding.availableDoctorRecyclerView.requestFocus();
+                binding.availableDoctorRecyclerView.clearFocus();
+            });
+            binding.viewAll.setOnClickListener(view -> {
+                Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
+                startActivity(intent);
+            });
             Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(() -> {
-                binding.scroll.setVisibility(View.VISIBLE);
-                progressbar.get(0).setVisibility(View.VISIBLE);
+                binding.searchCard.setVisibility(View.VISIBLE);
                 recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
-                loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
                 searchExecutor.execute(Doctor.this::searchDoctor);
-                loadAllDoctorExecutor.execute(Doctor.this::loadAllDoctor);
-                dialog.dismiss();
-                binding.consultationAnim2.setOnClickListener(view1 -> {
-                    binding.availableDoctorRecyclerView.requestFocus();
-                    binding.availableDoctorRecyclerView.clearFocus();
-                });
-                binding.viewAll.setOnClickListener(view -> {
-                    Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
-                    startActivity(intent);
-                });
-                code = 1;
-            }, 1500);
+                binding.vPager.setVisibility(View.VISIBLE);
+                handler.postDelayed(() -> {
+                    loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
+                    loadAllDoctorExecutor.execute(Doctor.this::loadAllDoctor);
+                    code = 1;
+                    dialog.dismiss();
+                },500);
+            }, 1000);
+
         } else {
-            binding.scroll.setVisibility(View.VISIBLE);
+
+            binding.searchCard.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.VISIBLE);
             recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
             loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
@@ -126,6 +132,7 @@ public class Doctor extends Fragment {
                 startActivity(intent);
             });
         }
+
     }
 
     public void setRecyclerView() {
@@ -153,7 +160,8 @@ public class Doctor extends Fragment {
         if (isAdded()) {
             availableDoctorReference = database.getReference("doctorInfo");
             doctorNameID = new StringBuilder();
-            binding.availableDoctorRecyclerView.showShimmer();
+            requireActivity().runOnUiThread(() -> binding.availableDoctorRecyclerView.showShimmer());
+
             listener = new ValueEventListener() {
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
@@ -172,8 +180,10 @@ public class Doctor extends Fragment {
 
                     }
                     adapter.notifyDataSetChanged();
-                    binding.availableDoctorRecyclerView.hideShimmer();
-                    binding.progressBar.setVisibility(View.GONE);
+                    requireActivity().runOnUiThread(() -> {
+                        binding.availableDoctorRecyclerView.hideShimmer();
+                        binding.progressBar.setVisibility(View.GONE);
+                    });
                 }
 
                 @Override
