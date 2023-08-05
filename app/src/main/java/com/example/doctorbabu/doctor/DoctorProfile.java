@@ -1,12 +1,14 @@
 package com.example.doctorbabu.doctor;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -735,21 +737,27 @@ public class DoctorProfile extends Fragment {
 //                .crop(1f, 1f)                 //Crop image(Optional), Check Customization for more option
 //                  //Final image resolution will be less than 1080 x 1080(Optional)
 //                .start();
-        Intent gallery = new Intent(Intent.ACTION_PICK);
-        gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(gallery,GALLERY_REQ_CODE);
+        try {
+            Intent gallery = new Intent(Intent.ACTION_PICK);
+            gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(gallery,GALLERY_REQ_CODE);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        assert data != null;
-        if(resultCode == -1 && requestCode == GALLERY_REQ_CODE)
+        if(resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQ_CODE)
         {
             filepath = data.getData();
             try {
                 InputStream inputStream = requireActivity().getContentResolver().openInputStream(filepath);
                 bitmap = BitmapFactory.decodeStream(inputStream);
                 profilePicture.setImageBitmap(bitmap);
+                profilePicture.setBackgroundColor(Color.parseColor("#DDDDDD"));
                 Snackbar snack = Snackbar.make(parentLayout, "first text", Snackbar.LENGTH_INDEFINITE);
                 snack.setText("Uploading");
                 snack.show();
