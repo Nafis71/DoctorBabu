@@ -15,7 +15,6 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,18 +32,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dropbox.core.http.HttpRequestor;
 import com.example.doctorbabu.Databases.doctorPastExperienceAdapter;
 import com.example.doctorbabu.Databases.doctorPastExperienceModel;
 import com.example.doctorbabu.R;
-import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,8 +58,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -77,6 +71,7 @@ import java.util.Random;
 
 public class DoctorProfile extends Fragment {
 
+    private final int GALLERY_REQ_CODE = 1000;
     String doctorId;
     FirebaseDatabase database;
     TextInputLayout hospitalNameLayout, designationLayout, joiningDateLayout, leavingDateLayout, departmentLayout;
@@ -95,10 +90,8 @@ public class DoctorProfile extends Fragment {
     StringBuilder stringBuilder;
     LinearLayout parentLayout;
     RecyclerView recyclerView;
-
     ArrayList<doctorPastExperienceModel> list;
     doctorPastExperienceAdapter recyclerAdapter;
-    private final int GALLERY_REQ_CODE = 1000;
     String[] namesofHospital = new String[]{"Shahid Suhrawardy Hospital", "Ad-Din Hospital", "Ahmed Medical Centre Ltd", "Aichi Hospital", "Al Anaiet Adhunik Hospital",
             "Al-Helal Speacialist Hospital", "Al-Jebel-E-Nur Heart Ltd", "Al- Rajhi Hospital", "Al-Ahsraf General Hospital", "Al-Biruni Hospital", "Al-Fateh Medical Sevices (Pvt) Ltd", "Al-Madina General Hospital (Pvt.) Ltd", "Al-Manar Hospital", "Al-Markazul Islami Hospital",
             "Appolo Hospital", "Arogya Niketan Hospital Ltd", "Bangabandhu Shiekh Mujib Medical University", "Bangkok Hospita", "Bangladesh Heart & Chest Hospital", "Bangladesh Medical College", "Bdm Hospital",
@@ -733,16 +726,11 @@ public class DoctorProfile extends Fragment {
     }
 
     public void chooseImage() {
-//        ImagePicker.with(this)
-//                .crop(1f, 1f)                 //Crop image(Optional), Check Customization for more option
-//                  //Final image resolution will be less than 1080 x 1080(Optional)
-//                .start();
         try {
             Intent gallery = new Intent(Intent.ACTION_PICK);
             gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(gallery,GALLERY_REQ_CODE);
-        } catch (Exception e)
-        {
+            startActivityForResult(gallery, GALLERY_REQ_CODE);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -750,56 +738,38 @@ public class DoctorProfile extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQ_CODE)
-        {
+        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQ_CODE) {
             filepath = data.getData();
             try {
                 InputStream inputStream = requireActivity().getContentResolver().openInputStream(filepath);
                 bitmap = BitmapFactory.decodeStream(inputStream);
                 profilePicture.setImageBitmap(bitmap);
-                profilePicture.setBackgroundColor(Color.parseColor("#DDDDDD"));
                 Snackbar snack = Snackbar.make(parentLayout, "first text", Snackbar.LENGTH_INDEFINITE);
                 snack.setText("Uploading");
                 snack.show();
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference uploader = storage.getReference("profileImage");
-                uploader.child(doctorId).putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                uploader.child(doctorId).putFile(filepath).addOnSuccessListener(taskSnapshot -> uploader.child(doctorId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        uploader.child(doctorId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                FirebaseDatabase database = FirebaseDatabase
-                                        .getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
-                                DatabaseReference reference = database.getReference("doctorInfo");
-                                reference.child(doctorId).child("photoUrl").setValue(uri.toString());
-                                snack.setText("Uploaded Successfully");
-                                final Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        snack.dismiss();
-                                    }
-                                }, 1000);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                            }
-                        });
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        float percent = (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        snack.setText("Uploaded: " + (int) percent + "%");
+                    public void onSuccess(Uri uri) {
+                        FirebaseDatabase database = FirebaseDatabase
+                                .getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
+                        DatabaseReference reference = database.getReference("doctorInfo");
+                        reference.child(doctorId).child("photoUrl").setValue(uri.toString());
+                        snack.setText("Uploaded Successfully");
+                        final Handler handler = new Handler();
+                        handler.postDelayed(() -> snack.dismiss(), 1000);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
                     }
+                })).addOnProgressListener(snapshot -> {
+                    float percent = (100 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                    snack.setText("Uploaded: " + (int) percent + "%");
+                }).addOnFailureListener(e -> {
+
                 });
 
             } catch (Exception e) {

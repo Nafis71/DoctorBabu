@@ -117,27 +117,18 @@
 
 
                         </TextView>
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/profilePictureCard"
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_below="@id/profileDetails"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="10dp"
-                            >
-
                             <com.google.android.material.imageview.ShapeableImageView
                                 android:id="@+id/profilePicture"
                                 android:layout_width="120dp"
                                 android:layout_height="120dp"
-                                android:elevation="2dp"
-                                android:scaleType="centerCrop"
+                                android:scaleType="fitCenter"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_below="@+id/profileDetails"
                                 app:layout_constraintDimensionRatio="1:1"
                                 app:shapeAppearanceOverlay="@style/minRoundedSquare">
 
                             </com.google.android.material.imageview.ShapeableImageView>
-                        </com.google.android.material.card.MaterialCardView>
 
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -146,7 +137,7 @@
                             android:layout_height="25dp"
                             android:layout_marginStart="-20dp"
                             android:layout_marginTop="140dp"
-                            android:layout_toEndOf="@id/profilePictureCard"
+                            android:layout_toEndOf="@id/profilePicture"
                             android:elevation="3dp"
                             android:src="@drawable/camera" />
 
@@ -155,7 +146,7 @@
                             style="@style/Widget.AppCompat.RatingBar.Indicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/profilePictureCard"
+                            android:layout_below="@+id/profilePicture"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="12dp"
@@ -175,7 +166,7 @@
                             android:layout_marginTop="55dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="1dp"
-                            android:layout_toEndOf="@+id/profilePictureCard"
+                            android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -191,7 +182,7 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="1dp"
-                            android:layout_toEndOf="@+id/profilePictureCard"
+                            android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:textSize="12sp"></TextView>
 
@@ -206,7 +197,7 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginBottom="1dp"
-                            android:layout_toEndOf="@+id/profilePictureCard"
+                            android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:text="Training/Courses: None"
                             android:textSize="12sp"></TextView>
@@ -222,7 +213,7 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="1dp"
-                            android:layout_toEndOf="@+id/profilePictureCard"
+                            android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:text=""
                             android:textColor="#4F5FDE"
@@ -238,7 +229,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="1dp"
-                            android:layout_toEndOf="@+id/profilePictureCard"
+                            android:layout_toEndOf="@+id/profilePicture"
                             android:fontFamily="@font/roboto"
                             android:text="Bmdc Number: "
                             android:textSize="12sp"

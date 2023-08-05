@@ -1,6 +1,7 @@
 package com.example.doctorbabu.Databases;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class recentlyViewedDoctorAdapter extends RecyclerView.Adapter<recentlyVi
     public void onBindViewHolder(@NonNull recentlyViewedDoctorAdapter.myViewHolder holder, int position) {
         recentlyViewedDoctorModel dbmodel = model.get(position);
         Glide.with(context).load(dbmodel.getPhotoUrl()).into(holder.profilePicture);
+        holder.profilePicture.setBackgroundColor(Color.parseColor("#DDDDDD"));
 
     }
 
