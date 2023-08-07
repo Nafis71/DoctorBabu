@@ -1,16 +1,17 @@
 package com.example.doctorbabu.doctor;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.doctorbabu.R;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.example.doctorbabu.databinding.ActivityDoctorPrescribeMedicineBinding;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,33 +23,47 @@ import java.time.Period;
 import java.util.ArrayList;
 
 public class DoctorPrescribeMedicine extends AppCompatActivity {
-    LinearProgressIndicator progressBar;
-    TextView patientName, pastMedicalHistory, allergy, bloodGroup, height, weight, age;
-    CardView patientInfoCard;
     String patientId;
+    int id = 0, medicineHeaderCounter = 1;
+    ArrayList<TextInputLayout> editTexts = new ArrayList<>();
+    ActivityDoctorPrescribeMedicineBinding binding;
+    TextInputLayout editTextLayout;
+    TextView medicineAddHeader;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_prescribe_medicine);
+        binding = ActivityDoctorPrescribeMedicineBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         patientId = getIntent().getStringExtra("patientId");
-        viewBinding();
-        progressBar.setVisibility(View.VISIBLE);
         loadPatientData();
+        binding.addBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addBox();
+            }
+        });
+        binding.upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
-    public void viewBinding() {
-        patientInfoCard = findViewById(R.id.patientInfoCard);
-        patientName = findViewById(R.id.patientName);
-        pastMedicalHistory = findViewById(R.id.pastMedicalHistory);
-        allergy = findViewById(R.id.allergy);
-        bloodGroup = findViewById(R.id.bloodGroup);
-        height = findViewById(R.id.height);
-        weight = findViewById(R.id.weight);
-        age = findViewById(R.id.age);
-        progressBar = findViewById(R.id.progressBar);
+    @SuppressLint("SetTextI18n")
+    public void addBox() {
+        final View addView = getLayoutInflater().inflate(R.layout.medicine_text_box, null, false);
+        binding.medicineAddLayout.addView(addView);
+        editTextLayout = addView.findViewById(R.id.medicineName);
+        medicineAddHeader = addView.findViewById(R.id.medicineAddHeader);
+        medicineAddHeader.setText("Enter Medicine " + (medicineHeaderCounter + 1) + " Details");
+        editTextLayout.setId(id + 1);
+        id++;
+        medicineHeaderCounter++;
+        editTexts.add(editTextLayout);
     }
+
 
     public void loadPatientData() {
         DatabaseReference userInfoReference = database.getReference("users");
@@ -56,11 +71,11 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    patientName.setText(String.valueOf(snapshot.child("fullName").getValue()));
+                    binding.patientName.setText(String.valueOf(snapshot.child("fullName").getValue()));
                     String dbheight = snapshot.child("height").getValue() + " CM";
-                    height.setText(dbheight);
+                    binding.height.setText(dbheight);
                     String dbweight = snapshot.child("weight").getValue() + " KGS";
-                    weight.setText(dbweight);
+                    binding.weight.setText(dbweight);
                     String birthDate = String.valueOf(snapshot.child("birthDate").getValue());
                     String[] splitText = birthDate.split("/");
                     int year = Integer.parseInt(splitText[0]);
@@ -71,7 +86,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                     Period calculateAge = Period.between(from, to);
                     String calculatedYears = String.valueOf(calculateAge.getYears());
                     String years = calculatedYears + " years old";
-                    age.setText(years);
+                    binding.age.setText(years);
                 }
             }
 
@@ -112,9 +127,9 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                             stringBuilder.append(medicalHistoryList.get(i)).append(",").append(" ");
                         }
                     }
-                    pastMedicalHistory.setText(stringBuilder.toString());
+                    binding.pastMedicalHistory.setText(stringBuilder.toString());
                 } else {
-                    pastMedicalHistory.setText("N/A");
+                    binding.pastMedicalHistory.setText("N/A");
                 }
             }
         }, 2000);
@@ -148,10 +163,10 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                         } else {
                             stringBuilder.append(allergyList.get(i)).append(",").append(" ");
                         }
-                        allergy.setText(stringBuilder.toString());
+                        binding.allergy.setText(stringBuilder.toString());
                     }
                 } else {
-                    allergy.setText("N/A");
+                    binding.allergy.setText("N/A");
                 }
             }
         }, 2000);
@@ -162,9 +177,9 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     if (!String.valueOf(snapshot.child("group")).equals("null")) {
-                        bloodGroup.setText(String.valueOf(snapshot.child("group").getValue()));
+                        binding.bloodGroup.setText(String.valueOf(snapshot.child("group").getValue()));
                     } else {
-                        bloodGroup.setText("N/A");
+                        binding.bloodGroup.setText("N/A");
                     }
                 }
             }
@@ -177,8 +192,12 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                patientInfoCard.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
+                binding.patientInfoCard.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
+                binding.lottieAnimation.setVisibility(View.GONE);
+                binding.medicineAddLayout.setVisibility(View.VISIBLE);
+                binding.addBox.setVisibility(View.VISIBLE);
+                binding.upload.setVisibility(View.VISIBLE);
             }
         }, 2500);
     }

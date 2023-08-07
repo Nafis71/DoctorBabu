@@ -116,7 +116,7 @@ public class Doctor extends Fragment {
             }, 1000);
 
         } else {
-
+            binding.vPager.setVisibility(View.VISIBLE);
             binding.searchCard.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.VISIBLE);
             recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);

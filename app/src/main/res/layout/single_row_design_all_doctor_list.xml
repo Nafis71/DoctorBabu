@@ -35,7 +35,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="3dp"
                     android:elevation="2dp"
-                    android:scaleType="fitCenter"
+                    android:scaleType="center"
                     app:shapeAppearanceOverlay="@style/minRoundedSquare">
 
                 </com.google.android.material.imageview.ShapeableImageView>

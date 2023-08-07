@@ -289,6 +289,7 @@ public class Profile extends Fragment {
                 text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                 text.setLayoutParams(layout);
                 text.setText(list.get(i));
+                text.setId(i+1);
                 text.setBackgroundResource(R.drawable.card_corner);
                 text.setPadding(7, 7, 7, 7);
                 text.setTextColor(Color.parseColor("#1C2833"));
