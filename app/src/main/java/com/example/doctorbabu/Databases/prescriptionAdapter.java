@@ -1,6 +1,7 @@
 package com.example.doctorbabu.Databases;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.aviran.cookiebar2.CookieBar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -182,7 +185,14 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
             document.writeTo(fileOutputStream);
             document.close();
             fileOutputStream.close();
-            Toast.makeText(context, "File Downloaded", Toast.LENGTH_SHORT).show();
+            AppCompatActivity activity = (AppCompatActivity) context;
+            CookieBar.build(activity)
+                    .setTitle("Download")
+                    .setMessage("Prescription Downloaded Successfuly")
+                    .setTitleColor(R.color.white)
+                    .setBackgroundColor(R.color.blue)
+                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the bottom
+                    .show();
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }catch (IOException e){
