@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class DoctorCallRoom extends Fragment {
 
@@ -28,6 +31,7 @@ public class DoctorCallRoom extends Fragment {
     FirebaseDatabase database;
     String doctorId, callerId;
     FragmentDoctorCallRoomBinding binding;
+    ExecutorService callDetector;
 
     public DoctorCallRoom() {
         // Required empty public constructor
@@ -45,8 +49,8 @@ public class DoctorCallRoom extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Thread backgroundThread = new Thread(this::loadData);
-        backgroundThread.start();
+        callDetector = Executors.newSingleThreadExecutor();
+        callDetector.execute(this::loadData);
         binding.joinRoom.setOnClickListener(view13 -> joinRoom());
         binding.disbandRoom.setOnClickListener(view12 -> disBandRoom());
         binding.prescribeMedicine.setOnClickListener(view1 -> {
@@ -57,33 +61,33 @@ public class DoctorCallRoom extends Fragment {
     }
 
 
-
     public void loadData() {
         DatabaseReference reference = database.getReference("callRoom");
         reference.child(doctorId).child("incoming").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    if (isAdded()) {
+                        if (!String.valueOf(snapshot.getValue()).equals("null")) {
+                            callerId = String.valueOf(snapshot.getValue());
+                            loadCaller();
+                            binding.noCallBackground.setVisibility(View.GONE);
+                            binding.noCallInfo.setVisibility(View.GONE);
+                            binding.profilePicture.setVisibility(View.VISIBLE);
+                            binding.joinRoom.setVisibility(View.VISIBLE);
+                            binding.disbandRoom.setVisibility(View.VISIBLE);
+                            binding.callBackground.setVisibility(View.VISIBLE);
+                            binding.prescribeMedicine.setVisibility(View.VISIBLE);
 
-                    if (!String.valueOf(snapshot.getValue()).equals("null")) {
-                        callerId = String.valueOf(snapshot.getValue());
-                        loadCaller();
-                        binding.noCallBackground.setVisibility(View.GONE);
-                        binding.noCallInfo.setVisibility(View.GONE);
-                        binding.profilePicture.setVisibility(View.VISIBLE);
-                        binding.joinRoom.setVisibility(View.VISIBLE);
-                        binding.disbandRoom.setVisibility(View.VISIBLE);
-                        binding.callBackground.setVisibility(View.VISIBLE);
-                        binding. prescribeMedicine.setVisibility(View.VISIBLE);
-
-                    } else {
-                        binding.profilePicture.setVisibility(View.GONE);
-                        binding.joinRoom.setVisibility(View.GONE);
-                        binding.disbandRoom.setVisibility(View.GONE);
-                        binding.callBackground.setVisibility(View.GONE);
-                        binding.noCallBackground.setVisibility(View.VISIBLE);
-                        binding.noCallInfo.setVisibility(View.VISIBLE);
-                        binding.prescribeMedicine.setVisibility(View.GONE);
+                        } else {
+                            binding.profilePicture.setVisibility(View.GONE);
+                            binding.joinRoom.setVisibility(View.GONE);
+                            binding.disbandRoom.setVisibility(View.GONE);
+                            binding.callBackground.setVisibility(View.GONE);
+                            binding.noCallBackground.setVisibility(View.VISIBLE);
+                            binding.noCallInfo.setVisibility(View.VISIBLE);
+                            binding.prescribeMedicine.setVisibility(View.GONE);
+                        }
                     }
                 }
             }
@@ -131,14 +135,15 @@ public class DoctorCallRoom extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDoctorCallRoomBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
-    public void onDestroyView(){
+
+    public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        callDetector.shutdown();
     }
 }
