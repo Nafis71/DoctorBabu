@@ -159,6 +159,7 @@ public class PatientCall extends AppCompatActivity{
                 JitsiMeetActivity.launch(PatientCall.this, room);
             });
             jitsiThread.start();
+            finish();
 //            while (true) {
 //                if (!jitsiThread.isAlive()) {
 //                    Timber.tag("Call Status").w("Disconnected");
@@ -181,7 +182,6 @@ public class PatientCall extends AppCompatActivity{
                     JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
                             .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
                     JitsiMeetActivity.launch(PatientCall.this, room);
-
                 }
             });
             thread.start();
@@ -191,17 +191,7 @@ public class PatientCall extends AppCompatActivity{
             finish();
 
 
-        }
-
-//        String time = String.valueOf(System.currentTimeMillis());
-//        SharedPreferences preferences = getSharedPreferences("callStatus",MODE_PRIVATE);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        editor.putString("finishedOn",time);
-//        editor.apply();
-    }
-    public void onConferenceTerminated(){
-
-    }
+        }}
 
     public String getUniqueId() {
         return UUID.randomUUID().toString();

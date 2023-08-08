@@ -155,7 +155,7 @@ public class Profile extends Fragment {
                 if (!dbAddress.equals("null")) {
                     binding.userAddress.setText(dbAddress);
                 } else {
-                    binding.userAddress.setText(String.valueOf(R.string.addressNotSet));
+                    binding.userAddress.setText("No information found");
                 }
                 binding.userGender.setText(String.valueOf(snapshot.child("gender").getValue()));
                 binding.userHeight.setText(String.valueOf(snapshot.child("height").getValue()));
@@ -201,7 +201,7 @@ public class Profile extends Fragment {
                         DatabaseReference ref = rootnode.getReference("patientProfileTrack");
                         ref.child(user.getUid()).child("bloodGroupInfo").setValue("Completed");
                     } else {
-                        binding.bloodGroupInfo.setText(String.valueOf(R.string.noInfoFound));
+                        binding.bloodGroupInfo.setText("No information found");
                         FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
                         DatabaseReference ref = rootnode.getReference("patientProfileTrack");
                         ref.child(user.getUid()).child("bloodGroupInfo").setValue("null");
@@ -296,7 +296,7 @@ public class Profile extends Fragment {
                 binding.allergyHistory.addView(text);
             }
         } else {
-            binding.allergy.setText(String.valueOf(R.string.noInfoFound));
+            binding.allergy.setText("No information found");
             binding.allergy.setVisibility(View.VISIBLE);
             FirebaseDatabase rootnode = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
             DatabaseReference ref = rootnode.getReference("patientProfileTrack");

@@ -100,18 +100,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="2dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="8dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="visible"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp">
 
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:inputType="textPersonName"
+            android:theme="@style/AppSearchView"
+            android:visibility="visible"
             app:closeIcon="@drawable/close"
             app:defaultQueryHint="@string/doctorSearch"
             app:iconifiedByDefault="false">
@@ -134,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:padding="20dp"
                 app:cardCornerRadius="5dp"

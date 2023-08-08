@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rootLayout"
     android:background="#F7F9F9"
     tools:context=".doctor.DoctorPrescribeMedicine">
 
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:elevation="1.3dp"
-        android:id="@+id/header"
-        >
+        android:elevation="1.3dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_centerVertical="true"
             android:fontFamily="@font/oswald"
             android:includeFontPadding="true"
             android:text="E-Prescription"
@@ -30,6 +30,7 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
@@ -42,21 +43,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header"
-        android:scrollbars="none"
-        >
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/parentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/parentLayout"
-                >
-
-
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -98,8 +95,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="wrap_content">
 
                             <TextView
                                 android:id="@+id/patientName"
@@ -336,25 +332,24 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/medicineAddLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/white"
                     android:layout_marginTop="15dp"
-                    android:visibility="gone"
-                    android:id="@+id/medicineAddLayout">
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
                     <TextView
                         android:id="@+id/medicineAddHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Enter Medicine 1 Details"
-                        android:fontFamily="@font/roboto"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
-                        >
-                    </TextView>
+                        android:fontFamily="@font/roboto"
+                        android:text="Enter Medicine 1 Details"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"></TextView>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/diagnosis"
@@ -371,15 +366,16 @@
                         app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/diagnosisText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/diagnosis"
                             android:drawablePadding="10dp"
                             android:inputType="textPersonName"
-                            android:textSize="14sp"
-                            />
+                            android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/medicineName"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -395,16 +391,17 @@
                         app:hintAnimationEnabled="true">
 
                         <AutoCompleteTextView
+                            android:id="@+id/medicineNameText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/medicine"
                             android:drawablePadding="10dp"
-                            android:padding="13dp"
                             android:inputType="textPersonName"
-                            android:textSize="14sp"
-                            />
+                            android:padding="13dp"
+                            android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/medicineGeneric"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -420,21 +417,23 @@
                         app:hintAnimationEnabled="true">
 
                         <AutoCompleteTextView
+                            android:id="@+id/medicineGenericText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/medicine"
                             android:drawablePadding="10dp"
-                            android:padding="13dp"
+                            android:enabled="true"
                             android:inputType="textPersonName"
-                            android:textSize="14sp"
-                            android:enabled="false"
-                            />
+                            android:padding="13dp"
+                            android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/morning"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -450,15 +449,16 @@
                             app:hintAnimationEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/morningText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/morning"
                                 android:drawablePadding="5dp"
                                 android:inputType="number"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/noon"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -474,15 +474,16 @@
                             app:hintAnimationEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/noonText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/noon"
                                 android:drawablePadding="5dp"
                                 android:inputType="number"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/night"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -498,17 +499,18 @@
                             app:hintAnimationEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nightText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/night"
                                 android:drawablePadding="5dp"
                                 android:inputType="number"
-                                android:textSize="14sp"
-                                />
+                                android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </LinearLayout>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/totalDays"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -522,25 +524,36 @@
                         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                         app:boxStrokeWidth="1dp"
                         app:hintAnimationEnabled="true">
+
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/totalDaysText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:padding="17dp"
-                            android:textSize="14sp"
-                            />
+                            android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    >
+
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/Advice"
+                        android:id="@+id/advice"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
-                        android:layout_below="@+id/patientInfoCard"
+                        android:layout_below="@+id/parentLayout"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginBottom="10dp"
+                        android:visibility="gone"
                         android:hint="Advice (optional)"
                         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                         app:boxStrokeWidth="1dp"
@@ -551,14 +564,13 @@
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
                             android:scrollbars="vertical"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
-
             </LinearLayout>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addBox"
@@ -575,6 +587,20 @@
                 android:visibility="gone"
                 app:cornerRadius="8dp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/proceed"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addBox"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:shadowColor="@color/black_shade_1"
+                android:text="Proceed"
+                android:textColor="#4F5FDE"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:cornerRadius="8dp" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/upload"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"

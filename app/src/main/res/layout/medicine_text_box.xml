@@ -18,30 +18,6 @@
     </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/diagnosis"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/patientInfoCard"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Diagnosis"
-        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-        app:boxStrokeWidth="1dp"
-        app:hintAnimationEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/diagnosis"
-            android:drawablePadding="10dp"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/medicineName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
@@ -191,30 +167,6 @@
             android:inputType="number"
             android:padding="17dp"
             android:textSize="14sp"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Advice"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_below="@+id/patientInfoCard"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:hint="Advice (optional)"
-        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-        app:boxStrokeWidth="1dp"
-        app:hintAnimationEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical"
-            android:textSize="15sp"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

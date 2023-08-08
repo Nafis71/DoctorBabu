@@ -2,11 +2,7 @@ package com.example.doctorbabu.Databases;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,17 +36,37 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     Bitmap avatar;
     StringBuilder stringBuilder = new StringBuilder();
 
+    public availableDoctorAdapter(Context context, ArrayList<doctorInfoModel> model, String userId) {
+        this.context = context;
+        this.model = model;
+        this.userId = userId;
+    }
+
+    public static Bitmap eraseColor(Bitmap src, int color) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        Bitmap b = src.copy(Bitmap.Config.ARGB_8888, true);
+        b.setHasAlpha(true);
+
+        int[] pixels = new int[width * height];
+        src.getPixels(pixels, 0, width, 0, 0, width, height);
+
+        for (int i = 0; i < width * height; i++) {
+            if (pixels[i] == color) {
+                pixels[i] = 0;
+            }
+        }
+
+        b.setPixels(pixels, 0, width, 0, 0, width, height);
+
+        return b;
+    }
+
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_available_doctor, parent, false);
         return new myViewHolder(view);
-    }
-
-    public availableDoctorAdapter(Context context, ArrayList<doctorInfoModel> model, String userId) {
-        this.context = context;
-        this.model = model;
-        this.userId = userId;
     }
 
     @Override
@@ -128,25 +141,6 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
             currentlyWorking = itemView.findViewById(R.id.currentlyWorking);
             card = itemView.findViewById(R.id.card);
         }
-    }
-    public static Bitmap eraseColor(Bitmap src, int color) {
-        int width = src.getWidth();
-        int height = src.getHeight();
-        Bitmap b = src.copy(Bitmap.Config.ARGB_8888, true);
-        b.setHasAlpha(true);
-
-        int[] pixels = new int[width * height];
-        src.getPixels(pixels, 0, width, 0, 0, width, height);
-
-        for (int i = 0; i < width * height; i++) {
-            if (pixels[i] == color) {
-                pixels[i] = 0;
-            }
-        }
-
-        b.setPixels(pixels, 0, width, 0, 0, width, height);
-
-        return b;
     }
 
 

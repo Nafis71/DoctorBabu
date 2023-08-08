@@ -60,6 +60,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
     implementation 'com.github.thekhaeng:pushdown-anim-click:1.1.1'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    implementation 'org.aviran.cookiebar2:cookiebar2:1.1.5'
     //noinspection GradleDependency
     implementation ('org.jitsi.react:jitsi-meet-sdk:8.1.2') { transitive = true }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'

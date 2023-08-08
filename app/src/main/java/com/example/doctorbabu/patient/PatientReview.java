@@ -136,7 +136,7 @@ public class PatientReview extends AppCompatActivity {
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                finishAndRemoveTask();
+                                finish();
                             }
                         }).setCancelable(false);
                 dialog.create().show();
@@ -200,6 +200,6 @@ public class PatientReview extends AppCompatActivity {
         reference.child(user.getUid()).child("done").setValue(consultancyDone);
         reference = database.getReference("rewardPatient");
         reference.child(user.getUid()).child("reward").setValue(String.valueOf(rewardPoint));
-        finishAndRemoveTask();
+        finish();
     }
 }
