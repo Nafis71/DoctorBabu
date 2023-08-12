@@ -171,20 +171,9 @@ public class PatientCall extends AppCompatActivity{
             userInfo.setAvatar(url);
             userInfo.setDisplayName(name);
             userInfo.setEmail(email);
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
-                            .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
-                    JitsiMeetActivity.launch(PatientCall.this, room);
-                }
-            });
-            thread.start();
+            JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
+                    .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
+            JitsiMeetActivity.launch(PatientCall.this, room);
             Intent intent = new Intent(PatientCall.this, PatientReview.class);
             intent.putExtra("doctorId", doctorId);
             startActivity(intent);
