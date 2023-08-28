@@ -67,11 +67,11 @@ public class Doctor extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recentlyViewedExecutor = Executors.newSingleThreadExecutor();
-        loadDoctorExecutor = Executors.newSingleThreadExecutor();
-        searchExecutor = Executors.newSingleThreadExecutor();
-        loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
-        scheduledThread = Executors.newSingleThreadScheduledExecutor();
+//        recentlyViewedExecutor = Executors.newSingleThreadExecutor();
+//        loadDoctorExecutor = Executors.newSingleThreadExecutor();
+//        searchExecutor = Executors.newSingleThreadExecutor();
+//        loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
+//        scheduledThread = Executors.newSingleThreadScheduledExecutor();
         userId = user.getUid();
     }
 
@@ -85,6 +85,11 @@ public class Doctor extends Fragment {
     }
 
     public void onStart() {
+        recentlyViewedExecutor = Executors.newSingleThreadExecutor();
+        loadDoctorExecutor = Executors.newSingleThreadExecutor();
+        searchExecutor = Executors.newSingleThreadExecutor();
+        loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
+        scheduledThread = Executors.newSingleThreadScheduledExecutor();
         super.onStart();
         if (code == 0) {
             Dialog dialog = new Dialog(requireContext());
@@ -304,6 +309,11 @@ public class Doctor extends Fragment {
 
     @Override
     public void onResume() {
+        recentlyViewedExecutor = Executors.newSingleThreadExecutor();
+        loadDoctorExecutor = Executors.newSingleThreadExecutor();
+        searchExecutor = Executors.newSingleThreadExecutor();
+        loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
+        scheduledThread = Executors.newSingleThreadScheduledExecutor();
         super.onResume();
 
     }

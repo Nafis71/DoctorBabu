@@ -77,16 +77,15 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageSliderExecutor = Executors.newSingleThreadExecutor();
 
     }
-
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageSliderExecutor.execute(this::loadImageSlider);
+        imageSliderExecutor = Executors.newSingleThreadExecutor();
+        imageSliderExecutor.execute(this::firebaseAuth);
+        loadImageSlider();
         viewBinding();
-        firebaseAuth();
         PushDownAnim.setPushDownAnimTo(consultantCard, appointmentCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.90f);
         profilePicture.setOnClickListener(v -> callProfileFragment());

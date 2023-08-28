@@ -52,8 +52,7 @@ public class PrescriptionHistory extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.prescriptionRecycler.showShimmer();
         binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new prescriptionAdapter(requireContext(),list);
-        binding.prescriptionRecycler.setAdapter(adapter);
+
     }
     public void onStart(){
         super.onStart();
@@ -72,8 +71,10 @@ public class PrescriptionHistory extends Fragment {
                     for(DataSnapshot snap : snapshot.getChildren()){
                         prescriptionModel model = snap.getValue(prescriptionModel.class);
                         list.add(model);
+                        adapter = new prescriptionAdapter(requireContext(),list);
+                        binding.prescriptionRecycler.setAdapter(adapter);
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
                 }
             }
 

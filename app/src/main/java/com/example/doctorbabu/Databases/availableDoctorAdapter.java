@@ -112,7 +112,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     AppCompatActivity activity = (AppCompatActivity) context;
-                    activity.getSupportFragmentManager().beginTransaction()
+                    activity.getSupportFragmentManager().beginTransaction().addToBackStack("doctorProfile")
                             .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(), dbModel.getFullName(), dbModel.getTitle(), dbModel.getDegrees(), dbModel.getSpecialty(), holder.currentlyWorking.getText().toString(), dbModel.getPhotoUrl(), dbModel.getRating(), dbModel.getBmdc())).commit();
                 }
             });

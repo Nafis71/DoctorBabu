@@ -132,7 +132,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:shadowColor="@color/black_shade_1"
-                android:text="Download"
+                android:text="View"
                 android:textColor="#4F5FDE"
                 android:textSize="12sp"
                 app:cornerRadius="8dp" />

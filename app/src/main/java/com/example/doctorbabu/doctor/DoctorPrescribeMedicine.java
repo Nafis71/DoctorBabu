@@ -113,7 +113,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                 .setMessage("Please add another medicine's details")
                 .setTitleColor(R.color.white)
                 .setBackgroundColor(R.color.blue)
-                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the bottom
+                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the top
                 .show();
 
     }
