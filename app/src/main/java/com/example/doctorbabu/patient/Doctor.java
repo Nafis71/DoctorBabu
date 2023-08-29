@@ -270,7 +270,7 @@ public class Doctor extends Fragment {
     }
 
     public void loadRecentlyViewed() {
-        if (isAdded()) {
+        if (isAdded() && isVisible()) {
             DatabaseReference reference = database.getReference("recentlyViewed");
             reference.child(userId).orderByChild("time").limitToFirst(15).addListenerForSingleValueEvent(new ValueEventListener() {
                 @SuppressLint("NotifyDataSetChanged")
