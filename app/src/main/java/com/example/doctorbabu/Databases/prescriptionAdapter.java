@@ -105,8 +105,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                     LocalDate to = LocalDate.now();
                     Period calculateAge = Period.between(from, to);
                     String calculatedYears = String.valueOf(calculateAge.getYears());
-                    String years = calculatedYears + " years old";
-                    age = years;
+                    age = calculatedYears;
                     weight = String.valueOf(snapshot.child("weight").getValue());
                     patientNames = String.valueOf(snapshot.child("fullName").getValue());
                     patientGender = String.valueOf(snapshot.child("gender").getValue());
