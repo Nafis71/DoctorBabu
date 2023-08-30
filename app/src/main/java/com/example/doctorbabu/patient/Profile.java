@@ -24,6 +24,7 @@ import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentProfileBinding;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,8 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Formatter;
-
-import timber.log.Timber;
 
 
 public class Profile extends Fragment {
@@ -576,7 +575,7 @@ public class Profile extends Fragment {
             } else {
                 Toast.makeText(getContext(), "Couldn't fetch blood info", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(e -> Timber.tag("Database Connection Error").i(e.toString()));
+        }).addOnFailureListener(e -> e.printStackTrace());
         bloodConfirmList.setOnClickListener(view -> {
             if (aPositive.isChecked() && bPositive.isChecked() | oPositive.isChecked() | aNegative.isChecked()
                     | bNegative.isChecked() | oNegative.isChecked() | abNegative.isChecked() | abPositive.isChecked()) {

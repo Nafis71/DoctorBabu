@@ -70,7 +70,7 @@ public class PatientReview extends AppCompatActivity {
                 reviewTextInputLayout.setVisibility(View.VISIBLE);
                 postReview.setVisibility(View.VISIBLE);
             }
-        }, 5000);
+        }, 300);
         reviewTextField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

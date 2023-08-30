@@ -1,43 +1,25 @@
 package com.example.doctorbabu.patient;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.Handler;
 
-
-import android.webkit.WebView;
-
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doctorbabu.R;
-import com.facebook.react.modules.core.PermissionListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.jitsi.meet.sdk.JitsiMeet;
-import org.jitsi.meet.sdk.JitsiMeetActivity;
-import org.jitsi.meet.sdk.JitsiMeetActivityInterface;
-import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
-import org.jitsi.meet.sdk.JitsiMeetOngoingConferenceService;
-import org.jitsi.meet.sdk.JitsiMeetUserInfo;
-import org.jitsi.meet.sdk.JitsiMeetView;
+import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceConfig;
+import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceFragment;
 
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
-
-import timber.log.Timber;
 
 public class PatientCall extends AppCompatActivity{
     String uniqueId, userId, doctorId, photoUrl, name, email;
@@ -53,16 +35,6 @@ public class PatientCall extends AppCompatActivity{
         setContentView(R.layout.activity_patient_call);
         userId = getIntent().getStringExtra("userId");
         doctorId = getIntent().getStringExtra("doctorId");
-        URL serverUrl;
-        try {
-            serverUrl = new URL("https://meet.jit.si");
-            JitsiMeetConferenceOptions defaultOptions = new JitsiMeetConferenceOptions.Builder()
-                    .setServerURL(serverUrl).setFeatureFlag("prejoinpage.enabled", false)
-                    .build();
-            JitsiMeet.setDefaultConferenceOptions(defaultOptions);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         initializePeer();
 
     }
@@ -109,7 +81,6 @@ public class PatientCall extends AppCompatActivity{
                     String title = String.valueOf(snapshot.child("title").getValue());
                     name = title + fullName;
                     email = String.valueOf(snapshot.child("email").getValue());
-                    Timber.tag("user name").i(name);
                     try {
                         url = new URL(photoUrl);
                         callVideoScreen();
@@ -149,37 +120,39 @@ public class PatientCall extends AppCompatActivity{
 
     public void callVideoScreen() {
         if (userId.equals("null")) {
-            jitsiThread = new Thread(() -> {
-                JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
-                userInfo.setAvatar(url);
-                userInfo.setDisplayName(name);
-                userInfo.setEmail(email);
-                JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
-                        .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
-                JitsiMeetActivity.launch(PatientCall.this, room);
-            });
-            jitsiThread.start();
-            finish();
-//            while (true) {
-//                if (!jitsiThread.isAlive()) {
-//                    Timber.tag("Call Status").w("Disconnected");
-//                }
-//            }
+            long appID = 185006614;
+            String appSign = "703d0581169d01181b4e9b1982d3efb4b1961280a54cbc96c7e13bea9eb935b7";
 
+            String conferenceID = uniqueId;
+            String userID = doctorId;
+            String userName = name;
+
+            ZegoUIKitPrebuiltVideoConferenceConfig config = new ZegoUIKitPrebuiltVideoConferenceConfig();
+            ZegoUIKitPrebuiltVideoConferenceFragment fragment = ZegoUIKitPrebuiltVideoConferenceFragment.newInstance(appID, appSign, userID, userName,conferenceID,config);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commitNow();
         } else {
-            JitsiMeetUserInfo userInfo = new JitsiMeetUserInfo();
-            userInfo.setAvatar(url);
-            userInfo.setDisplayName(name);
-            userInfo.setEmail(email);
-            JitsiMeetConferenceOptions room = new JitsiMeetConferenceOptions.Builder()
-                    .setRoom(uniqueId).setFeatureFlag("prejoinpage.enabled", false).setUserInfo(userInfo).build();
-            JitsiMeetActivity.launch(PatientCall.this, room);
-            Intent intent = new Intent(PatientCall.this, PatientReview.class);
-            intent.putExtra("doctorId", doctorId);
-            startActivity(intent);
-            finish();
 
-
+            long appID = 185006614;
+            String appSign = "703d0581169d01181b4e9b1982d3efb4b1961280a54cbc96c7e13bea9eb935b7";
+            String conferenceID = uniqueId;
+            String userID = userId;
+            String userName = name;
+            ZegoUIKitPrebuiltVideoConferenceConfig config = new ZegoUIKitPrebuiltVideoConferenceConfig();
+            ZegoUIKitPrebuiltVideoConferenceFragment fragment = ZegoUIKitPrebuiltVideoConferenceFragment.newInstance(appID, appSign, userID, userName,conferenceID,config);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commitNow();
+            fragment.setLeaveVideoConferenceListener(new ZegoUIKitPrebuiltVideoConferenceFragment.LeaveVideoConferenceListener() {
+                @Override
+                public void onLeaveConference() {
+                    Intent intent = new Intent(PatientCall.this, PatientReview.class);
+                    intent.putExtra("doctorId", doctorId);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }}
 
     public String getUniqueId() {

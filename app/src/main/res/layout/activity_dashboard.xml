@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:animationCache="false"
         app:cnb_animationDuration="275"
-        app:cnb_badgeColor="@color/gph_dark_red"
+        app:cnb_badgeColor="@color/blue"
         app:cnb_iconSize="24dp"
         app:cnb_menuResource="@menu/nav_items"
         app:cnb_orientationMode="horizontal"

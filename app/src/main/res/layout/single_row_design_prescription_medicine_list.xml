@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        >
+        <TextView
+            android:id="@+id/medicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Napa"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            android:textSize="16sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            >
+
+        </TextView>
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicineName"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+
+            />
+        <TextView
+            android:id="@+id/medicineDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bar"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            android:textSize="14sp"
+            android:textAlignment="textStart"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            >
+
+        </TextView>
+
+    </RelativeLayout>
+
+</LinearLayout>

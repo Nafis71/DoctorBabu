@@ -116,7 +116,7 @@
                 android:layout_below="@+id/creationDateHeader"
                 android:layout_toEndOf="@+id/diagnosisHeader"
                 android:fontFamily="@font/roboto"
-                android:textColor="@color/gph_dark_red"
+                android:textColor="@color/blue"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"

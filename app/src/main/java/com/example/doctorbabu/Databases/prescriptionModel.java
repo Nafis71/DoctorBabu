@@ -1,7 +1,15 @@
 package com.example.doctorbabu.Databases;
 
 public class prescriptionModel {
-    String PrescribedBy,PrescribedTo,date,diagnosis;
+    String PrescriptionId, PrescribedBy,PrescribedTo,date,diagnosis;
+
+    public String getPrescriptionId() {
+        return PrescriptionId;
+    }
+
+    public void setPrescriptionId(String prescriptionId) {
+        PrescriptionId = prescriptionId;
+    }
 
     public String getPrescribedBy() {
         return PrescribedBy;

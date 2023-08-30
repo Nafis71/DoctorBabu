@@ -62,8 +62,7 @@ public class Dashboard extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(fragmentId != -1)
-                    {
+                    if (fragmentId != -1) {
                         getSupportFragmentManager().popBackStack(fragmentId, 200);
                         navBarEnableDisable("home");
                     } else {
@@ -81,11 +80,10 @@ public class Dashboard extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(fragmentId != -1)
-                    {
+                    if (fragmentId != -1) {
                         getSupportFragmentManager().popBackStack(fragmentId, 300);
                         navBarEnableDisable("history");
-                    }else{
+                    } else {
                         loadFragment(new PrescriptionHistory(), "history");
                         navBarEnableDisable("history");
                     }
@@ -101,11 +99,10 @@ public class Dashboard extends AppCompatActivity {
                             break;
                         }
                     }
-                    if(fragmentId != -1)
-                    {
+                    if (fragmentId != -1) {
                         getSupportFragmentManager().popBackStack(fragmentId, 400);
                         navBarEnableDisable("profile");
-                    }else{
+                    } else {
                         loadFragment(new Profile(), "profile");
                         navBarEnableDisable("profile");
                     }
@@ -158,27 +155,27 @@ public class Dashboard extends AppCompatActivity {
             }
         }
     }
-    private void navBarEnableDisable(String tag){
-        if(tag.equals("doctor"))
-        {
+
+    private void navBarEnableDisable(String tag) {
+        if (tag.equals("doctor")) {
             isOpenDoctorVideo = true;
             isOpenHome = false;
             isOpenProfile = false;
             isOpenHistory = false;
             isBackPressed = false;
-        }else if(tag.equals("home")){
+        } else if (tag.equals("home")) {
             isOpenHome = true;
             isOpenHistory = false;
             isOpenProfile = false;
             isOpenDoctorVideo = false;
             isBackPressed = false;
-        }else if(tag.equals("history")){
+        } else if (tag.equals("history")) {
             isOpenHistory = true;
             isOpenHome = false;
             isOpenProfile = false;
             isOpenDoctorVideo = false;
             isBackPressed = false;
-        } else if(tag.equals("profile")){
+        } else if (tag.equals("profile")) {
             isOpenProfile = true;
             isOpenHistory = false;
             isOpenHome = false;

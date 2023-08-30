@@ -41,21 +41,17 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
     int medicineHeaderCounter = 1;
 
     StringBuilder medicineNameBuilder = new StringBuilder();
-    StringBuilder morningDozeBuilder = new StringBuilder();
-    StringBuilder noonDozeBuilder = new StringBuilder();
-    StringBuilder nightDozeBuilder = new StringBuilder();
-    StringBuilder totalDaysBuilder = new StringBuilder();
+    StringBuilder medicineDetailsBuilder = new StringBuilder();
+
     ArrayList<String> medicineName = new ArrayList<>();
-    ArrayList<String> medicineGeneric = new ArrayList<>();
-    ArrayList<String> morningDoze = new ArrayList<>();
-    ArrayList<String> noonDoze = new ArrayList<>();
-    ArrayList<String> nightDoze = new ArrayList<>();
-    ArrayList<String> totalDays = new ArrayList<>();
+    ArrayList<String> medicineDetails = new ArrayList<>();
+
     ActivityDoctorPrescribeMedicineBinding binding;
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     int i =1;
+    int medicineCounter = 1;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
@@ -95,19 +91,12 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void addBox() {
+        medicineCounter++;
         medicineName.add(binding.medicineName.getEditText().getText().toString());
-        medicineGeneric.add(binding.medicineGeneric.getEditText().getText().toString());
-        morningDoze.add(binding.morning.getEditText().getText().toString());
-        noonDoze.add(binding.noon.getEditText().getText().toString());
-        nightDoze.add(binding.night.getEditText().getText().toString());
-        totalDays.add(binding.totalDays.getEditText().getText().toString());
+        medicineDetails.add(binding.medicineDetailsLayout.getEditText().getText().toString());
         binding.medicineAddHeader.setText("Enter Medicine "+(medicineHeaderCounter++)+"Details");
         binding.medicineNameText.setText(null);
-        binding.medicineGenericText.setText(null);
-        binding.morningText.setText(null);
-        binding.noonText.setText(null);
-        binding.nightText.setText(null);
-        binding.totalDaysText.setText(null);
+        binding.medicineDetails.setText(null);
         CookieBar.build(this)
                 .setTitle(binding.medicineName.getEditText().getText().toString() + "Added")
                 .setMessage("Please add another medicine's details")
@@ -123,33 +112,17 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         LocalDate date = LocalDate.now();
         HashMap<String, Object> prescription = new HashMap<>();
         DatabaseReference uploadReference = database.getReference();
+        prescription.put("PrescriptionId",uniqueID);
         prescription.put("PrescribedBy",doctorId);
         prescription.put("PrescribedTo",patientId);
         prescription.put("date",date.toString());
         prescription.put("diagnosis",binding.diagnosis.getEditText().getText().toString().trim());
+        prescription.put("medicineCounter",String.valueOf(medicineCounter));
         prescription.put("advice",binding.advice.getEditText().getText().toString().trim());
         if(medicineName.size() == 0)
         {
             prescription.put("medicineName",binding.medicineName.getEditText().getText().toString());
-            if(!binding.morning.getEditText().getText().toString().isEmpty())
-            {
-                prescription.put("morningDoze",binding.morning.getEditText().getText().toString());
-            }else{
-                prescription.put("morningDoze","null");
-            }
-            if(!binding.noon.getEditText().getText().toString().isEmpty())
-            {
-                prescription.put("noonDoze",binding.noon.getEditText().getText().toString());
-            }else{
-                prescription.put("noonDoze","null");
-            }
-            if(!binding.night.getEditText().getText().toString().isEmpty())
-            {
-                prescription.put("nightDoze",binding.night.getEditText().getText().toString());
-            }else{
-                prescription.put("nightDoze","null");
-            }
-            prescription.put("totalDays",binding.totalDays);
+            prescription.put("medicineDetails",binding.medicineDetailsLayout.getEditText().getText().toString());
             uploadReference.child("prescription").child(patientId).child(uniqueID).setValue(prescription).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -165,33 +138,20 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
             });
         }else{
             medicineName.add(binding.medicineName.getEditText().getText().toString());
-            medicineGeneric.add(binding.medicineGeneric.getEditText().getText().toString());
-            morningDoze.add(binding.morning.getEditText().getText().toString());
-            noonDoze.add(binding.noon.getEditText().getText().toString());
-            nightDoze.add(binding.night.getEditText().getText().toString());
-            totalDays.add(binding.totalDays.getEditText().getText().toString());
+            medicineDetails.add(binding.medicineDetailsLayout.getEditText().getText().toString());
             for(int i=0;i < medicineName.size();i++){
                 if(medicineName.size() - 1 == 0)
                 {
                     medicineNameBuilder.append(medicineName.get(i));
-                    morningDozeBuilder.append(morningDoze.get(i));
-                    noonDozeBuilder.append(noonDoze.get(i));
-                    nightDozeBuilder.append(nightDoze.get(i));
-                    totalDaysBuilder.append(totalDays.get(i));
+                    medicineDetailsBuilder.append(medicineDetails.get(i));
 
                 }else{
                     medicineNameBuilder.append(medicineName.get(i)).append(",");
-                    morningDozeBuilder.append(morningDoze.get(i)).append(",");
-                    noonDozeBuilder.append(noonDoze.get(i)).append(",");
-                    nightDozeBuilder.append(nightDoze.get(i)).append(",");
-                    totalDaysBuilder.append(totalDays.get(i)).append(",");
+                    medicineDetailsBuilder.append(medicineDetails.get(i)).append(",");
                 }
             }
             prescription.put("medicineName",medicineNameBuilder.toString());
-            prescription.put("morningDoze",morningDozeBuilder.toString());
-            prescription.put("noonDoze",noonDozeBuilder.toString());
-            prescription.put("nightDoze",nightDozeBuilder.toString());
-            prescription.put("totalDays",totalDaysBuilder.toString());
+            prescription.put("medicineDetails",medicineDetailsBuilder.toString());
         }
         uploadReference.child("prescription").child(patientId).child(uniqueID).setValue(prescription).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
