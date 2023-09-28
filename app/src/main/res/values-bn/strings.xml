@@ -163,4 +163,7 @@
     <string name="clearAll">Clear All</string>
     <string name="departmentTab">বিভাগসমূহ</string>
     <string name="symptomsTab">লক্ষ্ণণ</string>
+    <string name="identifyDiseaseHeader">রোগ সনাক্ত করুন</string>
+    <string name="identifyDiseaseHeaderBody">আপনার শরীরে কী সমস্যা আছে তা খুঁজে বের করুন</string>
+    <string name="check">চেক করুন</string>
 </resources>

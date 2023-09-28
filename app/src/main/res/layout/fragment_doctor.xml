@@ -148,6 +148,73 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consultationAnim"
                 android:background="#F7F9F9">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/diseaseIdentificationCard"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    >
+                    <TextView
+                        android:id="@+id/diseaseIdentificationHeaderText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/identifyDiseaseHeader"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="3dp"
+                        >
+
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/diseaseIdentificationHeaderText"
+                        android:id="@+id/diseaseIdentificationBodyText"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/identifyDiseaseHeaderBody"
+                        android:textSize="12sp">
+                        >
+
+                    </TextView>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/diseaseIdentificationAnimation"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_below="@id/diseaseIdentificationBodyText"
+                        app:lottie_rawRes="@raw/identifydisease"
+                        android:layout_marginBottom="4dp"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true"
+                        app:lottie_renderMode="hardware"
+                        app:lottie_cacheComposition="true"
+                        >
+
+                    </com.airbnb.lottie.LottieAnimationView>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/identifyDisease"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="160dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_toEndOf="@id/diseaseIdentificationAnimation"
+                        android:layout_below="@+id/diseaseIdentificationBodyText"
+                        android:shadowColor="@color/black_shade_1"
+                        android:text="@string/check"
+                        android:textColor="#4F5FDE"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp" />
+
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/DepartmentCard"
@@ -155,7 +222,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:layout_marginBottom="5dp"
-                    android:background="#ffff">
+                    android:layout_below="@+id/diseaseIdentificationCard"
+                    android:background="#fff">
 
                     <TextView
                         android:id="@+id/dsText"

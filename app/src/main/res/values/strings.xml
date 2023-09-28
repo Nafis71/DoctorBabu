@@ -163,6 +163,9 @@
     <string name="clearAll">Clear All</string>
     <string name="departmentTab">Departments</string>
     <string name="symptomsTab">Symptoms</string>
+    <string name="identifyDiseaseHeader">Identify Disease</string>
+    <string name="identifyDiseaseHeaderBody">Find out what\'s wrong with your body</string>
+    <string name="check">Check</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

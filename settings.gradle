@@ -12,12 +12,11 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven {
-            url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
-        }
+        maven { url "https://chaquo.com/maven" }
         maven{
             url "https://maven.google.com"
         }
+        maven { url 'https://storage.zego.im/maven' }
     }
 }
 rootProject.name = "Doctor Babu"

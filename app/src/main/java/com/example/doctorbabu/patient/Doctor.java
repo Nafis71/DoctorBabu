@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.doctorbabu.Databases.availableDoctorAdapter;
 import com.example.doctorbabu.Databases.doctorInfoModel;
 import com.example.doctorbabu.Databases.doctorSearchAdapter;
@@ -67,11 +71,6 @@ public class Doctor extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        recentlyViewedExecutor = Executors.newSingleThreadExecutor();
-//        loadDoctorExecutor = Executors.newSingleThreadExecutor();
-//        searchExecutor = Executors.newSingleThreadExecutor();
-//        loadAllDoctorExecutor = Executors.newSingleThreadExecutor();
-//        scheduledThread = Executors.newSingleThreadScheduledExecutor();
         userId = user.getUid();
     }
 
@@ -82,9 +81,17 @@ public class Doctor extends Fragment {
         binding.vPager.setVisibility(View.GONE);
         binding.consultationAnim2.setVisibility(View.VISIBLE);
         binding.consultationAnim.setVisibility(View.VISIBLE);
+
     }
 
     public void onStart() {
+        if (!Python.isStarted()) {
+            Python.start(new AndroidPlatform(requireContext()));
+        }
+        Python python = Python.getInstance();
+        PyObject module = python.getModule("predictor");
+        PyObject test = module.callAttr("test_input");
+        Log.w("Python output",test.toString());
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();

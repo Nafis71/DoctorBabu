@@ -20,8 +20,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         text1.setAnimation(bottomanim);
         text2.setAnimation(bottomanim);
         loadNext();
+
     }
 
     public void loadNext() {

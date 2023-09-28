@@ -120,8 +120,8 @@ public class PatientCall extends AppCompatActivity{
 
     public void callVideoScreen() {
         if (userId.equals("null")) {
-            long appID = 185006614;
-            String appSign = "703d0581169d01181b4e9b1982d3efb4b1961280a54cbc96c7e13bea9eb935b7";
+            long appID = 1158156305;
+            String appSign = "a164ac044c51a0b645ca8a2badf3dd74d9b97596986b88b2363588533985d579";
 
             String conferenceID = uniqueId;
             String userID = doctorId;
@@ -134,8 +134,8 @@ public class PatientCall extends AppCompatActivity{
                     .commitNow();
         } else {
 
-            long appID = 185006614;
-            String appSign = "703d0581169d01181b4e9b1982d3efb4b1961280a54cbc96c7e13bea9eb935b7";
+            long appID = 1158156305;
+            String appSign = "a164ac044c51a0b645ca8a2badf3dd74d9b97596986b88b2363588533985d579";
             String conferenceID = uniqueId;
             String userID = userId;
             String userName = name;

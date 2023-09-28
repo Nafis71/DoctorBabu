@@ -142,6 +142,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         return model.size();
     }
     public void convertXMLtoPDF(){
+        AppCompatActivity activity = (AppCompatActivity) context;
         View view = LayoutInflater.from(context).inflate(R.layout.pdf_layout,null);
         prescriptionRecycler = view.findViewById(R.id.prescriptionRecycler);
         doctorName = view.findViewById(R.id.doctorName);
@@ -202,7 +203,6 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
                             context.getDisplay().getRealMetrics(displayMetrics);
                         }else{
-                            AppCompatActivity activity = (AppCompatActivity) context;
                             activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                         }
                         view.measure(View.MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels,View.MeasureSpec.EXACTLY),
@@ -234,6 +234,13 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                                     .show();
                         }catch (FileNotFoundException e){
                             e.printStackTrace();
+                            CookieBar.build(activity)
+                                    .setTitle("Permission Needed")
+                                    .setMessage("Please Give Storage Permission")
+                                    .setTitleColor(R.color.white)
+                                    .setBackgroundColor(R.color.blue)
+                                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the bottom
+                                    .show();
                         }catch (IOException e){
                             e.printStackTrace();
                         }
