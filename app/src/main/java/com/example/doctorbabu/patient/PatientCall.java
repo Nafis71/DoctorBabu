@@ -25,7 +25,6 @@ public class PatientCall extends AppCompatActivity{
     String uniqueId, userId, doctorId, photoUrl, name, email;
 
     URL url;
-    Thread jitsiThread;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 

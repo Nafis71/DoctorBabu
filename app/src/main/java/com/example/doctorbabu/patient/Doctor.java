@@ -85,13 +85,6 @@ public class Doctor extends Fragment {
     }
 
     public void onStart() {
-        if (!Python.isStarted()) {
-            Python.start(new AndroidPlatform(requireContext()));
-        }
-        Python python = Python.getInstance();
-        PyObject module = python.getModule("predictor");
-        PyObject test = module.callAttr("test_input");
-        Log.w("Python output",test.toString());
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
@@ -144,6 +137,13 @@ public class Doctor extends Fragment {
                 startActivity(intent);
             });
         }
+        binding.identifyDisease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(),IdentifyDisease.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
