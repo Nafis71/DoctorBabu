@@ -190,7 +190,7 @@
                         android:layout_below="@id/diseaseIdentificationBodyText"
                         app:lottie_rawRes="@raw/identifydisease"
                         android:layout_marginBottom="4dp"
-                        app:lottie_loop="true"
+                        app:lottie_loop="false"
                         app:lottie_autoPlay="true"
                         app:lottie_renderMode="hardware"
                         app:lottie_cacheComposition="true"
