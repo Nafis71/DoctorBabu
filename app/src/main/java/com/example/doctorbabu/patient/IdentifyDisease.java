@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
 import com.example.doctorbabu.R;
@@ -26,6 +27,7 @@ public class IdentifyDisease extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityIdentifyDiseaseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.analyze.setVisibility(View.GONE);
         binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
@@ -42,13 +44,26 @@ public class IdentifyDisease extends AppCompatActivity {
         binding.analyze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!Python.isStarted())
-                {
-                    Python.start(new AndroidPlatform(IdentifyDisease.this));
-                }
+                binding.chipGroup.setVisibility(View.GONE);
+                generateResult();
             }
         });
     }
+    public void generateResult(){
+        startPython();
+        Python python = Python.getInstance();
+        PyObject module = python.getModule("predictor");
+        PyObject prediction = module.callAttr("main",symptomsList);
+        Log.w("Python Reply: ",prediction.toString());
+
+    }
+    public void startPython(){
+        if(!Python.isStarted())
+        {
+            Python.start(new AndroidPlatform(IdentifyDisease.this));
+        }
+    }
+
     public void recordSymptoms(List<Integer> checkedIds){
         symptomsList.clear();
         for(int i: checkedIds){
@@ -57,5 +72,9 @@ public class IdentifyDisease extends AppCompatActivity {
             chipText= chipText.replaceAll(" ","_").toLowerCase();
             symptomsList.add(chipText);
         }
+    }
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }
