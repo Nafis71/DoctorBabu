@@ -163,7 +163,14 @@
     <string name="clearAll">Clear All</string>
     <string name="departmentTab">বিভাগসমূহ</string>
     <string name="symptomsTab">লক্ষ্ণণ</string>
-    <string name="identifyDiseaseHeader">রোগ সনাক্ত করুন</string>
+    <string name="identifyDiseaseHeader">আপনার উপসর্গ নির্ণয় করুন</string>
     <string name="identifyDiseaseHeaderBody">আপনার শরীরে কী সমস্যা আছে তা খুঁজে বের করুন</string>
     <string name="check">চেক করুন</string>
+    <string name="termsAndCondition">সেবা পাবার শর্ত</string>
+    <string name="termsBody">এই বৈশিষ্ট্যটি ব্যবহার করার আগে, অনুগ্রহ করে পরিষেবার শর্তাবলী পড়ুন এবং মনে রাখবেন:</string>
+    <string name="termsFirstPoint">এটি শুধুমাত্র আপনার তথ্যের জন্য এবং একটি যোগ্য চিকিৎসা মতামত নয়।</string>
+    <string name="termsSecondPoint">আপনার ডেটা নিরাপদ। আপনার দেওয়া তথ্য শেয়ার করা হবে না বা আপনাকে শনাক্ত করতে ব্যবহার করা হবে না।</string>
+    <string name="firstCheckBoxString">আমি পরিষেবার শর্তাবলী পড়েছি এবং স্বীকার করেছি৷</string>
+    <string name="secondCheckBoxString">আমি আমার স্বাস্থ্য সংক্রান্ত তথ্য ডাক্তারবাবুর দ্বারা ব্যবহার করার জন্য সম্মত</string>
+    <string name="nextButtonText">পরবর্তী</string>
 </resources>

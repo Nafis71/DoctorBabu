@@ -163,9 +163,16 @@
     <string name="clearAll">Clear All</string>
     <string name="departmentTab">Departments</string>
     <string name="symptomsTab">Symptoms</string>
-    <string name="identifyDiseaseHeader">Identify Disease</string>
+    <string name="identifyDiseaseHeader">Diagnose your symptoms</string>
     <string name="identifyDiseaseHeaderBody">Find out what\'s wrong with your body</string>
     <string name="check">Check</string>
+    <string name="termsAndCondition">Terms of Service</string>
+    <string name="termsBody">Before using this feature, please read the Terms of Service and remember:</string>
+    <string name="termsFirstPoint">It’s only for your information and not a qualified medical opinion.</string>
+    <string name="termsSecondPoint">Your data is safe. The information you give won’t be shared or used to identify you.</string>
+    <string name="firstCheckBoxString">I read and accept Terms of Service</string>
+    <string name="secondCheckBoxString">I agree for my health information to be used by Doctor Babu</string>
+    <string name="nextButtonText">Next</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

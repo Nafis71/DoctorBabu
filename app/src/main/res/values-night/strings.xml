@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Doctor Babu</string>
     <string name="custom_dialog_email_verification">Please verify your email address!</string>
@@ -6,12 +5,174 @@
     <string name="custom_dialog_registration_successfull">Registration Successful!</string>
     <string name="custom_dialog_okay_button">Okay</string>
     <string name="nav_home_title">Home</string>
+    <string name="nav_video_consultation_title">Consultation</string>
     <string name="nav_profile_title">Profile</string>
     <string name="nav_history_title">History</string>
-    <!-- Home Fragment Strings. -->
-    <string name ="languageName">English</string>
-    <string name="doctorSearch">Search for a doctor</string>
+    <string name="nav_call">Call Room</string>
+    <!-- Home Fragment Strings -->
+    <string name="languageName">English</string>
+    <string name="doctorSearch">Search doctor by name/doctor code/department</string>
     <string name="bookAppointment">Book Appointment</string>
     <string name="bookAppointmentDescription">Book appointment with MBBS and Specialist Doctors</string>
     <string name="takeConsultancy">Take Consultancy</string>
+    <string name="takeConsultancyDescription">Seek clinical and healthcare advices</string>
+    <string name="medicalReminder">Medicine Reminder</string>
+    <string name="medicalReminderDescription">Set an alarm to take medicine</string>
+    <string name="onlineConsultant">Online Consultant</string>
+    <string name="onlineConsultantDescription">Currently online: 65</string>
+    <string name="medicalReport">Medical Report</string>
+    <string name="medicalReportDescription">Upload your diagonosis report</string>
+    <string name="medicineInformation">Medicine Information</string>
+    <string name="medicineInformationDescription">Learn more about prescribed medicine</string>
+    <string name="appointmentHistory">Appointment History</string>
+    <string name="appointmentHistoryDescription">Appointments Taken: 0</string>
+    <string name="recentlyViewed">Recently Viewed</string>
+    <!-- Home Fragment Strings Ends -->
+    <!-- Home Fragment Bottom Sheet Strings -->
+    <string name="chooseSpecialization">Choose Specialization</string>
+    <string name="generalPhysician">General Physician</string>
+    <string name="gynecology">Gynecology</string>
+    <string name="pediatrics">Pediatrics</string>
+    <string name="dermatology">Dermatology</string>
+    <string name="psychiatry">Psychiatry</string>
+    <string name="cardiology">Cardiology</string>
+    <string name="nutritionDietetic">Nutrition &amp; Dietetic</string>
+    <string name="ophthalmology">Ophthalmology</string>
+    <string name="neurology">Neurology</string>
+    <!-- Home Fragment Bottom Sheet Ends -->
+    <!-- Profile Fragment Strings -->
+    <string name="consultancyTaken">Consultancy Taken</string>
+    <string name="emailVerified">Email Verified</string>
+    <string name="rewardPoint">Reward Points</string>
+    <string name="appointmentDone">Appointment Done</string>
+    <string name="profileInformationMissing">Some profile information is missing!</string>
+    <string name="editProfile">Edit Profile</string>
+    <string name="medicalInformation">Medical Info</string>
+    <string name="allergyHistory">Allergy History</string>
+    <string name="patientInformation">Patient Info</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="address">Full Address</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="height">Height (CM)</string>
+    <string name="weight">Weight (KG)</string>
+    <string name="drug">Drug</string>
+    <string name="cloth">Cloth</string>
+    <string name="dust">Dust</string>
+    <string name="food">Food</string>
+    <string name="confirm">Confirm</string>
+    <string name="pastMedicalHistory">Past Medical History</string>
+    <string name="bloodGroup">Blood Group</string>
+    <string name="aPositive">A+</string>
+    <string name="aNegative">A-</string>
+    <string name="abPositive">Ab+</string>
+    <string name="abNegative">Ab-</string>
+    <string name="oPositive">O+</string>
+    <string name="oNegative">O-</string>
+    <string name="bPositive">B+</string>
+    <string name="bNegative">B-</string>
+    <string name="asthma">Asthma</string>
+    <string name="diabetics">Diabetics</string>
+    <string name="cancer">Cancer</string>
+    <string name="heartDisease">Heart Disease</string>
+    <string name="highBp">High BP</string>
+    <string name="migraine">Migraine</string>
+    <string name="stroke">Stroke</string>
+    <string name="ulcer">Ulcer</string>
+    <string name="bmi">Body Mass Index (BMI)</string>
+    <string name="addressNotSet">Address is not set</string>
+    <string name="noInfoFound">No information found</string>
+    <!-- Profile Fragment Strings End -->
+    <!-- Edit Profile Strings -->
+    <string name="fullName">Full Name</string>
+    <string name="birthDate">Birth Date</string>
+    <string name="genderEditProfile">Gender :</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="update">Update</string>
+    <string name="district">District</string>
+    <string name="area">Area</string>
+    <!-- Edit Profile Strings End -->
+    <!-- SignUp and signIn Strings -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="signup">Sign UP</string>
+    <string name="signUp">Sign up</string>
+    <string name="signInText">Already have an account? Sign in</string>
+    <string name="signUpQuote">One step closer to a healthy life</string>
+    <string name="signInText1">Hello there</string>
+    <string name="signInText2">Let\'s get you logged in</string>
+    <string name="signInText3">Sign in to continue</string>
+    <string name="forgetPassword">Forget Password?</string>
+    <string name="signIn">Sign In</string>
+    <string name="signin">New User? Sign Up</string>
+    <string name="treatsomepatient">Let\'s treat some patients</string>
+    <string name="en">EN</string>
+    <string name="bn">BN</string>
+    <!-- SignUp and signIn Strings Ends-->
+    <!-- Doctor Signup signIn Strings -->
+    <string name="title">Title</string>
+    <string name="doctorType">Doctor Type</string>
+    <string name="registrationNumber">Registration Number (BMDC)</string>
+    <string name="nid">National Identity Card (NID)</string>
+    <string name="doctorSignupQuote">Providing Good Health to People Is Our Duty</string>
+    <string name="ChoosedepartmentSymptoms">Choose a department or Symptoms</string>
+    <string name="clinicalAreas">Find your doctor from 10+ clinical areas</string>
+    <string name="fever">Fever or Cold</string>
+    <string name="weightlossgain">Weight Loss/Gain</string>
+    <string name="skindiseases">Skin Diseases</string>
+    <string name="abdominalpain">Abdominal Pain</string>
+    <string name="acidity">Acidity</string>
+    <string name="headacheMigrane">Headache or Migrane</string>
+    <string name="childdisease">Child Diseases</string>
+    <string name="stressdepression">Stress/Depression</string>
+    <string name="pregnancyComplications">Pregnancy Complications</string>
+    <string name="availabledoctors">Available Doctors</string>
+    <string name="onlineStatus">Online</string>
+    <string name="takeInstantConsultancy">Take instant consultancy from available doctors</string>
+    <string name="viewAll">View All</string>
+    <string name="chooseSpecialty">Choose Your Specialty</string>
+    <string name="gynecologist">Gynecologist</string>
+    <string name="paediatrician">Paediatrician</string>
+    <string name="dermatologist">Dermatologist</string>
+    <string name="psychiatrist">Psychiatrist</string>
+    <string name="neurologist">Neurologist</string>
+    <string name="ophthalmologist">Ophthalmologist</string>
+    <string name="nutritionist">Nutritionist</string>
+    <string name="cardiologist">Cardiologist</string>
+    <string name="chooseDegree">Choose Your Degree</string>
+    <string name="mbbs">MBBS</string>
+    <string name="bmbs">BMBS</string>
+    <string name="mbchc">MBChC</string>
+    <string name="mbbch">MBBCh</string>
+    <string name="md">MD</string>
+    <string name="DO">DO</string>
+    <string name="ds">DS</string>
+    <string name="bcs">BCS (Health)</string>
+    <string name="totalRating">Total Rating</string>
+    <string name="totalexperience">Total Experience</string>
+    <string name="instantVideoCall">Instant Video Call</string>
+    <string name="bmdcNumber">BMDC Number</string>
+    <string name="seeDoctorNow">Video Consultation</string>
+    <string name="consultationFee">Consultation Fee</string>
+    <string name="profile">Profile</string>
+    <string name="overview">Overview</string>
+    <string name="tellusaboutyourself">Tell us about yourself</string>
+    <string name="writesomethingaboutyou">Write something about you</string>
+    <string name="clearAll">Clear All</string>
+    <string name="departmentTab">Departments</string>
+    <string name="symptomsTab">Symptoms</string>
+    <string name="identifyDiseaseHeader">Diagnose your symptoms</string>
+    <string name="identifyDiseaseHeaderBody">Find out what\'s wrong with your body</string>
+    <string name="check">Check</string>
+    <string name="termsAndCondition">Terms of Service</string>
+    <string name="termsBody">Before using this feature, please read the Terms of Service and remember:</string>
+    <string name="termsFirstPoint">It’s only for your information and not a qualified medical opinion.</string>
+    <string name="termsSecondPoint">Your data is safe. The information you give won’t be shared or used to identify you.</string>
+    <string name="firstCheckBoxString">I read and accept Terms of Service</string>
+    <string name="secondCheckBoxString">I agree for my health information to be used by Doctor Babu</string>
+    <string name="nextButtonText">Next</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
 </resources>

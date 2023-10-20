@@ -230,7 +230,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                                     .setMessage("Prescription Downloaded Successfuly")
                                     .setTitleColor(R.color.white)
                                     .setBackgroundColor(R.color.blue)
-                                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the bottom
+                                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
                                     .show();
                         }catch (FileNotFoundException e){
                             e.printStackTrace();
@@ -239,7 +239,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                                     .setMessage("Please Give Storage Permission")
                                     .setTitleColor(R.color.white)
                                     .setBackgroundColor(R.color.blue)
-                                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the bottom
+                                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
                                     .show();
                         }catch (IOException e){
                             e.printStackTrace();

@@ -19,6 +19,7 @@
     <application
         android:allowBackup="true"
         android:alwaysRetainTaskState="true"
+        android:windowSoftInputMode="adjustResize"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
@@ -28,6 +29,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".patient.DiagnosisTerms"
+            android:exported="false" />
+        <activity
+            android:name=".patient.diagnosisTerms"
+            android:exported="false" />
         <activity
             android:name=".patient.IdentifyDisease"
             android:exported="false" />

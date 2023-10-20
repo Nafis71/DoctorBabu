@@ -140,7 +140,7 @@ public class Doctor extends Fragment {
         binding.identifyDisease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(requireActivity(),IdentifyDisease.class);
+                Intent intent = new Intent(requireActivity(),DiagnosisTerms.class);
                 startActivity(intent);
             }
         });

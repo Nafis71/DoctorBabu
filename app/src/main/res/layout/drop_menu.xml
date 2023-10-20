@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    android:padding="5dp"
+    android:padding="10dp"
+    android:textColor="@color/black"
+    android:fontFamily="@font/roboto"
+    android:textSize="15sp"
     android:text="Sample">
 
 </TextView>

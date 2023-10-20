@@ -4,470 +4,239 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:padding="3sp"
     tools:context=".patient.IdentifyDisease">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
         android:fontFamily="@font/roboto"
-        android:padding="8dp"
         android:shadowColor="@color/black"
         android:shadowRadius="0.5"
-        android:text="Choose Symptoms"
-        android:textColor="#4E5EDE"
+        android:text="Diagnose"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold"
-        >
+        android:textStyle="bold" />
 
-    </TextView>
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/headerText2"
-        android:layout_below="@id/headerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="3sp"
+        android:layout_marginTop="10sp"
+        android:layout_toEndOf="@+id/headerText"
         android:fontFamily="@font/roboto"
-        android:padding="8dp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Symptoms"
+        android:textColor="#4E5EDE"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/headerText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerText"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10sp"
+        android:fontFamily="@font/roboto"
         android:text="Please Choose atleast 4 symptoms from below"
         android:textSize="14sp"
-        android:textStyle="bold"
-        >
+        android:textStyle="bold">
 
     </TextView>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:layout_below="@+id/headerText2"
-        >
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:lottie_rawRes="@raw/loadinganim"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_cacheComposition="true"
+        app:lottie_renderMode="hardware">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup"
+    </com.airbnb.lottie.LottieAnimationView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/loadingTextCard"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_below="@+id/loadingAnimation"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="20sp"
+        android:animateLayoutChanges="true"
+        app:cardBackgroundColor="#EDF6FD"
+        android:visibility="gone"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp">
+            android:layout_height="match_parent"
+            android:padding="5sp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/cold_hands_and_feets"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Cold Hands and Feets"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+            <ImageView
+                android:id="@+id/loadinginfoImage"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8sp"
+                android:src="@drawable/info">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/loss_of_balance"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Loss of balance"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+            </ImageView>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/irritability"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Irritability"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5sp"
+                android:layout_toEndOf="@+id/loadinginfoImage"
+                android:fontFamily="@font/roboto"
+                android:text="Please wait while we try to identify the disease"
+                android:textColor="@color/black"
+                android:textSize="14.5sp"
+                android:textStyle="normal">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/restlessness"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Restlessness"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+            </TextView>
+        </RelativeLayout>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/loss_of_appetite"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Loss of appetite"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+    </com.google.android.material.card.MaterialCardView>
+    <ImageView
+        android:id="@+id/symptomsImage"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_below="@id/headerText3"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/symptoms">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/high_fever"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="High fever"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/mild_fever"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Mild fever"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chills"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Chills"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+    </ImageView>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/continuous_feel_of_urine"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Continuous feel of urine"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/symptomsLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/symptomsImage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-10sp"
+        android:layout_marginEnd="20sp"
+        android:hint="Search, e.g- Neck Pain"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        app:boxStrokeWidth="1dp"
+        app:hintAnimationEnabled="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/hip_joint_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Hip joint pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+        <AutoCompleteTextView
+            android:id="@+id/symptoms"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="7sp"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chest_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Chest Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/symptomsLayout"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:animateLayoutChanges="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/abdominal_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Abdominal pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+    </com.google.android.material.chip.ChipGroup>
+    <ScrollView
+        android:id="@+id/infoCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chipGroup"
+        >
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/breathlessness"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Breathlessness"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginEnd="20sp"
+            android:animateLayoutChanges="true"
+            app:cardBackgroundColor="#EDF6FD"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/acidity"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Acidity"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5sp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/nodal_skin_eruptions"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Nodal skin eruption"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+                <ImageView
+                    android:id="@+id/infoImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8sp"
+                    android:src="@drawable/info">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/neck_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Neck Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+                </ImageView>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/joint_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Joint Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5sp"
+                    android:layout_toEndOf="@+id/infoImage"
+                    android:fontFamily="@font/roboto"
+                    android:text="Please try to add more symptoms"
+                    android:textColor="@color/black"
+                    android:textSize="14.5sp"
+                    android:textStyle="normal">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/knee_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Knee Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
+                </TextView>
+            </RelativeLayout>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/muscle_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Muscle Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/headache"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Headache"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/bladder_discomfort"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Bladder Discomfort"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/weight_gain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Weight Gain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/red_sore_around_nose"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Red Sore Around Nose"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/anxiety"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Anxiety"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/dehydration"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Dehydration"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/fast_heart_rate"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Fast Heart Rate"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/blackheads"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Blackheads"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/belly_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Belly Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/stiff_neck"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Stiff Neck"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/back_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Back Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/stomach_pain"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Stomach Pain"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/cough"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Cough"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/vomiting"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Vomiting"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/depression"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Depression"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/continuous_sneezing"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Continuous Sneezing"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/loss_of_smell"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Loss Of Smell"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/throat_irritation"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Throat Irritation"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/skin_rash"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Skin Rash"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/dizziness"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Dizziness"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/blurred_and_distorted_vision"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Blurred And Distorted Vision"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-            <com.google.android.material.chip.Chip
-                android:id="@+id/fatigue"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkable="true"
-                android:text="Fatigue"
-                app:checkedIcon="@drawable/check"
-                app:checkedIconEnabled="true" />
-
-        </com.google.android.material.chip.ChipGroup>
+        </com.google.android.material.card.MaterialCardView>
 
 
-    </LinearLayout>
+    </RelativeLayout>
+
     </ScrollView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/analyze"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="28sp"
+        android:layout_marginBottom="10sp"
         android:background="@drawable/custom_button_back"
-        android:fontFamily="@font/roboto_medium"
-        android:onClick="edit"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
         android:text="Analyze"
+        android:textAllCaps="false"
         android:textColor="@color/white"
+        android:textSize="17sp"
         android:textStyle="bold"
-        app:backgroundTint="#2C3E50  "
+        app:backgroundTint="#3C4DD8"
         app:cornerRadius="12dp"
         app:elevation="500dp"
         app:strokeColor="@color/white"
         tools:ignore="NotSibling" />
-
-
 </RelativeLayout>

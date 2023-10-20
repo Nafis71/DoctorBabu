@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context=".patient.DiagnosisTerms">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Diagnose"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/headerText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/headerText"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Symptoms"
+        android:textColor="#4E5EDE"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/consentImage"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_below="@+id/headerText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/terms">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/termsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/consentImage"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/termsAndCondition"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/termsbody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/termsHeader"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto"
+        android:justificationMode="inter_word"
+        android:text="@string/termsBody"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="normal">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/termsPointBulletOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/termsbody"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="\u2022"
+        android:textColor="@color/black"
+        android:textSize="20.5sp"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/termsPointOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/termsbody"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toRightOf="@+id/termsPointBulletOne"
+        android:fontFamily="@font/roboto"
+        android:justificationMode="inter_word"
+        android:text="@string/termsFirstPoint"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        tools:ignore="RtlHardcoded">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/termsPointBulletTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/termsPointOne"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="\u2022"
+        android:textColor="@color/black"
+        android:textSize="20.5sp"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/termsPointTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/termsPointOne"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toRightOf="@+id/termsPointBulletTwo"
+        android:fontFamily="@font/roboto"
+        android:gravity="bottom|start"
+        android:justificationMode="inter_word"
+        android:text="@string/termsSecondPoint"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="normal">
+
+    </TextView>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/firstCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/termsPointBulletTwo"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/firstCheckBoxString"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:checkedState="unchecked">
+
+    </com.google.android.material.checkbox.MaterialCheckBox>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/secondCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstCheckBox"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="-15dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto"
+        android:justificationMode="inter_word"
+        android:text="@string/secondCheckBoxString"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:checkedState="unchecked">
+
+    </com.google.android.material.checkbox.MaterialCheckBox>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="@string/nextButtonText"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:backgroundTint="#3C4DD8"
+        app:cornerRadius="12dp"
+        app:elevation="500dp"
+        app:strokeColor="@color/white"
+        tools:ignore="NotSibling" />
+
+</RelativeLayout>
