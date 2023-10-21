@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec2ee961-45a3-4132-896a-38eea9addda8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/predictedDisease.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/diseaseEncoder.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../res/drawable/diseaseinfo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../res/layout/activity_predicted_disease.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../res/raw/disease.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/call.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/peerjs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../assets/style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/IdentifyDisease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/IdentifyDisease.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diseaseSymptomsData.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/diseaseSymptomsData.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/models.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictor.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../res/layout/activity_identify_disease.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/layout/activity_identify_disease.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,13 +39,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Python Projects/disease predictions"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

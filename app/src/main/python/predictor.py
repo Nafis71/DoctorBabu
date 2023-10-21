@@ -1,17 +1,14 @@
 import pandas as pd
 import joblib
 from os.path import dirname, join
-# importwarnings
 import numpy as np
 
-# warnings.filterwarnings("ignore")
 from collections import Counter
 from os.path import dirname, join
 
 
 def main(givenDisease):
-    diseases = np.array(givenDisease)
-    return test_input(diseases)
+    return test_input(givenDisease)
 
 
 def test_input(givenDisease):
@@ -32,31 +29,20 @@ def test_input(givenDisease):
             test_col.append(col)
 
     test_data = {}
-    symptoms = ["itching", "skin_rash", "nodal_skin_eruptions", "dischromic_patches"]
     predicted = []
     global test_df, res
     predicted.clear()
-#     symptoms.append("high_fever")
-#     symptoms.append("chills")
-#     symptoms.append("mild_fever")
-    #     num_inputs = int(input("Enter the number of symptoms you have: "))
-    #     for i in range(num_inputs):
-    #         user_input = input("Enter Symptoms #{}: ".format(i + 1))
-    #         symptoms.append(user_input)
-    #     symptoms = np.loadtxt("testfile.csv",
-    #                      delimiter=",", dtype=str)
-
     for column in test_col:
-        test_data[column] = 1 if column in symptoms else 0
+        test_data[column] = 1 if column in givenDisease else 0
         test_df = pd.DataFrame(test_data, index=[0])
     tempModels = joblib.load(models)
-    for j in range(4):
+    for j in range(5):
         model = tempModels[j]
         predict_disease = model.predict(test_df.values)
         predict_disease = le.inverse_transform(predict_disease)
         predicted.extend(predict_disease)
     disease_counts = Counter(predicted)
-    percentage_per_disease = {disease: (count / 4) * 100 for disease, count in disease_counts.items()}
+    percentage_per_disease = {disease: (count / 5) * 100 for disease, count in disease_counts.items()}
     diseaseKey = list(percentage_per_disease.keys())
     result = ""
     for i in range(len(diseaseKey)):
@@ -65,20 +51,3 @@ def test_input(givenDisease):
             break
 
     return result
-
-
-def predictDisease(model, le):
-    predict_disease = model.predict(test_df.values)
-    return le.inverse_transform(predict_disease)
-    #
-    # # result_df = pd.DataFrame({"Disease": list(percentage_per_disease.keys()),
-    # #                           "Chances": list(percentage_per_disease.values())})
-    # # result_df = pd.DataFrame({"Disease": list(percentage_per_disease.keys())})
-    # result = result_df.to_numpy()
-    # # print(result)
-    # # result = result.tolist()
-    # # result = result[0]
-    # # txt = ""
-    # # for x in result:
-    # #     txt += x
-    # # return txt

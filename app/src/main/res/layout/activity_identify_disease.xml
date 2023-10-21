@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="3sp"
+    android:padding="10sp"
     tools:context=".patient.IdentifyDisease">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -115,8 +115,8 @@
     </com.google.android.material.card.MaterialCardView>
     <ImageView
         android:id="@+id/symptomsImage"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="280sp"
+        android:layout_height="280sp"
         android:layout_below="@id/headerText3"
         android:layout_centerHorizontal="true"
         android:src="@drawable/symptoms">

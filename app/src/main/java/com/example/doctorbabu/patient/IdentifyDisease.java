@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -28,7 +29,9 @@ import com.google.android.material.chip.ChipGroup;
 import org.aviran.cookiebar2.CookieBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -38,7 +41,9 @@ public class IdentifyDisease extends AppCompatActivity {
     ActivityIdentifyDiseaseBinding binding;
     ArrayList<String> symptomsList = new ArrayList<>();
     ArrayList<String> transformedSymptomsList = new ArrayList<>();
-    ExecutorService backgroundExecutor;
+    ExecutorService backgroundExecutor,scriptExecutor;
+    boolean isDone;
+    String predictedResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class IdentifyDisease extends AppCompatActivity {
         leftAnimation = AnimationUtils.loadAnimation(this,R.anim.left_animation);
         fadein = AnimationUtils.loadAnimation(this,R.anim.fadein);
         backgroundExecutor = Executors.newSingleThreadExecutor();
+        scriptExecutor = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -60,7 +66,9 @@ public class IdentifyDisease extends AppCompatActivity {
     }
     public void setSymptomsAdapter(){
         binding.symptoms.setThreshold(3);
-        String namesOfSymptoms[] = new String[]{"Neck Pain","Knee Pain","Headache"};
+        String dataset = "cold_hands_and_feets\tirritability\trestlessness\tloss_of_balance\tloss_of_appetite\tcontinuous_feel_of_urine\textra_marital_contacts\thip_joint_pain\tbreathlessness\tpain_during_bowel_movements\tnodal_skin_eruptions\tulcers_on_tongue\tphlegm\tspinning_movements\tabdominal_pain\thigh_fever\tred_sore_around_nose\tacidity\tneck_pain\tbladder_discomfort\tswollen_blood_vessels\tscurring\tyellow_crust_ooze\tbruising\tweakness_of_one_body_side\tdehydration\tjoint_pain\tredness_of_eyes\tindigestion\tsmall_dents_in_nails\tobesity\tknee_pain\tfast_heart_rate\tbrittle_nails\tswollen_extremeties\tmuscle_pain\ttoxic_look_(typhos)\tchest_pain\tstomach_bleeding\tstiff_neck\tsinus_pressure\tirritation_in_anus\tblackheads\tblister\tirregular_sugar_level\tlack_of_concentration\tyellow_urine\tbelly_pain\tNaN\tdischromic _patches\tacute_liver_failure\tstomach_pain\tabnormal_menstruation\tcontinuous_sneezing\tbloody_stool\tvomiting\tconstipation\tpalpitations\tyellowish_skin\tred_spots_over_body\tburning_micturition\tcough\tnausea\tspotting_ urination\tdepression\tskin_peeling\tmucoid_sputum\tfamily_history\tinternal_itching\tpatches_in_throat\tblood_in_sputum\tshivering\tprominent_veins_on_calf\tincreased_appetite\tanxiety\theadache\tsunken_eyes\tyellowing_of_eyes\trusty_sputum\tpolyuria\tswelling_of_stomach\tdrying_and_tingling_lips\tfoul_smell_of urine\tweakness_in_limbs\tchills\tmalaise\tpain_in_anal_region\tpassage_of_gases\tsilver_like_dusting\treceiving_blood_transfusion\tweight_gain\trunny_nose\tloss_of_smell\tlethargy\tswelling_joints\tpuffy_face_and_eyes\tskin_rash\tdizziness\tfatigue\tdark_urine\tthroat_irritation\tswelled_lymph_nodes\treceiving_unsterile_injections\tmuscle_weakness\tswollen_legs\tcramps\titching\tmood_swings\tslurred_speech\tback_pain\thistory_of_alcohol_consumption\tdiarrhoea\taltered_sensorium\tinflammatory_nails\tmild_fever\twatering_from_eyes\tblurred_and_distorted_vision\tdistention_of_abdomen\tvisual_disturbances\tpain_behind_the_eyes\tfluid_overload\tweight_loss\tunsteadiness\tpus_filled_pimples\tenlarged_thyroid\tcongestion\tcoma\tmuscle_wasting\texcessive_hunger\tpainful_walking\tmovement_stiffness\tsweating";
+        dataset = dataset.replaceAll("_"," ").toUpperCase(Locale.ROOT);
+        String[] namesOfSymptoms = dataset.split("\t");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(IdentifyDisease.this, R.layout.drop_menu, namesOfSymptoms);
         binding.symptoms.setAdapter(adapter);
         binding.symptoms.setOnClickListener(new View.OnClickListener() {
@@ -72,26 +80,24 @@ public class IdentifyDisease extends AppCompatActivity {
         setSymptomsTextWatcher();
     }
     public void setSymptomsTextWatcher(){
-       binding.symptoms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               String chipName = binding.symptoms.getText().toString().trim();
-               if(!symptomsList.contains(chipName))
-               {
-                   symptomsList.add(chipName);
-                   binding.symptoms.setText(null);
-                   symptomsChipMaker(chipName);
-               } else {
-                   CookieBar.build(IdentifyDisease.this)
-                           .setTitle("Duplicate Input")
-                           .setMessage("Given symptom is already added!")
-                           .setSwipeToDismiss(true)
-                           .setDuration(3000)
-                           .setTitleColor(R.color.white)
-                           .setBackgroundColor(R.color.blue)
-                           .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
-                           .show();
-               }
+       binding.symptoms.setOnItemClickListener((adapterView, view, i, l) -> {
+           String chipName = binding.symptoms.getText().toString().trim();
+           if(!symptomsList.contains(chipName))
+           {
+               symptomsList.add(chipName);
+               Log.w("SymptomsList:", symptomsList.toString());
+               binding.symptoms.setText(null);
+               symptomsChipMaker(chipName);
+           } else {
+               CookieBar.build(IdentifyDisease.this)
+                       .setTitle("Duplicate Input")
+                       .setMessage("Given symptom is already added!")
+                       .setSwipeToDismiss(true)
+                       .setDuration(3000)
+                       .setTitleColor(R.color.white)
+                       .setBackgroundColor(R.color.blue)
+                       .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+                       .show();
            }
        });
     }
@@ -102,15 +108,13 @@ public class IdentifyDisease extends AppCompatActivity {
         chip.setText(chipName);
         chip.setId(random.nextInt());
         chip.setHeight(80);
+        chip.setClickable(false);
         binding.chipGroup.addView(chip);
-        chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    binding.chipGroup.removeView(chip);
-                    symptomsList.remove(chip.getText().toString());
-                    hideAndShowAnalyzeButton();
-                }
-            });
+        chip.setOnCloseIconClickListener(view -> {
+            binding.chipGroup.removeView(chip);
+            symptomsList.remove(chip.getText().toString());
+            hideAndShowAnalyzeButton();
+        });
         hideAndShowAnalyzeButton();
     }
     public void hideAndShowAnalyzeButton(){
@@ -152,11 +156,32 @@ public class IdentifyDisease extends AppCompatActivity {
     }
 
     public void generateResult(){
-        startPython();
-        Python python = Python.getInstance();
-        PyObject module = python.getModule("predictor");
-        PyObject prediction = module.callAttr("main",symptomsList);
-        Log.w("Python Reply: ",prediction.toString());
+        backgroundExecutor.shutdown();
+        scriptExecutor.execute(() -> {
+            String[] symptomsArrayList = transformedSymptomsList.toArray(new String[transformedSymptomsList.size()]);
+            Log.w("ArrayList:", Arrays.toString(symptomsArrayList));
+            startPython();
+            Python python = Python.getInstance();
+            PyObject module = python.getModule("predictor");
+            PyObject prediction = module.callAttr("main", (Object) symptomsArrayList);
+            Log.w("Python Reply: ",prediction.toString());
+            if(prediction.toString().equals(""))
+            {
+                predictedResult = "No Result";
+            } else{
+                predictedResult = prediction.toString();
+            }
+            runOnUiThread(() -> {
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    Intent intent = new Intent(IdentifyDisease.this,predictedDisease.class);
+                    intent.putExtra("predictedDisease",predictedResult);
+                    startActivity(intent);
+                    finish();
+                },2000);
+            });
+
+        });
 
     }
     public void startPython(){
@@ -171,9 +196,17 @@ public class IdentifyDisease extends AppCompatActivity {
             transformedSymptomsList.add(symptom.replaceAll(" ","_").toLowerCase());
         }
 
+        generateResult();
+
     }
     @Override
     public void onBackPressed(){
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        scriptExecutor.shutdown();
     }
 }

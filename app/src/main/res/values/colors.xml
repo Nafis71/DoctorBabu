@@ -4,6 +4,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name = "blue">#4F5FDE</color>
+    <color name = "dark_red">#C0392B</color>
     <color name="white">#FFFFFFFF</color>
     <color name ="black_shade_1">#FF000000</color>
     <color name ="green_shade_1">#28B463</color>
