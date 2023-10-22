@@ -1,6 +1,7 @@
 package com.example.doctorbabu;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,27 +12,31 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.chaquo.python.PyObject;
-import com.chaquo.python.Python;
-import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 
 @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 public class MainActivity extends AppCompatActivity {
     public static int SplashScreen = 3500;
+    private final int REQUEST_CODE_BATTERY_OPTIMIZATIONS = 1;
     Animation fadein, bottomanim;
     ImageView image;
     TextView text1, text2;
@@ -48,6 +53,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        checkForBatteryOptimizations();
+                    } else {
+                        loadNext();
+                    }
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         image.setAnimation(fadein);
         text1.setAnimation(bottomanim);
         text2.setAnimation(bottomanim);
-        loadNext();
+        checkForBatteryOptimizations();
 
     }
 
@@ -102,4 +120,39 @@ public class MainActivity extends AppCompatActivity {
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
+
+    private void checkForBatteryOptimizations() {
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
+            MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(MainActivity.this);
+            dialog.setTitle("Warning").setIcon(R.drawable.warning)
+                    .setMessage("Battery optimization is enabled. It can interrupt running background services.")
+                    .setPositiveButton("Disable", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+//                            startActivityForResult(intent,REQUEST_CODE_BATTERY_OPTIMIZATIONS);
+                            activityResultLauncher.launch(intent);
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            loadNext();
+                        }
+                    }).setCancelable(false);
+            dialog.create().show();
+        } else {
+            loadNext();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == REQUEST_CODE_BATTERY_OPTIMIZATIONS) {
+            checkForBatteryOptimizations();
+        }
+    }
+
+
 }
