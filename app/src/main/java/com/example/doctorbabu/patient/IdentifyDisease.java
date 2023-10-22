@@ -118,7 +118,7 @@ public class IdentifyDisease extends AppCompatActivity {
         hideAndShowAnalyzeButton();
     }
     public void hideAndShowAnalyzeButton(){
-        if(symptomsList.size() >= 3){
+        if(symptomsList.size() >= 4){
             binding.analyze.setVisibility(View.VISIBLE);;
             binding.infoCard.setVisibility(View.GONE);
         } else if(symptomsList.size() == 0){
@@ -208,5 +208,6 @@ public class IdentifyDisease extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         scriptExecutor.shutdown();
+        binding = null;
     }
 }

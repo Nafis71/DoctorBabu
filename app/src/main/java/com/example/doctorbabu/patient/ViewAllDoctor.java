@@ -3,7 +3,6 @@ package com.example.doctorbabu.patient;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -29,6 +28,7 @@ public class ViewAllDoctor extends AppCompatActivity {
     ArrayList<doctorInfoModel> doctors = new ArrayList<>();
     ExecutorService allDoctorLoadExecutor;
     ActivityViewAllDoctorBinding binding;
+    String specialist = null;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
@@ -40,22 +40,25 @@ public class ViewAllDoctor extends AppCompatActivity {
         adapter = new viewAllDoctorAdapter(this, doctors);
         binding.doctorRecyclerView.setAdapter(adapter);
         allDoctorLoadExecutor = Executors.newSingleThreadExecutor();
-        allDoctorLoadExecutor.execute(this::loadAll);
+        allDoctorLoadExecutor.execute(this::loadData);
         binding.back.setOnClickListener(view -> {
+            specialist = null;
             finish();
         });
+        specialist = getIntent().getStringExtra("specialist");
+
     }
 
     protected void onStart() {
         super.onStart();
-       binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
            @Override
            public void onRefresh() {
                Handler handler = new Handler();
                handler.postDelayed(new Runnable() {
                    @Override
                    public void run() {
-                       loadAll();
+                       loadData();
                        binding.swipe.setRefreshing(false);
                    }
                },1000);
@@ -64,10 +67,19 @@ public class ViewAllDoctor extends AppCompatActivity {
        });
     }
 
-    public void loadAll() {
+    public void loadData() {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.doctorRecyclerView.showShimmer();
-        DatabaseReference loadAllDataReference = database.getReference("doctorInfo");
+        DatabaseReference reference = database.getReference("doctorInfo");
+        if(specialist == null){
+            loadAllDoctor(reference);
+        } else {
+            loadSpecificSpecialistDoctor(reference);
+        }
+
+
+    }
+    protected void loadAllDoctor(DatabaseReference loadAllDataReference){
         loadAllDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -89,6 +101,33 @@ public class ViewAllDoctor extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+    protected void loadSpecificSpecialistDoctor(DatabaseReference specificSpecialistReference){
+        specificSpecialistReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                doctors.clear();
+                if(snapshot.exists()){
+                    binding.doctorCount.setText(String.valueOf(snapshot.getChildrenCount()));
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        doctorInfoModel model = snap.getValue(doctorInfoModel.class);
+                        assert model != null;
+                        if(model.getSpecialty().contains(specialist))
+                        {
+                            doctors.add(model);
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                    binding.doctorRecyclerView.hideShimmer();
+                    binding.progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
     protected void onResume(){
@@ -105,6 +144,7 @@ public class ViewAllDoctor extends AppCompatActivity {
     }
 
     public void onBackPressed() {
+        specialist = null;
         finish();
     }
 }
