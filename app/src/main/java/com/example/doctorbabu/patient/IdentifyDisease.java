@@ -37,6 +37,7 @@ public class IdentifyDisease extends AppCompatActivity {
     ArrayList<String> transformedSymptomsList = new ArrayList<>();
     ExecutorService backgroundExecutor, scriptExecutor;
     String predictedResult;
+    boolean isWarningCardShown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,13 +107,19 @@ public class IdentifyDisease extends AppCompatActivity {
         if (symptomsList.size() >= 4) {
             binding.analyze.setVisibility(View.VISIBLE);
             binding.infoCard.setVisibility(View.GONE);
+            isWarningCardShown = false;
         } else if (symptomsList.size() == 0) {
             binding.analyze.setVisibility(View.INVISIBLE);
             binding.infoCard.setVisibility(View.GONE);
+            isWarningCardShown = false;
         } else {
-            binding.analyze.setVisibility(View.INVISIBLE);
-            binding.infoCard.setVisibility(View.VISIBLE);
-            binding.infoCard.setAnimation(leftAnimation);
+            if(!isWarningCardShown){
+                binding.analyze.setVisibility(View.INVISIBLE);
+                binding.infoCard.setVisibility(View.VISIBLE);
+                binding.infoCard.setAnimation(leftAnimation);
+                isWarningCardShown = true;
+            }
+
         }
     }
 
