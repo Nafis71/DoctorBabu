@@ -42,26 +42,6 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         this.userId = userId;
     }
 
-    public static Bitmap eraseColor(Bitmap src, int color) {
-        int width = src.getWidth();
-        int height = src.getHeight();
-        Bitmap b = src.copy(Bitmap.Config.ARGB_8888, true);
-        b.setHasAlpha(true);
-
-        int[] pixels = new int[width * height];
-        src.getPixels(pixels, 0, width, 0, 0, width, height);
-
-        for (int i = 0; i < width * height; i++) {
-            if (pixels[i] == color) {
-                pixels[i] = 0;
-            }
-        }
-
-        b.setPixels(pixels, 0, width, 0, 0, width, height);
-
-        return b;
-    }
-
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -113,7 +93,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
                 public void onComplete(@NonNull Task<Void> task) {
                     AppCompatActivity activity = (AppCompatActivity) context;
                     activity.getSupportFragmentManager().beginTransaction().addToBackStack("doctorProfile")
-                            .replace(R.id.container, new DoctorInfo(dbModel.getDoctorId(), dbModel.getFullName(), dbModel.getTitle(), dbModel.getDegrees(), dbModel.getSpecialty(), holder.currentlyWorking.getText().toString(), dbModel.getPhotoUrl(), dbModel.getRating(), dbModel.getBmdc())).commit();
+                            .replace(R.id.container, new DoctorInfo(dbModel)).commit();
                 }
             });
 

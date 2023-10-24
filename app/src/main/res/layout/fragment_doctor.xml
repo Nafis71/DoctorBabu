@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5sp"
     android:background="#ffff"
     tools:context=".patient.Doctor">
 
@@ -203,10 +204,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginStart="160dp"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="40dp"
-                        android:layout_toEndOf="@id/diseaseIdentificationAnimation"
                         android:layout_below="@+id/diseaseIdentificationBodyText"
                         android:shadowColor="@color/black_shade_1"
                         android:text="@string/check"
@@ -362,7 +361,7 @@
 
                 <TextView
                     android:id="@+id/doctorText2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/doctorText"
                     android:layout_marginStart="10dp"
@@ -377,9 +376,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="38dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/doctorText2"
+                    android:layout_marginEnd="10sp"
                     android:shadowColor="@color/black_shade_1"
                     android:text="@string/viewAll"
                     android:textColor="#4F5FDE"

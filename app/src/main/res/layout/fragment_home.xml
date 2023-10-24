@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F9F9 "
     android:orientation="vertical"
+    android:padding="5sp"
     tools:context=".patient.Home">
 
     <RelativeLayout
@@ -14,7 +15,7 @@
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
         android:background="#ffff"
-        android:elevation="2dp">
+        android:elevation="0dp">
 
         <ImageView
             android:id="@+id/doctorBabuLogo"
@@ -61,8 +62,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="260dp"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20sp"
             android:visibility="invisible"
             app:layout_constraintDimensionRatio="1:1"
             app:shapeAppearanceOverlay="@style/circular"
@@ -95,53 +96,25 @@
 
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/searchCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="4dp"
-        android:visibility="visible"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="10dp">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:inputType="textPersonName"
-            android:theme="@style/AppSearchView"
-            android:visibility="visible"
-            app:closeIcon="@drawable/close"
-            app:defaultQueryHint="@string/doctorSearch"
-            app:iconifiedByDefault="false">
-
-        </androidx.appcompat.widget.SearchView>
-    </androidx.cardview.widget.CardView>
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             >
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/sliderCard"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:padding="20dp"
-                app:cardCornerRadius="5dp"
+                android:layout_marginStart="5sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="5sp"
+                android:padding="5sp"
+                app:cardCornerRadius="7dp"
                 app:cardElevation="8dp"
                 app:strokeColor="@color/white">
 
@@ -164,24 +137,101 @@
                     app:sliderScrollTimeInSec="2"
                     app:sliderStartAutoCycle="true" />
             </com.google.android.material.card.MaterialCardView>
+            <RelativeLayout
+                android:padding="5dp"
+                android:id="@+id/welcomeSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:layout_below="@+id/sliderCard"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:visibility="gone"
+                android:animateLayoutChanges="true"
+                >
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/welcomeAnimation"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:lottie_rawRes="@raw/doctorwelcome"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginBottom="15sp"
+                    android:layout_marginTop="15sp"
+                    app:lottie_autoPlay="false"
+                    app:lottie_cacheComposition="true"
+                    app:lottie_renderMode="hardware"
+                    >
 
+                </com.airbnb.lottie.LottieAnimationView>
+                <TextView
+                    android:id="@+id/welcomeHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/welcomeAnimation"
+                    android:text="Welcome Back"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="20dp"
+                    android:textColor="@color/blue"
+                    android:layout_marginStart="2sp"
+                    android:layout_marginTop="35sp"
+                    android:shadowColor="@color/black"
+                    android:shadowRadius="0.2"
+                    >
 
-            <com.google.android.material.card.MaterialCardView
+                </TextView>
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/welcomeHeader"
+                    android:layout_toEndOf="@id/welcomeAnimation"
+                    android:textAlignment="textStart"
+                    android:text=""
+                    android:textStyle="normal"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="14sp"
+                    android:layout_marginStart="2sp"
+                    android:layout_marginTop="2sp"
+                    android:layout_marginEnd="5sp"
+                    >
+
+                </TextView>
+                <TextView
+                    android:id="@+id/currentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userName"
+                    android:layout_toEndOf="@id/welcomeAnimation"
+                    android:text="Good Morning"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="2sp"
+                    android:layout_marginTop="2sp"
+                    android:visibility="gone"
+                    >
+
+                </TextView>
+
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/appointmentCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sliderCard"
-                android:layout_marginStart="-8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="-8dp"
-                android:padding="20dp"
-                app:cardElevation="2dp"
+                android:layout_below="@+id/welcomeSection"
+                android:layout_marginStart="0sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="0sp"
+                android:animateLayoutChanges="true"
                 app:strokeColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#ffff"
+                    android:padding="5sp"
                     android:orientation="vertical">
 
                     <com.airbnb.lottie.LottieAnimationView
@@ -220,26 +270,23 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
 
-            <com.google.android.material.card.MaterialCardView
+            <RelativeLayout
                 android:id="@+id/consultantCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/appointmentCard"
-                android:layout_marginStart="-8dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="-8dp"
-                android:padding="20dp"
-                app:cardElevation="4dp"
+                android:layout_marginStart="0sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="0sp"
                 app:strokeColor="@color/white"
-
                 >
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#ffff"
+                    android:padding="5sp"
                     android:orientation="vertical">
 
                     <com.airbnb.lottie.LottieAnimationView
@@ -275,7 +322,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/medicineReminderCard"

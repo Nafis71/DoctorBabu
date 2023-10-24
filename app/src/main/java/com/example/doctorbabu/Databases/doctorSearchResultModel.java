@@ -1,7 +1,8 @@
 package com.example.doctorbabu.Databases;
 
 public class doctorSearchResultModel {
-    String fullName, title, specialty, photoUrl, doctorId;
+    String fullName, title, specialty, photoUrl, doctorId,bmdc, degrees;
+    float rating;
 
     public doctorSearchResultModel() {
     }
@@ -16,6 +17,30 @@ public class doctorSearchResultModel {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getDegrees() {
+        return degrees;
+    }
+
+    public void setDegrees(String degrees) {
+        this.degrees = degrees;
+    }
+
+    public String getBmdc() {
+        return bmdc;
+    }
+
+    public void setBmdc(String bmdc) {
+        this.bmdc = bmdc;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public void setFullName(String fullName) {

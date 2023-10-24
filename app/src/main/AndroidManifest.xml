@@ -27,16 +27,23 @@
         android:roundIcon="@drawable/doctorbabulogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorBabu"
-        android:windowSoftInputMode="adjustResize"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".patient.MedicineAlarmDestination"
+            android:exported="false" />
+        <activity
+            android:name=".patient.AddMedicineAlarm"
+            android:exported="false"
+            android:label="@string/title_activity_add_medicine_alarm"
+            android:theme="@style/Theme.DoctorBabu" />
+        <activity
+            android:name=".patient.MedicineReminder"
+            android:exported="false" />
         <activity
             android:name=".patient.predictedDisease"
             android:exported="false" />
         <activity
             android:name=".patient.DiagnosisTerms"
-            android:exported="false" />
-        <activity
-            android:name=".patient.diagnosisTerms"
             android:exported="false" />
         <activity
             android:name=".patient.IdentifyDisease"
@@ -106,12 +113,13 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".patient.AlarmReceiver" >
+
+        </receiver>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <meta-data
-            android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="ocr" />
     </application>
 
 </manifest>

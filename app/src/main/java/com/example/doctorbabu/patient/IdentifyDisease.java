@@ -44,7 +44,7 @@ public class IdentifyDisease extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityIdentifyDiseaseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.analyze.setVisibility(View.INVISIBLE);
+        binding.analyze.setVisibility(View.GONE);
         binding.infoCard.setVisibility(View.GONE);
         leftAnimation = AnimationUtils.loadAnimation(this, R.anim.left_animation);
         fadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
@@ -109,12 +109,12 @@ public class IdentifyDisease extends AppCompatActivity {
             binding.infoCard.setVisibility(View.GONE);
             isWarningCardShown = false;
         } else if (symptomsList.size() == 0) {
-            binding.analyze.setVisibility(View.INVISIBLE);
+            binding.analyze.setVisibility(View.GONE);
             binding.infoCard.setVisibility(View.GONE);
             isWarningCardShown = false;
         } else {
             if(!isWarningCardShown){
-                binding.analyze.setVisibility(View.INVISIBLE);
+                binding.analyze.setVisibility(View.GONE);
                 binding.infoCard.setVisibility(View.VISIBLE);
                 binding.infoCard.setAnimation(leftAnimation);
                 isWarningCardShown = true;

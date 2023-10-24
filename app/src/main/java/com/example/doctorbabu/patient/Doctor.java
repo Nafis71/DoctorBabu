@@ -58,6 +58,7 @@ public class Doctor extends Fragment {
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
     ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor, loadAllDoctorExecutor;
+
     ScheduledExecutorService scheduledThread;
 
     public Doctor() {
@@ -255,7 +256,7 @@ public class Doctor extends Fragment {
 
     private void filterList(String searchedDoctor) {
         ArrayList<doctorSearchResultModel> filteredList = new ArrayList<>();
-        searchAdapter = new doctorSearchAdapter(requireContext(), filteredList);
+        searchAdapter = new doctorSearchAdapter(requireContext(), filteredList,userId,binding.searchView);
         for (doctorSearchResultModel doctor : doctorList) {
             if (doctor.getFullName().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getSpecialty().toLowerCase().contains(searchedDoctor.toLowerCase()) | doctor.getDoctorId().toLowerCase().contains(searchedDoctor.toLowerCase())) {
                 filteredList.add(doctor);

@@ -3,7 +3,7 @@
     <style name="Base.Theme.DoctorBabu" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#4F5FDE</item>
-        <item name="colorPrimaryVariant">#432E2F30</item>
+        <item name="colorPrimaryVariant">#432E2F</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#4F5FDE</item>

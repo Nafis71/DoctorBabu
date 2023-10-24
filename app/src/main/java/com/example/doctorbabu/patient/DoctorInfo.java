@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.doctorbabu.Databases.doctorInfoModel;
+import com.example.doctorbabu.Databases.doctorSearchResultModel;
 import com.example.doctorbabu.Databases.joiningDates;
 import com.example.doctorbabu.Databases.leavingDates;
 import com.example.doctorbabu.R;
@@ -59,16 +61,27 @@ public class DoctorInfo extends Fragment {
         // Required empty public constructor
     }
 
-    public DoctorInfo(String doctorId, String doctorName, String doctorTitle, String doctorDegree, String doctorSpecialty, String currentlyWorking, String photoUrl, float rating, String bmdc) {
-        this.doctorId = doctorId;
-        this.doctorName = doctorName;
-        this.doctorDegree = doctorDegree;
-        this.currentlyWorking = currentlyWorking;
-        this.photoUrl = photoUrl;
-        this.rating = rating;
-        this.bmdc = bmdc;
-        this.doctorSpecialty = doctorSpecialty;
-        this.doctorTitle = doctorTitle;
+    public DoctorInfo(doctorSearchResultModel model) {
+        this.doctorId = model.getDoctorId();
+        this.doctorName = model.getFullName();
+        this.doctorDegree = model.getDegrees();
+        this.currentlyWorking = model.getSpecialty();
+        this.photoUrl = model.getPhotoUrl();
+        this.rating = model.getRating();
+        this.bmdc = model.getBmdc();
+        this.doctorSpecialty = model.getSpecialty();
+        this.doctorTitle = model.getTitle();
+    }
+    public DoctorInfo(doctorInfoModel model) {
+        this.doctorId = model.getDoctorId();
+        this.doctorName = model.getFullName();
+        this.doctorDegree = model.getDegrees();
+        this.currentlyWorking = model.getCurrentlyWorking();
+        this.photoUrl = model.getPhotoUrl();
+        this.rating = model.getRating();
+        this.bmdc = model.getBmdc();
+        this.doctorSpecialty = model.getSpecialty();
+        this.doctorTitle = model.getTitle();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Dashboard extends AppCompatActivity {
     FragmentManager fm;
     boolean isOpenDoctorVideo = false, isOpenHome = false, isOpenHistory = false, isOpenProfile = false, isBackPressed = false, isAdded;
     String code = null;
-    int count, fragmentId = -1, tempId;
+    int count, fragmentId = -1;
     String fragmentName;
 
 
@@ -111,11 +111,8 @@ public class Dashboard extends AppCompatActivity {
             fragmentId = -1;
             fragmentName = null;
         }));
-        if (savedInstanceState == null) {
-            loadFragment(new Home(), "home");
-            isOpenHome = true;
-        }
-
+        loadFragment(new Home(),"home");
+        isOpenHome = true;
     }
 
     public void loadFragment(Fragment fragment, String tag) {

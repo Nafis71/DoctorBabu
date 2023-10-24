@@ -55,6 +55,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding true
+    }
 
 
 }
@@ -86,7 +89,10 @@ dependencies {
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.5'
     //noinspection GradleDependency
-    implementation 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_video_conference_android:+'  // Add this line to your module-level build.gradle file's dependencies, usually named [app].
+    implementation 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_video_conference_android:+'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+// Add this line to your module-level build.gradle file's dependencies, usually named [app].
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

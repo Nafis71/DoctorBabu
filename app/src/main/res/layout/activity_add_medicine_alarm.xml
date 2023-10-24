@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5sp"
+    tools:context=".patient.AddMedicineAlarm">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        android:background="#ffff"
+        android:elevation="4sp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15sp"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Add"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2sp"
+            android:layout_toEndOf="@+id/headerText"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Alarm"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header">
+
+        <ImageView
+            android:id="@+id/medicineReminderImage"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-30sp"
+            android:src="@drawable/medicine_reminder">
+
+        </ImageView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/medicineNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineReminderImage"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Name of the medicine"
+            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+            app:boxStrokeWidth="1dp"
+            app:expandedHintEnabled="true"
+            app:hintAnimationEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/medicineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RelativeLayout
+            android:id="@+id/radioGroupLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/medicineNameLayout"
+            android:padding="5sp">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/daily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Daily"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="normal">
+
+                </com.google.android.material.radiobutton.MaterialRadioButton>
+
+                <RadioButton
+                    android:id="@+id/once"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Once"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="normal">
+
+                </RadioButton>
+            </RadioGroup>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/timeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:layout_below="@+id/radioGroupLayout">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hourLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:hint="Hour"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/hour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:enabled="false"
+                    android:text="">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/minuteLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="86dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_toEndOf="@+id/hourLayout"
+                android:hint="Minute"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                app:boxStrokeWidth="1dp"
+                app:expandedHintEnabled="true"
+                app:hintAnimationEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/minute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="none"
+                    android:text="">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/AmPm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/minuteLayout"
+                android:fontFamily="@font/roboto"
+                android:text="AM"
+                android:textColor="@color/black"
+                android:textSize="16sp">
+
+            </TextView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/timePickerButton"
+                android:layout_width="103dp"
+                android:layout_height="39dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="10sp"
+                android:background="@drawable/custom_button_back"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Pick\Time"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="#3C4DD8"
+                app:cornerRadius="2dp"
+                app:elevation="500dp"
+                app:strokeColor="@color/white"
+                tools:ignore="NotSibling" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/setAlarmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="10sp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Set Alarm"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:backgroundTint="#3C4DD8"
+        app:cornerRadius="2dp"
+        app:elevation="500dp"
+        app:strokeColor="@color/white"
+        tools:ignore="NotSibling" />
+
+
+</RelativeLayout>

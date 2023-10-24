@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5sp"
+    tools:context=".patient.MedicineReminder">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        android:elevation="4sp"
+        android:background="#ffff">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15sp"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Medicine"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2sp"
+            android:layout_toEndOf="@+id/headerText"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Reminder"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="10sp"
+        >
+        <RelativeLayout
+            android:id="@+id/alarmHeaderSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/alarmHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alarm List"
+                android:fontFamily="@font/roboto"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="10sp"
+                android:layout_marginBottom="0sp">
+
+            </TextView>
+            <ImageView
+                android:id="@+id/addAlarm"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30sp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/add">
+
+            </ImageView>
+        </RelativeLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_below="@+id/alarmHeaderSection"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            >
+
+        </com.google.android.material.divider.MaterialDivider>
+        <ImageView
+            android:id="@+id/nodataImage"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:src="@drawable/nodata"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="60sp">
+
+        </ImageView>
+        <TextView
+            android:id="@+id/nodataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nodataImage"
+            android:fontFamily="@font/roboto"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:text="No alarms have been set right now"
+            android:layout_centerHorizontal="true">
+
+        </TextView>
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/alarmListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nodataText"
+            android:layout_marginTop="16sp"
+            android:animationCache="true"
+            android:orientation="vertical"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:shimmer_recycler_item_count="4"
+            app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
