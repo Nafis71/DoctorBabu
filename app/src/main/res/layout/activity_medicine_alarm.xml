@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parentLayout"
     android:padding="5sp"
-    tools:context=".patient.AddMedicineAlarm">
+    tools:context=".patient.MedicineAlarm">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -51,9 +52,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header">
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:visibility="invisible"
+            android:layout_marginTop="1dp"
+            android:indeterminate="true"
+            >
+
+        </com.google.android.material.progressindicator.LinearProgressIndicator>
 
         <ImageView
             android:id="@+id/medicineReminderImage"
+            android:layout_below="@+id/progressBar"
             android:layout_width="260dp"
             android:layout_height="260dp"
             android:layout_centerHorizontal="true"

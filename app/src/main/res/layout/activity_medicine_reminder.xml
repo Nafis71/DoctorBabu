@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5sp"
+    android:background="@color/white"
     tools:context=".patient.MedicineReminder">
 
     <RelativeLayout
@@ -52,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:layout_marginTop="10sp"
+        android:layout_marginTop="5sp"
         >
         <RelativeLayout
             android:id="@+id/alarmHeaderSection"
@@ -65,33 +66,26 @@
                 android:text="Alarm List"
                 android:fontFamily="@font/roboto"
                 android:layout_centerVertical="true"
-                android:textSize="18sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:layout_marginStart="10sp"
-                android:layout_marginBottom="0sp">
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:layout_marginStart="15sp"
+                android:layout_marginBottom="10sp">
 
             </TextView>
             <ImageView
-                android:id="@+id/addAlarm"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:id="@+id/alarmImage"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="30sp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/add">
+                android:src="@drawable/alarm_clock"
+                android:layout_marginEnd="10sp"
+                android:scaleType="centerCrop">
 
             </ImageView>
         </RelativeLayout>
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:layout_below="@+id/alarmHeaderSection"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
-            >
-
-        </com.google.android.material.divider.MaterialDivider>
         <ImageView
             android:id="@+id/nodataImage"
             android:layout_width="280dp"
@@ -117,15 +111,32 @@
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/alarmListRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/nodataText"
-            android:layout_marginTop="16sp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/alarmHeaderSection"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="10sp"
             android:animationCache="true"
             android:orientation="vertical"
             android:overScrollMode="ifContentScrolls"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:shimmer_recycler_item_count="4"
             app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="60dp"
+            android:elevation="25sp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/add"
+            app:backgroundTint="#EBEDEF"
+            app:fabCustomSize="65dp">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     </RelativeLayout>
 
