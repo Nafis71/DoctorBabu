@@ -1,12 +1,18 @@
 package com.example.doctorbabu.patient;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.doctorbabu.Databases.alarmListAdapter;
 import com.example.doctorbabu.Databases.alarmListModel;
@@ -25,6 +31,17 @@ public class MedicineReminder extends AppCompatActivity {
     alarmListAdapter adapter;
     ArrayList<alarmListModel> modelsList;
     ExecutorService databaseExecutor;
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        recreate();
+                    } else {
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +56,6 @@ public class MedicineReminder extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -47,7 +63,7 @@ public class MedicineReminder extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MedicineReminder.this, MedicineAlarm.class);
-                startActivity(intent);
+                activityResultLauncher.launch(intent);
             }
         });
     }
@@ -71,7 +87,7 @@ public class MedicineReminder extends AppCompatActivity {
     }
     public void displayData(){
         binding.alarmListRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_doctor_search);
-        adapter = new alarmListAdapter(this,modelsList);
+        adapter = new alarmListAdapter(this,modelsList,activityResultLauncher);
         binding.alarmListRecyclerView.setAdapter(adapter);
     }
 }

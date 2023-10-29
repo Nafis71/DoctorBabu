@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-//                            startActivityForResult(intent,REQUEST_CODE_BATTERY_OPTIMIZATIONS);
                             activityResultLauncher.launch(intent);
                         }
                     }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

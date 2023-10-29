@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,9 +36,14 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
     ArrayList<alarmListModel> alarmListModel;
     Calendar calendar;
     AlarmManager alarmManager;
-    public alarmListAdapter(Context context, ArrayList<alarmListModel> alarmListModel){
+    Animation bottomAnimation;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+
+
+    public alarmListAdapter(Context context, ArrayList<alarmListModel> alarmListModel,ActivityResultLauncher<Intent> activityResultLauncher){
         this.context = context;
         this.alarmListModel = alarmListModel;
+        this.activityResultLauncher = activityResultLauncher;
     }
     @NonNull
     @Override
@@ -69,7 +78,8 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
         });
 
     }
-    public static class myViewHolder extends RecyclerView.ViewHolder{
+    public class myViewHolder extends RecyclerView.ViewHolder{
+        RelativeLayout parentLayout;
         MaterialCardView card;
         TextView time,medicineName,alarmType;
         com.google.android.material.switchmaterial.SwitchMaterial activateSwitch;
@@ -81,6 +91,9 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
             medicineName = itemView.findViewById(R.id.medicineName);
             alarmType = itemView.findViewById(R.id.alarmType);
             activateSwitch = itemView.findViewById(R.id.activateSwitch);
+            parentLayout = itemView.findViewById(R.id.parentLayout);
+            bottomAnimation = AnimationUtils.loadAnimation(context,R.anim.alarm_list_left_animation);
+            parentLayout.setAnimation(bottomAnimation);
         }
     }
 
@@ -96,7 +109,9 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
             return (model.getHour() - 12) +":"+ minute +" PM";
         } else if (model.getHour() == 0){
             return 12 +":"+ minute +" AM";
-        } else {
+        } else if(model.getHour() == 12){
+            return (model.getHour()) +":"+ minute +" PM";
+        }else {
             return model.getHour()+":"+ minute +" AM";
         }
     }
@@ -110,7 +125,7 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
     public void editAlarm(alarmListModel model){
         Intent intent = new Intent(context, MedicineAlarm.class);
         intent.putExtra("id",model.getId());
-        context.startActivity(intent);
+        activityResultLauncher.launch(intent);
     }
     public void cancelAlarm(alarmListModel model){
         AppCompatActivity activity = (AppCompatActivity) context;

@@ -104,14 +104,12 @@ public class SqliteDatabase extends SQLiteOpenHelper {
                 alarmListModel.setAlarmType(cursor.getString(5));
                 alarmListModel.setAlarmStatus(cursor.getInt(6));
             }
-
-            Log.w("alarmList ID :",alarmListModel.getId());
             cursor.close();
             return alarmListModel;
         }
         return alarmListModel;
     }
-    public void updateAlarm(String id, String medicineName,int hour, int minute, int broadcastCode, String alarmType, int alarmStatus){
+    public void updateAlarm(String id, String medicineName,int hour, int minute,  int broadcastCode, String alarmType, int alarmStatus){
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_MEDICINE_NAME,medicineName);

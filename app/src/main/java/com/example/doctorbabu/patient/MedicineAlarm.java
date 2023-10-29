@@ -34,6 +34,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
     AlarmReceiver alarmReceiver = new AlarmReceiver();
     alarmListModel model;
     String id;
+    int hour, minute;
     boolean isEditMode;
 
     @Override
@@ -100,8 +101,10 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
     public void getSpecificAlarmData() {
         try (SqliteDatabase database = new SqliteDatabase(this)) {
             model = database.readSpecificData(id);
+            hour = model.getHour();
+            minute = model.getMinute();
             uiElementUpdater(model);
-            setTimeInCalender(model);
+            setTimeInCalender();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,12 +123,21 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
+                hour = timePicker.getHour();
+                minute = timePicker.getMinute();
                 if (isPM()) {
                     binding.AmPm.setText("PM");
-                    binding.hour.setText(String.valueOf(timePicker.getHour() - 12));
+                    binding.hour.setText(String.valueOf(hour - 12));
+
+                } else if (hour == 0) {
+                    binding.AmPm.setText("AM");
+                    binding.hour.setText(String.valueOf(12));
+                } else if (hour == 12) {
+                    binding.AmPm.setText("PM");
+                    binding.hour.setText(String.valueOf(hour));
                 } else {
                     binding.AmPm.setText("AM");
-                    binding.hour.setText(String.valueOf(timePicker.getHour()));
+                    binding.hour.setText(String.valueOf(hour));
                 }
                 binding.minute.setText(String.valueOf(timePicker.getMinute()));
                 setTimeInCalender();
@@ -134,17 +146,17 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
     }
 
     public void uiElementUpdater(alarmListModel model) {
-        if (model.getHour() > 12) {
+        if (hour > 12) {
             binding.AmPm.setText("PM");
             binding.hour.setText(String.valueOf(model.getHour() - 12));
-        } else if (model.getHour() == 0) {
+        } else if (hour == 0) {
             binding.AmPm.setText("AM");
-            binding.hour.setText("0");
+            binding.hour.setText("12");
         } else {
             binding.AmPm.setText("AM");
-            binding.hour.setText(String.valueOf(model.getHour()));
+            binding.hour.setText(String.valueOf(hour));
         }
-        binding.minute.setText(String.valueOf(model.getMinute()));
+        binding.minute.setText(String.valueOf(minute));
         binding.medicineName.setText(model.getMedicineName());
         binding.headerText.setText("Update");
         setRadioButton(model);
@@ -170,14 +182,22 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
+                hour = timePicker.getHour();
+                minute = timePicker.getMinute();
                 if (isPM()) {
                     binding.AmPm.setText("PM");
-                    binding.hour.setText(String.valueOf(timePicker.getHour() - 12));
+                    binding.hour.setText(String.valueOf(hour - 12));
+                } else if (hour == 0) {
+                    binding.AmPm.setText("AM");
+                    binding.hour.setText(String.valueOf(12));
+                } else if (hour == 12) {
+                    binding.AmPm.setText("PM");
+                    binding.hour.setText(String.valueOf(hour));
                 } else {
                     binding.AmPm.setText("AM");
-                    binding.hour.setText(String.valueOf(timePicker.getHour()));
+                    binding.hour.setText(String.valueOf(hour));
                 }
-                binding.minute.setText(String.valueOf(timePicker.getMinute()));
+                binding.minute.setText(String.valueOf(minute));
                 setTimeInCalender();
             }
         });
@@ -189,15 +209,8 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
 
     public void setTimeInCalender() {
         calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
-        calendar.set(Calendar.MINUTE, timePicker.getMinute());
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-    }
-    public void setTimeInCalender(alarmListModel model) {
-        calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, model.getHour());
-        calendar.set(Calendar.MINUTE, model.getMinute());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
     }
@@ -244,35 +257,53 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
     }
 
     public void setRepeatedAlarm(String medicineName, int broadcastCode, Intent intent) {
-        String id = getUniqueID();
-        intent.putExtra("alarmType", "repeated");
-        intent.putExtra("id", id);
-        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
         if (isEditMode) {
             cancelAlarm(broadcastCode);
-            updateData(model.getId(), medicineName, Integer.parseInt(binding.hour.getText().toString().trim()), Integer.parseInt(binding.minute.getText().toString().trim()), broadcastCode, "repeat", 1);
+            setPendingIntentRepeatedAlarm(intent, broadcastCode, true, medicineName);
         } else {
-            saveData(id, medicineName, timePicker.getHour(), timePicker.getMinute(), broadcastCode, "repeat", 1);
+            setPendingIntentRepeatedAlarm(intent, broadcastCode, false, medicineName);
         }
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public void setNonRepeatedAlarm(String medicineName, int broadcastCode, Intent intent) {
-        String id = getUniqueID();
-        intent.putExtra("alarmType", "once");
-        intent.putExtra("id", id);
-        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
         if (isEditMode) {
             cancelAlarm(broadcastCode);
-            updateData(model.getId(), medicineName, Integer.parseInt(binding.hour.getText().toString().trim()), Integer.parseInt(binding.minute.getText().toString().trim()), broadcastCode, "once", 1);
+            setPendingIntentNonRepeatedAlarm(intent, broadcastCode, true, medicineName);
         } else {
-            saveData(id, medicineName, timePicker.getHour(), timePicker.getMinute(), broadcastCode, "once", 1);
+            setPendingIntentNonRepeatedAlarm(intent, broadcastCode, false, medicineName);
         }
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
     }
 
-    public void cancelAlarm(int broadcastCode){
+    public void setPendingIntentNonRepeatedAlarm(Intent intent, int broadcastCode, boolean isEditMode, String medicineName) {
+        intent.putExtra("alarmType", "once");
+        if (isEditMode) {
+            intent.putExtra("id", model.getId());
+            updateData(model.getId(), medicineName, hour, minute, broadcastCode, "once", 1);
+        } else {
+            String id = getUniqueID();
+            intent.putExtra("id", id);
+            saveData(id, medicineName, hour, minute, broadcastCode, "once", 1);
+        }
+        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    public void setPendingIntentRepeatedAlarm(Intent intent, int broadcastCode, boolean isEditMode, String medicineName) {
+        intent.putExtra("alarmType", "repeated");
+        if (isEditMode) {
+            intent.putExtra("id", model.getId());
+            updateData(model.getId(), medicineName, hour, minute, broadcastCode, "repeat", 1);
+        } else {
+            String id = getUniqueID();
+            intent.putExtra("id", id);
+            saveData(id, medicineName, hour, minute, broadcastCode, "repeat", 1);
+        }
+        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
+    }
+
+    public void cancelAlarm(int broadcastCode) {
         Intent intent = new Intent(this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
         alarmManager.cancel(pendingIntent);
@@ -282,9 +313,17 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         try (SqliteDatabase database = new SqliteDatabase(this)) {
             long result = database.addAlarmInfo(id, medicineName, hour, minute, broadcastCode, alarmType, alarmStatus);
             if (result != -1) {
-                postOperation();   //success
+                postOperation();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                }, 3300);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -294,6 +333,15 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         try (SqliteDatabase database = new SqliteDatabase(this)) {
             database.updateAlarm(id, medicineName, hour, minute, broadcastCode, alarmType, alarmStatus);
             postOperation();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }, 3300);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -317,14 +365,14 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
                     public void run() {
                         binding.setAlarmButton.setVisibility(View.VISIBLE);
                     }
-                },2000);
+                }, 2000);
             }
         }, 1100);
     }
 
     public String getUniqueID() {
         Random random = new Random();
-        return String.valueOf(random.nextInt((1500 - 330) + 1));
+        return String.valueOf(random.nextInt((25000 - 330) + 1));
     }
 
     public boolean validateMedicineName() {

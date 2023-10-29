@@ -1,9 +1,17 @@
 package com.example.doctorbabu.Databases;
 
 public class alarmListModel {
-    String id = null,medicineName,alarmType;
+    String id = null,medicineName,alarmType,amPm;
     int broadcastCode,hour,minute,alarmStatus;
     public alarmListModel(){}
+
+    public String getAmPm() {
+        return amPm;
+    }
+
+    public void setAmPm(String amPm) {
+        this.amPm = amPm;
+    }
 
     public String getId() {
         return id;
