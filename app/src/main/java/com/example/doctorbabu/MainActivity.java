@@ -12,7 +12,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.provider.Settings;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,6 +27,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.doctorbabu.permissionClass.AppPermission;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Locale;
@@ -122,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkForBatteryOptimizations() {
-        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        if (!powerManager.isIgnoringBatteryOptimizations(getPackageName())) {
-            MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(MainActivity.this);
+        AppPermission appPermission = AppPermission.createInstance(this);
+        if(appPermission.isBatteryOptimizationsEnabled()){
+            MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
             dialog.setTitle("Warning").setIcon(R.drawable.warning)
                     .setMessage("Battery optimization is enabled. It can interrupt running background services.")
                     .setPositiveButton("Disable", new DialogInterface.OnClickListener() {

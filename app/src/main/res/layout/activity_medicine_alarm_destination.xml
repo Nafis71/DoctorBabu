@@ -1,9 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5sp"
     tools:context=".patient.MedicineAlarmDestination">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/medicineReminderAnimation"
+        android:layout_width="250sp"
+        android:layout_height="250sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100sp"
+        android:layout_marginBottom="10sp"
+        app:lottie_autoPlay="true"
+        app:lottie_cacheComposition="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/medicinereminder"
+        app:lottie_renderMode="hardware">
+
+    </com.airbnb.lottie.LottieAnimationView>
+
+    <TextView
+        android:id="@+id/medicineTextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medicineReminderAnimation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="1sp"
+        android:fontFamily="@font/roboto"
+        android:text="It's time for you take medicine"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="normal">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/medicineTextHeaderTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medicineTextHeader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp"
+        android:fontFamily="@font/roboto"
+        android:text="Alarm was set for"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="normal">
+
+    </TextView>
+    <TextView
+        android:id="@+id/medicineName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medicineTextHeaderTwo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp"
+        android:fontFamily="@font/roboto"
+        android:text="Fexo Fenadin"
+        android:textColor="@color/blue"
+        android:textSize="22sp"
+        android:textStyle="bold">
+
+    </TextView>
+    <com.ebanx.swipebtn.SwipeButton
+        android:id="@+id/cancelAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50sp"
+        app:inner_text="Swipe to cancel"
+        app:inner_text_bottom_padding="15dp"
+        app:inner_text_top_padding="15dp"
+        app:button_top_padding="15sp"
+        app:button_bottom_padding="15sp"
+        app:button_left_padding="15sp"
+        app:button_right_padding="15sp"
+        android:layout_marginStart="30sp"
+        android:layout_marginEnd="30sp"
+        app:inner_text_background="@drawable/swipe_button_inner_text_background"
+        app:button_background="@drawable/swipe_button_design"
+        app:inner_text_color="@color/black"
+        app:inner_text_size="13sp"
+        app:button_image_disabled="@drawable/alarmringing"
+        app:button_image_enabled="@drawable/alarmcanceled"
+        >
+
+    </com.ebanx.swipebtn.SwipeButton>
+</RelativeLayout>

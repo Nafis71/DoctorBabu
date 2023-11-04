@@ -90,4 +90,12 @@ public class MedicineReminder extends AppCompatActivity {
         adapter = new alarmListAdapter(this,modelsList,activityResultLauncher);
         binding.alarmListRecyclerView.setAdapter(adapter);
     }
+
+    @Override
+    protected void onDestroy() {
+        databaseExecutor.shutdown();
+        binding = null;
+        super.onDestroy();
+
+    }
 }

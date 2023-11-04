@@ -6,22 +6,33 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doctorbabu.Databases.alarmListModel;
+import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
 import com.example.doctorbabu.databinding.ActivityMedicineAlarmBinding;
+import com.example.doctorbabu.permissionClass.AppPermission;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -61,7 +72,14 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
             addAlarmMode();
         }
 
-    }
+    }    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    checkOverlayPermission(isEditMode);
+                }
+            });
 
     public void addAlarmMode() {
         binding.timePickerButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +91,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         binding.setAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setAlarm();
+                checkOverlayPermission(isEditMode);
             }
         });
     }
@@ -92,7 +110,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         binding.setAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateAlarm(model);
+                checkOverlayPermission(isEditMode);
             }
         });
 
@@ -109,7 +127,6 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
             e.printStackTrace();
         }
     }
-
 
     public void showTimePicker() {                           //for add the alarm
         timePicker = new MaterialTimePicker.Builder()
@@ -233,6 +250,34 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         }
     }
 
+    public void checkOverlayPermission(boolean isEditMode) {
+        AppPermission appPermission = AppPermission.createInstance(this);
+        if (!appPermission.canDrawOverlays()) {
+            MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(this);
+            dialog.setTitle("Warning").setIcon(R.drawable.warning)
+                    .setMessage("Doctor Babu needs permission to draw over other apps to set an alarm")
+                    .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                            activityResultLauncher.launch(intent);
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    }).setCancelable(false);
+            dialog.create().show();
+        } else {
+            if (isEditMode) {
+                updateAlarm(model);
+            } else {
+                setAlarm();
+            }
+
+        }
+    }
+
     public void updateAlarm(alarmListModel model) {
         if (!validateMedicineName()) {
             return;
@@ -258,7 +303,6 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
 
     public void setRepeatedAlarm(String medicineName, int broadcastCode, Intent intent) {
         if (isEditMode) {
-            cancelAlarm(broadcastCode);
             setPendingIntentRepeatedAlarm(intent, broadcastCode, true, medicineName);
         } else {
             setPendingIntentRepeatedAlarm(intent, broadcastCode, false, medicineName);
@@ -268,7 +312,6 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
 
     public void setNonRepeatedAlarm(String medicineName, int broadcastCode, Intent intent) {
         if (isEditMode) {
-            cancelAlarm(broadcastCode);
             setPendingIntentNonRepeatedAlarm(intent, broadcastCode, true, medicineName);
         } else {
             setPendingIntentNonRepeatedAlarm(intent, broadcastCode, false, medicineName);
@@ -287,7 +330,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
             intent.putExtra("id", id);
             saveData(id, medicineName, hour, minute, broadcastCode, "once", 1);
         }
-        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
+        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
     }
 
     public void setPendingIntentRepeatedAlarm(Intent intent, int broadcastCode, boolean isEditMode, String medicineName) {
@@ -300,12 +343,12 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
             intent.putExtra("id", id);
             saveData(id, medicineName, hour, minute, broadcastCode, "repeat", 1);
         }
-        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
+        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
     }
 
     public void cancelAlarm(int broadcastCode) {
         Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_IMMUTABLE);
+        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
         alarmManager.cancel(pendingIntent);
     }
 
@@ -352,12 +395,16 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         binding.hour.setText(null);
         binding.minute.setText(null);
         binding.AmPm.setText(null);
+        String pattern = "00";
+        DecimalFormat numberFormatter = new DecimalFormat(pattern);
+        String formattedMinute = numberFormatter.format(minute);
+        String formattedHour = numberFormatter.format(hour);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 binding.progressBar.setVisibility(View.INVISIBLE);
-                Snackbar.make(binding.parentLayout, "Added To database", 3000).show();
+                Snackbar.make(binding.parentLayout, "Alarm set for "+formattedHour+" :"+formattedMinute+" "+binding.AmPm.getText().toString(), 3000).show();
 
                 Handler secondHandler = new Handler();
                 secondHandler.postDelayed(new Runnable() {
@@ -404,7 +451,6 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         });
     }
 
-
     public void createNotificationChannel() {
         CharSequence name = "MedicineReminderChannel";
         String description = "Channel for Alarm Manager";
@@ -414,4 +460,9 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         notificationManager.createNotificationChannel(channel);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 }
