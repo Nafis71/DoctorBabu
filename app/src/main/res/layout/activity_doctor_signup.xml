@@ -7,7 +7,7 @@
     android:background="#fff"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".patient.SignUp">
+    tools:context=".patient.AuthenticationModule.SignUp">
 
     <ImageView
         android:id="@+id/logo"

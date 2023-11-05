@@ -28,7 +28,7 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.doctorbabu.Databases.doctorHelper;
+import com.example.doctorbabu.DatabaseModels.doctorHelper;
 import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

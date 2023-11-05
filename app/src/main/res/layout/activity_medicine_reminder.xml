@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5sp"
     android:background="@color/white"
-    tools:context=".patient.MedicineReminder">
+    tools:context=".patient.AlarmModules.MedicineReminder">
 
     <RelativeLayout
         android:id="@+id/header"

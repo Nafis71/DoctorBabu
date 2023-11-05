@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="5sp"
     android:background="#ffff"
-    tools:context=".patient.Doctor">
+    tools:context=".patient.DoctorConsultationModule.Doctor">
 
 
     <RelativeLayout

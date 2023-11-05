@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F7F9F9"
-    tools:context=".patient.PrescriptionHistory">
+    tools:context=".patient.PatientProfileModule.PrescriptionHistory">
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"

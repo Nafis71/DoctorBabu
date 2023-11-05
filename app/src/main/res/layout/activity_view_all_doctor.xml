@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F9F9"
     android:orientation="vertical"
-    tools:context=".patient.ViewAllDoctor">
+    tools:context=".patient.DoctorConsultationModule.ViewAllDoctor">
 
 
     <RelativeLayout

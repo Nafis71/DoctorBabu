@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -30,51 +30,54 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".patient.MedicineAlarmDestination"
+            android:name=".patient.DiagnoseReportUploadModule.DiagnosisReportUploadList"
             android:exported="false" />
         <activity
-            android:name=".patient.MedicineAlarm"
+            android:name=".patient.AlarmModules.MedicineAlarmDestination"
+            android:exported="false" />
+        <activity
+            android:name=".patient.AlarmModules.MedicineAlarm"
             android:exported="false"
             android:label="@string/title_activity_add_medicine_alarm"
             android:theme="@style/Theme.DoctorBabu" />
         <activity
-            android:name=".patient.MedicineReminder"
+            android:name=".patient.AlarmModules.MedicineReminder"
             android:exported="false" />
         <activity
-            android:name=".patient.predictedDisease"
+            android:name=".patient.DoctorConsultationModule.predictedDisease"
             android:exported="false" />
         <activity
-            android:name=".patient.DiagnosisTerms"
+            android:name=".patient.DoctorConsultationModule.DiagnosisTerms"
             android:exported="false" />
         <activity
-            android:name=".patient.IdentifyDisease"
+            android:name=".patient.DoctorConsultationModule.IdentifyDisease"
             android:exported="false" />
         <activity
-            android:name=".patient.DoctorInfoActivity"
+            android:name=".patient.DoctorConsultationModule.DoctorInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".patient.ViewAllDoctor"
+            android:name=".patient.DoctorConsultationModule.ViewAllDoctor"
             android:exported="false" />
         <activity
             android:name=".doctor.DoctorPrescribeMedicine"
             android:exported="false" />
         <activity
-            android:name=".patient.PatientReview"
+            android:name=".patient.DoctorConsultationModule.PatientReview"
             android:exported="false" />
         <activity
-            android:name=".patient.CheckoutDoctor"
+            android:name=".patient.DoctorConsultationModule.CheckoutDoctor"
             android:exported="false" />
         <activity
-            android:name=".patient.PatientCall"
+            android:name=".patient.DoctorConsultationModule.PatientCall"
             android:exported="false" />
         <activity
-            android:name=".patient.CallDoctor"
+            android:name=".patient.DoctorConsultationModule.CallDoctor"
             android:exported="false" />
         <activity
             android:name=".doctor.doctorAboutYou"
             android:exported="false" />
         <activity
-            android:name=".patient.ChooseDoctor"
+            android:name=".patient.DoctorConsultationModule.ChooseDoctor"
             android:exported="false" />
         <activity
             android:name=".doctor.DoctorDashboard"
@@ -86,25 +89,25 @@
             android:name=".doctor.DoctorLogin"
             android:exported="false" />
         <activity
-            android:name=".LoginOptions"
+            android:name=".patient.AuthenticationModule.LoginOptions"
             android:exported="false" />
         <activity
-            android:name=".patient.EditProfile"
+            android:name=".patient.PatientProfileModule.EditProfile"
             android:exported="false" />
         <activity
-            android:name=".patient.Dashboard"
+            android:name=".patient.DoctorConsultationModule.Dashboard"
             android:exported="false" />
         <activity
-            android:name=".patient.SignUp"
+            android:name=".patient.AuthenticationModule.SignUp"
             android:exported="false" />
         <activity
-            android:name=".patient.Login"
+            android:name=".patient.AuthenticationModule.Login"
             android:exported="false" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".MainActivity"
+            android:name=".patient.HomeModules.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -114,9 +117,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".patient.AlarmReceiver" >
-
-        </receiver>
+        <receiver android:name=".patient.AlarmModules.AlarmReceiver"></receiver>
 
         <meta-data
             android:name="preloaded_fonts"

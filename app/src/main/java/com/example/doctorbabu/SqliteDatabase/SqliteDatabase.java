@@ -1,6 +1,5 @@
 package com.example.doctorbabu.SqliteDatabase;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,8 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.example.doctorbabu.Databases.alarmListAdapter;
-import com.example.doctorbabu.Databases.alarmListModel;
+import com.example.doctorbabu.DatabaseModels.alarmListModel;
 
 import java.util.ArrayList;
 

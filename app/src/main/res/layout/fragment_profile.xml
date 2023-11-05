@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FEFEFE"
     android:orientation="vertical"
-    tools:context=".patient.Profile">
+    tools:context=".patient.PatientProfileModule.Profile">
 
     <RelativeLayout
         android:layout_width="match_parent"

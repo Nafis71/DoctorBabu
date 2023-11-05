@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/parentLayout"
     android:padding="5sp"
-    tools:context=".patient.MedicineAlarm">
+    tools:context=".patient.AlarmModules.MedicineAlarm">
 
     <RelativeLayout
         android:id="@+id/header"

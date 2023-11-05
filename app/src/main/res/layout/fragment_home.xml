@@ -7,7 +7,7 @@
     android:background="#F7F9F9 "
     android:orientation="vertical"
     android:padding="5sp"
-    tools:context=".patient.Home">
+    tools:context=".patient.HomeModules.Home">
 
     <RelativeLayout
         android:layout_width="match_parent"

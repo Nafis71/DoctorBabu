@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10sp"
-    tools:context=".patient.predictedDisease">
+    tools:context=".patient.DoctorConsultationModule.predictedDisease">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/headerText"
