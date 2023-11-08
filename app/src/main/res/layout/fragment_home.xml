@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F9F9 "
     android:orientation="vertical"
-    android:padding="5sp"
+    android:padding="5dp"
     tools:context=".patient.HomeModules.Home">
 
     <RelativeLayout
@@ -326,7 +326,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/medicineReminderCard"
-                android:layout_width="180dp"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/consultantCard"
                 android:layout_marginStart="10dp"
@@ -391,7 +391,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/reportCard"
-                android:layout_width="180dp"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicineReminderCard"
                 android:layout_marginStart="10dp"
@@ -456,7 +456,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/appointmentHistory"
-                android:layout_width="180dp"
+                android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_below="@+id/reportCard"
                 android:layout_marginStart="10dp"
@@ -521,12 +521,13 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/onlineCosultantCard"
-                android:layout_width="210dp"
-                android:layout_height="270dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/consultantCard"
+                android:layout_alignParentEnd="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="3dp"
                 android:layout_marginBottom="5dp"
                 android:layout_toEndOf="@id/medicineReminderCard"
                 app:cardCornerRadius="11dp"
@@ -540,13 +541,12 @@
 
                     <ImageView
                         android:layout_width="120dp"
-                        android:layout_height="175dp"
-                        android:layout_alignParentStart="true"
+                        android:layout_height="173dp"
                         android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="87dp"
                         android:layout_marginTop="35dp"
+                        android:layout_marginEnd="1dp"
                         android:layout_marginBottom="0dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/doctor1" />
@@ -606,13 +606,13 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/medicineCard"
-                android:layout_width="185dp"
-                android:layout_height="180dp"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/onlineCosultantCard"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="3dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@id/reportCard"
                 app:cardCornerRadius="11dp"

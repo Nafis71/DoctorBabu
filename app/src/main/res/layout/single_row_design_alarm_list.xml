@@ -1,79 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_marginBottom="8dp"
     android:background="@color/white"
-    android:id="@+id/parentLayout"
-    android:padding="5sp">
+    android:padding="5dp"
+    app:cardCornerRadius="11dp"
+    app:cardElevation="2dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5sp"
-        android:layout_marginBottom="8sp"
-        app:cardCornerRadius="11dp"
-        app:cardElevation="4dp">
+        android:layout_margin="10dp"
+        android:padding="5dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
-            android:padding="5sp">
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:fontFamily="@font/roboto"
+            android:text="9:09PM"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="normal">
 
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="5sp"
-                android:fontFamily="@font/roboto"
-                android:text="9:09PM"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                android:textStyle="normal">
+        </TextView>
 
-            </TextView>
+        <TextView
+            android:id="@+id/medicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="5sp"
+            android:fontFamily="@font/roboto"
+            android:text="Napa"
+            android:textSize="16sp"
+            android:textStyle="bold">
 
-            <TextView
-                android:id="@+id/medicineName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/time"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="5sp"
-                android:fontFamily="@font/roboto"
-                android:text="Napa"
-                android:textSize="16sp"
-                android:textStyle="bold">
+        </TextView>
 
-            </TextView>
+        <TextView
+            android:id="@+id/alarmType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/activateSwitch"
+            android:fontFamily="@font/roboto"
+            android:text="Once"
+            android:textSize="16sp">
 
-            <TextView
-                android:id="@+id/alarmType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10sp"
-                android:layout_marginTop="5sp"
-                android:layout_marginEnd="5sp"
-                android:layout_toStartOf="@+id/activateSwitch"
-                android:fontFamily="@font/roboto"
-                android:text="Once"
-                android:textSize="16sp">
+        </TextView>
 
-            </TextView>
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/activateSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10sp" />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-
-</RelativeLayout>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/activateSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

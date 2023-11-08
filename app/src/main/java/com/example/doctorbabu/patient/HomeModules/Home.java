@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
+import com.example.doctorbabu.patient.DiagnoseReportUploadModule.DiagnosisReportUploadList;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -72,7 +73,7 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         firebaseExecutor = Executors.newSingleThreadExecutor();
         firebaseExecutor.execute(this::firebaseAuth);
-        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard,binding.medicineReminderCard)
+        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard,binding.medicineReminderCard,binding.reportCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
         loadImageSlider();
@@ -87,12 +88,7 @@ public class Home extends Fragment {
         binding.languageImage.setOnClickListener(v -> callLanguageChanger());
         binding.consultantCard.setOnClickListener(view1 -> {callDoctorFragment();});
         binding.medicineReminderCard.setOnClickListener(view -> callMedicineReminder());
-        binding.reportCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        binding.reportCard.setOnClickListener(view -> callDiagnoseReportUploader());
     }
 
     public void firebaseAuth() {
@@ -139,6 +135,11 @@ public class Home extends Fragment {
         binding.welcomeSection.setVisibility(View.VISIBLE);
         binding.welcomeAnimation.playAnimation();
 
+    }
+
+    public void callDiagnoseReportUploader(){
+        Intent intent = new Intent(requireActivity(), DiagnosisReportUploadList.class);
+        startActivity(intent);
     }
 
     public void setAnimations(){

@@ -2,25 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5sp"
+    android:padding="5dp"
     tools:context=".patient.DiagnoseReportUploadModule.DiagnosisReportUploadList">
+
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
-        android:elevation="4sp"
-        android:background="#ffff">
+        android:background="#ffff"
+        android:elevation="4sp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15sp"
+            android:layout_marginStart="15dp"
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
@@ -34,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="2sp"
+            android:layout_marginStart="2dp"
             android:layout_toEndOf="@+id/headerText"
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
@@ -45,4 +47,92 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="5sp">
+
+        <RelativeLayout
+            android:id="@+id/diagnosisHeaderSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/diagnosisHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toStartOf="@+id/diagnosisImage"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Diagnosis Reports"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/diagnosisImage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10sp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/diagnosis_report_upload">
+
+            </ImageView>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/nodataImage"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/nodata"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="60sp">
+
+        </ImageView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/diagnosisHeaderSection">
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/diagnosisReportsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:animationCache="true"
+                android:orientation="vertical"
+                android:overScrollMode="ifContentScrolls"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:shimmer_recycler_item_count="4"
+                app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+        </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="60dp"
+            android:elevation="25sp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/add"
+            app:backgroundTint="#EBEDEF"
+            app:fabCustomSize="65dp">
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+    </RelativeLayout>
+
 </RelativeLayout>

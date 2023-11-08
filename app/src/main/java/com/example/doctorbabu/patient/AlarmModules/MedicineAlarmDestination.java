@@ -27,6 +27,8 @@ public class MedicineAlarmDestination extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMedicineAlarmDestinationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        mediaPlayer = MediaPlayer.create(this, Settings.System.DEFAULT_ALARM_ALERT_URI);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         getIntentData();
 
         binding.cancelAlarm.setOnStateChangeListener(new OnStateChangeListener() {
@@ -72,7 +74,6 @@ public class MedicineAlarmDestination extends AppCompatActivity {
     }
     public void playRingtone(){
         if(!isRinging && !fromNotification){
-            mediaPlayer = MediaPlayer.create(this, Settings.System.DEFAULT_ALARM_ALERT_URI);
             mediaPlayer.start();
             isRinging = true;
         }
@@ -83,7 +84,6 @@ public class MedicineAlarmDestination extends AppCompatActivity {
     }
     public void vibrateDevice(){
         if(!isVibrating && !fromNotification){
-            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             vibrator.vibrate(VibrationEffect.createOneShot(60000, VibrationEffect.DEFAULT_AMPLITUDE));
             isVibrating = true;
         }

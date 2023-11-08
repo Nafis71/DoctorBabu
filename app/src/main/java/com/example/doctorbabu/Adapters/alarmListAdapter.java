@@ -92,9 +92,8 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
             medicineName = itemView.findViewById(R.id.medicineName);
             alarmType = itemView.findViewById(R.id.alarmType);
             activateSwitch = itemView.findViewById(R.id.activateSwitch);
-            parentLayout = itemView.findViewById(R.id.parentLayout);
-            bottomAnimation = AnimationUtils.loadAnimation(context,R.anim.alarm_list_left_animation);
-            parentLayout.setAnimation(bottomAnimation);
+            bottomAnimation = AnimationUtils.loadAnimation(context,R.anim.alarm_list_top_animation);
+            card.setAnimation(bottomAnimation);
         }
     }
 
