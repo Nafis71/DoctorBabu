@@ -403,8 +403,10 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
                     @Override
                     public void run() {
                         binding.setAlarmButton.setVisibility(View.VISIBLE);
+
                     }
                 }, 2000);
+
             }
         }, 1100);
     }

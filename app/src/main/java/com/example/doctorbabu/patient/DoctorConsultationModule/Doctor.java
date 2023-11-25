@@ -53,6 +53,7 @@ public class Doctor extends Fragment {
     ValueEventListener listener;
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
+    doctorInfoModel model = doctorInfoModel.getInstance();
     ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor, loadAllDoctorExecutor;
 
     ScheduledExecutorService scheduledThread;
@@ -178,7 +179,7 @@ public class Doctor extends Fragment {
                     list.clear();
                     count = 0;
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        doctorInfoModel model = snap.getValue(doctorInfoModel.class);
+                        model = snap.getValue(doctorInfoModel.class);
                         assert model != null;
                         if (model.getRating() >= 4.8) {
                             if (count < 11) {

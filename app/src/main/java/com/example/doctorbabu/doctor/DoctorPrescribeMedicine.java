@@ -162,6 +162,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                     @Override
                     public void run() {
                         finish();
+
                     }
                 },2000);
             }
@@ -235,6 +236,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                 } else {
                     binding.pastMedicalHistory.setText("N/A");
                 }
+
             }
         }, 2000);
         DatabaseReference allergyReference = database.getReference("allergy");
@@ -272,6 +274,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                 } else {
                     binding.allergy.setText("N/A");
                 }
+
             }
         }, 2000);
 
@@ -302,6 +305,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                 binding.medicineAddLayout.setVisibility(View.VISIBLE);
                 binding.addBox.setVisibility(View.VISIBLE);
                 binding.proceed.setVisibility(View.VISIBLE);
+
             }
         }, 2500);
     }

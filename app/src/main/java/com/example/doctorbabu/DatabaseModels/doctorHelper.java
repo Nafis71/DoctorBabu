@@ -4,13 +4,6 @@ public class doctorHelper {
     String uId, doctorId, title, fullName, email, district, area, doctorType, gender, bmdc, nid, dateofBirth, photoUrl = "null", about = "null";
     int rating = 0, onlineStatus = 0;
 
-    public String getuId() {
-        return uId;
-    }
-
-    public void setuId(String uId) {
-        this.uId = uId;
-    }
 
     public String getDoctorId() {
         return doctorId;
@@ -44,13 +37,6 @@ public class doctorHelper {
         this.onlineStatus = onlineStatus;
     }
 
-    public String getDateofBirth() {
-        return dateofBirth;
-    }
-
-    public void setDateofBirth(String dateofBirth) {
-        this.dateofBirth = dateofBirth;
-    }
 
     public doctorHelper(String uId, String doctorId, String title, String fullName, String email, String district, String area, String doctorType, String gender, String bmdc, String nid, String dateofBirth) {
         this.uId = uId;
@@ -107,13 +93,7 @@ public class doctorHelper {
         this.area = area;
     }
 
-    public String getDoctorType() {
-        return doctorType;
-    }
 
-    public void setDoctorType(String doctorType) {
-        this.doctorType = doctorType;
-    }
 
     public String getGender() {
         return gender;
@@ -129,14 +109,6 @@ public class doctorHelper {
 
     public void setBmdc(String bmdc) {
         this.bmdc = bmdc;
-    }
-
-    public String getNid() {
-        return nid;
-    }
-
-    public void setNid(String nid) {
-        this.nid = nid;
     }
 
     public String getPhotoUrl() {

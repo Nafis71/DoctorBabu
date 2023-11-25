@@ -130,24 +130,27 @@ public class alarmListAdapter extends RecyclerView.Adapter<alarmListAdapter.myVi
     public void cancelAlarm(alarmListModel model){
         AppCompatActivity activity = (AppCompatActivity) context;
         Intent intent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, model.getBroadcastCode(), intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, model.getBroadcastCode(), intent, PendingIntent.FLAG_MUTABLE);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
         try(SqliteDatabase database = new SqliteDatabase(context)){
             database.deactivateAlarm(model.getId());
             database.updateAlarmStatus(model.getId(),0);
-            CookieBar.build(activity)
-                    .setDuration(2500)
-                    .setSwipeToDismiss(true)
-                    .setTitle("Alarm")
-                    .setMessage("Alarm disabled successfully")
-                    .setTitleColor(R.color.white)
-                    .setBackgroundColor(R.color.blue)
-                    .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
-                    .show();
+            setCookieBar(activity);
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+    public void setCookieBar(AppCompatActivity activity){
+        CookieBar.build(activity)
+                .setDuration(2500)
+                .setSwipeToDismiss(true)
+                .setTitle("Alarm")
+                .setMessage("Alarm disabled successfully")
+                .setTitleColor(R.color.white)
+                .setBackgroundColor(R.color.blue)
+                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+                .show();
     }
     public void restartAlarm(alarmListModel model){
         Intent intent = new Intent(context,AlarmReceiver.class);

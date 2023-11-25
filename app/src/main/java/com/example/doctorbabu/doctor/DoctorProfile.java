@@ -285,6 +285,7 @@ public class DoctorProfile extends Fragment {
                                 String result = years + yearText + months + monthText;
                                 period.setText(result);
                                 currentlyWorkingCard.setVisibility(View.VISIBLE);
+
                             }
                         }, 1500);
                     } else {

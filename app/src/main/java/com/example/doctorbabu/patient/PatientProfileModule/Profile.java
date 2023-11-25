@@ -75,24 +75,11 @@ public class Profile extends Fragment {
         reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int count = 0;
                 String medicalHistory = String.valueOf(snapshot.child("medicalHistory").getValue());
                 String allergyInfo = String.valueOf(snapshot.child("allergyInfo").getValue());
                 String profilePicture = String.valueOf(snapshot.child("profilePicture").getValue());
                 String bloodGroupInfo = String.valueOf(snapshot.child("bloodGroupInfo").getValue());
-                if (!medicalHistory.equals("null")) {
-                    count++;
-                }
-                if (!allergyInfo.equals("null")) {
-                    count++;
-                }
-                if (!profilePicture.equals("null")) {
-                    count++;
-                }
-                if (!bloodGroupInfo.equals("null")) {
-                    count++;
-                }
-                if (count == 4) {
+                if (!medicalHistory.equals("null") || !allergyInfo.equals("null") || profilePicture.equals("null") || !bloodGroupInfo.equals("null")) {
                     binding.warningCard.setVisibility(View.GONE);
                 } else {
                     binding.warningCard.setVisibility(View.VISIBLE);
@@ -264,8 +251,6 @@ public class Profile extends Fragment {
                     allergyListAdd(list);
                 }
             }
-        }).addOnFailureListener(e -> {
-
         });
     }
 

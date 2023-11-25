@@ -136,6 +136,7 @@ public class PatientReview extends AppCompatActivity {
                             }
                         }).setCancelable(false);
                 dialog.create().show();
+
             }
         }, 4000);
     }

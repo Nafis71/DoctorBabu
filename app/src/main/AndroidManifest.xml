@@ -31,7 +31,9 @@
         tools:targetApi="tiramisu">
         <activity
             android:name=".patient.DiagnoseReportUploadModule.DiagnosisReportUploadList"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
+            />
         <activity
             android:name=".patient.AlarmModules.MedicineAlarmDestination"
             android:exported="false" />

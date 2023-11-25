@@ -5,10 +5,6 @@ public class alarmListModel {
     int broadcastCode,hour,minute,alarmStatus;
     public alarmListModel(){}
 
-    public String getAmPm() {
-        return amPm;
-    }
-
     public void setAmPm(String amPm) {
         this.amPm = amPm;
     }

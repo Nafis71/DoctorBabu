@@ -5,7 +5,14 @@ public class doctorInfoModel {
     int onlineStatus;
     float rating;
 
-    public doctorInfoModel() {
+    private doctorInfoModel() {
+    }
+    public static  doctorInfoModel instance = null;
+    public static  doctorInfoModel getInstance(){
+        if(instance == null){
+            instance = new doctorInfoModel();
+        }
+        return instance;
     }
 
     public String getArea() {
