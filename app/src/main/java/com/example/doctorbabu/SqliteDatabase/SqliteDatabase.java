@@ -9,7 +9,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.example.doctorbabu.DatabaseModels.alarmListModel;
+import com.example.doctorbabu.DatabaseModels.AlarmListModel;
 
 import java.util.ArrayList;
 
@@ -25,8 +25,8 @@ public class SqliteDatabase extends SQLiteOpenHelper {
     private static final String COLUMN_BROADCAST_CODE ="broadcast_code";
     private static final String COLUMN_ALARM_TYPE ="alarm_type";
     private static final String COLUMN_ALARM_STATUS ="alarm_status";
-    alarmListModel alarmListModel;
-    ArrayList<alarmListModel> modelsArrayList;
+    AlarmListModel alarmListModel;
+    ArrayList<AlarmListModel> modelsArrayList;
     public SqliteDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -64,7 +64,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         database.update(TABLE_NAME,contentValues,"id=?",new String[]{id});
     }
 
-    public ArrayList<alarmListModel> readAllData(){
+    public ArrayList<AlarmListModel> readAllData(){
         String query = "Select *from "+TABLE_NAME;
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = null;
@@ -72,7 +72,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         if(database != null){
             cursor = database.rawQuery(query,null);
             while(cursor.moveToNext()){
-                alarmListModel = new alarmListModel();
+                alarmListModel = new AlarmListModel();
                 alarmListModel.setId(cursor.getString(0));
                 alarmListModel.setMedicineName(cursor.getString(1));
                 alarmListModel.setHour(cursor.getInt(2));
@@ -86,11 +86,11 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         }
         return modelsArrayList;
     }
-    public alarmListModel readSpecificData(String id){
+    public AlarmListModel readSpecificData(String id){
         String query = "Select *from "+TABLE_NAME+ " WHERE id = "+id+";";
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = null;
-        alarmListModel = new alarmListModel();
+        alarmListModel = new AlarmListModel();
         if(database != null){
             cursor = database.rawQuery(query,null);
             while (cursor.moveToNext()){
@@ -124,5 +124,9 @@ public class SqliteDatabase extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_ALARM_STATUS,alarmStatus);
         database.update(TABLE_NAME,contentValues,"id=?",new String[]{id});
+    }
+    public void deleteAlarm(String id){
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_NAME,"id=?",new String[]{id});
     }
 }

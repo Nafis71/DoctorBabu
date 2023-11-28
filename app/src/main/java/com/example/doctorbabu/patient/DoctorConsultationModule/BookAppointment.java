@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.databinding.ActivityBookAppointmentBinding;
 
-public class ChooseDoctor extends AppCompatActivity {
+public class BookAppointment extends AppCompatActivity {
+    ActivityBookAppointmentBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_doctor);
+        binding = ActivityBookAppointmentBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 }

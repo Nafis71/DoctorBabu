@@ -22,7 +22,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.doctorbabu.DatabaseModels.alarmListModel;
+import com.example.doctorbabu.DatabaseModels.AlarmListModel;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
 import com.example.doctorbabu.databinding.ActivityMedicineAlarmBinding;
@@ -43,7 +43,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
     AlarmReceiver alarmReceiver = new AlarmReceiver();
-    alarmListModel model;
+    AlarmListModel model;
     String id;
     int hour, minute;
     boolean isEditMode;
@@ -99,7 +99,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
     @SuppressLint("SetTextI18n")
     public void editAlarmMode() {
         binding.setAlarmButton.setText("Update Alarm");
-        model = new alarmListModel();
+        model = new AlarmListModel();
         getSpecificAlarmData();
         binding.timePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +162,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         });
     }
 
-    public void uiElementUpdater(alarmListModel model) {
+    public void uiElementUpdater(AlarmListModel model) {
         if (hour > 12) {
             binding.AmPm.setText("PM");
             binding.hour.setText(String.valueOf(model.getHour() - 12));
@@ -179,7 +179,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         setRadioButton(model);
     }
 
-    public void setRadioButton(alarmListModel model) {
+    public void setRadioButton(AlarmListModel model) {
         if (model.getAlarmType().equalsIgnoreCase("Once")) {
             binding.once.setChecked(true);
         } else {
@@ -187,7 +187,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         }
     }
 
-    public void showTimePicker(alarmListModel model) {               //for update the alarm
+    public void showTimePicker(AlarmListModel model) {               //for update the alarm
         timePicker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(model.getHour())
@@ -278,7 +278,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         }
     }
 
-    public void updateAlarm(alarmListModel model) {
+    public void updateAlarm(AlarmListModel model) {
         if (!validateMedicineName()) {
             return;
         }

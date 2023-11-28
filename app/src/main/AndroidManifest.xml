@@ -30,10 +30,12 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".patient.DoctorConsultationModule.BookAppointment"
+            android:exported="false" />
+        <activity
             android:name=".patient.DiagnoseReportUploadModule.DiagnosisReportUploadList"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing"
-            />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".patient.AlarmModules.MedicineAlarmDestination"
             android:exported="false" />
@@ -119,7 +121,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".patient.AlarmModules.AlarmReceiver"></receiver>
+        <receiver android:name=".patient.AlarmModules.AlarmReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,9 +1,9 @@
 package com.example.doctorbabu.DatabaseModels;
 
-public class alarmListModel {
+public class AlarmListModel {
     String id = null,medicineName,alarmType,amPm;
     int broadcastCode,hour,minute,alarmStatus;
-    public alarmListModel(){}
+    public AlarmListModel(){}
 
     public void setAmPm(String amPm) {
         this.amPm = amPm;

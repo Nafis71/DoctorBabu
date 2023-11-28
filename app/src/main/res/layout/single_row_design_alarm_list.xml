@@ -7,9 +7,19 @@
     android:layout_margin="5dp"
     android:layout_marginBottom="8dp"
     android:background="@color/white"
-    android:padding="5dp"
+    android:padding="3dp"
     app:cardCornerRadius="11dp"
     app:cardElevation="2dp">
+    <ImageView
+        android:id="@+id/checkImage"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:src="@drawable/check">
+
+    </ImageView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,5 +77,10 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp" />
+
+
     </RelativeLayout>
+
+
+
 </com.google.android.material.card.MaterialCardView>

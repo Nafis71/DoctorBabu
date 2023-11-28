@@ -45,6 +45,16 @@
             android:textColor="#4E5EDE"
             android:textSize="20sp"
             android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/delete"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="5dp">
+        </ImageView>
 
     </RelativeLayout>
 

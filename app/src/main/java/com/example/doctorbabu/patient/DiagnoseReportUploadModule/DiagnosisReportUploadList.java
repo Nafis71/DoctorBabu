@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.doctorbabu.Adapters.diagnoseReportAdapter;
-import com.example.doctorbabu.Adapters.selectedCard;
+import com.example.doctorbabu.Adapters.SelectedCard;
 import com.example.doctorbabu.DatabaseModels.diagnoseReportModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
@@ -58,7 +58,7 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
     Button chooseReport;
     diagnoseReportAdapter recyclerViewAdapter;
     ArrayList<diagnoseReportModel> reportModel;
-    selectedCard selectedCards;
+    SelectedCard selectedCards;
     diagnoseReportModel model;
     HashMap<String,String> data;
 
@@ -102,7 +102,7 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
 
     public void showDiagnoseReports() {
         reportModel = new ArrayList<>();
-        selectedCards = selectedCard.getInstance();
+        selectedCards = SelectedCard.getInstance();
         binding.diagnosisReportsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2), R.layout.shimmer_layout_diagnose_report);
         recyclerViewAdapter = new diagnoseReportAdapter(this, reportModel, selectedCards,binding.delete);
         binding.diagnosisReportsRecyclerView.setAdapter(recyclerViewAdapter);

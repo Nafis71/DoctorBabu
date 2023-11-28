@@ -80,6 +80,18 @@ public class DoctorInfoActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        binding.appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DoctorInfoActivity.this, BookAppointment.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     @SuppressLint("SetTextI18n")
     public void loadData() {
         runOnUiThread(() -> Glide.with(DoctorInfoActivity.this).load(photoUrl).into(binding.profilePicture));

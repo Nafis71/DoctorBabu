@@ -22,9 +22,9 @@ public class diagnoseReportAdapter extends RecyclerView.Adapter<diagnoseReportAd
     Context context;
     ImageView delete;
     ArrayList<diagnoseReportModel> model;
-    selectedCard selectedCard;
+    SelectedCard selectedCard;
     boolean isChecked;
-    public diagnoseReportAdapter(Context context,ArrayList<diagnoseReportModel> model,selectedCard selectedCard,ImageView delete){
+    public diagnoseReportAdapter(Context context, ArrayList<diagnoseReportModel> model, SelectedCard selectedCard, ImageView delete){
         this.context = context;
         this.model = model;
         this.selectedCard = selectedCard;

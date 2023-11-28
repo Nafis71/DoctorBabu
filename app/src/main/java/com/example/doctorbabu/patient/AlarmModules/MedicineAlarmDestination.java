@@ -10,7 +10,7 @@ import android.os.Vibrator;
 import android.provider.Settings;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
-import com.example.doctorbabu.DatabaseModels.alarmListModel;
+import com.example.doctorbabu.DatabaseModels.AlarmListModel;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
 import com.example.doctorbabu.databinding.ActivityMedicineAlarmDestinationBinding;
 
@@ -20,7 +20,7 @@ public class MedicineAlarmDestination extends AppCompatActivity {
     Vibrator vibrator;
     String alarmID;
     boolean isRinging,isVibrating,fromNotification = true;
-    alarmListModel model;
+    AlarmListModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

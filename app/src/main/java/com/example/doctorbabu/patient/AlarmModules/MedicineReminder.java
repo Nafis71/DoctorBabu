@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.doctorbabu.Adapters.alarmListAdapter;
-import com.example.doctorbabu.DatabaseModels.alarmListModel;
+import com.example.doctorbabu.Adapters.SelectedCard;
+import com.example.doctorbabu.DatabaseModels.AlarmListModel;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
 import com.example.doctorbabu.databinding.ActivityMedicineReminderBinding;
@@ -25,11 +25,10 @@ import java.util.concurrent.Executors;
 
 public class MedicineReminder extends AppCompatActivity {
     ActivityMedicineReminderBinding binding;
-    AlarmManager alarmManager;
-    alarmListModel model;
     alarmListAdapter adapter;
-    ArrayList<alarmListModel> modelsList;
+    ArrayList<AlarmListModel> modelsList;
     ExecutorService databaseExecutor;
+    SelectedCard selectedCard;
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -65,6 +64,12 @@ public class MedicineReminder extends AppCompatActivity {
                 activityResultLauncher.launch(intent);
             }
         });
+        binding.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteData();
+            }
+        });
     }
 
     public void readDatabase(){
@@ -85,9 +90,22 @@ public class MedicineReminder extends AppCompatActivity {
         }
     }
     public void displayData(){
+        selectedCard = SelectedCard.getInstance();
         binding.alarmListRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_doctor_search);
-        adapter = new alarmListAdapter(this,modelsList,activityResultLauncher);
+        adapter = new alarmListAdapter(this,modelsList,activityResultLauncher, selectedCard,binding.delete);
         binding.alarmListRecyclerView.setAdapter(adapter);
+    }
+
+    public void deleteData(){
+        try(SqliteDatabase database = new SqliteDatabase(this)){
+            ArrayList<String> cards = selectedCard.getCards();
+            cards.forEach(database::deleteAlarm);
+            selectedCard.resetCards();
+            binding.delete.setVisibility(View.GONE);
+            readDatabase();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
