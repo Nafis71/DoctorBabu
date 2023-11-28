@@ -88,6 +88,7 @@ dependencies {
     implementation 'com.github.thekhaeng:pushdown-anim-click:1.1.1'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.5'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
     //noinspection GradleDependency
     implementation 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_video_conference_android:+'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'

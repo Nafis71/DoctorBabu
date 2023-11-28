@@ -7,18 +7,231 @@
     android:padding="5dp"
     tools:context=".patient.DoctorConsultationModule.BookAppointment">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/calendarView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mcv_showWeekDays="true"
-        app:mcv_showOtherDates="out_of_range"
-        app:mcv_selectionMode="single"
-        app:mcv_selectionColor="#4F5FDE"
-        app:mcv_calendarMode="week"
-        app:mcv_firstDayOfWeek="saturday"
-        app:mcv_allowClickDaysOutsideCurrentMonth="false"
-        />
+        android:layout_marginBottom="58dp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/calenderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:mcv_allowClickDaysOutsideCurrentMonth="false"
+                    app:mcv_calendarMode="week"
+                    app:mcv_firstDayOfWeek="saturday"
+                    app:mcv_selectionColor="#4F5FDE"
+                    app:mcv_selectionMode="single"
+                    app:mcv_showWeekDays="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/calenderLayout">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:animateLayoutChanges="true"
+                    app:cardBackgroundColor="#EDF6FD"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/infoImage"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/info">
+
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/infoImage"
+                            android:fontFamily="@font/roboto"
+                            android:text="Please select a date first"
+                            android:textColor="@color/black"
+                            android:textSize="14.5sp"
+                            android:textStyle="normal">
+
+                        </TextView>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/chipLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calenderLayout"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/morningHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Morning Schedule"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/morningDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/morningHeader"
+                    android:layout_margin="5dp">
+
+                </com.google.android.material.divider.MaterialDivider>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/morningChipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/morningDivider"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:animateLayoutChanges="true"
+                    app:singleSelection="true">
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/afternoonHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/morningChipGroup"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Afternoon Schedule"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/afternoonDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/afternoonHeader"
+                    android:layout_margin="5dp">
+
+                </com.google.android.material.divider.MaterialDivider>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/afternoonChipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/afternoonDivider"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:animateLayoutChanges="true"
+                    app:singleSelection="true">
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/nightHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/afternoonChipGroup"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Night Schedule"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/nightDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nightHeader"
+                    android:layout_margin="5dp">
+
+                </com.google.android.material.divider.MaterialDivider>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/nightChipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nightDivider"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:animateLayoutChanges="true"
+                    app:singleSelection="true">
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bookAppointment"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Book Appointment"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#3C4DD8"
+        app:cornerRadius="12dp"
+        app:elevation="500dp"
+        app:strokeColor="@color/white"
+        tools:ignore="NotSibling" />
 
 </RelativeLayout>
