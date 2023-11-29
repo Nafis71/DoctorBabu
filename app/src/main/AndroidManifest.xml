@@ -122,6 +122,7 @@
         </activity>
 
         <receiver android:name=".patient.AlarmModules.AlarmReceiver" />
+        <receiver android:name=".patient.DoctorConsultationModule.AppointmentReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"

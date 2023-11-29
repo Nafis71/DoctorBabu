@@ -4,18 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.airbnb.lottie.parser.ColorParser;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityBookAppointmentBinding;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -24,13 +35,11 @@ import org.aviran.cookiebar2.CookieBar;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class BookAppointment extends AppCompatActivity {
     ActivityBookAppointmentBinding binding;
@@ -39,6 +48,9 @@ public class BookAppointment extends AppCompatActivity {
                 afternoonEndHour=18, afternoonStartMinute = 0,nightStartHour = 19, nightEndHour = 23,nightStartMinute = 0;
     int year,month,day;
     String chipName,appointmentHour,appointmentMinute,timePeriod,doctorID;
+//    ArrayList<AppointmentModel> appointmentModel;
+    ArrayList<String>databaseAppointmentTime = new ArrayList<>();
+    AlarmManager alarmManager;
 
 
     @Override
@@ -47,9 +59,7 @@ public class BookAppointment extends AppCompatActivity {
         binding = ActivityBookAppointmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         doctorID = getIntent().getStringExtra("doctorID");
-        calculateMorningTime();
-        calculaterAfternoonTime();
-        calculaterNightTime();
+
         firebase = Firebase.getInstance();
     }
 
@@ -80,7 +90,8 @@ public class BookAppointment extends AppCompatActivity {
         }
         appointmentData.put("appointmentMinute",appointmentMinute.trim());
         appointmentData.put("timePeriod",timePeriod);
-        appointmentData.put("appointmentDate",day+"/"+month+"/"+year);
+        appointmentData.put("appointmentDate",year+"-"+month+"-"+day);
+        setReminder(appointmentHour, appointmentMinute);
         reference.child(doctorID).push().setValue(appointmentData);
         CookieBar.build(BookAppointment.this)
                 .setTitle("Appointment Booked")
@@ -93,6 +104,32 @@ public class BookAppointment extends AppCompatActivity {
                 .show();
     }
 
+    public void setReminder(String hour, String minute){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.YEAR,year);
+        calendar.set(Calendar.DATE,day);
+        if(timePeriod.equalsIgnoreCase("am")){
+            calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hour));
+        }else{
+            calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hour)+12);
+        }
+        calendar.set(Calendar.MINUTE,Integer.parseInt(minute));
+        calendar.set(Calendar.SECOND,0);
+        Intent intent = new Intent(this, AppointmentReceiver.class);
+        int broadcastCode = getBroadcastCode();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+    }
+
+    public int getBroadcastCode(){
+        AppointmentReceiver appointmentReceiver = new AppointmentReceiver();
+        appointmentReceiver.setBroadcastCode();
+        return appointmentReceiver.getBroadcastCode();
+
+    }
+
     public void calculateMorningTime(){
         int timeLimit = morningEndHour - morningStartHour;
         String pattern = "00";
@@ -102,7 +139,11 @@ public class BookAppointment extends AppCompatActivity {
                 String minute = numberFormatter.format(morningStartMinute);
                 String hour = numberFormatter.format(morningStartHour);
                 chipName = hour +":" +minute;
-                createAppointmentChips("morning");
+                if(databaseAppointmentTime.contains(chipName)){
+                    createAppointmentChips("morning",false);
+                } else{
+                    createAppointmentChips("morning",true);
+                }
                 morningStartMinute +=20;
             }else if(morningStartMinute == 60){
                 morningStartHour++;
@@ -110,13 +151,21 @@ public class BookAppointment extends AppCompatActivity {
                 String minute = numberFormatter.format(morningStartMinute);
                 String hour = numberFormatter.format(morningStartHour);
                 chipName = hour +":" +minute;
-                createAppointmentChips("morning");
+                if(databaseAppointmentTime.contains(chipName)){
+                    createAppointmentChips("morning",false);
+                } else{
+                    createAppointmentChips("morning",true);
+                }
                 morningStartMinute +=20;
             }else{
                 String minute = numberFormatter.format(morningStartMinute);
                 String hour = numberFormatter.format(morningStartHour);
                 chipName = hour +":" +minute;
-                createAppointmentChips("morning");
+                if(databaseAppointmentTime.contains(chipName)){
+                    createAppointmentChips("morning",false);
+                } else{
+                    createAppointmentChips("morning",true);
+                }
                 morningStartMinute +=20;
             }
 
@@ -131,22 +180,37 @@ public class BookAppointment extends AppCompatActivity {
             if(i == 0){
                 String minute = numberFormatter.format(afternoonStartMinute);
                 String hour = numberFormatter.format(afternoonStartHour);
+                String varification = hour+":"+minute;
                 chipName = Integer.parseInt(hour)-12 +":" +minute;
-                createAppointmentChips("afternoon");
+                if(databaseAppointmentTime.contains(varification)){
+                    createAppointmentChips("afternoon",false);
+                } else{
+                    createAppointmentChips("afternoon",true);
+                }
                 afternoonStartMinute +=20;
             }else if(afternoonStartMinute == 60){
                 afternoonStartHour++;
                 afternoonStartMinute = 0;
                 String minute = numberFormatter.format(afternoonStartMinute);
                 String hour = numberFormatter.format(afternoonStartHour);
+                String varification = hour+":"+minute;
                 chipName = Integer.parseInt(hour)-12 +":" +minute;
-                createAppointmentChips("afternoon");
+                if(databaseAppointmentTime.contains(varification)){
+                    createAppointmentChips("afternoon",false);
+                } else{
+                    createAppointmentChips("afternoon",true);
+                }
                 afternoonStartMinute +=20;
             }else{
                 String minute = numberFormatter.format(afternoonStartMinute);
                 String hour = numberFormatter.format(afternoonStartHour);
+                String varification = hour+":"+minute;
                 chipName = Integer.parseInt(hour)-12 +":" +minute;
-                createAppointmentChips("afternoon");
+                if(databaseAppointmentTime.contains(varification)){
+                    createAppointmentChips("afternoon",false);
+                } else{
+                    createAppointmentChips("afternoon",true);
+                }
                 afternoonStartMinute +=20;
             }
 
@@ -160,35 +224,56 @@ public class BookAppointment extends AppCompatActivity {
             if(i == 0){
                 String minute = numberFormatter.format(nightStartMinute);
                 String hour = numberFormatter.format(nightStartHour);
+                String varification = hour+":"+minute;
                 chipName = Integer.parseInt(hour)-12 +":" +minute;
-                createAppointmentChips("night");
+                if(databaseAppointmentTime.contains(varification)){
+                    createAppointmentChips("night",false);
+                } else{
+                    createAppointmentChips("night",true);
+                }
                 nightStartMinute +=20;
             }else if(nightStartMinute == 60){
                 nightStartHour++;
                 nightStartMinute = 0;
                 String minute = numberFormatter.format(nightStartMinute);
                 String hour = numberFormatter.format(nightStartHour);
+                String varification = hour+":"+minute;
                 chipName = Integer.parseInt(hour)-12 +":" +minute;
-                createAppointmentChips("night");
+                if(databaseAppointmentTime.contains(varification)){
+                    createAppointmentChips("night",false);
+                } else{
+                    createAppointmentChips("night",true);
+                }
                 nightStartMinute +=20;
             }else{
                 String minute = numberFormatter.format(nightStartMinute);
                 String hour = numberFormatter.format(nightStartHour);
+                String varification = hour+":"+minute;
                 chipName = Integer.parseInt(hour)-12 +":" +minute;
-                createAppointmentChips("night");
+                if(databaseAppointmentTime.contains(varification)){
+                    createAppointmentChips("night",false);
+                } else{
+                    createAppointmentChips("night",true);
+                }
                 nightStartMinute +=20;
             }
 
         }
     }
-    public void createAppointmentChips(String dayTime){
+    public void createAppointmentChips(String dayTime,boolean clickable){
         Random random = new Random();
         @SuppressLint("InflateParams")
         Chip chip = (Chip) LayoutInflater.from(BookAppointment.this).inflate(R.layout.appointment_chip, null);
         chip.setText(chipName);
         chip.setId(random.nextInt());
         chip.setHeight(80);
-        chip.setClickable(true);
+        chip.setClickable(clickable);
+        if(clickable){
+            chip.setEnabled(true);
+        }else{
+            chip.setEnabled(false);
+            chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+        }
         if(dayTime.equalsIgnoreCase("morning")){
             binding.morningChipGroup.addView(chip);
         } else if(dayTime.equalsIgnoreCase("afternoon")){
@@ -205,6 +290,19 @@ public class BookAppointment extends AppCompatActivity {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 if(selected){
+                   binding.afternoonChipGroup.removeAllViews();
+                   binding.morningChipGroup.removeAllViews();
+                   binding.nightChipGroup.removeAllViews();
+                   morningStartHour = 8; morningStartMinute = 0;morningEndHour = 12;afternoonStartHour = 13;
+                           afternoonEndHour=18;afternoonStartMinute =0;nightStartHour = 19;
+                            nightEndHour = 23;nightStartMinute = 0;
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            checkAppointDate();
+                        }
+                    },1000);
                     binding.chipLayout.setVisibility(View.VISIBLE);
                     binding.infoLayout.setVisibility(View.GONE);
                     year = date.getYear();
@@ -214,13 +312,45 @@ public class BookAppointment extends AppCompatActivity {
                     binding.chipLayout.setVisibility(View.GONE);
                     binding.infoLayout.setVisibility(View.VISIBLE);
                 }
+
             }
         });
     }
     
     public void checkAppointDate(){
+//        appointmentModel = new ArrayList<>();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
-        // TODO: 11/29/2023  
+        reference.child(doctorID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    databaseAppointmentTime.clear();
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        String today = year+"-"+month+"-"+day;
+                        Log.w("Today's Date",today);
+                        if(today.equals(snap.child("appointmentDate").getValue().toString())){
+                            String hour = snap.child("appointmentHour").getValue().toString();
+                            String minute = snap.child("appointmentMinute").getValue().toString();
+                            String time = hour +":" +minute;
+                            databaseAppointmentTime.add(time);
+                        }
+                    }
+                    calculateMorningTime();
+                    calculaterAfternoonTime();
+                    calculaterNightTime();
+                } else {
+                    calculateMorningTime();
+                    calculaterAfternoonTime();
+                    calculaterNightTime();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
     
 
@@ -263,6 +393,8 @@ public class BookAppointment extends AppCompatActivity {
             }
         }
     }
+
+
 
     @Override
     protected void onDestroy() {
