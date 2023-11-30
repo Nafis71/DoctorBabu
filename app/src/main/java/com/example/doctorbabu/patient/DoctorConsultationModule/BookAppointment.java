@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -15,8 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.airbnb.lottie.parser.ColorParser;
-import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityBookAppointmentBinding;
@@ -34,12 +34,12 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import org.aviran.cookiebar2.CookieBar;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class BookAppointment extends AppCompatActivity {
     ActivityBookAppointmentBinding binding;
@@ -59,7 +59,7 @@ public class BookAppointment extends AppCompatActivity {
         binding = ActivityBookAppointmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         doctorID = getIntent().getStringExtra("doctorID");
-
+        createNotificationChannel();
         firebase = Firebase.getInstance();
     }
 
@@ -74,13 +74,22 @@ public class BookAppointment extends AppCompatActivity {
                 bookAppointment();
             }
         });
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
     public void bookAppointment(){
         FirebaseUser user = firebase.getUserID();
+        String appointmentID = getUniqueID();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         HashMap<String, String> appointmentData =  new HashMap<>();
+        appointmentData.put("appointmentID",appointmentID);
         appointmentData.put("patientID",user.getUid());
+        appointmentData.put("doctorID",doctorID);
         if(timePeriod.equalsIgnoreCase("Am")){
             appointmentData.put("appointmentHour",appointmentHour.trim());
         }else{
@@ -92,7 +101,10 @@ public class BookAppointment extends AppCompatActivity {
         appointmentData.put("timePeriod",timePeriod);
         appointmentData.put("appointmentDate",year+"-"+month+"-"+day);
         setReminder(appointmentHour, appointmentMinute);
-        reference.child(doctorID).push().setValue(appointmentData);
+        reference.child(doctorID).child(appointmentID).setValue(appointmentData);
+        reference.child(user.getUid()).child(appointmentID).setValue(appointmentData);
+        clearChipViews();
+        checkAppointmentDate();
         CookieBar.build(BookAppointment.this)
                 .setTitle("Appointment Booked")
                 .setMessage("Your appointment has been booked")
@@ -106,9 +118,9 @@ public class BookAppointment extends AppCompatActivity {
 
     public void setReminder(String hour, String minute){
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.MONTH,month-1);
         calendar.set(Calendar.YEAR,year);
-        calendar.set(Calendar.DATE,day);
+        calendar.set(Calendar.DAY_OF_MONTH,day);
         if(timePeriod.equalsIgnoreCase("am")){
             calendar.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hour));
         }else{
@@ -117,10 +129,15 @@ public class BookAppointment extends AppCompatActivity {
         calendar.set(Calendar.MINUTE,Integer.parseInt(minute));
         calendar.set(Calendar.SECOND,0);
         Intent intent = new Intent(this, AppointmentReceiver.class);
+        intent.putExtra("doctorId",doctorID);
         int broadcastCode = getBroadcastCode();
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+    }
+
+    public String getUniqueID(){
+        return UUID.randomUUID().toString();
     }
 
     public int getBroadcastCode(){
@@ -290,17 +307,12 @@ public class BookAppointment extends AppCompatActivity {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 if(selected){
-                   binding.afternoonChipGroup.removeAllViews();
-                   binding.morningChipGroup.removeAllViews();
-                   binding.nightChipGroup.removeAllViews();
-                   morningStartHour = 8; morningStartMinute = 0;morningEndHour = 12;afternoonStartHour = 13;
-                           afternoonEndHour=18;afternoonStartMinute =0;nightStartHour = 19;
-                            nightEndHour = 23;nightStartMinute = 0;
+                  clearChipViews();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            checkAppointDate();
+                            checkAppointmentDate();
                         }
                     },1000);
                     binding.chipLayout.setVisibility(View.VISIBLE);
@@ -316,9 +328,16 @@ public class BookAppointment extends AppCompatActivity {
             }
         });
     }
+    public void clearChipViews(){
+        binding.afternoonChipGroup.removeAllViews();
+        binding.morningChipGroup.removeAllViews();
+        binding.nightChipGroup.removeAllViews();
+        morningStartHour = 8; morningStartMinute = 0;morningEndHour = 12;afternoonStartHour = 13;
+        afternoonEndHour=18;afternoonStartMinute =0;nightStartHour = 19;
+        nightEndHour = 23;nightStartMinute = 0;
+    }
     
-    public void checkAppointDate(){
-//        appointmentModel = new ArrayList<>();
+    public void checkAppointmentDate(){
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         reference.child(doctorID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -392,6 +411,14 @@ public class BookAppointment extends AppCompatActivity {
                 timePeriod = period;
             }
         }
+    }
+    public void createNotificationChannel() {
+        CharSequence name = "AppointmentReminderChannel";
+        String description = "Channel for Reminding appointment";
+        NotificationChannel channel = new NotificationChannel("appointmentReminder", name, NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 
 

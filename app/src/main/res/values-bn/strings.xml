@@ -26,8 +26,8 @@
     <string name="medicalReportDescription">আপনার ডায়াগোনোসিস রিপোর্ট আপলোড করুন</string>
     <string name="medicineInformation">ঔষধ তথ্য</string>
     <string name="medicineInformationDescription">নির্ধারিত ওষুধ সম্পর্কে আরও জানুন</string>
-    <string name="appointmentHistory">অ্যাপয়েন্টমেন্টের ইতিহাস</string>
-    <string name="appointmentHistoryDescription">অ্যাপয়েন্টমেন্ট নেওয়া হয়েছে: 0</string>
+    <string name="pendingAppointment">মুলতুবি অ্যাপয়েন্টমেন্ট</string>
+    <string name="pendingAppointmentDescription">অ্যাপয়েন্টমেন্ট নেওয়া হয়েছে: 0</string>
     <string name="recentlyViewed">সম্প্রতি দেখা হয়েছে</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->

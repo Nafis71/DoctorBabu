@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
@@ -29,7 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.jakewharton.processphoenix.ProcessPhoenix;
@@ -56,11 +56,8 @@ public class Home extends Fragment {
 
     FragmentHomeBinding binding;
 
-
     public Home() {
-        // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +70,7 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         firebaseExecutor = Executors.newSingleThreadExecutor();
         firebaseExecutor.execute(this::firebaseAuth);
-        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard,binding.medicineReminderCard,binding.reportCard)
+        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard,binding.pendingAppointment)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
         loadImageSlider();
@@ -86,9 +83,12 @@ public class Home extends Fragment {
         binding.profilePicture.setOnClickListener(v -> callProfileFragment());
         binding.appointmentCard.setOnClickListener(v -> callAppointmentBottomSheet());
         binding.languageImage.setOnClickListener(v -> callLanguageChanger());
-        binding.consultantCard.setOnClickListener(view1 -> {callDoctorFragment();});
+        binding.consultantCard.setOnClickListener(view1 -> {
+            callDoctorFragment();
+        });
         binding.medicineReminderCard.setOnClickListener(view -> callMedicineReminder());
         binding.reportCard.setOnClickListener(view -> callDiagnoseReportUploader());
+        binding.pendingAppointment.setOnClickListener(view -> callPendingAppointment());
     }
 
     public void firebaseAuth() {
@@ -99,9 +99,10 @@ public class Home extends Fragment {
             loadUserProfileData();
         }
     }
-    public void loadUserProfileData(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference reference = database.getReference("users");
+
+    public void loadUserProfileData() {
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("users");
         reference.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -126,23 +127,30 @@ public class Home extends Fragment {
         });
     }
 
-    public void callMedicineReminder(){
+    public void callPendingAppointment() {
+        Intent intent = new Intent(requireActivity(), PendingAppointment.class);
+        intent.putExtra("userID", user.getUid());
+        startActivity(intent);
+
+    }
+
+    public void callMedicineReminder() {
         Intent intent = new Intent(requireActivity(), MedicineReminder.class);
         startActivity(intent);
     }
 
-    public void callWelcomeSection(){
+    public void callWelcomeSection() {
         binding.welcomeSection.setVisibility(View.VISIBLE);
         binding.welcomeAnimation.playAnimation();
 
     }
 
-    public void callDiagnoseReportUploader(){
+    public void callDiagnoseReportUploader() {
         Intent intent = new Intent(requireActivity(), DiagnosisReportUploadList.class);
         startActivity(intent);
     }
 
-    public void setAnimations(){
+    public void setAnimations() {
         leftAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.left_animation);
         rightAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.right_anim);
         binding.appointmentCard.setAnimation(leftAnim);
@@ -150,7 +158,7 @@ public class Home extends Fragment {
         binding.consultantCard.setAnimation(rightAnim);
         binding.medicineReminderCard.setAnimation(leftAnim);
         binding.reportCard.setAnimation(leftAnim);
-        binding.appointmentHistory.setAnimation(leftAnim);
+        binding.pendingAppointment.setAnimation(leftAnim);
         binding.onlineCosultantCard.setAnimation(rightAnim);
         binding.medicineCard.setAnimation(rightAnim);
     }
@@ -170,16 +178,15 @@ public class Home extends Fragment {
         sliderView.startAutoCycle();
     }
 
-    public void callDoctorFragment(){
+    public void callDoctorFragment() {
         bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
-        bottomNavigation.setItemSelected(R.id.nav_doctor_video,true);
+        bottomNavigation.setItemSelected(R.id.nav_doctor_video, true);
     }
 
     public void callProfileFragment() {
         bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
-        bottomNavigation.setItemSelected(R.id.nav_profile,true);
+        bottomNavigation.setItemSelected(R.id.nav_profile, true);
     }
-
 
 
     public void callAppointmentBottomSheet() {
@@ -191,7 +198,7 @@ public class Home extends Fragment {
 
 
     public void callLanguageChanger() {
-        Dialog dialog = new Dialog(getContext());
+        Dialog dialog = new Dialog(requireContext());
         dialog.setContentView(R.layout.custom_language_dialog);
         dialog.setCancelable(true);
         buttonDialog = dialog.findViewById(R.id.dialogButton);
@@ -249,7 +256,7 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater,container,false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }

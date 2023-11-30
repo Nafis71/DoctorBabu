@@ -455,7 +455,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/appointmentHistory"
+                android:id="@+id/pendingAppointment"
                 android:layout_width="175dp"
                 android:layout_height="150dp"
                 android:layout_below="@+id/reportCard"
@@ -491,7 +491,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/roboto"
-                        android:text="@string/appointmentHistory"
+                        android:text="@string/pendingAppointment"
                         android:textColor="#666666"
                         android:textSize="13sp"
                         android:textStyle="bold">
@@ -508,7 +508,23 @@
                         android:layout_marginStart="8.5dp"
                         android:fontFamily="@font/roboto"
                         android:padding="2dp"
-                        android:text="@string/appointmentHistoryDescription"
+                        android:text="@string/pendingAppointmentDescription"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+
+                        >
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/pendingAppointmentCounter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/apointmentHistoryText"
+                        android:layout_toEndOf="@+id/appointmentHistoryDescription"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
                         android:textColor="#666666"
                         android:textSize="12sp"
 

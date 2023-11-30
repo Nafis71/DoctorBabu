@@ -57,7 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.applogo)
                 .setContentTitle("Doctor Babu")
                 .setContentText(notificationText)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)

@@ -118,16 +118,17 @@
             android:layout_centerHorizontal="true">
 
         </TextView>
+
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/alarmListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/addAlarm"
             android:layout_below="@+id/alarmHeaderSection"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="1dp"
             android:animationCache="true"
             android:orientation="vertical"
-            android:layout_above="@+id/addAlarm"
             android:overScrollMode="ifContentScrolls"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:shimmer_recycler_item_count="4"

@@ -30,6 +30,9 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".patient.HomeModules.PendingAppointment"
+            android:exported="false" />
+        <activity
             android:name=".patient.DoctorConsultationModule.BookAppointment"
             android:exported="false" />
         <activity
@@ -79,9 +82,6 @@
             android:exported="false" />
         <activity
             android:name=".doctor.doctorAboutYou"
-            android:exported="false" />
-        <activity
-            android:name=".patient.DoctorConsultationModule.ChooseDoctor"
             android:exported="false" />
         <activity
             android:name=".doctor.DoctorDashboard"

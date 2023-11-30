@@ -22,16 +22,30 @@
                 android:id="@+id/calenderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back2">
+
+                </ImageView>
 
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                     android:id="@+id/calendarView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:mcv_allowClickDaysOutsideCurrentMonth="false"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/back"
+                    android:layout_marginEnd="0dp"
                     app:mcv_calendarMode="week"
                     app:mcv_firstDayOfWeek="saturday"
                     app:mcv_selectionColor="#4F5FDE"
                     app:mcv_selectionMode="single"
+                    android:layout_centerVertical="true"
                     app:mcv_showWeekDays="true" />
             </RelativeLayout>
 

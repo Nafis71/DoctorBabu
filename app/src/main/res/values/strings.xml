@@ -24,8 +24,8 @@
     <string name="medicalReportDescription">Upload your diagonosis report</string>
     <string name="medicineInformation">Medicine Information</string>
     <string name="medicineInformationDescription">Learn more about prescribed medicine</string>
-    <string name="appointmentHistory">Appointment History</string>
-    <string name="appointmentHistoryDescription">Appointments Taken: 0</string>
+    <string name="pendingAppointment">Pending Appointment</string>
+    <string name="pendingAppointmentDescription">Appointments Pending:</string>
     <string name="recentlyViewed">Recently Viewed</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->
