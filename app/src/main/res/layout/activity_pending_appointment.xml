@@ -1,145 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp"
-    tools:context=".patient.HomeModules.PendingAppointment">
+    android:fitsSystemWindows="true"
+    tools:context=".patient.HomeModules.PendingAppointment"
+    >
 
     <RelativeLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginStart="-8dp"
-        android:layout_marginEnd="-8dp"
-        android:background="#ffff"
-        android:elevation="4sp">
+        android:padding="5dp"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="-8dp"
+            android:layout_marginEnd="-8dp"
+            android:background="#ffff"
+            android:elevation="4sp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/headerText"
-            android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/headerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Pending "
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/headerText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/headerText"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Appointment"
+                android:textColor="#4E5EDE"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/toolbar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/navigationdrawericon"
+                android:visibility="visible">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/descriptionHeader"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.5"
-            android:text="Pending "
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_below="@+id/header"
+            android:layout_marginTop="3dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/headerText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="2dp"
-            android:layout_toEndOf="@+id/headerText"
-            android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.5"
-            android:text="Appointment"
-            android:textColor="#4E5EDE"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/appointmentImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/appointment">
 
-        <ImageView
-            android:id="@+id/delete"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/delete"
-            android:visibility="gone"></ImageView>
+            </ImageView>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/diagnosisHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/appointmentImage"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Appointment List"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold">
 
-    <RelativeLayout
-        android:id="@+id/descriptionHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="3dp">
+            </TextView>
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/appointmentImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/appointment">
-
-        </ImageView>
-
-        <TextView
-            android:id="@+id/diagnosisHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@+id/appointmentImage"
-            android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.5"
-            android:text="Appointment List"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold">
-
-        </TextView>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/noAppointmentHeader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/descriptionHeader">
-
-        <ImageView
-            android:id="@+id/nodataImage"
-            android:layout_width="320dp"
-            android:layout_height="320dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/no_pending_appointment">
-
-        </ImageView>
-
-        <TextView
-            android:id="@+id/nodataText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/nodataImage"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/roboto"
-            android:text="There are no pending appointments"
-            android:textSize="16sp"
-            android:textStyle="normal">
-
-        </TextView>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/noAppointmentHeader"
-        android:padding="2dp"
-        >
-        <com.todkars.shimmer.ShimmerRecyclerView
-            android:id="@+id/appointmentRecyclerView"
+        <RelativeLayout
+            android:id="@+id/noAppointmentHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:animationCache="true"
-            android:orientation="vertical"
-            android:visibility="visible"
-            android:overScrollMode="ifContentScrolls"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:shimmer_recycler_item_count="4"
-            app:shimmer_recycler_layout="@layout/shimmer_layout_appointment" />
-    </RelativeLayout>
+            android:layout_below="@+id/descriptionHeader">
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/nodataImage"
+                android:layout_width="320dp"
+                android:layout_height="320dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                android:src="@drawable/no_pending_appointment">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/nodataText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nodataImage"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto"
+                android:text="There are no pending appointments"
+                android:textSize="16sp"
+                android:textStyle="normal">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/noAppointmentHeader"
+            android:padding="2dp">
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/appointmentRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:animationCache="true"
+                android:orientation="vertical"
+                android:overScrollMode="ifContentScrolls"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:shimmer_recycler_item_count="4"
+                app:shimmer_recycler_layout="@layout/shimmer_layout_appointment" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navBar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/nav_drawer">
+
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>

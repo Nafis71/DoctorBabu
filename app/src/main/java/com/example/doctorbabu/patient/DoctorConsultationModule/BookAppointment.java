@@ -51,6 +51,7 @@ public class BookAppointment extends AppCompatActivity {
 //    ArrayList<AppointmentModel> appointmentModel;
     ArrayList<String>databaseAppointmentTime = new ArrayList<>();
     AlarmManager alarmManager;
+    String appointmentID;
 
 
     @Override
@@ -84,7 +85,7 @@ public class BookAppointment extends AppCompatActivity {
     }
     public void bookAppointment(){
         FirebaseUser user = firebase.getUserID();
-        String appointmentID = getUniqueID();
+        appointmentID = getUniqueID();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         HashMap<String, String> appointmentData =  new HashMap<>();
         appointmentData.put("appointmentID",appointmentID);
@@ -130,6 +131,7 @@ public class BookAppointment extends AppCompatActivity {
         calendar.set(Calendar.SECOND,0);
         Intent intent = new Intent(this, AppointmentReceiver.class);
         intent.putExtra("doctorId",doctorID);
+        intent.putExtra("appointmentID",appointmentID);
         int broadcastCode = getBroadcastCode();
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
         alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);

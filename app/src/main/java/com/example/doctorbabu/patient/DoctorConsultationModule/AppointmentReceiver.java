@@ -1,11 +1,13 @@
 package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -24,14 +26,15 @@ import java.util.Random;
 
 public class AppointmentReceiver extends BroadcastReceiver {
     int broadcastCode = 0;
-    String doctorID, doctorName;
+    String doctorID, doctorName,appointmentID;
     String notificationText = "You have an appointment with ";
     Context context;
 
     @Override
     public void onReceive(Context context, Intent appointmentIntent) {
         this.context = context;
-        doctorID = appointmentIntent.getStringExtra("doctorID");
+        doctorID = appointmentIntent.getStringExtra("doctorId");
+        appointmentID = appointmentIntent.getStringExtra("appointmentID");
         getDoctorName();
 
     }
@@ -47,15 +50,21 @@ public class AppointmentReceiver extends BroadcastReceiver {
                     String fullName = String.valueOf(snapshot.child("fullName").getValue());
                     doctorName = doctorTitle + fullName;
                     buildNotification();
+                    setTimer();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
+
+//    public void getAppointmentData(){
+//        Firebase firebase = Firebase.getInstance();
+//        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+//        reference.child()
+//    }
 
     public void buildNotification() {
         notificationText = notificationText + doctorName;
@@ -75,6 +84,16 @@ public class AppointmentReceiver extends BroadcastReceiver {
             return;
         }
         notificationManagerCompat.notify(224, builder.build());
+    }
+
+    public void setTimer(){
+        Intent intent = new Intent(context, AppointmentDeleter.class);
+        intent.putExtra("appointmentID",appointmentID);
+        intent.putExtra("doctorID",doctorID);
+        intent.putExtra("doctorName",doctorName);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 123, intent, PendingIntent.FLAG_MUTABLE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (21 * 60000), pendingIntent);
     }
 
     public int getUniqueID() {

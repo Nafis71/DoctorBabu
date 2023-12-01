@@ -123,6 +123,7 @@
 
         <receiver android:name=".patient.AlarmModules.AlarmReceiver" />
         <receiver android:name=".patient.DoctorConsultationModule.AppointmentReceiver" />
+        <receiver android:name=".patient.DoctorConsultationModule.AppointmentDeleter" />
 
         <meta-data
             android:name="preloaded_fonts"
