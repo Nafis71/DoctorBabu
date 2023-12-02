@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -17,6 +16,8 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,21 +27,32 @@ import java.util.Random;
 
 public class AppointmentReceiver extends BroadcastReceiver {
     int broadcastCode = 0;
-    String doctorID, doctorName,appointmentID;
+    String doctorID, doctorName, appointmentID;
     String notificationText = "You have an appointment with ";
     Context context;
+    Firebase firebase;
 
     @Override
     public void onReceive(Context context, Intent appointmentIntent) {
         this.context = context;
+        firebase = Firebase.getInstance();
         doctorID = appointmentIntent.getStringExtra("doctorId");
         appointmentID = appointmentIntent.getStringExtra("appointmentID");
         getDoctorName();
-
+        insertAppointmentInfo();
     }
 
+    public void insertAppointmentInfo(){
+        try(SqliteDatabase database = new SqliteDatabase(context)){
+            FirebaseUser user = firebase.getUserID();
+            database.insertAppointmentInfo(user.getUid(),appointmentID);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
     public void getDoctorName() {
-        Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
         reference.child(doctorID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,18 +65,13 @@ public class AppointmentReceiver extends BroadcastReceiver {
                     setTimer();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-
-//    public void getAppointmentData(){
-//        Firebase firebase = Firebase.getInstance();
-//        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
-//        reference.child()
-//    }
 
     public void buildNotification() {
         notificationText = notificationText + doctorName;
@@ -86,11 +93,11 @@ public class AppointmentReceiver extends BroadcastReceiver {
         notificationManagerCompat.notify(224, builder.build());
     }
 
-    public void setTimer(){
+    public void setTimer() {
         Intent intent = new Intent(context, AppointmentDeleter.class);
-        intent.putExtra("appointmentID",appointmentID);
-        intent.putExtra("doctorID",doctorID);
-        intent.putExtra("doctorName",doctorName);
+        intent.putExtra("appointmentID", appointmentID);
+        intent.putExtra("doctorID", doctorID);
+        intent.putExtra("doctorName", doctorName);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 123, intent, PendingIntent.FLAG_MUTABLE);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (21 * 60000), pendingIntent);

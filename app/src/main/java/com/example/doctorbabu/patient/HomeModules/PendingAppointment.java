@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.doctorbabu.Adapters.MissedAppointmentAdapter;
 import com.example.doctorbabu.Adapters.PendingAppointmentAdapter;
 import com.example.doctorbabu.Adapters.alarmListAdapter;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
@@ -33,6 +34,7 @@ public class PendingAppointment extends AppCompatActivity {
     ActivityPendingAppointmentBinding binding;
     ArrayList<PendingAppointmentModel> model;
     PendingAppointmentAdapter adapter;
+    MissedAppointmentAdapter missedAdapter;
     PendingAppointmentModel pendingAppointmentModel;
 
     ActionBarDrawerToggle toggle;
@@ -61,8 +63,11 @@ public class PendingAppointment extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.navMissed){
-                    Toast.makeText(PendingAppointment.this, "CLOCKSKKDS", Toast.LENGTH_SHORT).show();
-                    // TODO: 12/2/2023  Need to complete this module 
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                    getMissedAppointmentData();
+                } else if(item.getItemId() == R.id.navPending){
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                    getAppointmentData();
                 }
                 return false;
             }
@@ -70,6 +75,9 @@ public class PendingAppointment extends AppCompatActivity {
     }
 
     public void getAppointmentData(){
+        binding.headerText.setText("Pending");
+        binding.appointmentRecyclerView.removeAllViews();
+        binding.appointmentRecyclerView.showShimmer();
         model = new ArrayList<>();
         binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
         adapter = new PendingAppointmentAdapter(this,model);
@@ -89,6 +97,46 @@ public class PendingAppointment extends AppCompatActivity {
                         model.add(pendingAppointmentModel);
                     }
                     adapter.notifyDataSetChanged();
+                    binding.appointmentRecyclerView.hideShimmer();
+                }else{
+                    binding.appointmentRecyclerView.hideShimmer();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getMissedAppointmentData(){
+        binding.headerText.setText("Missed");
+        binding.appointmentRecyclerView.removeAllViews();
+        binding.appointmentRecyclerView.showShimmer();
+        model = new ArrayList<>();
+        binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
+        missedAdapter = new MissedAppointmentAdapter(this,model);
+        binding.appointmentRecyclerView.setAdapter(missedAdapter);
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("missedAppointments");
+        reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    binding.noAppointmentHeader.setVisibility(View.GONE);
+                    model.clear();
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        pendingAppointmentModel = snap.getValue(PendingAppointmentModel.class);
+                        model.add(pendingAppointmentModel);
+                    }
+                    missedAdapter.notifyDataSetChanged();
+                    binding.appointmentRecyclerView.hideShimmer();
+                }else{
+                    binding.appointmentRecyclerView.hideShimmer();
                 }
 
             }

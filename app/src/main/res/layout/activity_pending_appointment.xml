@@ -92,7 +92,7 @@
                 android:fontFamily="@font/roboto"
                 android:shadowColor="@color/black"
                 android:shadowRadius="0.5"
-                android:text="Appointment List"
+                android:text="Appointments"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold">

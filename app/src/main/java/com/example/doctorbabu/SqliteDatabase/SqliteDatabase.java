@@ -18,6 +18,7 @@ public class SqliteDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AlarmList.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME ="Alarm_list";
+
     private static final String COLUMN_ID ="id";
     private static final String COLUMN_MEDICINE_NAME ="medicine_Name";
     private static final String COLUMN_HOUR ="hour";
@@ -25,6 +26,12 @@ public class SqliteDatabase extends SQLiteOpenHelper {
     private static final String COLUMN_BROADCAST_CODE ="broadcast_code";
     private static final String COLUMN_ALARM_TYPE ="alarm_type";
     private static final String COLUMN_ALARM_STATUS ="alarm_status";
+    private static final String APPOINTMENT_TABLE ="Alarm_list";
+    private static final String USER_ID ="user_id";
+    private static final String APPOINTMENT_ID ="appointment_id";
+
+
+
     AlarmListModel alarmListModel;
     ArrayList<AlarmListModel> modelsArrayList;
     public SqliteDatabase(@Nullable Context context) {
@@ -38,11 +45,36 @@ public class SqliteDatabase extends SQLiteOpenHelper {
                         +COLUMN_MEDICINE_NAME+" TEXT, "+COLUMN_HOUR+" INTEGER, "+COLUMN_MINUTE+" INTEGER, "+COLUMN_BROADCAST_CODE+" INTEGER, "
                         +COLUMN_ALARM_TYPE+" TEXT, "+COLUMN_ALARM_STATUS+" INTEGER);";
         database.execSQL(query);
+        String appointmentQuery = "create table if not exists "+APPOINTMENT_TABLE+" ("+USER_ID+" STRING PRIMARY KEY, "
+                +APPOINTMENT_ID+" TEXT);";
+        database.execSQL(appointmentQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+
+
+    public void insertAppointmentInfo(String userID,String appointmentID){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USER_ID,userID);
+        contentValues.put(APPOINTMENT_ID,appointmentID);
+        database.insert(APPOINTMENT_TABLE,null,contentValues);
+
+    }
+
+    public boolean searchAppointmentID(String appointmentID){
+        String query = "Select *from "+APPOINTMENT_TABLE+ " WHERE appointment_id = "+appointmentID+";";
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = null;
+        alarmListModel = new AlarmListModel();
+        if(database != null) {
+            cursor = database.rawQuery(query, null);
+        }
+        return cursor != null;
     }
     public long addAlarmInfo(String id, String medicineName,int hour, int minute, int broadcastCode, String alarmType, int alarmStatus){
         SQLiteDatabase database = this.getWritableDatabase();

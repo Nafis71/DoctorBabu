@@ -2,20 +2,23 @@ package com.example.doctorbabu.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
+import com.example.doctorbabu.patient.DoctorConsultationModule.CheckoutDoctor;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +31,8 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
 
     Context context;
     ArrayList<PendingAppointmentModel> model;
+    String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl;
+    Firebase firebase;
 
     public PendingAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model) {
         this.context = context;
@@ -45,21 +50,67 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     public void onBindViewHolder(@NonNull PendingAppointmentAdapter.myViewHolder holder, int position) {
         PendingAppointmentModel dbModel = model.get(position);
         getDoctorData(holder, dbModel);
+
     }
 
     public void getDoctorData(myViewHolder holder, PendingAppointmentModel dbModel) {
-        Firebase firebase = Firebase.getInstance();
+        firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
         reference.child(dbModel.getDoctorID()).addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Glide.with(context).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(holder.profilePicture);
-                    String doctorTitle = String.valueOf(snapshot.child("title").getValue());
-                    String doctorFullName = String.valueOf(snapshot.child("fullName").getValue());
+                    photoUrl = String.valueOf(snapshot.child("photoUrl").getValue());
+                    Glide.with(context).load(photoUrl).into(holder.profilePicture);
+                    doctorTitle = String.valueOf(snapshot.child("title").getValue());
+                    doctorFullName = String.valueOf(snapshot.child("fullName").getValue());
+                    doctorDegree = String.valueOf(snapshot.child("degrees").getValue());
+                    doctorSpecialty = String.valueOf(snapshot.child("specialty").getValue());
+                    getCurrentlyWorkingData(dbModel, holder);
                     holder.doctorName.setText(doctorTitle + doctorFullName);
                     getAppointmentData(holder, dbModel);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getCurrentlyWorkingData(PendingAppointmentModel dbModel, myViewHolder holder) {
+        DatabaseReference reference = firebase.getDatabaseReference("doctorCurrentlyWorking");
+        reference.child(dbModel.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    doctorCurrentlyWorking = String.valueOf(snapshot.child("hospitalName").getValue());
+                    try (SqliteDatabase database = new SqliteDatabase(context)) {
+                        boolean isFound = database.searchAppointmentID(dbModel.getAppointmentID());
+                        if (isFound) {
+                            holder.videoCall.setVisibility(View.VISIBLE);
+                            holder.videoCall.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    AppCompatActivity activity = (AppCompatActivity) context;
+                                    Intent intent = new Intent(context, CheckoutDoctor.class);
+                                    intent.putExtra("doctorId", dbModel.getDoctorID());
+                                    intent.putExtra("doctorTitle", doctorTitle);
+                                    intent.putExtra("doctorName", doctorFullName);
+                                    intent.putExtra("doctorDegree", doctorDegree);
+                                    intent.putExtra("doctorSpecialty", doctorSpecialty);
+                                    intent.putExtra("doctorCurrentlyWorking", doctorCurrentlyWorking);
+                                    intent.putExtra("photoUrl", photoUrl);
+                                    activity.startActivity(intent);
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -90,8 +141,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     public class myViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicture;
         TextView doctorName, appointmentDate, appointmentTime;
-        Button takeAppointment;
-        MaterialCardView card;
+        MaterialCardView card, videoCall;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,7 +149,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
             profilePicture = itemView.findViewById(R.id.profilePicture);
             appointmentDate = itemView.findViewById(R.id.appointmentDate);
             appointmentTime = itemView.findViewById(R.id.appointmentTime);
-            takeAppointment = itemView.findViewById(R.id.takeAppointment);
+            videoCall = itemView.findViewById(R.id.videoCall);
             card = itemView.findViewById(R.id.card);
         }
     }

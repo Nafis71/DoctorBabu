@@ -51,6 +51,12 @@ public class DoctorInfoActivity extends AppCompatActivity {
         bmdc = getIntent().getStringExtra("bmdc");
         photoUrl = getIntent().getStringExtra("photoUrl");
         loadDataExecutor.execute(this::loadData);
+        binding.appointment.setOnClickListener(view -> {
+            Intent intent = new Intent(DoctorInfoActivity.this, BookAppointment.class);
+            intent.putExtra("doctorID",doctorId);
+            startActivity(intent);
+            finish();
+        });
         binding.outlinedLove.setOnClickListener(new View.OnClickListener() {
             boolean toggleButton = true;
 
@@ -77,19 +83,6 @@ public class DoctorInfoActivity extends AppCompatActivity {
             intent.putExtra("doctorCurrentlyWorking", doctorCurrentlyWorking);
             intent.putExtra("photoUrl", photoUrl);
             startActivity(intent);
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        binding.appointment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DoctorInfoActivity.this, BookAppointment.class);
-                intent.putExtra("doctorID",doctorId);
-                startActivity(intent);
-            }
         });
     }
 
@@ -198,6 +191,13 @@ public class DoctorInfoActivity extends AppCompatActivity {
             binding.vPager.setAdapter(adapter);
             new TabLayoutMediator(binding.tabs, binding.vPager, ((tab, position) -> tab.setText(titles[position]))).attach();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loadDataExecutor.shutdown();
+        binding = null;
     }
 
     @Override

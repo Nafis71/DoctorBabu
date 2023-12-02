@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_marginBottom="8dp"
+    android:padding="3dp"
+    app:cardCornerRadius="11dp"
+    app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/doctorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toEndOf="@+id/profilePicture"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/dateHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_below="@+id/doctorName"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:text="Appointment Date - "
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+        <TextView
+            android:id="@+id/appointmentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toEndOf="@+id/dateHeader"
+            android:layout_below="@+id/doctorName"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/timeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_below="@+id/dateHeader"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:text="Appointment Time - "
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+        <TextView
+            android:id="@+id/appointmentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toEndOf="@+id/timeHeader"
+            android:layout_below="@+id/dateHeader"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/roboto"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
