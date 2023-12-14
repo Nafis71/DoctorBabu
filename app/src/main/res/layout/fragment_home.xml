@@ -660,7 +660,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="@font/roboto"
-                        android:text="@string/medicineInformation"
+                        android:text="@string/medicinePurchase"
                         android:textColor="#666666"
                         android:textSize="13sp"
                         android:textStyle="bold">
@@ -677,7 +677,7 @@
                         android:layout_marginStart="9dp"
                         android:fontFamily="@font/roboto"
                         android:padding="2dp"
-                        android:text="@string/medicineInformationDescription"
+                        android:text="@string/medicinePurchaseDescription"
                         android:textColor="#666666"
                         android:textSize="12sp"
 

@@ -70,7 +70,7 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         firebaseExecutor = Executors.newSingleThreadExecutor();
         firebaseExecutor.execute(this::firebaseAuth);
-        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard,binding.pendingAppointment)
+        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard,binding.pendingAppointment,binding.medicineCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
         loadImageSlider();
@@ -80,15 +80,14 @@ public class Home extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        binding.profilePicture.setOnClickListener(v -> callProfileFragment());
-        binding.appointmentCard.setOnClickListener(v -> callAppointmentBottomSheet());
-        binding.languageImage.setOnClickListener(v -> callLanguageChanger());
-        binding.consultantCard.setOnClickListener(view1 -> {
-            callDoctorFragment();
-        });
+        binding.profilePicture.setOnClickListener(view -> callProfileFragment());
+        binding.appointmentCard.setOnClickListener(view -> callAppointmentBottomSheet());
+        binding.languageImage.setOnClickListener(view -> callLanguageChanger());
+        binding.consultantCard.setOnClickListener(view -> {callDoctorFragment();});
         binding.medicineReminderCard.setOnClickListener(view -> callMedicineReminder());
         binding.reportCard.setOnClickListener(view -> callDiagnoseReportUploader());
         binding.pendingAppointment.setOnClickListener(view -> callPendingAppointment());
+        binding.medicineCard.setOnClickListener(view -> callMedicineShop());
     }
 
     public void firebaseAuth() {
@@ -147,6 +146,11 @@ public class Home extends Fragment {
 
     public void callDiagnoseReportUploader() {
         Intent intent = new Intent(requireActivity(), DiagnosisReportUploadList.class);
+        startActivity(intent);
+    }
+
+    public void callMedicineShop(){
+        Intent intent = new Intent(requireActivity(), MedicineShop.class);
         startActivity(intent);
     }
 

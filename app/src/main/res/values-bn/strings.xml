@@ -14,6 +14,7 @@
     <string name="consultancyTaken">কনসালটেন্সি নেওয়া হয়েছে</string>
     <string name ="languageName">বাংলা</string>
     <string name="doctorSearch">নাম/ডাক্তার কোড/বিভাগ দ্বারা ডাক্তার অনুসন্ধান করুন</string>
+    <string name="medicineSearch">মেডিসিন অনুসন্ধান করুন</string>
     <string name="bookAppointment">বুক অ্যাপয়েন্টমেন্ট</string>
     <string name="bookAppointmentDescription">এমবিবিএস এবং বিশেষজ্ঞ ডাক্তারদের সাথে অ্যাপয়েন্টমেন্ট বুক করুন</string>
     <string name="takeConsultancy">কনসালটেন্সি নিন</string>
@@ -24,8 +25,8 @@
     <string name="onlineConsultantDescription">বর্তমানে অনলাইন: 65</string>
     <string name="medicalReport">চিকিৎসা বিবরণ</string>
     <string name="medicalReportDescription">আপনার ডায়াগোনোসিস রিপোর্ট আপলোড করুন</string>
-    <string name="medicineInformation">ঔষধ তথ্য</string>
-    <string name="medicineInformationDescription">নির্ধারিত ওষুধ সম্পর্কে আরও জানুন</string>
+    <string name="medicinePurchase">ওষুধ কিনুন</string>
+    <string name="medicinePurchaseDescription">আমাদের ডক্টর বাবু অ্যাপ থেকে কিনুন</string>
     <string name="pendingAppointment">মুলতুবি অ্যাপয়েন্টমেন্ট</string>
     <string name="pendingAppointmentDescription">অ্যাপয়েন্টমেন্ট নেওয়া হয়েছে: 0</string>
     <string name="recentlyViewed">সম্প্রতি দেখা হয়েছে</string>
