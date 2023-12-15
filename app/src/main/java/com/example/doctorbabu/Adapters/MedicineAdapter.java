@@ -1,6 +1,7 @@
 package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
+import com.example.doctorbabu.R;
 
 import java.util.ArrayList;
 
@@ -23,7 +25,8 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.myView
     @NonNull
     @Override
     public MedicineAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_medicine_layout,parent,false);
+        return new myViewHolder(view);
     }
 
     @Override

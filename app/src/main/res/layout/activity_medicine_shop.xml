@@ -10,8 +10,8 @@
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:padding="5dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText"
@@ -45,15 +45,34 @@
             android:textColor="#4E5EDE"
             android:textSize="20sp"
             android:textStyle="bold" />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/cart"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_centerVertical="true">
 
-        </ImageView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cart"
+            android:layout_width="45dp"
+            android:layout_height="41dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="2dp"
+            android:padding="5sp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="1dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EAE8E3"
+                >
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/cart">
+
+                </ImageView>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -75,7 +94,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/searchCard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="43dp"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
@@ -105,7 +124,7 @@
                 android:id="@+id/sliderLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/medicineDeliveryBannerLayout"
+                android:layout_below="@+id/syrupLayout"
                 android:layout_marginTop="-10dp"
                 android:layout_marginBottom="0dp">
 
@@ -116,8 +135,7 @@
                     android:layout_marginBottom="5dp"
                     android:padding="5sp"
                     app:cardCornerRadius="2dp"
-                    app:cardElevation="3dp"
-                    >
+                    app:cardElevation="3dp">
 
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/imageSlider"
@@ -139,13 +157,13 @@
                         app:sliderStartAutoCycle="true" />
                 </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
+
             <RelativeLayout
+                android:id="@+id/medicineDeliveryBannerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/medicineDeliveryBannerLayout"
                 android:layout_below="@+id/searchLayout"
-                android:layout_marginTop="-10dp"
-                >
+                android:layout_marginTop="-10dp">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -156,43 +174,211 @@
                 </ImageView>
 
             </RelativeLayout>
+
             <RelativeLayout
+                android:id="@+id/syrupLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sliderLayout"
+                android:layout_below="@+id/octMedicineLayout"
                 android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:id="@+id/octMedicineLayout">
+                android:padding="5dp">
+
                 <TextView
-                    android:id="@+id/octMedicineHeader"
+                    android:id="@+id/syrupHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OCT Medicines"
                     android:fontFamily="@font/roboto"
                     android:padding="5dp"
+                    android:text="Syrups"
                     android:textSize="14sp"
                     android:textStyle="bold">
 
                 </TextView>
+
                 <TextView
+                    android:id="@+id/syrupAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="5dp"
-                    android:text="See All"
                     android:fontFamily="@font/roboto"
                     android:padding="5dp"
+                    android:text="See All"
                     android:textColor="@color/blue"
                     android:textSize="15sp"
                     android:textStyle="bold">
 
                 </TextView>
+
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/syrupRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/syrupHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="6"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+
+                </com.todkars.shimmer.ShimmerRecyclerView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/prescriptionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-15dp"
+                android:layout_below="@+id/medicineDeliveryBannerLayout"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/prescriptionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Upload Prescription"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:padding="5dp">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/prescriptionDescription"
+                    android:layout_below="@+id/prescriptionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Order Medicine according to your prescription"
+                    android:textStyle="normal"
+                    android:textSize="12sp"
+                    android:padding="5dp">
+
+                </TextView>
+                <ImageView
+                    android:id="@+id/prescriptionImage"
+                    android:layout_width="130dp"
+                    android:layout_height="120dp"
+                    android:layout_below="@+id/prescriptionDescription"
+                    android:src="@drawable/prescription_medicine_shop">
+
+                </ImageView>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/uploadPrescription"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@+id/prescriptionDescription"
+                    android:shadowColor="@color/black_shade_1"
+                    android:text="Upload"
+                    android:textColor="#4F5FDE"
+                    android:textSize="12sp"
+                    app:cornerRadius="8dp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/octMedicineLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/prescriptionLayout"
+                android:layout_marginTop="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/octMedicineHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp"
+                    android:text="OCT Medicines"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/octAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp"
+                    android:text="See All"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/octMedicineRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/octMedicineHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="6"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+
+                </com.todkars.shimmer.ShimmerRecyclerView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/herbalLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sliderLayout"
+                android:layout_marginTop="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/herbalHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp"
+                    android:text="Herbal Medicines"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/herbalAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp"
+                    android:text="See All"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/herbalRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/herbalHeader"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="3dp"
