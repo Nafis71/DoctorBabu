@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context=".patient.HomeModules.MedicineDetails">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/medicineImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="center"
+                    >
+
+                </ImageView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/medicineDescriptionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageLayout">
+
+                <TextView
+                    android:id="@+id/medicineName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/medicineDosage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1.5dp"
+                    android:layout_toEndOf="@+id/medicineName"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+
+                    android:textSize="13sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/medicineGenericHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/medicineName"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+                    android:text="Generic:"
+                    android:textSize="13sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/medicineGeneric"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/medicineName"
+                    android:layout_toEndOf="@+id/medicineGenericHeader"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+                    android:textColor="@color/blue"
+                    android:textSize="13sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/medicineBrandName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/medicineGenericHeader"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+                    android:textSize="13sp"
+                    android:textStyle="bold">
+
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/purchaseLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/medicineDescriptionLayout">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Material3.CardView.Outlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="3dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="#DDD">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/statsLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:background="#D6EAF8">
+
+                            <ImageView
+                                android:id="@+id/statsImage"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="7dp"
+                                android:src="@drawable/stats">
+
+                            </ImageView>
+
+                            <TextView
+                                android:id="@+id/buyingStats"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="2dp"
+                                android:layout_toEndOf="@+id/statsImage"
+                                android:fontFamily="@font/roboto"
+                                android:padding="3dp"
+                                android:text="222231"
+                                android:textSize="13sp"
+                                android:textStyle="bold">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/buyingStatsDescription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_toEndOf="@+id/buyingStats"
+                                android:fontFamily="@font/roboto"
+                                android:padding="3dp"
+                                android:text="People has bought this medicine"
+                                android:textSize="13sp"
+                                android:textStyle="normal">
+
+                            </TextView>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/priceLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_below="@+id/statsLayout"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:id="@+id/priceHeader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="3dp"
+                                android:text="Price :"
+                                android:textSize="14sp"
+                                android:textStyle="bold">
+
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/amounticon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/priceHeader"
+                                android:fontFamily="@font/roboto"
+                                android:padding="3dp"
+                                android:text="\u09F3"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/medicinePrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="-5dp"
+                                android:layout_toEndOf="@+id/amounticon"
+                                android:fontFamily="@font/roboto"
+                                android:padding="3dp"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/authenticHeader"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="3dp"
+                                android:fontFamily="@font/roboto"
+                                android:padding="3dp"
+                                android:textColor="#10803F"
+                                android:text="100% Authentic Medicine"
+                                android:layout_marginEnd="5dp"
+                                android:textSize="13sp"
+                                android:textStyle="bold">
+
+                            </TextView>
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toStartOf="@+id/authenticHeader"
+                                android:src="@drawable/authentic">
+
+                            </ImageView>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/purchaseButtonLayout"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/priceLayout">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/sheetLayout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                                android:layout_width="190dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="0dp"
+                                android:layout_centerVertical="true"
+                                android:hint="Sheets"
+                                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                                app:boxStrokeWidth="1dp"
+                                app:hintAnimationEnabled="true">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/sheet"
+                                    android:layout_width="180dp"
+                                    android:layout_height="50dp"
+                                    android:inputType="text"
+                                    android:text="1 Sheet "
+                                    android:padding="7dp"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/addToCart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="42dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="28dp"
+                                android:layout_marginEnd="28dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/custom_button_back"
+                                android:fontFamily="@font/roboto"
+                                android:shadowColor="@color/black"
+                                android:shadowRadius="0.5"
+                                android:text="Add to cart"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                app:backgroundTint="#3C4DD8"
+                                app:cornerRadius="12dp"
+                                app:elevation="10dp"
+                                app:strokeColor="@color/white"
+                                tools:ignore="NotSibling" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/purchaseLayout"
+                android:id="@+id/relativeBrandLayout">
+                <TextView
+                    android:id="@+id/alternativeHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Related Products"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="16sp"
+                    android:padding="3dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    >
+
+                </TextView>
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/alternativeHeader"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/divider">
+
+                </com.google.android.material.divider.MaterialDivider>
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/relativeMedicineRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="1dp"
+                    android:padding="3dp"
+                    android:layout_below="@+id/divider"
+                    android:animationCache="true"
+                    android:orientation="horizontal"
+                    android:overScrollMode="ifContentScrolls"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="4"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

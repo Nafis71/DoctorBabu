@@ -2,12 +2,11 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
-    android:layout_width="130dp"
+    android:layout_width="160dp"
     android:layout_height="wrap_content"
     android:padding="3dp"
-    android:layout_margin="3.5dp"
     app:cardCornerRadius="11dp"
-    app:cardElevation="2dp">
+    app:cardElevation="3dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,19 +16,19 @@
             android:id="@+id/medicineImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
+            android:background="#DDD"
             android:layout_centerHorizontal="true">
 
         </ImageView>
 
         <TextView
             android:id="@+id/medicineName"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineImage"
             android:layout_marginStart="5dp"
             android:padding="5dp"
-            android:text="Napa"
+            android:background="#DDD"
             android:fontFamily="@font/roboto"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -39,52 +38,50 @@
 
         <TextView
             android:id="@+id/medicineDosage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineImage"
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@+id/medicineName"
             android:padding="5dp"
-            android:text="500mg"
+            android:background="#DDD"
             android:textStyle="bold"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black"
             android:textSize="14sp">
 
         </TextView>
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/medicineName"
-           android:background="#D6EAF8"
-           >
-           <TextView
-               android:id="@+id/amounticon"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="5dp"
-               android:fontFamily="@font/roboto"
-               android:text="\u09F3"
-               android:padding="5dp"
-               android:textColor="@color/black"
-               android:textSize="16sp"
-               android:textStyle="bold" />
-           <TextView
-               android:id="@+id/medicinePrice"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_toEndOf="@+id/amounticon"
-               android:layout_marginEnd="5dp"
-               android:layout_marginStart="-10dp"
-               android:padding="5dp"
-               android:text="100"
-               android:textStyle="bold"
-               android:fontFamily="@font/roboto"
-               android:textColor="@color/black"
-               android:textSize="16sp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineName"
+            android:background="#DDD"
+            >
+            <TextView
+                android:id="@+id/amounticon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/medicinePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/amounticon"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="-10dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="16sp">
 
-           </TextView>
-       </RelativeLayout>
+            </TextView>
+        </RelativeLayout>
     </RelativeLayout>
 
 

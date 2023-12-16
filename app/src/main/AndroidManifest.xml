@@ -30,6 +30,9 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".patient.HomeModules.MedicineDetails"
+            android:exported="false" />
+        <activity
             android:name=".patient.HomeModules.MedicineShop"
             android:exported="false" />
         <activity

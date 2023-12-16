@@ -334,7 +334,7 @@
                     android:visibility="visible"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="6"
-                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_medicine">
 
                 </com.todkars.shimmer.ShimmerRecyclerView>
             </RelativeLayout>
