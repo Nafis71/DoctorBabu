@@ -57,6 +57,7 @@ public class Doctor extends Fragment {
     ExecutorService loadDoctorExecutor, recentlyViewedExecutor, searchExecutor, loadAllDoctorExecutor;
 
     ScheduledExecutorService scheduledThread;
+    Dialog dialog;
 
     public Doctor() {
         // Required empty public constructor
@@ -90,10 +91,7 @@ public class Doctor extends Fragment {
         scheduledThread = Executors.newSingleThreadScheduledExecutor();
         super.onStart();
         if (code == 0) {
-            Dialog dialog = new Dialog(requireContext());
-            dialog.setContentView(R.layout.loading_screen);
-            dialog.setCancelable(false);
-            dialog.show();
+            loadingScreen();
             binding.progressBar.setVisibility(View.VISIBLE);
             binding.availableDoctorRecyclerView.showShimmer();
             binding.consultationAnim2.setOnClickListener(view1 -> {
@@ -143,6 +141,12 @@ public class Doctor extends Fragment {
             }
         });
 
+    }
+    public void loadingScreen(){
+        dialog = new Dialog(requireContext());
+        dialog.setContentView(R.layout.loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     public void setRecyclerView() {

@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -67,6 +68,7 @@ public class MedicineShop extends AppCompatActivity {
                             octModel.add(model);
                         }
                     }
+                    Collections.shuffle(octModel);
                     octMedicineAdapter.notifyDataSetChanged();
                     binding.octMedicineRecyclerView.hideShimmer();
                 }

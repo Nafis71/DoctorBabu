@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="center"
-                    >
+                    android:visibility="invisible">
 
                 </ImageView>
             </RelativeLayout>
@@ -107,8 +107,9 @@
                 android:id="@+id/purchaseLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/medicineDescriptionLayout"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/medicineDescriptionLayout">
+                android:visibility="invisible">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.Material3.CardView.Outlined"
@@ -229,11 +230,11 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="3dp"
+                                android:layout_marginEnd="5dp"
                                 android:fontFamily="@font/roboto"
                                 android:padding="3dp"
-                                android:textColor="#10803F"
                                 android:text="100% Authentic Medicine"
-                                android:layout_marginEnd="5dp"
+                                android:textColor="#10803F"
                                 android:textSize="13sp"
                                 android:textStyle="bold">
 
@@ -248,21 +249,23 @@
 
                             </ImageView>
                         </RelativeLayout>
+
                         <RelativeLayout
+                            android:id="@+id/purchaseButtonLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/purchaseButtonLayout"
-                            android:layout_marginBottom="10dp"
+                            android:layout_below="@+id/priceLayout"
                             android:layout_marginTop="5dp"
-                            android:layout_below="@+id/priceLayout">
+                            android:layout_marginBottom="10dp">
+
                             <com.google.android.material.textfield.TextInputLayout
                                 android:id="@+id/sheetLayout"
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="190dp"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="0dp"
-                                android:layout_centerVertical="true"
                                 android:hint="Sheets"
                                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                                 app:boxStrokeWidth="1dp"
@@ -273,19 +276,20 @@
                                     android:layout_width="180dp"
                                     android:layout_height="50dp"
                                     android:inputType="text"
-                                    android:text="1 Sheet "
                                     android:padding="7dp"
+                                    android:text="1 Sheet "
                                     android:textSize="14sp" />
                             </com.google.android.material.textfield.TextInputLayout>
+
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/addToCart"
                                 android:layout_width="wrap_content"
                                 android:layout_height="42dp"
                                 android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:layout_marginEnd="28dp"
                                 android:layout_marginBottom="10dp"
-                                android:layout_centerVertical="true"
                                 android:background="@drawable/custom_button_back"
                                 android:fontFamily="@font/roboto"
                                 android:shadowColor="@color/black"
@@ -304,46 +308,50 @@
                     </RelativeLayout>
                 </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
+
             <RelativeLayout
+                android:id="@+id/relativeBrandLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_below="@+id/purchaseLayout"
-                android:id="@+id/relativeBrandLayout">
+                android:layout_marginTop="5dp"
+                android:visibility="invisible">
+
                 <TextView
                     android:id="@+id/alternativeHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Related Products"
                     android:fontFamily="@font/roboto"
-                    android:textSize="16sp"
                     android:padding="3dp"
+                    android:text="Related Products"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    >
+                    android:textSize="16sp"
+                    android:textStyle="bold">
 
                 </TextView>
+
                 <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/alternativeHeader"
-                    android:layout_marginTop="1dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:id="@+id/divider">
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="5dp">
 
                 </com.google.android.material.divider.MaterialDivider>
+
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/relativeMedicineRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_below="@+id/divider"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="1dp"
-                    android:padding="3dp"
-                    android:layout_below="@+id/divider"
                     android:animationCache="true"
                     android:orientation="horizontal"
                     android:overScrollMode="ifContentScrolls"
+                    android:padding="3dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="4"
                     app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />

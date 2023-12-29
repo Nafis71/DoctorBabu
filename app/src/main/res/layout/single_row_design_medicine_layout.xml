@@ -31,9 +31,9 @@
             android:padding="5dp"
             android:text="Napa"
             android:fontFamily="@font/roboto"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/black"
-            android:textSize="14sp">
+            android:textSize="12sp">
 
         </TextView>
 
@@ -43,20 +43,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineImage"
             android:layout_marginEnd="5dp"
+            android:layout_marginStart="-7dp"
             android:layout_toEndOf="@+id/medicineName"
             android:padding="5dp"
             android:text="500mg"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black"
-            android:textSize="14sp">
+            android:textSize="12sp">
 
         </TextView>
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_below="@+id/medicineName"
-           android:background="#D6EAF8"
+           android:background="#E5E8E8"
            >
            <TextView
                android:id="@+id/amounticon"
@@ -67,7 +68,7 @@
                android:text="\u09F3"
                android:padding="5dp"
                android:textColor="@color/black"
-               android:textSize="16sp"
+               android:textSize="14sp"
                android:textStyle="bold" />
            <TextView
                android:id="@+id/medicinePrice"
@@ -81,7 +82,7 @@
                android:textStyle="bold"
                android:fontFamily="@font/roboto"
                android:textColor="@color/black"
-               android:textSize="16sp">
+               android:textSize="14sp">
 
            </TextView>
        </RelativeLayout>

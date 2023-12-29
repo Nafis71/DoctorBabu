@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Adapters.MedicineAdapter;
@@ -30,11 +33,13 @@ public class MedicineDetails extends AppCompatActivity {
     ArrayList<MedicineModel> model;
     MedicineAdapter adapter;
     String medicineGenericName;
+    Dialog dialog;
     int sheet = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadingScreen();
         binding = ActivityMedicineDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         medicineId = getIntent().getStringExtra("medicineId");
@@ -50,9 +55,30 @@ public class MedicineDetails extends AppCompatActivity {
         relativeMedicineListExecutor.execute(new Runnable() {
             @Override
             public void run() {
-
+                loadRelativeMedicines();
             }
         });
+        closeLoadingScreen();
+    }
+
+    public void loadingScreen(){
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    public void closeLoadingScreen(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.medicineImage.setVisibility(View.VISIBLE);
+                binding.purchaseLayout.setVisibility(View.VISIBLE);
+                binding.relativeBrandLayout.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        },2000);
     }
 
     public void loadMedicineData(){
@@ -83,7 +109,7 @@ public class MedicineDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot snap : snapshot.getChildren()){
-                        if(String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(medicineGenericName)){
+                        if(String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(medicineGenericName) && !String.valueOf(snap.child("medicineId").getValue()).equalsIgnoreCase(medicineId)){
                             MedicineModel medicineModel = snap.getValue(MedicineModel.class);
                             model.add(medicineModel);
                         }
