@@ -30,6 +30,8 @@ import java.util.Formatter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 public class MedicineDetails extends AppCompatActivity {
     ActivityMedicineDetailsBinding binding;
     String medicineId;

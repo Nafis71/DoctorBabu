@@ -118,10 +118,9 @@ public class PatientCall extends AppCompatActivity{
     }
 
     public void callVideoScreen() {
-        if (userId.equals("null")) {
-            long appID = 1158156305;
-            String appSign = "a164ac044c51a0b645ca8a2badf3dd74d9b97596986b88b2363588533985d579";
-
+        if (userId.equals("null")) {  //doctor side
+            long appID = 633349627;
+            String appSign = "2f63d4608b7ba6ed887a37562e679b0e842ac4bef26d56ee88eb1474d8112f6b";
             String conferenceID = uniqueId;
             String userID = doctorId;
             String userName = name;
@@ -131,10 +130,9 @@ public class PatientCall extends AppCompatActivity{
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .commitNow();
-        } else {
-
-            long appID = 1158156305;
-            String appSign = "a164ac044c51a0b645ca8a2badf3dd74d9b97596986b88b2363588533985d579";
+        } else {  //patient side
+            long appID = 633349627;
+            String appSign = "2f63d4608b7ba6ed887a37562e679b0e842ac4bef26d56ee88eb1474d8112f6b";
             String conferenceID = uniqueId;
             String userID = userId;
             String userName = name;
@@ -159,6 +157,6 @@ public class PatientCall extends AppCompatActivity{
     }
 
     public void onBackPressed() {
-        finish();
+       //
     }
 }

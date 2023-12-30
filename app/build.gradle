@@ -93,6 +93,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation 'com.ebanx:swipe-button:0.4.0'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+    implementation 'com.commit451:PhotoView:1.2.4'
 // Add this line to your module-level build.gradle file's dependencies, usually named [app].
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
     testImplementation 'junit:junit:4.13.2'

@@ -25,7 +25,7 @@
                     android:id="@+id/medicineImage"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:scaleType="center"
+                    android:scaleType="fitCenter"
                     android:visibility="invisible">
 
                 </ImageView>
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicineDescriptionLayout"
                 android:layout_marginTop="5dp"
-                android:visibility="invisible">
+                android:visibility="visible">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.Material3.CardView.Outlined"
@@ -310,10 +310,61 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/descriptionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchaseLayout"
+                android:layout_marginTop="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/alcoholImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/alcohol">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/alcoholStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/alcoholImage"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="2dp"
+                        android:text="Safe"
+                        android:textColor="@color/green_shade_1"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/alcoholStatus"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@+id/alcoholImage"
+                        android:fontFamily="@font/roboto"
+                        android:padding="1dp"
+                        android:text="It is unsafe to consume alcohol with Napa."
+                        android:textSize="13sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/relativeBrandLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/purchaseLayout"
+                android:layout_below="@+id/descriptionLayout"
                 android:layout_marginTop="5dp"
                 android:visibility="invisible">
 

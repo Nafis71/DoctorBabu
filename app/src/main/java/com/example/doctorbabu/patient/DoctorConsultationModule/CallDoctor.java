@@ -100,7 +100,7 @@ public class CallDoctor extends AppCompatActivity {
                         intent.putExtra("userId", user.getUid());
                         intent.putExtra("doctorId", doctorId);
                         startActivity(intent);
-                        finish();
+                        finishAndRemoveTask();
                     }
                 }
             }
