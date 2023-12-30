@@ -8,7 +8,10 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Adapters.MedicineAdapter;
@@ -16,12 +19,14 @@ import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineDetailsBinding;
+import com.example.doctorbabu.patient.PatientProfileModule.EditProfile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,7 +39,9 @@ public class MedicineDetails extends AppCompatActivity {
     MedicineAdapter adapter;
     String medicineGenericName;
     Dialog dialog;
-    int sheet = 1;
+    ArrayList<String> sheetList;
+    int sheet = 1,sheetSize;
+    double medicinePrice,perPiecePrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +75,45 @@ public class MedicineDetails extends AppCompatActivity {
         dialog.show();
     }
 
+    public void generateSheets(){
+        sheetList = new ArrayList<>();
+        for(int i=0;i<200;i++){
+            if(i == 0){
+                String sheetString = (i+1) +" "+"Sheet";
+                sheetList.add(sheetString);
+            }else{
+                String sheetString = (i+1) +" "+"Sheets";
+                sheetList.add(sheetString);
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.drop_menu, sheetList);
+        binding.sheet.setAdapter(adapter);
+        setSheetListener();
+    }
+
+    public void setSheetListener(){
+        binding.sheet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String sheetText = binding.sheet.getText().toString();
+                String[] sheetTextArray = sheetText.split(" ");
+                sheet = Integer.parseInt(sheetTextArray[0]);
+                medicinePrice = (perPiecePrice * sheetSize * sheet);
+                Formatter formatter = new Formatter();
+                formatter.format("%.2f",medicinePrice);
+                String price = formatter.toString();
+                binding.medicinePrice.setText(price);
+            }
+        });
+    }
+
+
     public void closeLoadingScreen(){
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                generateSheets();
                 binding.medicineImage.setVisibility(View.VISIBLE);
                 binding.purchaseLayout.setVisibility(View.VISIBLE);
                 binding.relativeBrandLayout.setVisibility(View.VISIBLE);
@@ -135,9 +176,10 @@ public class MedicineDetails extends AppCompatActivity {
         calculatePrice(snapshot);
     }
     public void calculatePrice(DataSnapshot snapshot){
-        double perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
-        int sheetSize  = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
-        String price = String.valueOf(perPiecePrice * sheetSize * sheet);
+        perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
+        sheetSize  = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
+        medicinePrice = (perPiecePrice * sheetSize * sheet);
+        String price = String.valueOf(medicinePrice);
         binding.medicinePrice.setText(price);
     }
 
@@ -146,5 +188,6 @@ public class MedicineDetails extends AppCompatActivity {
         super.onDestroy();
         binding = null;
         medicineDataExecutor.shutdown();
+        relativeMedicineListExecutor.shutdown();
     }
 }

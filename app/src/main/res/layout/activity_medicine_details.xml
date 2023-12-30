@@ -275,7 +275,7 @@
                                     android:id="@+id/sheet"
                                     android:layout_width="180dp"
                                     android:layout_height="50dp"
-                                    android:inputType="text"
+                                    android:inputType="none"
                                     android:padding="7dp"
                                     android:text="1 Sheet "
                                     android:textSize="14sp" />

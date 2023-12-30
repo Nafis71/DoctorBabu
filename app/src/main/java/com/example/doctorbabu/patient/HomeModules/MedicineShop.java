@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.doctorbabu.Adapters.MedicineAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;

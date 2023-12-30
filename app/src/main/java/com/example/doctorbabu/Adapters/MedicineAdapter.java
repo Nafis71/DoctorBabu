@@ -2,6 +2,7 @@ package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.myViewHolder> {
     Context context;
     ArrayList<MedicineModel> model;
-    String medicineId;
 
     public MedicineAdapter(Context context, ArrayList<MedicineModel> model) {
         this.context = context;
@@ -40,7 +40,6 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.myView
     @Override
     public void onBindViewHolder(@NonNull MedicineAdapter.myViewHolder holder, int position) {
         MedicineModel dbModel = model.get(position);
-        medicineId = dbModel.getMedicineId();
         holder.medicineName.setText(dbModel.getMedicineName());
         holder.medicineDosage.setText(dbModel.getMedicineDosage());
         Glide.with(context).load(dbModel.getMedicinePicture()).into(holder.medicineImage);
@@ -53,7 +52,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.myView
             public void onClick(View view) {
                 AppCompatActivity activity = (AppCompatActivity) context;
                 Intent intent = new Intent(context, MedicineDetails.class);
-                intent.putExtra("medicineId",medicineId);
+                intent.putExtra("medicineId",dbModel.getMedicineId());
                 if(context instanceof MedicineDetails){
                     activity.startActivity(intent);
                     activity.finish();

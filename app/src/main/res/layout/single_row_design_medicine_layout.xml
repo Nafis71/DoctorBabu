@@ -28,12 +28,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineImage"
             android:layout_marginStart="5dp"
-            android:padding="5dp"
+            android:padding="2dp"
             android:text="Napa"
             android:fontFamily="@font/roboto"
             android:textStyle="normal"
             android:textColor="@color/black"
-            android:textSize="12sp">
+            android:textSize="13sp">
 
         </TextView>
 
@@ -41,23 +41,22 @@
             android:id="@+id/medicineDosage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/medicineImage"
+            android:layout_below="@+id/medicineName"
             android:layout_marginEnd="5dp"
-            android:layout_marginStart="-7dp"
-            android:layout_toEndOf="@+id/medicineName"
-            android:padding="5dp"
+            android:layout_marginStart="5dp"
+            android:padding="1dp"
             android:text="500mg"
-            android:textStyle="normal"
+            android:textStyle="bold"
             android:fontFamily="@font/roboto"
-            android:textColor="@color/black"
-            android:textSize="12sp">
+            android:textSize="11dp">
 
         </TextView>
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_below="@+id/medicineName"
+           android:layout_below="@+id/medicineDosage"
            android:background="#E5E8E8"
+           android:layout_marginTop="2dp"
            >
            <TextView
                android:id="@+id/amounticon"
@@ -80,7 +79,7 @@
                android:padding="5dp"
                android:text="100"
                android:textStyle="bold"
-               android:fontFamily="@font/roboto"
+               android:fontFamily="@font/roboto_medium"
                android:textColor="@color/black"
                android:textSize="14sp">
 
