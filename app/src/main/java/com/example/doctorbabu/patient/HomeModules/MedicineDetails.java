@@ -48,7 +48,7 @@ public class MedicineDetails extends AppCompatActivity {
     FirebaseUser user;
     Dialog dialog;
     ArrayList<String> sheetList;
-    int sheet = 1, sheetSize, medicineQuantity, count;
+    int sheet = 1, sheetSize, medicineQuantity, count,countedCart;
     double medicinePrice, perPiecePrice;
 
     @Override
@@ -94,6 +94,7 @@ public class MedicineDetails extends AppCompatActivity {
                 });
             }
         });
+        setCartCounter();
     }
 
     public void countMedicineViewData() {
@@ -117,7 +118,29 @@ public class MedicineDetails extends AppCompatActivity {
             }
         });
     }
+    public void setCartCounter(){
+        DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
+        cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                countedCart = 0;
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        countedCart += 1;
+                    }
+                    binding.cartCounters.setText(String.valueOf(countedCart));
+                    binding.cartCounters.setVisibility(View.VISIBLE);
+                } else {
+                    binding.cartCounters.setVisibility(View.INVISIBLE);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
     public void addtoCart() {
         runOnUiThread(new Runnable() {
             @Override
@@ -141,7 +164,6 @@ public class MedicineDetails extends AppCompatActivity {
                     checkQuantity(selectedSheets);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -204,6 +226,7 @@ public class MedicineDetails extends AppCompatActivity {
                         .setCookiePosition(CookieBar.TOP)
                         .setDuration(2500)
                         .show();
+                setCartCounter();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -443,5 +466,6 @@ public class MedicineDetails extends AppCompatActivity {
         binding = null;
         medicineDataExecutor.shutdown();
         relativeMedicineListExecutor.shutdown();
+        countExecutor.shutdown();
     }
 }

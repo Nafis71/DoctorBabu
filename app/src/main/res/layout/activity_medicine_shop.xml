@@ -52,7 +52,7 @@
             android:layout_height="41dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="2dp"
-            android:padding="5sp"
+            android:padding="5dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             app:cardCornerRadius="8dp"
@@ -62,9 +62,25 @@
                 android:layout_height="match_parent"
                 android:background="#EAE8E3"
                 >
+                <TextView
+                    android:id="@+id/cartCounter"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/badge_background"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:textStyle="bold"
+                    android:elevation="1dp"
+                    android:textSize="13sp"
+                    android:visibility="invisible"
+                    />
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/cart">

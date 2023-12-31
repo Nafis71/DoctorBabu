@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.doctorbabu.Adapters.MedicineAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineShopBinding;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,8 +31,9 @@ public class MedicineShop extends AppCompatActivity {
     MedicineAdapter octMedicineAdapter;
     ArrayList<MedicineModel> octModel;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor;
+    ExecutorService octExecutor,cartCounter;
     Firebase firebase;
+    int countedCart = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +43,44 @@ public class MedicineShop extends AppCompatActivity {
         firebase = Firebase.getInstance();
         loadImageSlider();
         octExecutor = Executors.newSingleThreadExecutor();
+        cartCounter = Executors.newSingleThreadExecutor();
         octExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 loadOCTMedicines();
             }
         });
+        cartCounter.execute(new Runnable() {
+            @Override
+            public void run() {
+                setCartCounter();
+            }
+        });
+    }
 
+    public void setCartCounter(){
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
+        cartCounterReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                countedCart = 0;
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        countedCart += 1;
+                    }
+                    binding.cartCounter.setText(String.valueOf(countedCart));
+                    binding.cartCounter.setVisibility(View.VISIBLE);
+                } else {
+                    binding.cartCounter.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void loadOCTMedicines(){
@@ -112,5 +146,6 @@ public class MedicineShop extends AppCompatActivity {
         super.onDestroy();
         binding = null;
         octExecutor.shutdown();
+        cartCounter.shutdown();
     }
 }
