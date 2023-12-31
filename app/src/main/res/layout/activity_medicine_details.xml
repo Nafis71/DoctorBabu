@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/medicineDescriptionLayout"
                 android:layout_marginTop="5dp"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.Material3.CardView.Outlined"
@@ -314,9 +314,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/purchaseLayout"
+                android:visibility="invisible"
                 android:layout_marginTop="5dp">
 
                 <RelativeLayout
+                    android:id="@+id/alcoholSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -333,6 +335,7 @@
                         android:id="@+id/alcoholStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
                         android:layout_toEndOf="@+id/alcoholImage"
                         android:fontFamily="@font/roboto_medium"
                         android:padding="2dp"
@@ -344,15 +347,390 @@
                     </TextView>
 
                     <TextView
+                        android:id="@+id/alcoholDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/alcoholStatus"
+                        android:layout_marginStart="3dp"
                         android:layout_marginEnd="10dp"
                         android:layout_toEndOf="@+id/alcoholImage"
                         android:fontFamily="@font/roboto"
+                        android:justificationMode="inter_word"
                         android:padding="1dp"
-                        android:text="It is unsafe to consume alcohol with Napa."
                         android:textSize="13sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/pregnancySection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/alcoholSection"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/pregnancyImage"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="-5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pregnancycomplications">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/pregnancyStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_toEndOf="@+id/pregnancyImage"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="2dp"
+                        android:text="Safe"
+                        android:textColor="@color/green_shade_1"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/pregnancyDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/pregnancyStatus"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@+id/pregnancyImage"
+                        android:fontFamily="@font/roboto"
+                        android:padding="1dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="13sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/drivingSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pregnancySection"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/drivingImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/driving">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/drivingStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_toEndOf="@+id/drivingImage"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="2dp"
+                        android:text="Safe"
+                        android:textColor="@color/green_shade_1"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/drivingDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/drivingStatus"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@+id/drivingImage"
+                        android:fontFamily="@font/roboto"
+                        android:padding="1dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="13sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/kidneySection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/drivingSection"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/kidneyImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/kidney">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/kidneyStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_toEndOf="@+id/kidneyImage"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="2dp"
+                        android:text="Safe"
+                        android:textColor="@color/green_shade_1"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/kidneyDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/kidneyStatus"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@+id/kidneyImage"
+                        android:fontFamily="@font/roboto"
+                        android:padding="1dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="13sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/liverSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/kidneySection"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/liverImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/liver">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/liverStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_toEndOf="@+id/liverImage"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="2dp"
+                        android:text="Safe"
+                        android:textColor="@color/green_shade_1"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/liverDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/liverStatus"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@+id/liverImage"
+                        android:fontFamily="@font/roboto"
+                        android:padding="1dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="13sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/medicalOverViewLayout"
+                android:layout_marginTop="5dp"
+                android:visibility="invisible"
+                android:layout_below="@+id/descriptionLayout">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/headerSection">
+                    <TextView
+                        android:id="@+id/header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:padding="5dp"
+                        android:text="Medical Overview"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/header">
+
+                    </com.google.android.material.divider.MaterialDivider>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sideEffectSection"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/medicineAdministrationSection">
+                    <TextView
+                        android:id="@+id/sideEffectHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp"
+                        android:text="Side Effects"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/sideEffect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sideEffectHeader"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Medical Overview"
+                        android:textSize="12sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/medicineAdministrationSection"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/headerSection">
+                    <TextView
+                        android:id="@+id/medicineAdministrationHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp"
+                        android:text="Administration"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/medicineAdministration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/medicineAdministrationHeader"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Medical Overview"
+                        android:textSize="12sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/overdoseEffectSection"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/sideEffectSection">
+                    <TextView
+                        android:id="@+id/overdoseEffectHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp"
+                        android:text="Overdose Effects"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/overdoseEffect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/overdoseEffectHeader"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Medical Overview"
+                        android:textSize="12sp"
+                        android:textStyle="normal">
+
+                    </TextView>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/storageConditionSection"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/overdoseEffectSection">
+                    <TextView
+                        android:id="@+id/storageConditionHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5dp"
+                        android:text="Storage Condition"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/storageCondition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/storageConditionHeader"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="10dp"
+                        android:justificationMode="inter_word"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Medical Overview"
+                        android:textSize="12sp"
                         android:textStyle="normal">
 
                     </TextView>
@@ -364,7 +742,7 @@
                 android:id="@+id/relativeBrandLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/descriptionLayout"
+                android:layout_below="@+id/medicalOverViewLayout"
                 android:layout_marginTop="5dp"
                 android:visibility="invisible">
 

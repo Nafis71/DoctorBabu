@@ -1,17 +1,17 @@
 package com.example.doctorbabu.patient.HomeModules;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Adapters.MedicineAdapter;
@@ -19,31 +19,29 @@ import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineDetailsBinding;
-import com.example.doctorbabu.patient.PatientProfileModule.EditProfile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Formatter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
-
 public class MedicineDetails extends AppCompatActivity {
     ActivityMedicineDetailsBinding binding;
     String medicineId;
-    ExecutorService medicineDataExecutor,relativeMedicineListExecutor;
+    ExecutorService medicineDataExecutor, relativeMedicineListExecutor;
     Firebase firebase;
     ArrayList<MedicineModel> model;
     MedicineAdapter adapter;
     String medicineGenericName;
     Dialog dialog;
     ArrayList<String> sheetList;
-    int sheet = 1,sheetSize;
-    double medicinePrice,perPiecePrice;
+    int sheet = 1, sheetSize,medicineQuantity;
+    double medicinePrice, perPiecePrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +68,21 @@ public class MedicineDetails extends AppCompatActivity {
         closeLoadingScreen();
     }
 
-    public void loadingScreen(){
+    public void loadingScreen() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.loading_screen);
         dialog.setCancelable(false);
         dialog.show();
     }
 
-    public void generateSheets(){
+    public void generateSheets() {
         sheetList = new ArrayList<>();
-        for(int i=0;i<200;i++){
-            if(i == 0){
-                String sheetString = (i+1) +" "+"Sheet";
+        for (int i = 0; i < 200; i++) {
+            if (i == 0) {
+                String sheetString = (i + 1) + " " + "Sheet";
                 sheetList.add(sheetString);
-            }else{
-                String sheetString = (i+1) +" "+"Sheets";
+            } else {
+                String sheetString = (i + 1) + " " + "Sheets";
                 sheetList.add(sheetString);
             }
         }
@@ -93,7 +91,7 @@ public class MedicineDetails extends AppCompatActivity {
         setSheetListener();
     }
 
-    public void setSheetListener(){
+    public void setSheetListener() {
         binding.sheet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -102,7 +100,7 @@ public class MedicineDetails extends AppCompatActivity {
                 sheet = Integer.parseInt(sheetTextArray[0]);
                 medicinePrice = (perPiecePrice * sheetSize * sheet);
                 Formatter formatter = new Formatter();
-                formatter.format("%.2f",medicinePrice);
+                formatter.format("%.2f", medicinePrice);
                 String price = formatter.toString();
                 binding.medicinePrice.setText(price);
             }
@@ -110,7 +108,7 @@ public class MedicineDetails extends AppCompatActivity {
     }
 
 
-    public void closeLoadingScreen(){
+    public void closeLoadingScreen() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -119,17 +117,19 @@ public class MedicineDetails extends AppCompatActivity {
                 binding.medicineImage.setVisibility(View.VISIBLE);
                 binding.purchaseLayout.setVisibility(View.VISIBLE);
                 binding.relativeBrandLayout.setVisibility(View.VISIBLE);
+                binding.descriptionLayout.setVisibility(View.VISIBLE);
+                binding.medicalOverViewLayout.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
-        },2000);
+        }, 2000);
     }
 
-    public void loadMedicineData(){
+    public void loadMedicineData() {
         DatabaseReference reference = firebase.getDatabaseReference("medicineData");
         reference.child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     setViews(snapshot);
                 }
             }
@@ -140,8 +140,9 @@ public class MedicineDetails extends AppCompatActivity {
             }
         });
     }
-    public void loadRelativeMedicines(){
-        model =  new ArrayList<>();
+
+    public void loadRelativeMedicines() {
+        model = new ArrayList<>();
         binding.relativeMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
         adapter = new MedicineAdapter(this, model);
         binding.relativeMedicineRecyclerView.setAdapter(adapter);
@@ -150,13 +151,14 @@ public class MedicineDetails extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot snap : snapshot.getChildren()){
-                        if(String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(medicineGenericName) && !String.valueOf(snap.child("medicineId").getValue()).equalsIgnoreCase(medicineId)){
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        if (String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(medicineGenericName) && !String.valueOf(snap.child("medicineId").getValue()).equalsIgnoreCase(medicineId)) {
                             MedicineModel medicineModel = snap.getValue(MedicineModel.class);
                             model.add(medicineModel);
                         }
                     }
+                    Collections.shuffle(model);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -168,18 +170,110 @@ public class MedicineDetails extends AppCompatActivity {
         });
     }
 
-    public void setViews(DataSnapshot snapshot){
+    public void setViews(@NonNull DataSnapshot snapshot) {
         Glide.with(this).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(binding.medicineImage);
         binding.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
         binding.medicineDosage.setText(String.valueOf(snapshot.child("medicineDosage").getValue()));
         medicineGenericName = String.valueOf(snapshot.child("genericName").getValue());
         binding.medicineGeneric.setText(medicineGenericName);
         binding.medicineBrandName.setText(String.valueOf(snapshot.child("brandName").getValue()));
+        binding.medicineAdministration.setText(String.valueOf(snapshot.child("administrationOfTheMedicine").getValue()));
+        binding.sideEffect.setText(String.valueOf(snapshot.child("sideEffect").getValue()));
+        binding.overdoseEffect.setText(String.valueOf(snapshot.child("overdoseEffects").getValue()));
+        binding.storageCondition.setText(String.valueOf(snapshot.child("storageCondition").getValue()));
+        medicineQuantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
+        setAlcoholSafetyDescription(snapshot);
+        setDrivingSafetyDescription(snapshot);
+        setPregnancySafetyDescription(snapshot);
+        setKidneySafetyDescription(snapshot);
+        setLiverSafetyDescription(snapshot);
         calculatePrice(snapshot);
     }
-    public void calculatePrice(DataSnapshot snapshot){
+
+    @SuppressLint("SetTextI18n")
+    public void setAlcoholSafetyDescription(@NonNull DataSnapshot snapshot) {
+        if (String.valueOf(snapshot.child("alcoholEffect").getValue()).equalsIgnoreCase("safe")) {
+            binding.alcoholStatus.setText("Safe");
+            binding.alcoholStatus.setTextColor(Color.parseColor("#52BE80"));
+            binding.alcoholDescription.setText(R.string.alcoholSafe);
+        } else {
+            binding.alcoholStatus.setText("Unsafe");
+            binding.alcoholStatus.setTextColor(Color.parseColor("#F08080"));
+            binding.alcoholDescription.setText(R.string.alcoholUnSafe);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setDrivingSafetyDescription(@NonNull DataSnapshot snapshot) {
+        if (String.valueOf(snapshot.child("drivingEffect").getValue()).equalsIgnoreCase("safe")) {
+            binding.drivingStatus.setText("Safe");
+            binding.drivingStatus.setTextColor(Color.parseColor("#52BE80"));
+            binding.drivingDescription.setText(R.string.drivingSafe);
+        } else {
+            binding.drivingStatus.setText("Unsafe");
+            binding.drivingStatus.setTextColor(Color.parseColor("#F08080"));
+            binding.drivingDescription.setText(R.string.drivingUnSafe);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setPregnancySafetyDescription(@NonNull DataSnapshot snapshot) {
+        if (String.valueOf(snapshot.child("pregnancyAndLactation").getValue()).equalsIgnoreCase("safe")) {
+            binding.pregnancyStatus.setText("Safe");
+            binding.pregnancyStatus.setTextColor(Color.parseColor("#52BE80"));
+            binding.pregnancyDescription.setText(R.string.pregnancySafe);
+        } else if (String.valueOf(snapshot.child("pregnancyAndLactation").getValue()).equalsIgnoreCase("caution")) {
+            binding.pregnancyStatus.setText("Caution");
+            binding.pregnancyStatus.setTextColor(Color.parseColor("#F1C40F"));
+            binding.pregnancyDescription.setText(R.string.pregnancyCaution);
+        } else if (String.valueOf(snapshot.child("pregnancyAndLactation").getValue()).equalsIgnoreCase("consult")) {
+            binding.pregnancyStatus.setText("Consult");
+            binding.pregnancyStatus.setTextColor(Color.parseColor("#52BE80"));
+            binding.pregnancyDescription.setText(R.string.pregnancyConsult);
+        } else {
+            binding.pregnancyStatus.setText("Unsafe");
+            binding.pregnancyStatus.setTextColor(Color.parseColor("#F08080"));
+            binding.pregnancyDescription.setText(R.string.pregnancyUnSafe);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setKidneySafetyDescription(@NonNull DataSnapshot snapshot) {
+        if (String.valueOf(snapshot.child("kidneyEffect").getValue()).equalsIgnoreCase("safe")) {
+            binding.kidneyStatus.setText("Safe");
+            binding.kidneyStatus.setTextColor(Color.parseColor("#52BE80"));
+            binding.kidneyDescription.setText(R.string.kidneySafe);
+        } else if (String.valueOf(snapshot.child("kidneyEffect").getValue()).equalsIgnoreCase("caution")) {
+            binding.kidneyStatus.setText("Caution");
+            binding.kidneyStatus.setTextColor(Color.parseColor("#F1C40F"));
+            binding.kidneyDescription.setText(R.string.kidneyCaution);
+        } else {
+            binding.kidneyStatus.setText("Unsafe");
+            binding.kidneyStatus.setTextColor(Color.parseColor("#F08080"));
+            binding.kidneyDescription.setText(R.string.kidneyUnSafe);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setLiverSafetyDescription(@NonNull DataSnapshot snapshot) {
+        if (String.valueOf(snapshot.child("liverEffect").getValue()).equalsIgnoreCase("safe")) {
+            binding.liverStatus.setText("Safe");
+            binding.liverStatus.setTextColor(Color.parseColor("#52BE80"));
+            binding.liverDescription.setText(R.string.liverSafe);
+        } else if (String.valueOf(snapshot.child("liverEffect").getValue()).equalsIgnoreCase("caution")) {
+            binding.liverStatus.setText("Caution");
+            binding.liverStatus.setTextColor(Color.parseColor("#F1C40F"));
+            binding.liverDescription.setText(R.string.liverCaution);
+        } else {
+            binding.liverStatus.setText("Unsafe");
+            binding.liverStatus.setTextColor(Color.parseColor("#F08080"));
+            binding.liverDescription.setText(R.string.liverUnSafe);
+        }
+    }
+
+    public void calculatePrice(@NonNull DataSnapshot snapshot) {
         perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
-        sheetSize  = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
+        sheetSize = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
         medicinePrice = (perPiecePrice * sheetSize * sheet);
         String price = String.valueOf(medicinePrice);
         binding.medicinePrice.setText(price);
