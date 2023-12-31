@@ -138,6 +138,12 @@ public class MedicineDetails extends AppCompatActivity {
                                 .setCookiePosition(CookieBar.TOP)
                                 .setDuration(2500)
                                 .show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.addToCart.setEnabled(true);
+                            }
+                        });
                     }
                 }
             }
