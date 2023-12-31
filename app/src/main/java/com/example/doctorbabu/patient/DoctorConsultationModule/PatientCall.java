@@ -1,5 +1,7 @@
 package com.example.doctorbabu.patient.DoctorConsultationModule;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -158,5 +160,12 @@ public class PatientCall extends AppCompatActivity{
 
     public void onBackPressed() {
        //
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
 }

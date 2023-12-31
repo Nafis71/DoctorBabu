@@ -19,28 +19,36 @@ import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineDetailsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import org.aviran.cookiebar2.CookieBar;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MedicineDetails extends AppCompatActivity {
     ActivityMedicineDetailsBinding binding;
     String medicineId;
-    ExecutorService medicineDataExecutor, relativeMedicineListExecutor;
+    ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor;
     Firebase firebase;
     ArrayList<MedicineModel> model;
     MedicineAdapter adapter;
     String medicineGenericName;
+    FirebaseUser user;
     Dialog dialog;
     ArrayList<String> sheetList;
-    int sheet = 1, sheetSize,medicineQuantity;
+    int sheet = 1, sheetSize, medicineQuantity;
     double medicinePrice, perPiecePrice;
 
     @Override
@@ -53,6 +61,7 @@ public class MedicineDetails extends AppCompatActivity {
         firebase = Firebase.getInstance();
         medicineDataExecutor = Executors.newSingleThreadExecutor();
         relativeMedicineListExecutor = Executors.newSingleThreadExecutor();
+        cartExecutor = Executors.newSingleThreadExecutor();
         medicineDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -66,6 +75,120 @@ public class MedicineDetails extends AppCompatActivity {
             }
         });
         closeLoadingScreen();
+        binding.addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        addtoCart();
+                    }
+                });
+            }
+        });
+    }
+
+    public void addtoCart() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.addToCart.setEnabled(false);
+            }
+        });
+        checkCart();
+    }
+
+    public void checkCart() {
+        int selectedSheets = sheet;
+        user = firebase.getUserID();
+        DatabaseReference checkCartReference = firebase.getDatabaseReference("medicineCart");
+        checkCartReference.child(user.getUid()).child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    int medicineSheets = Integer.parseInt(String.valueOf(snapshot.child("medicineSheets").getValue()));
+                    checkQuantity(medicineSheets + selectedSheets);
+                } else {
+                    checkQuantity(selectedSheets);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void checkQuantity(int medicineSheets) {
+        DatabaseReference quantityReference = firebase.getDatabaseReference("medicineData");
+        quantityReference.child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    int quantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
+                    if (quantity >= medicineSheets) {
+                        saveToCart(medicineSheets);
+                    } else {
+                        CookieBar.build(MedicineDetails.this)
+                                .setTitle("Not Enough Sheets")
+                                .setMessage(quantity + " " + " Sheets available to purchase")
+                                .setTitleColor(R.color.white)
+                                .setBackgroundColor(R.color.dark_red)
+                                .setCookiePosition(CookieBar.TOP)
+                                .setDuration(2500)
+                                .show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+
+    }
+
+    public void saveToCart(int totalSheets) {
+        DatabaseReference cartReference = firebase.getDatabaseReference("medicineCart");
+        String medicineName = binding.medicineName.getText().toString();
+        double totalPrice = Math.ceil(perPiecePrice * totalSheets * sheetSize);
+        HashMap<String, String> data = new HashMap<>();
+        data.put("medicineId", medicineId);
+        data.put("medicineSheets", String.valueOf(totalSheets));
+        data.put("totalPrice", String.valueOf(totalPrice));
+        cartReference.child(user.getUid()).child(medicineId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                CookieBar.build(MedicineDetails.this)
+                        .setTitle("Added to cart")
+                        .setMessage(totalSheets+" "+" Sheets of "+medicineName + " " + " added to cart successfully!")
+                        .setTitleColor(R.color.white)
+                        .setBackgroundColor(R.color.blue)
+                        .setCookiePosition(CookieBar.TOP)
+                        .setDuration(2500)
+                        .show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                CookieBar.build(MedicineDetails.this)
+                        .setTitle("Failed to add")
+                        .setMessage("Please check your internet connection and try again")
+                        .setTitleColor(R.color.white)
+                        .setBackgroundColor(R.color.dark_red)
+                        .setCookiePosition(CookieBar.TOP)
+                        .setDuration(2500)
+                        .show();
+            }
+        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.addToCart.setEnabled(true);
+            }
+        });
     }
 
     public void loadingScreen() {
