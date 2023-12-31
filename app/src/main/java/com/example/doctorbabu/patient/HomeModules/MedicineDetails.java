@@ -40,7 +40,7 @@ import java.util.concurrent.Executors;
 public class MedicineDetails extends AppCompatActivity {
     ActivityMedicineDetailsBinding binding;
     String medicineId;
-    ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor;
+    ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor, countExecutor;
     Firebase firebase;
     ArrayList<MedicineModel> model;
     MedicineAdapter adapter;
@@ -48,7 +48,7 @@ public class MedicineDetails extends AppCompatActivity {
     FirebaseUser user;
     Dialog dialog;
     ArrayList<String> sheetList;
-    int sheet = 1, sheetSize, medicineQuantity;
+    int sheet = 1, sheetSize, medicineQuantity, count;
     double medicinePrice, perPiecePrice;
 
     @Override
@@ -59,9 +59,17 @@ public class MedicineDetails extends AppCompatActivity {
         setContentView(binding.getRoot());
         medicineId = getIntent().getStringExtra("medicineId");
         firebase = Firebase.getInstance();
+        user = firebase.getUserID();
         medicineDataExecutor = Executors.newSingleThreadExecutor();
         relativeMedicineListExecutor = Executors.newSingleThreadExecutor();
         cartExecutor = Executors.newSingleThreadExecutor();
+        countExecutor = Executors.newSingleThreadExecutor();
+        countExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                countMedicineViewData();
+            }
+        });
         medicineDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -88,6 +96,28 @@ public class MedicineDetails extends AppCompatActivity {
         });
     }
 
+    public void countMedicineViewData() {
+        DatabaseReference countReference = firebase.getDatabaseReference("trackMedicine");
+        countReference.child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        count += Integer.parseInt(String.valueOf(snap.child("count").getValue()));
+                    }
+                    binding.viewingStats.setText(String.valueOf(count));
+                } else {
+                    binding.viewingStats.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
     public void addtoCart() {
         runOnUiThread(new Runnable() {
             @Override
@@ -100,7 +130,6 @@ public class MedicineDetails extends AppCompatActivity {
 
     public void checkCart() {
         int selectedSheets = sheet;
-        user = firebase.getUserID();
         DatabaseReference checkCartReference = firebase.getDatabaseReference("medicineCart");
         checkCartReference.child(user.getUid()).child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -169,7 +198,7 @@ public class MedicineDetails extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 CookieBar.build(MedicineDetails.this)
                         .setTitle("Added to cart")
-                        .setMessage(totalSheets+" "+" Sheets of "+medicineName + " " + " added to cart successfully!")
+                        .setMessage(totalSheets + " " + " Sheets of " + medicineName + " " + " added to cart successfully!")
                         .setTitleColor(R.color.white)
                         .setBackgroundColor(R.color.blue)
                         .setCookiePosition(CookieBar.TOP)
