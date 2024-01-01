@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +55,18 @@ public class MedicineShop extends AppCompatActivity {
             @Override
             public void run() {
                 setCartCounter();
+            }
+        });
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        binding.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MedicineShop.this,Cart.class);
+                startActivity(intent);
             }
         });
     }
@@ -110,7 +123,7 @@ public class MedicineShop extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }

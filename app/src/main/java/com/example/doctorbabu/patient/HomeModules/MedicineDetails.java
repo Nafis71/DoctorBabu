@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient.HomeModules;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,6 +96,13 @@ public class MedicineDetails extends AppCompatActivity {
             }
         });
         setCartCounter();
+        binding.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MedicineDetails.this, Cart.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void countMedicineViewData() {
