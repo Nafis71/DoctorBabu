@@ -180,7 +180,7 @@
     <string name="pregnancyUnSafe">This medicine is not safe to use during pregnancy.</string>
     <string name="pregnancyCaution">This medicine should be used with caution during pregnancy</string>
     <string name="pregnancyConsult">This medicine may be unsafe to use during pregnancy. Although there are limited studies in humans, animal studies have shown harmful effects on the developing baby. Your doctor will weigh the benefits and any potential risks before prescribing it to you. Please consult your doctor.</string>
-    <string name = "drivingSafe">This medicine does not usually affect your ability to drive.</string>
+    <string name="drivingSafe">This medicine does not usually affect your ability to drive.</string>
     <string name="drivingUnSafe">This medicine may decrease alertness, affect your vision or make you feel sleepy and dizzy. Do not drive if these symptoms occur.</string>
     <string name="kidneyCaution">This medicine should be used with caution in patients with severe kidney disease.</string>
     <string name="kidneySafe">This medicine is safe for patients with severe kidney disease.</string>
