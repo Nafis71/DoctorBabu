@@ -472,6 +472,22 @@ public class MedicineDetails extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        countExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setCartCounter();
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         binding = null;

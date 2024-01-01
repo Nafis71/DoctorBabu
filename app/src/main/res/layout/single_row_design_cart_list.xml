@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:id="@+id/card"
+    android:background="@color/white"
+    android:layout_marginBottom="5dp"
+    >
 
     <RelativeLayout
         android:id="@+id/medicineDescriptionLayout"
@@ -16,7 +19,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/blank_circle">
@@ -28,6 +31,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/circle"
             android:scaleType="centerCrop">
 
@@ -169,37 +174,20 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/checkOut"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/custom_button_back"
-            android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.5"
-            android:text="Check out"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10sp"
+            android:shadowColor="@color/black_shade_1"
+            android:text="Check Out"
+            android:textColor="#4F5FDE"
+            android:fontFamily="@font/roboto_medium"
             android:textStyle="bold"
-            app:backgroundTint="#3C4DD8"
-            app:cornerRadius="6dp"
-            app:elevation="5dp"
-            app:strokeColor="@color/white"
-            tools:ignore="NotSibling" />
+            android:textSize="12sp"
+            app:cornerRadius="8dp" />
     </RelativeLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkoutLayout"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp">
-
-    </com.google.android.material.divider.MaterialDivider>
 
 </RelativeLayout>

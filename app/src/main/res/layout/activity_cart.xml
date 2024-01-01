@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:background="#F4F6F6"
+    android:id="@+id/parentLayout"
     tools:context=".patient.HomeModules.Cart">
+
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText"
@@ -27,6 +30,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText2"
             android:layout_width="wrap_content"
@@ -44,24 +48,98 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:padding="5dp"
+            android:animateLayoutChanges="true"
+            app:cardBackgroundColor="#E5E7E9"
+            android:visibility="gone"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/deleteImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/delete">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_toEndOf="@id/deleteImage"
+                    android:fontFamily="@font/roboto"
+                    android:text="Remove"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/recyclerViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header">
+
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="1dp"
             android:animationCache="true"
             android:orientation="vertical"
             android:overScrollMode="ifContentScrolls"
-            android:padding="3dp"
+            android:padding="2.5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:shimmer_recycler_item_count="4"
             app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/noDataLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-50dp"
+        android:visibility="gone"
+        android:layout_below="@+id/header">
+        <ImageView
+            android:id="@+id/noDataImage"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/medicinecart">
+
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto"
+            android:text="Currently your cart is empty. Keep Shopping!"
+            android:layout_below="@+id/noDataImage"
+            android:layout_marginTop="-50dp"
+            android:textSize="15sp"/>
     </RelativeLayout>
 
 </RelativeLayout>

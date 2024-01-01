@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,14 +27,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> {
-    Context context;
+    static Context context;
     ArrayList<CartModel> model;
     SelectedCard selectedCard;
+    MaterialCardView remove;
 
-    public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard) {
+    public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard,MaterialCardView remove) {
         this.context = context;
         this.model = model;
         this.selectedCard = selectedCard;
+        this.remove = remove;
     }
 
     @NonNull
@@ -127,10 +133,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
         if (selectedCard.cards.contains(dbModel.getMedicineId())) {
             selectedCard.cards.remove(dbModel.getMedicineId());
             holder.circle.setImageResource(R.drawable.blank_circle);
+            if(selectedCard.cards.size() == 0){
+                remove.setVisibility(View.GONE);
+            }
         } else {
             selectedCard.cards.add(dbModel.getMedicineId());
             holder.circle.setImageResource(R.drawable.checkedcircle);
+            if(remove.getVisibility() == View.GONE){
+                remove.setVisibility(View.VISIBLE);
+            }
         }
+
     }
 
     @Override
