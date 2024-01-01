@@ -1,16 +1,15 @@
 package com.example.doctorbabu.patient.HomeModules;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-
 import com.example.doctorbabu.Adapters.CartAdapter;
-import com.example.doctorbabu.Adapters.MedicineAdapter;
+import com.example.doctorbabu.Adapters.SelectedCard;
 import com.example.doctorbabu.DatabaseModels.CartModel;
-import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityCartBinding;
@@ -31,6 +30,7 @@ public class Cart extends AppCompatActivity {
     ArrayList<CartModel> model;
     Firebase firebase;
     FirebaseUser user;
+    SelectedCard selectedCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,8 @@ public class Cart extends AppCompatActivity {
             }
         });
     }
-    public void loadCartItem(){
+
+    public void loadCartItem() {
         setRecyclerView();
         binding.cartRecyclerView.showShimmer();
         DatabaseReference cartItemReference = firebase.getDatabaseReference("medicineCart");
@@ -56,8 +57,8 @@ public class Cart extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot snap : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         CartModel cartModel = snap.getValue(CartModel.class);
                         model.add(cartModel);
                     }
@@ -73,11 +74,15 @@ public class Cart extends AppCompatActivity {
         });
 
     }
-    public void setRecyclerView(){
+
+    public void setRecyclerView() {
+        selectedCard = SelectedCard.getInstance();
+        selectedCard.resetCards();
         binding.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_doctor_search);
-        adapter = new CartAdapter(this, model);
+        adapter = new CartAdapter(this, model, selectedCard);
         binding.cartRecyclerView.setAdapter(adapter);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

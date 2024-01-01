@@ -1,159 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="5dp"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
     <RelativeLayout
+        android:id="@+id/medicineDescriptionLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/medicineDescriptionLayout">
-    <ImageView
-        android:id="@+id/blankCircle"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="5dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/blank_circle">
+        android:layout_height="wrap_content">
 
-    </ImageView>
+        <ImageView
+            android:id="@+id/circle"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/blank_circle">
 
-    <ImageView
-        android:id="@+id/medicinePicture"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/blankCircle"
-        >
+        </ImageView>
 
-    </ImageView>
-    <TextView
-        android:id="@+id/medicineName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/medicinePicture"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/circle"
+            android:scaleType="centerCrop">
 
-        android:layout_toEndOf="@+id/medicinePicture"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:padding="3dp"
-        android:fontFamily="@font/roboto"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="normal">
-    </TextView>
-    <TextView
-        android:id="@+id/medicineDosage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        </ImageView>
 
-        android:layout_toEndOf="@+id/medicinePicture"
-        android:layout_below="@+id/medicineName"
-        android:layout_marginStart="5dp"
-        android:padding="3dp"
-        android:fontFamily="@font/roboto"
-        android:textSize="13sp"
-        android:textStyle="bold">
+        <TextView
+            android:id="@+id/medicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal">
 
-    </TextView>
-    <TextView
-        android:id="@+id/medicineBrandName"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/medicinePicture"
-        android:layout_below="@+id/medicineDosage"
-        android:layout_marginStart="5dp"
-        android:padding="3dp"
-        android:fontFamily="@font/roboto"
-        android:textSize="12sp"
-        android:textStyle="bold">
-    </TextView>
-    <ImageView
-        android:id="@+id/minus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/minus"
-        android:layout_toStartOf="@+id/medicineSheet"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="3dp">
+        </TextView>
 
-    </ImageView>
-    <TextView
-        android:id="@+id/medicineSheet"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/plus"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="3dp"
-        android:textColor="@color/black"
-        android:background="#DDDDDD"
-        android:textAlignment="center"
-        android:padding="4dp"
-        android:fontFamily="@font/roboto_medium"
-        android:textSize="13sp"
-        android:textStyle="normal">
-    </TextView>
+        <TextView
+            android:id="@+id/medicineDosage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineName"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:textSize="13sp"
+            android:textStyle="bold">
 
-    <ImageView
-        android:id="@+id/plus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/plus"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp">
+        </TextView>
 
-    </ImageView>
+        <TextView
+            android:id="@+id/medicineBrandName"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineDosage"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:textSize="12sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/minus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="3dp"
+            android:layout_toStartOf="@+id/medicineSheet"
+            android:src="@drawable/minus">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/medicineSheet"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="3dp"
+            android:layout_toStartOf="@+id/plus"
+            android:background="#DDDDDD"
+            android:fontFamily="@font/roboto_medium"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/plus">
+
+        </ImageView>
 
     </RelativeLayout>
+
     <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/divider"
         android:layout_below="@+id/medicineDescriptionLayout"
-        android:layout_marginTop="5dp"
-        >
+        android:layout_marginTop="5dp">
 
     </com.google.android.material.divider.MaterialDivider>
+
     <RelativeLayout
         android:id="@+id/checkoutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider">
+
         <TextView
             android:id="@+id/priceIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\u09F3"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:padding="2dp"
             android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="\u09F3"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold">
+
         </TextView>
+
         <TextView
             android:id="@+id/medicinePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/priceIcon"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="6dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
-            android:padding="2dp"
+            android:layout_marginEnd="6dp"
+            android:layout_toEndOf="@+id/priceIcon"
             android:fontFamily="@font/roboto"
+            android:padding="2dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold">
+
         </TextView>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/checkOut"
             android:layout_width="wrap_content"
@@ -178,14 +191,14 @@
             app:strokeColor="@color/white"
             tools:ignore="NotSibling" />
     </RelativeLayout>
+
     <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/divider2"
         android:layout_below="@+id/checkoutLayout"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        >
+        android:layout_marginBottom="5dp">
 
     </com.google.android.material.divider.MaterialDivider>
 

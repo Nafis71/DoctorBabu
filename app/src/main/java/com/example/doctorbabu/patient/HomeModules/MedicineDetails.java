@@ -49,7 +49,7 @@ public class MedicineDetails extends AppCompatActivity {
     FirebaseUser user;
     Dialog dialog;
     ArrayList<String> sheetList;
-    int sheet = 1, sheetSize, medicineQuantity, count,countedCart;
+    int sheet = 1, sheetSize, medicineQuantity, count, countedCart;
     double medicinePrice, perPiecePrice;
 
     @Override
@@ -126,14 +126,15 @@ public class MedicineDetails extends AppCompatActivity {
             }
         });
     }
-    public void setCartCounter(){
+
+    public void setCartCounter() {
         DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
         cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 countedCart = 0;
-                if(snapshot.exists()){
-                    for(DataSnapshot snap : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         countedCart += 1;
                     }
                     binding.cartCounters.setText(String.valueOf(countedCart));
@@ -149,6 +150,7 @@ public class MedicineDetails extends AppCompatActivity {
             }
         });
     }
+
     public void addtoCart() {
         runOnUiThread(new Runnable() {
             @Override
@@ -172,6 +174,7 @@ public class MedicineDetails extends AppCompatActivity {
                     checkQuantity(selectedSheets);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

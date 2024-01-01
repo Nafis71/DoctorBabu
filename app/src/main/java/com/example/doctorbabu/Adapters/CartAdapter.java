@@ -25,10 +25,12 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> {
     Context context;
     ArrayList<CartModel> model;
+    SelectedCard selectedCard;
 
-    public CartAdapter(Context context, ArrayList<CartModel> model) {
+    public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard) {
         this.context = context;
         this.model = model;
+        this.selectedCard = selectedCard;
     }
 
     @NonNull
@@ -57,6 +59,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             public void onClick(View view) {
                 int medicineSheet = Integer.parseInt(holder.medicineSheet.getText().toString());
                 changePrice(dbModel, holder, medicineSheet, false);
+            }
+        });
+        holder.circle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardSelection(holder, dbModel);
             }
         });
     }
@@ -108,12 +116,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 }
             });
         }
-
     }
 
     public void calculatePrice(myViewHolder holder, double perPiecePrice, int sheetSize) {
         double totalPrice = Integer.parseInt(holder.medicineSheet.getText().toString()) * perPiecePrice * sheetSize;
         holder.medicinePrice.setText(String.valueOf(totalPrice));
+    }
+
+    public void cardSelection(CartAdapter.myViewHolder holder, CartModel dbModel) {
+        if (selectedCard.cards.contains(dbModel.getMedicineId())) {
+            selectedCard.cards.remove(dbModel.getMedicineId());
+            holder.circle.setImageResource(R.drawable.blank_circle);
+        } else {
+            selectedCard.cards.add(dbModel.getMedicineId());
+            holder.circle.setImageResource(R.drawable.checkedcircle);
+        }
     }
 
     @Override
@@ -122,7 +139,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
-        ImageView medicineImage, plus, minus;
+        ImageView medicineImage, plus, minus, circle;
         TextView medicineName, medicineDosage, medicineBrand, medicinePrice, medicineSheet;
 
         public myViewHolder(@NonNull View itemView) {
@@ -135,6 +152,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             medicineSheet = itemView.findViewById(R.id.medicineSheet);
             plus = itemView.findViewById(R.id.plus);
             minus = itemView.findViewById(R.id.minus);
+            circle = itemView.findViewById(R.id.circle);
         }
     }
 }
