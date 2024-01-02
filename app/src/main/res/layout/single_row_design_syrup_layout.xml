@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="130dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="3.5dp"
+    android:padding="3dp"
+    app:cardCornerRadius="11dp"
+    app:cardElevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/syrupImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/syrupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/syrupImage"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/syrupBottleSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/syrupName"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text=""
+            android:textSize="11dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/syrupBottleSize"
+            android:layout_marginTop="2dp"
+            android:background="#E5E8E8">
+
+            <TextView
+                android:id="@+id/amounticon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/roboto"
+                android:padding="5dp"
+                android:text="\u09F3"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/syrupPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/amounticon"
+                android:fontFamily="@font/roboto_medium"
+                android:padding="5dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
+
+            </TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

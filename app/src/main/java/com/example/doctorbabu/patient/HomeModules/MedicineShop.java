@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.doctorbabu.Adapters.MedicineAdapter;
+import com.example.doctorbabu.Adapters.SyrupAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
+import com.example.doctorbabu.DatabaseModels.syrupModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineShopBinding;
@@ -30,9 +32,11 @@ import java.util.concurrent.Executors;
 public class MedicineShop extends AppCompatActivity {
     ActivityMedicineShopBinding binding;
     MedicineAdapter octMedicineAdapter;
+    SyrupAdapter syrupAdapter;
     ArrayList<MedicineModel> octModel;
+    ArrayList<syrupModel> syrupModels;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor,cartCounter;
+    ExecutorService octExecutor,cartCounter,syrupExecutor;
     Firebase firebase;
     int countedCart = 0;
 
@@ -45,6 +49,7 @@ public class MedicineShop extends AppCompatActivity {
         loadImageSlider();
         octExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
+        syrupExecutor = Executors.newSingleThreadExecutor();
         octExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -57,7 +62,12 @@ public class MedicineShop extends AppCompatActivity {
                 setCartCounter();
             }
         });
-
+        syrupExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadSyrups();
+            }
+        });
     }
     @Override
     protected void onStart() {
@@ -91,7 +101,7 @@ public class MedicineShop extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
@@ -119,8 +129,41 @@ public class MedicineShop extends AppCompatActivity {
                     Collections.shuffle(octModel);
                     octMedicineAdapter.notifyDataSetChanged();
                     binding.octMedicineRecyclerView.hideShimmer();
+                } else {
+                    binding.octMedicineRecyclerView.hideShimmer();
                 }
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void loadSyrups(){
+        syrupModels = new ArrayList<>();
+        binding.syrupRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
+        syrupAdapter = new SyrupAdapter(this, syrupModels);
+        binding.syrupRecyclerView.setAdapter(syrupAdapter);
+        binding.syrupRecyclerView.showShimmer();
+        DatabaseReference syrupReference = firebase.getDatabaseReference("syrupData");
+        syrupReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                       syrupModel model = snap.getValue(syrupModel.class);
+                       syrupModels.add(model);
+                    }
+                    Collections.shuffle(syrupModels);
+                    syrupAdapter.notifyDataSetChanged();
+                    binding.syrupRecyclerView.hideShimmer();
+                } else{
+                    binding.syrupRecyclerView.hideShimmer();
+                }
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -160,5 +203,6 @@ public class MedicineShop extends AppCompatActivity {
         binding = null;
         octExecutor.shutdown();
         cartCounter.shutdown();
+        syrupExecutor.shutdown();
     }
 }
