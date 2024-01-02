@@ -135,7 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             if(isPlus){
                 calculateTotalPlusPrice(holder,oldMedicineSheet,perPiecePrice,sheetSize);
             } else {
-                deductTotalPrice(holder);
+                calculateTotalMinusPrice(holder,oldMedicineSheet,perPiecePrice,sheetSize);
             }
         }
     }
@@ -160,13 +160,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             }
 
         }
-
     }
 
     public void calculateTotalPlusPrice(CartAdapter.myViewHolder holder,int oldMedicineSheet,double perPiecePrice, int sheetSize){
         double medicinePrice = oldMedicineSheet * perPiecePrice * sheetSize;
         calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
         calculatedTotalPrice = Double.parseDouble(holder.medicinePrice.getText().toString()) + calculatedTotalPrice;
+        totalPrice.setText(String.valueOf(calculatedTotalPrice + 60.00));
+    }
+    public void calculateTotalMinusPrice(CartAdapter.myViewHolder holder,int oldMedicineSheet,double perPiecePrice, int sheetSize){
+        double medicinePrice = (oldMedicineSheet) * perPiecePrice * sheetSize;
+        calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
+        calculatedTotalPrice = calculatedTotalPrice + Double.parseDouble(holder.medicinePrice.getText().toString()) ;
         totalPrice.setText(String.valueOf(calculatedTotalPrice + 60.00));
     }
     public void addTotalPrice(CartAdapter.myViewHolder holder){
@@ -177,7 +182,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     public void deductTotalPrice(CartAdapter.myViewHolder holder){
         calculatedTotalPrice = calculatedTotalPrice - Double.parseDouble(holder.medicinePrice.getText().toString());
         totalPrice.setText(String.valueOf(calculatedTotalPrice + 60.00));
-
     }
 
     @Override
