@@ -9,6 +9,7 @@
 
     <RelativeLayout
         android:id="@+id/header"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
@@ -94,6 +95,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F8F9F9"
         android:layout_below="@+id/header"
         android:scrollbars="none">
 
@@ -141,8 +143,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/syrupLayout"
-                android:visibility="gone"
-                android:layout_marginTop="-10dp"
+                android:background="@color/white"
+                android:visibility="visible"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="0dp">
 
                 <com.google.android.material.card.MaterialCardView
@@ -196,6 +199,7 @@
                 android:id="@+id/syrupLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_below="@+id/octMedicineLayout"
                 android:layout_marginTop="5dp"
                 android:padding="5dp">
@@ -250,6 +254,7 @@
                 android:id="@+id/prescriptionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_marginTop="-15dp"
                 android:layout_below="@+id/medicineDeliveryBannerLayout"
                 android:padding="5dp">
@@ -306,6 +311,7 @@
                 android:id="@+id/octMedicineLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_below="@+id/prescriptionLayout"
                 android:layout_marginTop="5dp"
                 android:padding="5dp">
@@ -359,6 +365,7 @@
                 android:id="@+id/herbalLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_below="@+id/sliderLayout"
                 android:layout_marginTop="5dp"
                 android:padding="5dp">
