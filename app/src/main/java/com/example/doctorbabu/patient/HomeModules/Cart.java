@@ -107,7 +107,7 @@ public class Cart extends AppCompatActivity {
         selectedCard = SelectedCard.getInstance();
         selectedCard.resetCards();
         binding.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_doctor_search);
-        adapter = new CartAdapter(this, model, selectedCard,binding.remove);
+        adapter = new CartAdapter(this, model, selectedCard,binding.remove,binding.checkoutLayout,binding.totalPrice);
         binding.cartRecyclerView.setAdapter(adapter);
         loadCartItem();
     }

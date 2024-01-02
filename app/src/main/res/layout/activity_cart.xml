@@ -97,6 +97,7 @@
         android:id="@+id/recyclerViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/checkoutLayout"
         android:layout_below="@+id/header">
 
         <com.todkars.shimmer.ShimmerRecyclerView
@@ -141,5 +142,119 @@
             android:layout_marginTop="-50dp"
             android:textSize="15sp"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/checkoutLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:elevation="1dp"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/deliveryPriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Fee:"
+            android:fontFamily="@font/roboto"
+            android:layout_toStartOf="@+id/priceIcon"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="2dp"
+            android:textStyle="bold"
+            >
+        </TextView>
+        <TextView
+            android:id="@+id/priceIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_toStartOf="@+id/deliveryPrice"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:text="\u09F3"
+            android:textColor="@color/blue"
+            android:textSize="12sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/deliveryPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60"
+            android:fontFamily="@font/roboto"
+            android:layout_toStartOf="@+id/multipleCheckout"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/blue">
+        </TextView>
+        <TextView
+            android:id="@+id/totalPriceTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Price:"
+            android:fontFamily="@font/roboto"
+            android:layout_toStartOf="@+id/totalPriceIcon"
+            android:textSize="14sp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="2dp"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            >
+        </TextView>
+        <TextView
+            android:id="@+id/totalPriceIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_toStartOf="@+id/totalPrice"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/roboto"
+            android:text="\u09F3"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3160"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="22dp"
+            android:layout_toStartOf="@+id/multipleCheckout"
+            android:textSize="15.5sp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/blue">
+        </TextView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/multipleCheckout"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Checkout"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="#3C4DD8"
+            app:cornerRadius="12dp"
+            app:elevation="10dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

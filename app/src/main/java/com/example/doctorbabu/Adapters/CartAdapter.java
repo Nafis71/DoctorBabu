@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,12 +29,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     ArrayList<CartModel> model;
     SelectedCard selectedCard;
     MaterialCardView remove;
+    RelativeLayout checkOutLayout;
+    TextView totalPrice;
+    double calculatedTotalPrice;
 
-    public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard,MaterialCardView remove) {
+    public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard,MaterialCardView remove,RelativeLayout checkOutLayout,TextView totalPrice) {
         this.context = context;
         this.model = model;
         this.selectedCard = selectedCard;
         this.remove = remove;
+        this.checkOutLayout = checkOutLayout;
+        this.totalPrice = totalPrice;
     }
 
     @NonNull
@@ -97,6 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     }
 
     public void changePrice(CartModel dbModel, CartAdapter.myViewHolder holder, int medicineSheet, boolean isPlus) {
+        int oldMedicineSheet = medicineSheet;
         if (isPlus) {
             medicineSheet = medicineSheet + 1;
         } else {
@@ -112,7 +116,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                     if (snapshot.exists()) {
                         double perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
                         int sheetSize = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
-                        calculatePrice(holder, perPiecePrice, sheetSize);
+                        calculatePrice(holder, perPiecePrice, sheetSize,isPlus,oldMedicineSheet);
                     }
                 }
 
@@ -124,25 +128,55 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
         }
     }
 
-    public void calculatePrice(myViewHolder holder, double perPiecePrice, int sheetSize) {
+    public void calculatePrice(myViewHolder holder, double perPiecePrice, int sheetSize,boolean isPlus,int oldMedicineSheet) {
         double totalPrice = Integer.parseInt(holder.medicineSheet.getText().toString()) * perPiecePrice * sheetSize;
         holder.medicinePrice.setText(String.valueOf(totalPrice));
+        if(checkOutLayout.getVisibility() == View.VISIBLE){
+            if(isPlus){
+                calculateTotalPlusPrice(holder,oldMedicineSheet,perPiecePrice,sheetSize);
+            } else {
+                deductTotalPrice(holder);
+            }
+        }
     }
 
     public void cardSelection(CartAdapter.myViewHolder holder, CartModel dbModel) {
         if (selectedCard.cards.contains(dbModel.getMedicineId())) {
             selectedCard.cards.remove(dbModel.getMedicineId());
             holder.circle.setImageResource(R.drawable.blank_circle);
+            deductTotalPrice(holder);
             if(selectedCard.cards.size() == 0){
                 remove.setVisibility(View.GONE);
+                checkOutLayout.setVisibility(View.GONE);
+                calculatedTotalPrice = 0.00;
             }
         } else {
             selectedCard.cards.add(dbModel.getMedicineId());
             holder.circle.setImageResource(R.drawable.checkedcircle);
-            if(remove.getVisibility() == View.GONE){
+            addTotalPrice(holder);
+            if(remove.getVisibility() == View.GONE && checkOutLayout.getVisibility() == View.GONE){
                 remove.setVisibility(View.VISIBLE);
+                checkOutLayout.setVisibility(View.VISIBLE);
             }
+
         }
+
+    }
+
+    public void calculateTotalPlusPrice(CartAdapter.myViewHolder holder,int oldMedicineSheet,double perPiecePrice, int sheetSize){
+        double medicinePrice = oldMedicineSheet * perPiecePrice * sheetSize;
+        calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
+        calculatedTotalPrice = Double.parseDouble(holder.medicinePrice.getText().toString()) + calculatedTotalPrice;
+        totalPrice.setText(String.valueOf(calculatedTotalPrice + 60.00));
+    }
+    public void addTotalPrice(CartAdapter.myViewHolder holder){
+        calculatedTotalPrice = Double.parseDouble(holder.medicinePrice.getText().toString()) + calculatedTotalPrice;
+        totalPrice.setText(String.valueOf(calculatedTotalPrice + 60.00));
+
+    }
+    public void deductTotalPrice(CartAdapter.myViewHolder holder){
+        calculatedTotalPrice = calculatedTotalPrice - Double.parseDouble(holder.medicinePrice.getText().toString());
+        totalPrice.setText(String.valueOf(calculatedTotalPrice + 60.00));
 
     }
 
