@@ -221,7 +221,7 @@ public class MedicineDetails extends AppCompatActivity {
     public void saveToCart(int totalSheets) {
         DatabaseReference cartReference = firebase.getDatabaseReference("medicineCart");
         String medicineName = binding.medicineName.getText().toString();
-        double totalPrice = Math.ceil(perPiecePrice * totalSheets * sheetSize);
+        double totalPrice = Math.round(perPiecePrice * totalSheets * sheetSize);
         HashMap<String, String> data = new HashMap<>();
         data.put("medicineId", medicineId);
         data.put("medicineSheets", String.valueOf(totalSheets));
@@ -467,8 +467,9 @@ public class MedicineDetails extends AppCompatActivity {
         perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
         sheetSize = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
         medicinePrice = (perPiecePrice * sheetSize * sheet);
-        String price = String.valueOf(medicinePrice);
-        binding.medicinePrice.setText(price);
+        @SuppressLint("DefaultLocale")
+        String formattedMedicinePrice = String.format("%.2f",medicinePrice);
+        binding.medicinePrice.setText(formattedMedicinePrice);
     }
 
     @Override

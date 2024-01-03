@@ -1,5 +1,6 @@
 package com.example.doctorbabu.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     RelativeLayout checkOutLayout;
     TextView totalPrice;
     double calculatedTotalPrice;
+    ArrayList<String> itemPostion = new ArrayList<>();
+
 
     public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard,MaterialCardView remove,RelativeLayout checkOutLayout,TextView totalPrice) {
         this.context = context;
@@ -133,8 +136,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
 
     public void calculatePrice(myViewHolder holder, double perPiecePrice, int sheetSize,boolean isPlus,int oldMedicineSheet) {
         double totalPrice = Integer.parseInt(holder.medicineSheet.getText().toString()) * perPiecePrice * sheetSize;
-        holder.medicinePrice.setText(String.valueOf(totalPrice));
-        if(checkOutLayout.getVisibility() == View.VISIBLE){
+        @SuppressLint("DefaultLocale")
+        String formattedTotalPrice = String.format("%.2f",totalPrice);
+        holder.medicinePrice.setText(formattedTotalPrice);
+        if(checkOutLayout.getVisibility() == View.VISIBLE && itemPostion.contains(String.valueOf(holder.getAdapterPosition()))){
             if(isPlus){
                 calculateTotalPlusPrice(holder,oldMedicineSheet,perPiecePrice,sheetSize);
             } else {
@@ -150,6 +155,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     public void cardSelection(CartAdapter.myViewHolder holder, CartModel dbModel) {
         if (selectedCard.cards.contains(dbModel.getMedicineId())) {
             selectedCard.cards.remove(dbModel.getMedicineId());
+            itemPostion.remove(String.valueOf(holder.getAdapterPosition()));
             holder.circle.setImageResource(R.drawable.blank_circle);
             deductTotalPrice(holder);
             if(selectedCard.cards.size() == 0){
@@ -158,6 +164,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 calculatedTotalPrice = 0.00;
             }
         } else {
+            itemPostion.add(String.valueOf(holder.getAdapterPosition()));
             selectedCard.cards.add(dbModel.getMedicineId());
             holder.circle.setImageResource(R.drawable.checkedcircle);
             addTotalPrice(holder);
@@ -173,24 +180,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
         double medicinePrice = oldMedicineSheet * perPiecePrice * sheetSize;
         calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
         calculatedTotalPrice = Double.parseDouble(holder.medicinePrice.getText().toString()) + calculatedTotalPrice;
-        totalPrice.setText(String.valueOf(Math.ceil(calculatedTotalPrice + 60.00)));
+        totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
         holder.plus.setEnabled(true);
     }
     public void calculateTotalMinusPrice(CartAdapter.myViewHolder holder,int oldMedicineSheet,double perPiecePrice, int sheetSize){
         double medicinePrice = (oldMedicineSheet) * perPiecePrice * sheetSize;
         calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
         calculatedTotalPrice = calculatedTotalPrice + Double.parseDouble(holder.medicinePrice.getText().toString()) ;
-        totalPrice.setText(String.valueOf(Math.ceil(calculatedTotalPrice + 60.00)));
+        totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
         holder.minus.setEnabled(true);
     }
     public void addTotalPrice(CartAdapter.myViewHolder holder){
         calculatedTotalPrice = Double.parseDouble(holder.medicinePrice.getText().toString()) + calculatedTotalPrice;
-        totalPrice.setText(String.valueOf(Math.ceil(calculatedTotalPrice + 60.00)));
+        totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
 
     }
     public void deductTotalPrice(CartAdapter.myViewHolder holder){
         calculatedTotalPrice = calculatedTotalPrice - Double.parseDouble(holder.medicinePrice.getText().toString());
-        totalPrice.setText(String.valueOf(Math.ceil(calculatedTotalPrice + 60.00)));
+        totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
     }
 
     @Override
