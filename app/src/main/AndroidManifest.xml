@@ -31,6 +31,9 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".patient.HomeModules.SyrupDetails"
+            android:exported="false" />
+        <activity
             android:name=".patient.HomeModules.Cart"
             android:exported="false" />
         <activity

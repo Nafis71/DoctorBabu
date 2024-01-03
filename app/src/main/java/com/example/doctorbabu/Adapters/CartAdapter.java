@@ -149,7 +149,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             holder.minus.setEnabled(true);
             holder.plus.setEnabled(true);
         }
-
     }
 
     public void cardSelection(CartAdapter.myViewHolder holder, CartModel dbModel) {
@@ -172,7 +171,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 remove.setVisibility(View.VISIBLE);
                 checkOutLayout.setVisibility(View.VISIBLE);
             }
-
         }
     }
 
