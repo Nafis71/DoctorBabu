@@ -224,8 +224,9 @@ public class MedicineDetails extends AppCompatActivity {
         double totalPrice = Math.round(perPiecePrice * totalSheets * sheetSize);
         HashMap<String, String> data = new HashMap<>();
         data.put("medicineId", medicineId);
-        data.put("medicineSheets", String.valueOf(totalSheets));
+        data.put("quantity", String.valueOf(totalSheets));
         data.put("totalPrice", String.valueOf(totalPrice));
+        data.put("medicineType","tablet");
         cartReference.child(user.getUid()).child(medicineId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

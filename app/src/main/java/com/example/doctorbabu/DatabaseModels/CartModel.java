@@ -1,17 +1,21 @@
 package com.example.doctorbabu.DatabaseModels;
 
 public class CartModel {
-    String medicineId, medicineSheets,totalPrice;
+    String medicineId, quantity,totalPrice,medicineType;
 
     public CartModel() {
+    }
+
+    public String getMedicineType() {
+        return medicineType;
     }
 
     public String getMedicineId() {
         return medicineId;
     }
 
-    public String getMedicineSheets() {
-        return medicineSheets;
+    public String getQuantity() {
+        return quantity;
     }
 
     public String getTotalPrice() {

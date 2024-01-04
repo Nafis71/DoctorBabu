@@ -113,7 +113,7 @@ public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder
     public void launchMedicineDetails(syrupModel dbModel) {
         AppCompatActivity activity = (AppCompatActivity) context;
         Intent intent = new Intent(context, SyrupDetails.class);
-        intent.putExtra("medicineId", dbModel.getSyrupId());
+        intent.putExtra("syrupId", dbModel.getSyrupId());
         if (context instanceof MedicineDetails) {
             activity.startActivity(intent);
             activity.finish();
