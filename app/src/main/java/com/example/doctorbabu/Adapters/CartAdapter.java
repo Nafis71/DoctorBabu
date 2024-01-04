@@ -297,4 +297,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             circle = itemView.findViewById(R.id.circle);
         }
     }
+    public void resetCalculatedPrice(){
+        calculatedTotalPrice = 0.0;
+    }
+    public ArrayList<String> getSelctedItems(){
+        return itemPostion;
+    }
 }

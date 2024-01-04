@@ -168,8 +168,8 @@ public class MedicineDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    int medicineSheets = Integer.parseInt(String.valueOf(snapshot.child("medicineSheets").getValue()));
-                    checkQuantity(medicineSheets + selectedSheets);
+                    int quantity = Integer.parseInt(String.valueOf(snapshot.child("quantity").getValue()));
+                    checkQuantity(quantity + selectedSheets);
                 } else {
                     checkQuantity(selectedSheets);
                 }

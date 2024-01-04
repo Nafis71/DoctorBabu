@@ -1,8 +1,10 @@
 package com.example.doctorbabu.patient.HomeModules;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,7 @@ public class Cart extends AppCompatActivity {
     Firebase firebase;
     FirebaseUser user;
     SelectedCard selectedCard;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +68,15 @@ public class Cart extends AppCompatActivity {
     }
 
     public void loadCartItem() {
-        binding.cartRecyclerView.showShimmer();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.cartRecyclerView.showShimmer();
+            }
+        });
+
         DatabaseReference cartItemReference = firebase.getDatabaseReference("medicineCart");
-        cartItemReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
+        cartItemReference.child(user.getUid()).orderByChild("medicineId").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 model.clear();
@@ -76,18 +84,27 @@ public class Cart extends AppCompatActivity {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         CartModel cartModel = snap.getValue(CartModel.class);
                         model.add(cartModel);
+                        binding.cartRecyclerView.setAdapter(adapter);
                     }
-                    adapter.notifyDataSetChanged();
-                    binding.cartRecyclerView.hideShimmer();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.cartRecyclerView.hideShimmer();
+                        }
+                    });
                 }else{
-                    binding.cartRecyclerView.hideShimmer();
-                    binding.parentLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    binding.recyclerViewLayout.setVisibility(View.GONE);
-                    binding.noDataLayout.setVisibility(View.VISIBLE);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.cartRecyclerView.hideShimmer();
+                            binding.parentLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                            binding.recyclerViewLayout.setVisibility(View.GONE);
+                            binding.noDataLayout.setVisibility(View.VISIBLE);
+                        }
+                    });
+
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -96,11 +113,41 @@ public class Cart extends AppCompatActivity {
     }
 
     public void removeFromCart(){
+        loadingScreen();
+        binding.checkoutLayout.setVisibility(View.GONE);
         DatabaseReference deleteSelectedMedicine = firebase.getDatabaseReference("medicineCart");
         ArrayList<String> cards = selectedCard.getCards();
         cards.forEach((card) -> deleteSelectedMedicine.child(user.getUid()).child(card).removeValue());
+        adapter.resetCalculatedPrice();
         binding.remove.setVisibility(View.GONE);
-        loadCartItem();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cartItemExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadCartItem();
+                    }
+                });
+            }
+        },1000);
+        closeLoadingScreen();
+    }
+    public void loadingScreen() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+    public void closeLoadingScreen() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 1000);
     }
 
     public void setRecyclerView() {
@@ -108,7 +155,6 @@ public class Cart extends AppCompatActivity {
         selectedCard.resetCards();
         binding.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_doctor_search);
         adapter = new CartAdapter(this, model, selectedCard,binding.remove,binding.checkoutLayout,binding.totalPrice);
-        binding.cartRecyclerView.setAdapter(adapter);
         loadCartItem();
     }
 
