@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context=".patient.HomeModules.SyrupDetails">
 
     <androidx.core.widget.NestedScrollView
@@ -105,24 +106,24 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/syrupBottleSizeHeader"
+                    android:id="@+id/syrupGenericHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/syrupName"
                     android:fontFamily="@font/roboto"
                     android:padding="3dp"
-                    android:text="Bottle Size:"
+                    android:text="Generic:"
                     android:textSize="13sp"
                     android:textStyle="bold">
 
                 </TextView>
 
                 <TextView
-                    android:id="@+id/medicineGeneric"
+                    android:id="@+id/syrupGeneric"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/syrupName"
-                    android:layout_toEndOf="@+id/syrupBottleSizeHeader"
+                    android:layout_toEndOf="@+id/syrupGenericHeader"
                     android:fontFamily="@font/roboto"
                     android:padding="3dp"
                     android:textColor="@color/blue"
@@ -135,7 +136,7 @@
                     android:id="@+id/syrupBrandName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/syrupBottleSizeHeader"
+                    android:layout_below="@+id/syrupGenericHeader"
                     android:fontFamily="@font/roboto"
                     android:padding="3dp"
                     android:textSize="13sp"
@@ -150,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/syrupDescriptionLayout"
                 android:layout_marginTop="5dp"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <com.google.android.material.card.MaterialCardView
                     style="@style/Widget.Material3.CardView.Elevated"
@@ -273,7 +274,7 @@
                                 android:layout_marginEnd="5dp"
                                 android:fontFamily="@font/roboto"
                                 android:padding="3dp"
-                                android:text="100% Authentic Medicine"
+                                android:text="100% Authentic Syrup"
                                 android:textColor="#10803F"
                                 android:textSize="13sp"
                                 android:textStyle="bold">
@@ -312,7 +313,7 @@
                                 app:hintAnimationEnabled="true">
 
                                 <AutoCompleteTextView
-                                    android:id="@+id/sheet"
+                                    android:id="@+id/bottle"
                                     android:layout_width="180dp"
                                     android:layout_height="50dp"
                                     android:inputType="none"
@@ -356,7 +357,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/purchaseLayout"
                 android:layout_marginTop="5dp"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <RelativeLayout
                     android:id="@+id/headerSection"
