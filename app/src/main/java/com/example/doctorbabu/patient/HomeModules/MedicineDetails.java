@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
 public class MedicineDetails extends AppCompatActivity {
     ActivityMedicineDetailsBinding binding;
     String medicineId;
-    ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor, countExecutor;
+    ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor, countExecutor, cartCounterExecutor;
     Firebase firebase;
     ArrayList<MedicineModel> model;
     MedicineAdapter adapter;
@@ -65,6 +65,7 @@ public class MedicineDetails extends AppCompatActivity {
         relativeMedicineListExecutor = Executors.newSingleThreadExecutor();
         cartExecutor = Executors.newSingleThreadExecutor();
         countExecutor = Executors.newSingleThreadExecutor();
+        cartCounterExecutor = Executors.newSingleThreadExecutor();
         countExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +96,12 @@ public class MedicineDetails extends AppCompatActivity {
                 });
             }
         });
-        setCartCounter();
+        cartCounterExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setCartCounter();
+            }
+        });
         binding.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -496,5 +502,6 @@ public class MedicineDetails extends AppCompatActivity {
         medicineDataExecutor.shutdown();
         relativeMedicineListExecutor.shutdown();
         countExecutor.shutdown();
+        cartCounterExecutor.shutdown();
     }
 }

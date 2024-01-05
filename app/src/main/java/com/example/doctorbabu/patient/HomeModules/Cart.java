@@ -1,6 +1,5 @@
 package com.example.doctorbabu.patient.HomeModules;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ import java.util.concurrent.Executors;
 
 public class Cart extends AppCompatActivity {
     ActivityCartBinding binding;
-    ExecutorService cartItemExecutor,removeExecutor;
+    ExecutorService cartItemExecutor, removeExecutor;
     CartAdapter adapter;
     ArrayList<CartModel> model;
     Firebase firebase;
@@ -92,7 +91,7 @@ public class Cart extends AppCompatActivity {
                             binding.cartRecyclerView.hideShimmer();
                         }
                     });
-                }else{
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -105,6 +104,7 @@ public class Cart extends AppCompatActivity {
 
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -112,7 +112,7 @@ public class Cart extends AppCompatActivity {
         });
     }
 
-    public void removeFromCart(){
+    public void removeFromCart() {
         loadingScreen();
         binding.checkoutLayout.setVisibility(View.GONE);
         DatabaseReference deleteSelectedMedicine = firebase.getDatabaseReference("medicineCart");
@@ -131,15 +131,17 @@ public class Cart extends AppCompatActivity {
                     }
                 });
             }
-        },1000);
+        }, 1000);
         closeLoadingScreen();
     }
+
     public void loadingScreen() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.loading_screen);
         dialog.setCancelable(false);
         dialog.show();
     }
+
     public void closeLoadingScreen() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -154,7 +156,7 @@ public class Cart extends AppCompatActivity {
         selectedCard = SelectedCard.getInstance();
         selectedCard.resetCards();
         binding.cartRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_doctor_search);
-        adapter = new CartAdapter(this, model, selectedCard,binding.remove,binding.checkoutLayout,binding.totalPrice);
+        adapter = new CartAdapter(this, model, selectedCard, binding.remove, binding.checkoutLayout, binding.totalPrice);
         loadCartItem();
     }
 

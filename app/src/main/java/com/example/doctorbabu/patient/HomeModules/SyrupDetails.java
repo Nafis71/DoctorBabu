@@ -42,10 +42,10 @@ public class SyrupDetails extends AppCompatActivity {
     ArrayList<String> bottleList;
     ArrayList<MedicineModel> model;
     MedicineAdapter adapter;
-    ExecutorService syrupDataExecutor,cartExecutor, countExecutor,relativeSyrupListExecutor;
+    ExecutorService syrupDataExecutor,cartExecutor, cartCounterExecutor,relativeSyrupListExecutor,countExecutor;
     Firebase firebase;
     FirebaseUser user;
-    int bottle = 1, unitPrice, syrupQuantity,countedCart;
+    int bottle = 1, unitPrice, syrupQuantity,countedCart,count;
     double syrupPrice;
     String syrupId, syrupGenericName;
 
@@ -60,8 +60,9 @@ public class SyrupDetails extends AppCompatActivity {
         user = firebase.getUserID();
         syrupDataExecutor = Executors.newSingleThreadExecutor();
         cartExecutor = Executors.newSingleThreadExecutor();
-        countExecutor = Executors.newSingleThreadExecutor();
+        cartCounterExecutor = Executors.newSingleThreadExecutor();
         relativeSyrupListExecutor = Executors.newSingleThreadExecutor();
+        countExecutor = Executors.newSingleThreadExecutor();
         syrupDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -85,10 +86,16 @@ public class SyrupDetails extends AppCompatActivity {
                 });
             }
         });
-        countExecutor.execute(new Runnable() {
+        cartCounterExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 setCartCounter();
+            }
+        });
+        countExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                countMedicineViewData();
             }
         });
         binding.cart.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +153,28 @@ public class SyrupDetails extends AppCompatActivity {
         });
     }
 
+    public void countMedicineViewData() {
+        DatabaseReference countReference = firebase.getDatabaseReference("trackMedicine");
+        countReference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        count += Integer.parseInt(String.valueOf(snap.child("count").getValue()));
+                    }
+                    binding.viewingStats.setText(String.valueOf(count));
+                } else {
+                    binding.viewingStats.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
     public void checkQuantity(int selectedbottles) {
         DatabaseReference quantityReference = firebase.getDatabaseReference("syrupData");
         quantityReference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -158,7 +187,7 @@ public class SyrupDetails extends AppCompatActivity {
                     } else {
                         CookieBar.build(SyrupDetails.this)
                                 .setTitle("Not Enough Bottles Available")
-                                .setMessage(quantity + " " + " Sheets available to purchase")
+                                .setMessage(quantity + " " + " Bottles available to purchase")
                                 .setTitleColor(R.color.white)
                                 .setBackgroundColor(R.color.dark_red)
                                 .setCookiePosition(CookieBar.TOP)
@@ -196,7 +225,7 @@ public class SyrupDetails extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 CookieBar.build(SyrupDetails.this)
                         .setTitle("Added to cart")
-                        .setMessage(selectedbottles + " " + " Sheets of " + syrupName + " " + " added to cart successfully!")
+                        .setMessage(selectedbottles + " " + " Bottles of " + syrupName + " " + " added to cart successfully!")
                         .setTitleColor(R.color.white)
                         .setBackgroundColor(R.color.blue)
                         .setCookiePosition(CookieBar.TOP)
@@ -361,6 +390,7 @@ public class SyrupDetails extends AppCompatActivity {
         syrupDataExecutor.shutdown();
         relativeSyrupListExecutor.shutdown();
         cartExecutor.shutdown();
+        cartCounterExecutor.shutdown();
         countExecutor.shutdown();
     }
 }
