@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Adapters.MedicineAdapter;
+import com.example.doctorbabu.Adapters.SyrupAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
+import com.example.doctorbabu.DatabaseModels.syrupModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivitySyrupDetailsBinding;
@@ -40,12 +42,12 @@ public class SyrupDetails extends AppCompatActivity {
     ActivitySyrupDetailsBinding binding;
     Dialog dialog;
     ArrayList<String> bottleList;
-    ArrayList<MedicineModel> model;
-    MedicineAdapter adapter;
-    ExecutorService syrupDataExecutor,cartExecutor, cartCounterExecutor,relativeSyrupListExecutor,countExecutor;
+    ArrayList<syrupModel> model;
+    SyrupAdapter adapter;
+    ExecutorService syrupDataExecutor, cartExecutor, cartCounterExecutor, relativeSyrupListExecutor, countExecutor;
     Firebase firebase;
     FirebaseUser user;
-    int bottle = 1, unitPrice, syrupQuantity,countedCart,count;
+    int bottle = 1, unitPrice, syrupQuantity, countedCart, count;
     double syrupPrice;
     String syrupId, syrupGenericName;
 
@@ -219,7 +221,7 @@ public class SyrupDetails extends AppCompatActivity {
         data.put("medicineId", syrupId);
         data.put("quantity", String.valueOf(selectedbottles));
         data.put("totalPrice", String.valueOf(totalPrice));
-        data.put("medicineType","syrup");
+        data.put("medicineType", "syrup");
         cartReference.child(user.getUid()).child(syrupId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -270,6 +272,7 @@ public class SyrupDetails extends AppCompatActivity {
                     binding.cartCounters.setVisibility(View.INVISIBLE);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -336,7 +339,7 @@ public class SyrupDetails extends AppCompatActivity {
     public void loadRelativeSyrups() {
         model = new ArrayList<>();
         binding.relativeMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
-        adapter = new MedicineAdapter(this, model);
+        adapter = new SyrupAdapter(this, model);
         binding.relativeMedicineRecyclerView.setAdapter(adapter);
         DatabaseReference reference = firebase.getDatabaseReference("syrupData");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -346,7 +349,7 @@ public class SyrupDetails extends AppCompatActivity {
                 if (snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         if (String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(syrupGenericName) && !String.valueOf(snap.child("syrupId").getValue()).equalsIgnoreCase(syrupId)) {
-                            MedicineModel syrupModel = snap.getValue(MedicineModel.class);
+                            syrupModel syrupModel = snap.getValue(syrupModel.class);
                             model.add(syrupModel);
                         }
                     }
@@ -381,6 +384,17 @@ public class SyrupDetails extends AppCompatActivity {
         unitPrice = Integer.parseInt(String.valueOf(snapshot.child("unitPrice").getValue()));
         syrupPrice = (bottle * unitPrice);
         binding.medicinePrice.setText(String.valueOf(syrupPrice));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cartCounterExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setCartCounter();
+            }
+        });
     }
 
     @Override
