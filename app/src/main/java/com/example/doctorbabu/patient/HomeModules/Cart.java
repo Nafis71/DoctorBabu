@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient.HomeModules;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.doctorbabu.Adapters.CartAdapter;
 import com.example.doctorbabu.Adapters.SelectedCard;
 import com.example.doctorbabu.DatabaseModels.CartModel;
+import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityCartBinding;
@@ -62,6 +64,12 @@ public class Cart extends AppCompatActivity {
                         removeFromCart();
                     }
                 });
+            }
+        });
+        binding.multipleCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              launchCheckout();
             }
         });
     }
@@ -150,6 +158,23 @@ public class Cart extends AppCompatActivity {
                 dialog.dismiss();
             }
         }, 1000);
+    }
+
+    public void launchCheckout(){
+        loadingScreen();
+        ArrayList<String> cards = selectedCard.getCards();
+        String totalPrice = String.valueOf(adapter.getCalculatedPrice());
+        Intent intent = new Intent(Cart.this, Checkout.class);
+        intent.putExtra("selectedCards",cards);
+        intent.putExtra("totalPrice",totalPrice);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                startActivity(intent);
+            }
+        },800);
     }
 
     public void setRecyclerView() {

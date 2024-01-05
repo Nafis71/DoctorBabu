@@ -340,4 +340,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     public void resetCalculatedPrice(){
         calculatedTotalPrice = 0.0;
     }
+    public Double getCalculatedPrice(){
+        return calculatedTotalPrice;
+    }
 }

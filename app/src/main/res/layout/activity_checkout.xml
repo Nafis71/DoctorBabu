@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9F9 "
+    tools:context=".patient.HomeModules.Checkout">
+
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/back2">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/checkOutHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/back"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:text="Checkout"
+            android:textColor="@color/black"
+            android:textSize="15sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/totalCheckOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="-3dp"
+            android:layout_toEndOf="@+id/checkOutHeader"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:text="(2)"
+            android:textColor="@color/black"
+            android:textSize="15sp">
+
+        </TextView>
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerLayout"
+        android:layout_above="@+id/placeOrderLayout"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/deliveryAddressLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:elevation="0.1dp"
+                android:padding="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/customerNameSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/customerNameHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Deliver to:"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/customerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toEndOf="@+id/customerNameHeader"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Md. Nafis Hasan Tonmoy"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/customerNameHeader"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:animateLayoutChanges="true"
+                        app:cardBackgroundColor="#EDF6FD"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5sp">
+
+                            <ImageView
+                                android:id="@+id/infoImage"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="8sp"
+                                android:src="@drawable/info">
+
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_toEndOf="@+id/infoImage"
+                                android:fontFamily="@font/roboto"
+                                android:text="Profile Information"
+                                android:textColor="@color/black"
+                                android:textSize="14.5sp"
+                                android:textStyle="normal">
+
+                            </TextView>
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/addressSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/customerNameSection"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/addressHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Delivery Address:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/deliveryAddressTextLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/addressHeader"
+                        android:layout_marginStart="-13dp"
+                        android:layout_marginTop="-20dp"
+                        android:padding="5dp"
+                        app:boxBackgroundMode="none"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:boxStrokeWidth="1dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/deliveryAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/edit"
+                            android:inputType="textMultiLine"
+                            android:justificationMode="inter_word"
+                            android:text="mirpur2, rupanagar abashik, roadno -2,house no - 6"
+                            android:textSize="14sp">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/phoneNumberLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/addressSection"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/phoneNumberHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Phone Number:"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phoneNumberTextLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/phoneNumberHeader"
+                        android:layout_marginStart="-13dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_marginBottom="-25dp"
+                        android:padding="5dp"
+                        app:boxBackgroundMode="none"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:boxStrokeWidth="1dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="11"
+                        app:counterTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/edit"
+                            android:inputType="phone"
+                            android:justificationMode="inter_word"
+                            android:text="01906729575"
+                            android:textSize="14sp">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/productDetailsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/deliveryAddressLayout"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:padding="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/productDetailsHeaderSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/ProductDetailsHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Order Items - "
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ProductDetailsHeader"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp">
+
+                    </com.google.android.material.divider.MaterialDivider>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/productDetailsSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/productDetailsHeaderSection">
+                    <com.todkars.shimmer.ShimmerRecyclerView
+                        android:id="@+id/checkoutMedicineRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginBottom="1dp"
+                        android:animationCache="true"
+                        android:orientation="vertical"
+                        android:overScrollMode="ifContentScrolls"
+                        android:padding="0dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:shimmer_recycler_item_count="4"
+                        app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/divider"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/checkoutMedicineRecyclerView">
+
+                    </com.google.android.material.divider.MaterialDivider>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/deliveryTimeSection"
+                    android:layout_below="@+id/productDetailsSection">
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.Material3.CardView.Outlined"
+                        app:strokeColor="#8D97E9"
+                        app:strokeWidth="1.4dp"
+                        app:cardCornerRadius="5dp"
+                        android:elevation="4dp">
+                       <RelativeLayout
+                           android:id="@+id/deliveryAmountHeader"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:padding="15dp"
+                           >
+                           <TextView
+                               android:id="@+id/deliveryText"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="Standard Delivery | \u09F3 60"
+                               android:textColor="#5E649B"
+                               android:textStyle="bold">
+
+                           </TextView>
+                           <RelativeLayout
+                               android:layout_width="wrap_content"
+                               android:layout_height="30dp"
+                               android:background="#5E649B"
+                               android:padding="3dp"
+                               android:layout_below="@+id/deliveryText">
+                                <ImageView
+                                    android:id="@+id/deliveryImage"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginStart="3dp"
+                                    android:src="@drawable/airplane">
+                                </ImageView>
+                               <TextView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2 - 3 days"
+                                   android:textColor="@color/white"
+                                   android:layout_centerVertical="true"
+                                   android:layout_toEndOf="@+id/deliveryImage"
+                                   android:layout_marginEnd ="5dp"
+                                   android:layout_marginStart="3dp"
+                                   android:textStyle="bold"
+                                   android:fontFamily="@font/roboto">
+
+                               </TextView>
+
+                           </RelativeLayout>
+                       </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="1dp"
+        android:padding="5dp"
+        android:id="@+id/placeOrderLayout">
+        <TextView
+            android:id="@+id/totalPriceHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Total Price:"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal">
+
+        </TextView>
+        <TextView
+            android:id="@+id/amountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/totalPriceHeader"
+            android:fontFamily="@font/roboto"
+            android:freezesText="true"
+            android:padding="2dp"
+            android:text="\u09F3"
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/amountIcon"
+            android:fontFamily="@font/roboto"
+            android:freezesText="true"
+            android:padding="2dp"
+
+            android:textColor="@color/blue"
+            android:textSize="15sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/vatHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/totalPriceHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="VAT included, where applicable"
+            android:textSize="12sp"
+            android:textStyle="normal">
+
+        </TextView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/placeOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:visibility="visible"
+            android:text="Place Order"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="#3C4DD8"
+            app:cornerRadius="12dp"
+            app:elevation="10dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+    </RelativeLayout>
+
+</RelativeLayout>

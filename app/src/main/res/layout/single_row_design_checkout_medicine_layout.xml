@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/medicineImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/medicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/medicineImage"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text="Napa"
+            android:textColor="@color/black">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicineDosageOrbottleSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineName"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/medicineImage"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text="100ml"
+            android:textColor="@color/black">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/amountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineDosageOrbottleSize"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/medicineImage"
+            android:fontFamily="@font/roboto"
+            android:freezesText="true"
+            android:padding="1dp"
+            android:text="\u09F3"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicinePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineDosageOrbottleSize"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/amountIcon"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text="3450"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/discountedAmountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/amountIcon"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/medicineImage"
+            android:fontFamily="@font/roboto"
+            android:freezesText="true"
+            android:padding="1dp"
+            android:text="\u09F3"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="invisible">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/discountedMedicinePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/amountIcon"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/discountedAmountIcon"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text="3450"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="invisible">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicineQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:visibility="visible">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/quantityHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="1dp"
+            android:layout_toStartOf="@+id/medicineQuantity"
+            android:fontFamily="@font/roboto"
+            android:padding="1dp"
+            android:text="Qty:"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:visibility="visible">
+
+        </TextView>
+    </RelativeLayout>
+
+</RelativeLayout>
