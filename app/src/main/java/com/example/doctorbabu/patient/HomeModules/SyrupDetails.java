@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -154,9 +152,9 @@ public class SyrupDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     int quantity = Integer.parseInt(String.valueOf(snapshot.child("quantity").getValue()));
-                    checkSyrupQuantity(quantity + selectedbottles,"syrupData");
+                    checkSyrupQuantity(quantity + selectedbottles, "syrupData");
                 } else {
-                    checkSyrupQuantity(selectedbottles,"syrupData");
+                    checkSyrupQuantity(selectedbottles, "syrupData");
                 }
             }
 
@@ -166,7 +164,8 @@ public class SyrupDetails extends AppCompatActivity {
             }
         });
     }
-    public void checkSyrupQuantity(int selectedbottles,String databaseReference) {
+
+    public void checkSyrupQuantity(int selectedbottles, String databaseReference) {
         DatabaseReference quantityReference = firebase.getDatabaseReference(databaseReference);
         quantityReference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -174,7 +173,7 @@ public class SyrupDetails extends AppCompatActivity {
                 if (snapshot.exists()) {
                     int quantity = Integer.parseInt(String.valueOf(snapshot.child("syrupQuantity").getValue()));
                     if (quantity >= selectedbottles) {
-                        saveToCart(selectedbottles,databaseReference);
+                        saveToCart(selectedbottles, databaseReference);
                     } else {
                         CookieBar.build(SyrupDetails.this)
                                 .setTitle("Not Enough Bottles Available")
@@ -191,8 +190,8 @@ public class SyrupDetails extends AppCompatActivity {
                             }
                         });
                     }
-                }else{
-                    checkSyrupQuantity(selectedbottles,"herbalSyrupData");
+                } else {
+                    checkSyrupQuantity(selectedbottles, "herbalSyrupData");
                 }
             }
 
@@ -204,7 +203,7 @@ public class SyrupDetails extends AppCompatActivity {
 
     }
 
-    public void saveToCart(int selectedbottles,String databaseReference) {
+    public void saveToCart(int selectedbottles, String databaseReference) {
         DatabaseReference cartReference = firebase.getDatabaseReference("medicineCart");
         String syrupName = binding.syrupName.getText().toString();
         double totalPrice = selectedbottles * unitPrice;
@@ -212,10 +211,10 @@ public class SyrupDetails extends AppCompatActivity {
         data.put("medicineId", syrupId);
         data.put("quantity", String.valueOf(selectedbottles));
         data.put("totalPrice", String.valueOf(totalPrice));
-        if(databaseReference.equalsIgnoreCase("syrupData")){
+        if (databaseReference.equalsIgnoreCase("syrupData")) {
             data.put("medicineType", "syrup");
         } else {
-            data.put("medicineType","herbalSyrup");
+            data.put("medicineType", "herbalSyrup");
         }
         cartReference.child(user.getUid()).child(syrupId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -345,12 +344,12 @@ public class SyrupDetails extends AppCompatActivity {
         });
     }
 
-    public void loadHerbalSyrup(){
+    public void loadHerbalSyrup() {
         DatabaseReference reference = firebase.getDatabaseReference("herbalSyrupData");
         reference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     setViews(snapshot);
                 }
             }
@@ -379,7 +378,7 @@ public class SyrupDetails extends AppCompatActivity {
                             model.add(syrupModel);
                         }
                     }
-                    if(model.size() == 0 && !hasCheckedRelativeHerbal){
+                    if (model.size() == 0 && !hasCheckedRelativeHerbal) {
                         hasCheckedRelativeHerbal = true;
                         loadRelativeSyrups("herbalSyrupData");
                     }
