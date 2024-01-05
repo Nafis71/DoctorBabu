@@ -120,7 +120,7 @@
                         android:layout_height="45dp"
                         android:layout_below="@+id/customerNameHeader"
                         android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="0dp"
                         android:layout_marginEnd="20dp"
                         android:animateLayoutChanges="true"
                         app:cardBackgroundColor="#EDF6FD"
@@ -151,11 +151,10 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_toEndOf="@+id/infoImage"
                                 android:fontFamily="@font/roboto"
-                                android:text="Profile Information"
+                                android:text="Home"
                                 android:textColor="@color/black"
-                                android:textSize="14.5sp"
+                                android:textSize="14sp"
                                 android:textStyle="normal">
-
                             </TextView>
                         </RelativeLayout>
 
@@ -206,7 +205,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/edit"
-                            android:inputType="textMultiLine"
+                            android:inputType="textNoSuggestions|textMultiLine"
                             android:justificationMode="inter_word"
                             android:text="mirpur2, rupanagar abashik, roadno -2,house no - 6"
                             android:textSize="14sp">
@@ -375,6 +374,7 @@
                                android:layout_width="wrap_content"
                                android:layout_height="30dp"
                                android:background="#5E649B"
+                               android:layout_marginTop="3dp"
                                android:padding="3dp"
                                android:layout_below="@+id/deliveryText">
                                 <ImageView
