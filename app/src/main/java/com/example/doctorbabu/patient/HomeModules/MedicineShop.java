@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.doctorbabu.Adapters.MedicineAdapter;
@@ -33,10 +32,12 @@ public class MedicineShop extends AppCompatActivity {
     ActivityMedicineShopBinding binding;
     MedicineAdapter octMedicineAdapter;
     SyrupAdapter syrupAdapter;
+    SyrupAdapter herbalSyrupAdapter;
     ArrayList<MedicineModel> octModel;
     ArrayList<syrupModel> syrupModels;
+    ArrayList<syrupModel> herbalSyrupModels;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor,cartCounter,syrupExecutor;
+    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor;
     Firebase firebase;
     int countedCart = 0;
 
@@ -50,6 +51,7 @@ public class MedicineShop extends AppCompatActivity {
         octExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
         syrupExecutor = Executors.newSingleThreadExecutor();
+        herbalSyrupExecutor = Executors.newSingleThreadExecutor();
         octExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -66,6 +68,12 @@ public class MedicineShop extends AppCompatActivity {
             @Override
             public void run() {
                 loadSyrups();
+            }
+        });
+        herbalSyrupExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadHerbalSyrups();
             }
         });
     }
@@ -170,7 +178,36 @@ public class MedicineShop extends AppCompatActivity {
             }
         });
     }
+    public void loadHerbalSyrups(){
+        herbalSyrupModels = new ArrayList<>();
+        binding.herbalRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
+        herbalSyrupAdapter = new SyrupAdapter(this, herbalSyrupModels);
+        binding.herbalRecyclerView.setAdapter(herbalSyrupAdapter);
+        binding.herbalRecyclerView.showShimmer();
+        DatabaseReference syrupReference = firebase.getDatabaseReference("herbalSyrupData");
+        syrupReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        syrupModel model = snap.getValue(syrupModel.class);
+                        herbalSyrupModels.add(model);
+                    }
+                    Collections.shuffle(herbalSyrupModels);
+                    herbalSyrupAdapter.notifyDataSetChanged();
+                    binding.herbalRecyclerView.hideShimmer();
+                } else{
+                    binding.herbalRecyclerView.hideShimmer();
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
     public void loadGenericNames(ArrayList<String> genericNames){
         genericNames.add("Acetaminophen");
         genericNames.add("Ibuprofen");
@@ -204,5 +241,6 @@ public class MedicineShop extends AppCompatActivity {
         octExecutor.shutdown();
         cartCounter.shutdown();
         syrupExecutor.shutdown();
+        herbalSyrupExecutor.shutdown();
     }
 }

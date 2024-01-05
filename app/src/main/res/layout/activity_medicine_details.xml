@@ -136,7 +136,7 @@
                     android:id="@+id/medicineBrandName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/medicineGenericHeader"
+                    android:layout_below="@+id/medicineGeneric"
                     android:fontFamily="@font/roboto"
                     android:padding="3dp"
                     android:textSize="13sp"

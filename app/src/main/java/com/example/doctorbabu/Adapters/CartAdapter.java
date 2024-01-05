@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> {
     static Context context;
@@ -32,6 +34,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     RelativeLayout checkOutLayout;
     TextView totalPrice;
     double calculatedTotalPrice;
+    ExecutorService medicineDataExecutor;
     ArrayList<String> itemPostion = new ArrayList<>();
 
 
@@ -53,10 +56,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.myViewHolder holder, int position) {
+        medicineDataExecutor = Executors.newSingleThreadExecutor();
         CartModel dbModel = model.get(position);
         holder.quantity.setText(dbModel.getQuantity());
         holder.medicinePrice.setText(dbModel.getTotalPrice());
-        loadMedicineData(dbModel, holder);
+        medicineDataExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadMedicineData(dbModel, holder);
+            }
+        });
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,10 +128,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                     throw error.toException();
                 }
             });
-        } else {
-            //do nothing for now
+        } else if(dbModel.getMedicineType().equalsIgnoreCase("herbalSyrup")){
+            DatabaseReference medicineInformationReference = firebase.getDatabaseReference("herbalSyrupData");
+            medicineInformationReference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Glide.with(context).load(String.valueOf(snapshot.child("syrupPicture").getValue())).into(holder.medicineImage);
+                        holder.medicineName.setText(String.valueOf(snapshot.child("syrupName").getValue()));
+                        holder.medicineBrand.setText(String.valueOf(snapshot.child("brandName").getValue()));
+                        holder.medicineDosage.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    throw error.toException();
+                }
+            });
         }
-
+        medicineDataExecutor.shutdown();
     }
 
     public void changePrice(CartModel dbModel, CartAdapter.myViewHolder holder, int medicineQuantity, boolean isPlus) {
@@ -144,6 +168,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                             double perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
                             int sheetSize = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
                             calculatePrice(holder, perPiecePrice, sheetSize, isPlus, oldMedicineQuantity, dbModel);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
+                    }
+                });
+            } else if(dbModel.getMedicineType().equalsIgnoreCase("herbalSyrup")){
+                DatabaseReference medicineStripReference = firebase.getDatabaseReference("herbalSyrupData");
+                medicineStripReference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            double unitPrice = Double.parseDouble(String.valueOf(snapshot.child("unitPrice").getValue()));
+                            calculatePrice(holder, unitPrice, 0, isPlus, oldMedicineQuantity, dbModel);
                         }
                     }
 
@@ -299,8 +339,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     }
     public void resetCalculatedPrice(){
         calculatedTotalPrice = 0.0;
-    }
-    public ArrayList<String> getSelctedItems(){
-        return itemPostion;
     }
 }

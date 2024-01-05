@@ -14,9 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.Adapters.MedicineAdapter;
 import com.example.doctorbabu.Adapters.SyrupAdapter;
-import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.DatabaseModels.syrupModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
@@ -134,6 +132,16 @@ public class SyrupDetails extends AppCompatActivity {
         }, 2000);
     }
 
+    public void addtoCart() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.addToCart.setEnabled(false);
+            }
+        });
+        checkCart();
+    }
+
     public void checkCart() {
         int selectedbottles = bottle;
         DatabaseReference checkCartReference = firebase.getDatabaseReference("medicineCart");
@@ -142,9 +150,9 @@ public class SyrupDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     int quantity = Integer.parseInt(String.valueOf(snapshot.child("quantity").getValue()));
-                    checkQuantity(quantity + selectedbottles);
+                    checkSyrupQuantity(quantity + selectedbottles,"syrupData");
                 } else {
-                    checkQuantity(selectedbottles);
+                    checkSyrupQuantity(selectedbottles,"syrupData");
                 }
             }
 
@@ -154,38 +162,15 @@ public class SyrupDetails extends AppCompatActivity {
             }
         });
     }
-
-    public void countMedicineViewData() {
-        DatabaseReference countReference = firebase.getDatabaseReference("trackMedicine");
-        countReference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot snap : snapshot.getChildren()) {
-                        count += Integer.parseInt(String.valueOf(snap.child("count").getValue()));
-                    }
-                    binding.viewingStats.setText(String.valueOf(count));
-                } else {
-                    binding.viewingStats.setText("0");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                throw error.toException();
-            }
-        });
-    }
-
-    public void checkQuantity(int selectedbottles) {
-        DatabaseReference quantityReference = firebase.getDatabaseReference("syrupData");
+    public void checkSyrupQuantity(int selectedbottles,String databaseReference) {
+        DatabaseReference quantityReference = firebase.getDatabaseReference(databaseReference);
         quantityReference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     int quantity = Integer.parseInt(String.valueOf(snapshot.child("syrupQuantity").getValue()));
                     if (quantity >= selectedbottles) {
-                        saveToCart(selectedbottles);
+                        saveToCart(selectedbottles,databaseReference);
                     } else {
                         CookieBar.build(SyrupDetails.this)
                                 .setTitle("Not Enough Bottles Available")
@@ -202,6 +187,8 @@ public class SyrupDetails extends AppCompatActivity {
                             }
                         });
                     }
+                }else{
+                    checkSyrupQuantity(selectedbottles,"herbalSyrupData");
                 }
             }
 
@@ -213,7 +200,7 @@ public class SyrupDetails extends AppCompatActivity {
 
     }
 
-    public void saveToCart(int selectedbottles) {
+    public void saveToCart(int selectedbottles,String databaseReference) {
         DatabaseReference cartReference = firebase.getDatabaseReference("medicineCart");
         String syrupName = binding.syrupName.getText().toString();
         double totalPrice = selectedbottles * unitPrice;
@@ -221,7 +208,11 @@ public class SyrupDetails extends AppCompatActivity {
         data.put("medicineId", syrupId);
         data.put("quantity", String.valueOf(selectedbottles));
         data.put("totalPrice", String.valueOf(totalPrice));
-        data.put("medicineType", "syrup");
+        if(databaseReference.equalsIgnoreCase("syrupData")){
+            data.put("medicineType", "syrup");
+        } else {
+            data.put("medicineType","herbalSyrup");
+        }
         cartReference.child(user.getUid()).child(syrupId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -256,6 +247,28 @@ public class SyrupDetails extends AppCompatActivity {
         });
     }
 
+    public void countMedicineViewData() {
+        DatabaseReference countReference = firebase.getDatabaseReference("trackMedicine");
+        countReference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        count += Integer.parseInt(String.valueOf(snap.child("count").getValue()));
+                    }
+                    binding.viewingStats.setText(String.valueOf(count));
+                } else {
+                    binding.viewingStats.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
     public void setCartCounter() {
         DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
         cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -278,16 +291,6 @@ public class SyrupDetails extends AppCompatActivity {
                 throw error.toException();
             }
         });
-    }
-
-    public void addtoCart() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                binding.addToCart.setEnabled(false);
-            }
-        });
-        checkCart();
     }
 
     public void generateBottles() {
@@ -325,6 +328,25 @@ public class SyrupDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    setViews(snapshot);
+                } else {
+                    loadHerbalSyrup();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void loadHerbalSyrup(){
+        DatabaseReference reference = firebase.getDatabaseReference("herbalSyrupData");
+        reference.child(syrupId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
                     setViews(snapshot);
                 }
             }
