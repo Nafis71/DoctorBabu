@@ -318,6 +318,7 @@ public class MedicineDetails extends AppCompatActivity {
                 binding.relativeBrandLayout.setVisibility(View.VISIBLE);
                 binding.descriptionLayout.setVisibility(View.VISIBLE);
                 binding.medicalOverViewLayout.setVisibility(View.VISIBLE);
+                binding.addToCart.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
         }, 2000);

@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +50,7 @@ public class SyrupDetails extends AppCompatActivity {
     int bottle = 1, unitPrice, syrupQuantity, countedCart, count;
     double syrupPrice;
     String syrupId, syrupGenericName;
+    boolean hasCheckedRelativeHerbal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class SyrupDetails extends AppCompatActivity {
         relativeSyrupListExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                loadRelativeSyrups();
+                loadRelativeSyrups("syrupData");
             }
         });
         binding.addToCart.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +130,7 @@ public class SyrupDetails extends AppCompatActivity {
                 binding.relativeBrandLayout.setVisibility(View.VISIBLE);
                 binding.syrupDescriptionLayout.setVisibility(View.VISIBLE);
                 binding.medicalOverViewLayout.setVisibility(View.VISIBLE);
+                binding.addToCart.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
         }, 2000);
@@ -358,12 +362,12 @@ public class SyrupDetails extends AppCompatActivity {
         });
     }
 
-    public void loadRelativeSyrups() {
+    public void loadRelativeSyrups(String databaseReference) {
         model = new ArrayList<>();
         binding.relativeMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
         adapter = new SyrupAdapter(this, model);
         binding.relativeMedicineRecyclerView.setAdapter(adapter);
-        DatabaseReference reference = firebase.getDatabaseReference("syrupData");
+        DatabaseReference reference = firebase.getDatabaseReference(databaseReference);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -374,6 +378,10 @@ public class SyrupDetails extends AppCompatActivity {
                             syrupModel syrupModel = snap.getValue(syrupModel.class);
                             model.add(syrupModel);
                         }
+                    }
+                    if(model.size() == 0 && !hasCheckedRelativeHerbal){
+                        hasCheckedRelativeHerbal = true;
+                        loadRelativeSyrups("herbalSyrupData");
                     }
                     Collections.shuffle(model);
                     adapter.notifyDataSetChanged();

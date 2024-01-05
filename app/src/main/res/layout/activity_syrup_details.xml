@@ -335,6 +335,7 @@
                                 android:fontFamily="@font/roboto"
                                 android:shadowColor="@color/black"
                                 android:shadowRadius="0.5"
+                                android:visibility="invisible"
                                 android:text="Add to cart"
                                 android:textAllCaps="false"
                                 android:textColor="@color/white"

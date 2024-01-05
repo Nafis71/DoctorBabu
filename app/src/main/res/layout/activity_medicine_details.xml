@@ -337,6 +337,7 @@
                                 android:shadowColor="@color/black"
                                 android:shadowRadius="0.5"
                                 android:text="Add to cart"
+                                android:visibility="invisible"
                                 android:textAllCaps="false"
                                 android:textColor="@color/white"
                                 android:textSize="14sp"
