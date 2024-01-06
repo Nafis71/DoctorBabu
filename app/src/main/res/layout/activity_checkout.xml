@@ -57,13 +57,13 @@
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/bodyLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bodyLayout"
-        android:visibility="invisible"
         android:layout_above="@+id/placeOrderLayout"
         android:layout_below="@+id/headerLayout"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -581,26 +581,6 @@
                     android:layout_marginBottom="1dp"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
-                    android:text="34456"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    android:textStyle="normal">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/itemsTotalPriceIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/orderSummaryHeader"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_toStartOf="@+id/itemsTotalPrice"
-                    android:fontFamily="@font/roboto"
-                    android:padding="2dp"
-                    android:text="\u09F3"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="normal">
@@ -638,7 +618,7 @@
                     android:layout_marginBottom="1dp"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
-                    android:text="60"
+                    android:text="৳60"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="normal">
@@ -646,29 +626,50 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/deliveryFeeIcon"
+                    android:id="@+id/discountAmountTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/itemsTotalPriceTitle"
+                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="1dp"
-                    android:layout_toStartOf="@+id/deliveryFee"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
-                    android:text="\u09F3"
+                    android:text="Discount:"
                     android:textColor="@color/black"
                     android:textSize="13sp"
-                    android:textStyle="normal">
+                    android:textStyle="normal"
+                    android:visibility="gone">
 
                 </TextView>
+
+                <TextView
+                    android:id="@+id/discountAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal"
+                    android:visibility="gone">
+
+                </TextView>
+
 
                 <TextView
                     android:id="@+id/totalPaymentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_below="@+id/discountAmountTitle"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
@@ -687,7 +688,7 @@
                     android:id="@+id/totalPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_below="@+id/discountAmount"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
@@ -695,26 +696,6 @@
                     android:layout_marginBottom="1dp"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
-                    android:text="35360"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"
-                    android:textStyle="normal">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/totalPaymentIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/deliveryFeeTitle"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_toStartOf="@+id/totalPayment"
-                    android:fontFamily="@font/roboto"
-                    android:padding="2dp"
-                    android:text="\u09F3"
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="normal">
@@ -729,13 +710,14 @@
 
     <RelativeLayout
         android:id="@+id/placeOrderLayout"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
         android:background="@color/white"
         android:elevation="1dp"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/totalPriceHeader"
@@ -755,8 +737,9 @@
 
         </TextView>
 
+
         <TextView
-            android:id="@+id/amountIcon"
+            android:id="@+id/totalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -764,7 +747,7 @@
             android:fontFamily="@font/roboto"
             android:freezesText="true"
             android:padding="2dp"
-            android:text="\u09F3"
+
             android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold">
@@ -772,15 +755,14 @@
         </TextView>
 
         <TextView
-            android:id="@+id/totalPrice"
+            android:id="@+id/discountedTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/amountIcon"
+            android:layout_toEndOf="@+id/totalPrice"
             android:fontFamily="@font/roboto"
             android:freezesText="true"
             android:padding="2dp"
-
             android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold">
