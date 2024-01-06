@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient.HomeModules;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import com.example.doctorbabu.Adapters.CheckoutAdapter;
+import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityCheckoutBinding;
@@ -28,9 +31,11 @@ public class Checkout extends AppCompatActivity {
     ArrayList<String> selectedCards;
     Dialog dialog;
     String totalPrice;
-    ExecutorService customerDataExecutor;
+    ExecutorService customerDataExecutor,checkoutListExecutor;
     Firebase firebase;
     FirebaseUser user;
+    CheckoutAdapter adapter;
+    ArrayList<CartModel> checkoutModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +46,17 @@ public class Checkout extends AppCompatActivity {
         loadSelectedCards();
         initializeFirebase();
         customerDataExecutor = Executors.newSingleThreadExecutor();
+        checkoutListExecutor = Executors.newSingleThreadExecutor();
         customerDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 loadCustomerData();
+            }
+        });
+        checkoutListExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                initializeCheckoutRecyclerView();
             }
         });
         closeLoadingScreen();
@@ -100,6 +112,34 @@ public class Checkout extends AppCompatActivity {
         binding.customerName.setText(String.valueOf(snapshot.child("fullName").getValue()));
         binding.deliveryAddress.setText(String.valueOf(snapshot.child("address").getValue()));
         binding.phoneNumber.setText(String.valueOf(snapshot.child("phone").getValue()));
+    }
+    public void initializeCheckoutRecyclerView(){
+        checkoutModels = new ArrayList<>();
+        binding.checkoutMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(Checkout.this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_medicine);
+        adapter = new CheckoutAdapter(this,checkoutModels);
+        binding.checkoutMedicineRecyclerView.showShimmer();
+        checkCart();
+    }
+
+    public void checkCart(){
+        DatabaseReference cartReference = firebase.getDatabaseReference("medicineCart");
+        for(String medicineId : selectedCards){
+            cartReference.child(user.getUid()).child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        CartModel cartModel = snapshot.getValue(CartModel.class);
+                        checkoutModels.add(cartModel);
+                        binding.checkoutMedicineRecyclerView.setAdapter(adapter);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    throw error.toException();
+                }
+            });
+        }
+        binding.checkoutMedicineRecyclerView.hideShimmer();
     }
 
     @Override

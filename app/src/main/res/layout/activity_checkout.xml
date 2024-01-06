@@ -59,8 +59,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/headerLayout"
         android:layout_above="@+id/placeOrderLayout"
+        android:layout_below="@+id/headerLayout"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -154,8 +154,7 @@
                                 android:text="Home"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
-                                android:textStyle="normal">
-                            </TextView>
+                                android:textStyle="normal"></TextView>
                         </RelativeLayout>
 
                     </com.google.android.material.card.MaterialCardView>
@@ -521,15 +520,16 @@
 
 
             </RelativeLayout>
+
             <RelativeLayout
+                android:id="@+id/orderSummaryLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productDetailsLayout"
-                android:id="@+id/orderSummaryLayout"
-                android:padding="5dp"
-                android:background="@color/white"
                 android:layout_margin="10dp"
-                >
+                android:background="@color/white"
+                android:padding="5dp">
+
                 <TextView
                     android:id="@+id/orderSummaryHeader"
                     android:layout_width="wrap_content"
@@ -547,12 +547,13 @@
                     android:textStyle="bold">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/itemsTotalPriceTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/orderSummaryHeader"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="5dp"
@@ -565,12 +566,13 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/itemsTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/orderSummaryHeader"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="5dp"
@@ -583,16 +585,17 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/itemsTotalPriceIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/itemsTotalPrice"
                     android:layout_below="@+id/orderSummaryHeader"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_toStartOf="@+id/itemsTotalPrice"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
                     android:text="\u09F3"
@@ -601,12 +604,13 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/deliveryFeeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/itemsTotalPriceTitle"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="5dp"
@@ -619,12 +623,13 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/deliveryFee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/itemsTotalPriceTitle"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="5dp"
@@ -637,16 +642,17 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/deliveryFeeIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/deliveryFee"
                     android:layout_below="@+id/itemsTotalPriceTitle"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_toStartOf="@+id/deliveryFee"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
                     android:text="\u09F3"
@@ -655,12 +661,13 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/totalPaymentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="5dp"
@@ -673,12 +680,13 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/totalPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="5dp"
@@ -691,16 +699,17 @@
                     android:textStyle="normal">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/totalPaymentIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/totalPayment"
                     android:layout_below="@+id/deliveryFeeTitle"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="1dp"
+                    android:layout_toStartOf="@+id/totalPayment"
                     android:fontFamily="@font/roboto"
                     android:padding="2dp"
                     android:text="\u09F3"
@@ -715,14 +724,16 @@
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <RelativeLayout
+        android:id="@+id/placeOrderLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:elevation="1dp"
-        android:padding="5dp"
-        android:id="@+id/placeOrderLayout">
+        android:padding="5dp">
+
         <TextView
             android:id="@+id/totalPriceHeader"
             android:layout_width="wrap_content"
@@ -740,6 +751,7 @@
             android:textStyle="normal">
 
         </TextView>
+
         <TextView
             android:id="@+id/amountIcon"
             android:layout_width="wrap_content"
@@ -755,6 +767,7 @@
             android:textStyle="bold">
 
         </TextView>
+
         <TextView
             android:id="@+id/totalPrice"
             android:layout_width="wrap_content"
@@ -770,12 +783,13 @@
             android:textStyle="bold">
 
         </TextView>
+
         <TextView
             android:id="@+id/vatHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/totalPriceHeader"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
@@ -787,6 +801,7 @@
             android:textStyle="normal">
 
         </TextView>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/placeOrder"
             android:layout_width="wrap_content"
@@ -800,12 +815,12 @@
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
-            android:visibility="visible"
             android:text="Place Order"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="visible"
             app:backgroundTint="#3C4DD8"
             app:cornerRadius="12dp"
             app:elevation="10dp"

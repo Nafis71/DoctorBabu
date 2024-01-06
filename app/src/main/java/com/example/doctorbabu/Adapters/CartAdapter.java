@@ -1,7 +1,9 @@
 package com.example.doctorbabu.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,10 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +32,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> {
-    static Context context;
+    Context context;
     ArrayList<CartModel> model;
     SelectedCard selectedCard;
     MaterialCardView remove;
@@ -36,6 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     double calculatedTotalPrice;
     ExecutorService medicineDataExecutor;
     ArrayList<String> itemPostion = new ArrayList<>();
+    Dialog dialog;
 
 
     public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard, MaterialCardView remove, RelativeLayout checkOutLayout, TextView totalPrice) {
@@ -80,12 +86,44 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 holder.minus.setEnabled(false);
                 int medicineQuantity = Integer.parseInt(holder.quantity.getText().toString());
                 changePrice(dbModel, holder, medicineQuantity, false);
+
             }
         });
         holder.circle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cardSelection(holder, dbModel);
+            }
+        });
+    }
+    public void loadingScreen() {
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.cart_loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    public void closeLoadingScreen() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 400);
+    }
+
+    public void saveChangedQuantity(CartModel dbModel,int quantity,String updatedPrice){
+        double totalPrice = Double.parseDouble(updatedPrice);
+        totalPrice = Math.round(totalPrice);
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("medicineCart");
+        reference.child(user.getUid()).child(dbModel.getMedicineId()).child("quantity").setValue(String.valueOf(quantity));
+        reference.child(user.getUid()).child(dbModel.getMedicineId()).child("totalPrice").setValue(String.valueOf(totalPrice)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                closeLoadingScreen();
             }
         });
     }
@@ -104,7 +142,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                         holder.medicineDosage.setText(String.valueOf(snapshot.child("medicineDosage").getValue()));
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     throw error.toException();
@@ -150,14 +187,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     }
 
     public void changePrice(CartModel dbModel, CartAdapter.myViewHolder holder, int medicineQuantity, boolean isPlus) {
-        int oldMedicineQuantity = medicineQuantity;
+        loadingScreen();
+        int newMedicineQuantity;
         if (isPlus) {
-            medicineQuantity = medicineQuantity + 1;
+            newMedicineQuantity = medicineQuantity + 1;
         } else {
-            medicineQuantity = medicineQuantity - 1;
+            newMedicineQuantity = medicineQuantity - 1;
         }
-        if (medicineQuantity != 0) {
-            holder.quantity.setText(String.valueOf(medicineQuantity));
+        if (newMedicineQuantity != 0) {
+            holder.quantity.setText(String.valueOf(newMedicineQuantity));
             Firebase firebase = Firebase.getInstance();
             if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
                 DatabaseReference medicineStripReference = firebase.getDatabaseReference("medicineData");
@@ -167,7 +205,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                         if (snapshot.exists()) {
                             double perPiecePrice = Double.parseDouble(String.valueOf(snapshot.child("medicinePerPiecePrice").getValue()));
                             int sheetSize = Integer.parseInt(String.valueOf(snapshot.child("medicinePataSize").getValue()));
-                            calculatePrice(holder, perPiecePrice, sheetSize, isPlus, oldMedicineQuantity, dbModel);
+                            calculatePrice(holder, perPiecePrice, sheetSize, isPlus, medicineQuantity, dbModel,newMedicineQuantity);
                         }
                     }
 
@@ -183,7 +221,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             double unitPrice = Double.parseDouble(String.valueOf(snapshot.child("unitPrice").getValue()));
-                            calculatePrice(holder, unitPrice, 0, isPlus, oldMedicineQuantity, dbModel);
+                            calculatePrice(holder, unitPrice, 0, isPlus, medicineQuantity, dbModel,newMedicineQuantity);
                         }
                     }
 
@@ -199,7 +237,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             double unitPrice = Double.parseDouble(String.valueOf(snapshot.child("unitPrice").getValue()));
-                            calculatePrice(holder, unitPrice, 0, isPlus, oldMedicineQuantity, dbModel);
+                            calculatePrice(holder, unitPrice, 0, isPlus, medicineQuantity, dbModel,newMedicineQuantity);
                         }
                     }
 
@@ -212,42 +250,50 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
 
         } else {
             holder.minus.setEnabled(true);
+            closeLoadingScreen();
         }
     }
 
-    public void calculatePrice(myViewHolder holder, double perPiecePrice, int sheetSize, boolean isPlus, int oldMedicineQuantity, CartModel dbModel) {
+    public void calculatePrice(myViewHolder holder, double perPiecePrice, int sheetSize, boolean isPlus, int oldMedicineQuantity, CartModel dbModel,int newQuantity) {
         if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
             double totalPrice = Integer.parseInt(holder.quantity.getText().toString()) * perPiecePrice * sheetSize;
             @SuppressLint("DefaultLocale")
             String formattedTotalPrice = String.format("%.2f", totalPrice);
             holder.medicinePrice.setText(formattedTotalPrice);
+            saveChangedQuantity(dbModel,newQuantity,formattedTotalPrice);
             if (checkOutLayout.getVisibility() == View.VISIBLE && itemPostion.contains(String.valueOf(holder.getAdapterPosition()))) {
                 if (isPlus) {
-                    calculateTotalPlusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel);
+                    calculateTotalPlusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel,newQuantity);
+                    saveChangedQuantity(dbModel,newQuantity,formattedTotalPrice);
                 } else {
-                    calculateTotalMinusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel);
+                    calculateTotalMinusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel,newQuantity);
+                    saveChangedQuantity(dbModel,newQuantity,formattedTotalPrice);
                 }
             } else {
                 holder.minus.setEnabled(true);
                 holder.plus.setEnabled(true);
+                closeLoadingScreen();
             }
         } else {
             double totalPrice = Integer.parseInt(holder.quantity.getText().toString()) * perPiecePrice;  //here perPiece Price is unit price for syrups
             holder.medicinePrice.setText(String.valueOf(totalPrice));
             if (checkOutLayout.getVisibility() == View.VISIBLE && itemPostion.contains(String.valueOf(holder.getAdapterPosition()))) {
                 if (isPlus) {
-                    calculateTotalPlusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel);
+                    calculateTotalPlusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel,newQuantity);
+                    saveChangedQuantity(dbModel,newQuantity,String.valueOf(totalPrice));
                 } else {
-                    calculateTotalMinusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel);
+                    calculateTotalMinusPrice(holder, oldMedicineQuantity, perPiecePrice, sheetSize, dbModel,newQuantity);
+                    saveChangedQuantity(dbModel,newQuantity,String.valueOf(totalPrice));
                 }
             } else {
                 holder.minus.setEnabled(true);
                 holder.plus.setEnabled(true);
+                closeLoadingScreen();
             }
         }
     }
 
-    public void calculateTotalPlusPrice(CartAdapter.myViewHolder holder, int oldMedicineQuantity, double perPiecePrice, int sheetSize, CartModel dbModel) {
+    public void calculateTotalPlusPrice(CartAdapter.myViewHolder holder, int oldMedicineQuantity, double perPiecePrice, int sheetSize, CartModel dbModel,int newQuantity) {
         if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
             double medicinePrice = oldMedicineQuantity * perPiecePrice * sheetSize;
             calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
@@ -264,19 +310,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
 
     }
 
-    public void calculateTotalMinusPrice(CartAdapter.myViewHolder holder, int oldMedicineQuantity, double perPiecePrice, int sheetSize, CartModel dbModel) {
+    public void calculateTotalMinusPrice(CartAdapter.myViewHolder holder, int oldMedicineQuantity, double perPiecePrice, int sheetSize, CartModel dbModel,int newQuantity) {
         if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
             double medicinePrice = (oldMedicineQuantity) * perPiecePrice * sheetSize;
             calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
             calculatedTotalPrice = calculatedTotalPrice + Double.parseDouble(holder.medicinePrice.getText().toString());
             totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
             holder.minus.setEnabled(true);
+
         } else {
             double medicinePrice = (oldMedicineQuantity) * perPiecePrice; //here perPiece Price is unit price for syrups
             calculatedTotalPrice = calculatedTotalPrice - medicinePrice;
             calculatedTotalPrice = calculatedTotalPrice + Double.parseDouble(holder.medicinePrice.getText().toString());
             totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
             holder.minus.setEnabled(true);
+
         }
 
     }
