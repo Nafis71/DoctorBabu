@@ -3,7 +3,9 @@ package com.example.doctorbabu.Adapters;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +14,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.patient.HomeModules.Cart;
+import com.example.doctorbabu.patient.HomeModules.Checkout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     ExecutorService medicineDataExecutor;
     ArrayList<String> itemPostion = new ArrayList<>();
     Dialog dialog;
+    boolean isChecked;
 
 
     public CartAdapter(Context context, ArrayList<CartModel> model, SelectedCard selectedCard, MaterialCardView remove, RelativeLayout checkOutLayout, TextView totalPrice) {
@@ -95,10 +102,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 cardSelection(holder, dbModel);
             }
         });
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCheckout(dbModel,holder);
+            }
+        });
     }
     public void loadingScreen() {
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.cart_loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+    public void secondloadingScreen() {
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.loading_screen);
         dialog.setCancelable(false);
         dialog.show();
     }
@@ -336,11 +355,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             holder.circle.setImageResource(R.drawable.blank_circle);
             deductTotalPrice(holder);
             if (selectedCard.cards.size() == 0) {
+                isChecked = false;
                 remove.setVisibility(View.GONE);
                 checkOutLayout.setVisibility(View.GONE);
                 calculatedTotalPrice = 0.00;
             }
         } else {
+            isChecked = true;
             itemPostion.add(String.valueOf(holder.getAdapterPosition()));
             selectedCard.cards.add(dbModel.getMedicineId());
             holder.circle.setImageResource(R.drawable.checkedcircle);
@@ -363,6 +384,28 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
         totalPrice.setText(String.valueOf(Math.round(calculatedTotalPrice + 60.00)));
     }
 
+    public void launchCheckout(CartModel dbModel,CartAdapter.myViewHolder holder){
+        if(!isChecked){
+            secondloadingScreen();
+            selectedCard.cards.clear();
+            selectedCard.cards.add(dbModel.getMedicineId());
+            ArrayList<String> cards = selectedCard.getCards();
+            String totalPrice = String.valueOf(holder.medicinePrice.getText());
+            Intent intent = new Intent(context, Checkout.class);
+            intent.putExtra("selectedCards",cards);
+            intent.putExtra("totalPrice",totalPrice);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                    AppCompatActivity activity = (AppCompatActivity) context;
+                    activity.startActivity(intent);
+                }
+            },800);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return model.size();
@@ -371,6 +414,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         ImageView medicineImage, plus, minus, circle;
         TextView medicineName, medicineDosage, medicineBrand, medicinePrice, quantity;
+        RelativeLayout card;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -383,6 +427,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             plus = itemView.findViewById(R.id.plus);
             minus = itemView.findViewById(R.id.minus);
             circle = itemView.findViewById(R.id.circle);
+            card = itemView.findViewById(R.id.card);
         }
     }
     public void resetCalculatedPrice(){

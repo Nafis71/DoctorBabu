@@ -63,7 +63,7 @@
         android:layout_above="@+id/placeOrderLayout"
         android:layout_below="@+id/headerLayout"
         android:scrollbars="none"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -472,7 +472,38 @@
                         android:textStyle="bold">
 
                     </TextView>
+                    <TextView
+                        android:id="@+id/addedRewardPoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:visibility="invisible"
+                        android:text="Reward Point applied!"
+                        android:textSize="14sp"
+                        android:textStyle="normal">
 
+                    </TextView>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/rewardLottie"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        app:lottie_rawRes="@raw/reward"
+                        android:layout_toStartOf="@+id/addedRewardPoint"
+                        android:layout_centerVertical="true"
+                        app:lottie_autoPlay="false"
+                        app:lottie_loop="false"
+                        app:lottie_speed="0.5"
+                        android:visibility="gone"
+                        app:lottie_cacheComposition="true"
+                        app:lottie_renderMode="hardware"/>
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/rewardPointTextLayout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -488,6 +519,7 @@
                         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                         app:boxStrokeWidth="1dp"
                         app:counterEnabled="true"
+                        android:visibility="visible"
                         app:counterMaxLength="11"
                         app:counterTextColor="@color/white">
 
@@ -717,7 +749,7 @@
         android:background="@color/white"
         android:elevation="1dp"
         android:padding="5dp"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/totalPriceHeader"

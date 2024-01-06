@@ -1,5 +1,6 @@
 package com.example.doctorbabu.patient.HomeModules;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -19,6 +20,8 @@ import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityCheckoutBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +43,7 @@ public class Checkout extends AppCompatActivity {
     FirebaseUser user;
     CheckoutAdapter adapter;
     ArrayList<CartModel> checkoutModels;
+    boolean hasAppliedReward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,7 +187,7 @@ public class Checkout extends AppCompatActivity {
 
     public void initiateRewardProcess() {
         String rewardPoint = binding.rewardPoint.getText().toString().trim();
-        if(!rewardPoint.isEmpty()){
+        if (!rewardPoint.isEmpty()) {
             if (Integer.parseInt(rewardPoint) >= 100) {
                 checkReward(Integer.parseInt(rewardPoint));
             } else {
@@ -197,24 +201,30 @@ public class Checkout extends AppCompatActivity {
         userRewardReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     int userRewardPoint = Integer.parseInt(String.valueOf(snapshot.child("reward").getValue()));
-                    if(userRewardPoint >= rewardPoint){
-                        applyReward(rewardPoint);
-                    }else{
+                    if (userRewardPoint >= rewardPoint) {
+                        userRewardReference.child(user.getUid()).child("reward").setValue(String.valueOf(userRewardPoint - rewardPoint)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                applyReward(rewardPoint);
+                            }
+                        });
+                    } else {
                         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(Checkout.this);
                         dialog.setTitle("Insufficient Reward Point").setIcon(R.drawable.cross)
                                 .setMessage("Your reward point is insufficient, try gaining more reward points via doctor consultation")
-                                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                //do nothing
-                                            }
-                                        }).setCancelable(false);
+                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //do nothing
+                                    }
+                                }).setCancelable(false);
                         dialog.create().show();
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -223,17 +233,21 @@ public class Checkout extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    public void applyReward(int rewardPoint){
+    public void applyReward(int rewardPoint) {
         launchMiniDialog();
-        double rewardedPrice = Math.round(Double.parseDouble(totalPrice)- ((double) (5 * rewardPoint) /100));
-        binding.discountedTotalPrice.setText(moneyIcon + Math.round (rewardedPrice + 60));
-        binding.totalPayment.setText(moneyIcon + Math.round (rewardedPrice + 60));
-        binding.discountAmount.setText(moneyIcon + Math.round(((double) (5 * rewardPoint) /100)));
+        double rewardedPrice = Math.round(Double.parseDouble(totalPrice) - ((double) (5 * rewardPoint) / 100));
+        binding.discountedTotalPrice.setText(moneyIcon + Math.round(rewardedPrice + 60));
+        binding.totalPayment.setText(moneyIcon + Math.round(rewardedPrice + 60));
+        binding.discountAmount.setText(moneyIcon + Math.round(((double) (5 * rewardPoint) / 100)));
         binding.discountAmount.setVisibility(View.VISIBLE);
         binding.discountAmountTitle.setVisibility(View.VISIBLE);
         binding.totalPrice.setTextColor(Color.parseColor("#000000"));
-        binding.totalPrice.setTypeface(null,Typeface.NORMAL);
-        binding.totalPrice.setPaintFlags( binding.totalPayment.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.totalPrice.setTypeface(null, Typeface.NORMAL);
+        binding.totalPrice.setPaintFlags(binding.totalPayment.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        binding.rewardPointTextLayout.setVisibility(View.GONE);
+        binding.applyReward.setVisibility(View.INVISIBLE);
+        binding.rewardPointTitle.setVisibility(View.GONE);
+        binding.rewardPointHeader.setVisibility(View.INVISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -241,22 +255,47 @@ public class Checkout extends AppCompatActivity {
                 dialog.dismiss();
                 notifyReward();
             }
-        },500);
+        }, 500);
     }
-    public void launchMiniDialog(){
+
+    public void launchMiniDialog() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.cart_loading_screen);
         dialog.setCancelable(false);
         dialog.show();
     }
-    public void notifyReward(){
+
+    public void notifyReward() {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(Checkout.this);
         dialog.setTitle("Reward Point Applied").setIcon(R.drawable.done)
                 .setMessage("Your reward points have been applied successfully!")
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //do nothing
+                        binding.addedRewardPoint.setVisibility(View.VISIBLE);
+                        binding.rewardLottie.setVisibility(View.VISIBLE);
+                        binding.rewardLottie.playAnimation();
+                        binding.rewardLottie.addAnimatorListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(@NonNull Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(@NonNull Animator animator) {
+                                binding.rewardLottie.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(@NonNull Animator animator) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(@NonNull Animator animator) {
+
+                            }
+                        });
                     }
                 }).setCancelable(false);
         dialog.create().show();

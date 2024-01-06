@@ -19,7 +19,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="6dp"
             android:layout_marginEnd="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/blank_circle">
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/medicinePicture"
             android:fontFamily="@font/roboto"
             android:padding="3dp"
@@ -69,7 +69,7 @@
 
         <TextView
             android:id="@+id/medicineBrandName"
-            android:layout_width="180dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineDosage"
             android:layout_marginStart="5dp"
@@ -77,6 +77,40 @@
             android:fontFamily="@font/roboto"
             android:padding="3dp"
             android:textSize="12sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <TextView
+            android:id="@+id/priceIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineBrandName"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="\u09F3"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicinePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/medicineBrandName"
+            android:layout_toEndOf="@+id/priceIcon"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold">
 
         </TextView>
@@ -123,71 +157,15 @@
 
     </RelativeLayout>
 
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/medicineDescriptionLayout"
-        android:layout_marginTop="5dp">
-
-    </com.google.android.material.divider.MaterialDivider>
-
     <RelativeLayout
         android:id="@+id/checkoutLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider">
 
-        <TextView
-            android:id="@+id/priceIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/roboto"
-            android:padding="2dp"
-            android:text="\u09F3"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold">
 
-        </TextView>
 
-        <TextView
-            android:id="@+id/medicinePrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="6dp"
-            android:layout_toEndOf="@+id/priceIcon"
-            android:fontFamily="@font/roboto"
-            android:padding="2dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold">
 
-        </TextView>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/checkOut"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10sp"
-            android:shadowColor="@color/black_shade_1"
-            android:text="Check Out"
-            android:textColor="#4F5FDE"
-            android:fontFamily="@font/roboto_medium"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            app:cornerRadius="8dp" />
     </RelativeLayout>
 
 </RelativeLayout>
