@@ -59,6 +59,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/bodyLayout"
+        android:visibility="invisible"
         android:layout_above="@+id/placeOrderLayout"
         android:layout_below="@+id/headerLayout"
         android:scrollbars="none">
@@ -727,6 +729,7 @@
 
     <RelativeLayout
         android:id="@+id/placeOrderLayout"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
