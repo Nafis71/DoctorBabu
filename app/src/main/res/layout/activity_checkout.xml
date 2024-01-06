@@ -261,7 +261,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/edit"
-                            android:inputType="phone"
+                            android:inputType="number"
                             android:justificationMode="inter_word"
                             android:text="01906729575"
                             android:textSize="14sp">
@@ -277,7 +277,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/deliveryAddressLayout"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/white"
                 android:padding="5dp">
 
@@ -318,6 +321,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/productDetailsHeaderSection">
+
                     <com.todkars.shimmer.ShimmerRecyclerView
                         android:id="@+id/checkoutMedicineRecyclerView"
                         android:layout_width="match_parent"
@@ -331,81 +335,380 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:shimmer_recycler_item_count="4"
                         app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+
                     <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/divider"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/divider"
-                        android:layout_marginTop="5dp"
-                        android:layout_below="@+id/checkoutMedicineRecyclerView">
+                        android:layout_below="@+id/checkoutMedicineRecyclerView"
+                        android:layout_marginTop="5dp">
 
                     </com.google.android.material.divider.MaterialDivider>
                 </RelativeLayout>
+
                 <RelativeLayout
+                    android:id="@+id/deliveryTimeSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/productDetailsSection"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/deliveryTimeSection"
-                    android:layout_below="@+id/productDetailsSection">
+                    android:layout_marginBottom="5dp">
+
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/deliveryTimeCard"
+                        style="@style/Widget.Material3.CardView.Outlined"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.Material3.CardView.Outlined"
+                        android:elevation="4dp"
+                        app:cardCornerRadius="10dp"
                         app:strokeColor="#8D97E9"
-                        app:strokeWidth="1.4dp"
-                        app:cardCornerRadius="5dp"
-                        android:elevation="4dp">
-                       <RelativeLayout
-                           android:id="@+id/deliveryAmountHeader"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:padding="15dp"
-                           >
-                           <TextView
-                               android:id="@+id/deliveryText"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="Standard Delivery | \u09F3 60"
-                               android:textColor="#5E649B"
-                               android:textStyle="bold">
+                        app:strokeWidth="1.4dp">
 
-                           </TextView>
-                           <RelativeLayout
-                               android:layout_width="wrap_content"
-                               android:layout_height="30dp"
-                               android:background="#5E649B"
-                               android:layout_marginTop="3dp"
-                               android:padding="3dp"
-                               android:layout_below="@+id/deliveryText">
+                        <RelativeLayout
+                            android:id="@+id/deliveryAmountHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:id="@+id/deliveryText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Standard Delivery | \u09F3 60"
+                                android:textColor="#5E649B"
+                                android:textStyle="bold">
+
+                            </TextView>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_below="@+id/deliveryText"
+                                android:layout_marginTop="3dp"
+                                android:background="#5E649B"
+                                android:padding="3dp">
+
                                 <ImageView
                                     android:id="@+id/deliveryImage"
                                     android:layout_width="15dp"
                                     android:layout_height="15dp"
-                                    android:layout_centerVertical="true"
                                     android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
                                     android:layout_marginStart="3dp"
-                                    android:src="@drawable/airplane">
-                                </ImageView>
-                               <TextView
-                                   android:layout_width="wrap_content"
-                                   android:layout_height="wrap_content"
-                                   android:text="2 - 3 days"
-                                   android:textColor="@color/white"
-                                   android:layout_centerVertical="true"
-                                   android:layout_toEndOf="@+id/deliveryImage"
-                                   android:layout_marginEnd ="5dp"
-                                   android:layout_marginStart="3dp"
-                                   android:textStyle="bold"
-                                   android:fontFamily="@font/roboto">
+                                    android:src="@drawable/airplane"></ImageView>
 
-                               </TextView>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_toEndOf="@+id/deliveryImage"
+                                    android:fontFamily="@font/roboto"
+                                    android:text="within 24 hours in Dhaka"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold">
 
-                           </RelativeLayout>
-                       </RelativeLayout>
+                                </TextView>
+
+                            </RelativeLayout>
+                        </RelativeLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.divider.MaterialDivider
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/deliveryTimeCard"
+                        android:layout_marginTop="10dp">
+
+                    </com.google.android.material.divider.MaterialDivider>
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/rewardPointLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/deliveryTimeSection"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/rewardPointHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Doctor Babu Reward Point"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/rewardPointTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rewardPointHeader"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Use Reward Point"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/rewardPointTextLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rewardPointHeader"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="-25dp"
+                        android:hint="Enter Reward Point"
+                        app:boxBackgroundMode="filled"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:boxStrokeWidth="1dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="11"
+                        app:counterTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/rewardPoint"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="number"
+                            android:justificationMode="inter_word"
+                            android:textSize="14sp">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/applyReward"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rewardPointTitle"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:shadowColor="@color/black_shade_1"
+                        android:text="Apply Point"
+                        android:textColor="#B2BABB"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/productDetailsLayout"
+                android:id="@+id/orderSummaryLayout"
+                android:padding="5dp"
+                android:background="@color/white"
+                android:layout_margin="10dp"
+                >
+                <TextView
+                    android:id="@+id/orderSummaryHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="Order Summary"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/itemsTotalPriceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/orderSummaryHeader"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="Items Total:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/itemsTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/orderSummaryHeader"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="34456"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/itemsTotalPriceIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/itemsTotalPrice"
+                    android:layout_below="@+id/orderSummaryHeader"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="\u09F3"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/deliveryFeeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/itemsTotalPriceTitle"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="Delivery Fee:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/deliveryFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/itemsTotalPriceTitle"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="60"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/deliveryFeeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/deliveryFee"
+                    android:layout_below="@+id/itemsTotalPriceTitle"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="\u09F3"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/totalPaymentTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="Total Payment:"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/totalPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="35360"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/totalPaymentIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/totalPayment"
+                    android:layout_below="@+id/deliveryFeeTitle"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="2dp"
+                    android:text="\u09F3"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
 
             </RelativeLayout>
 
