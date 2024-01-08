@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.HomeModules.MedicineDetails;
+import com.example.doctorbabu.patient.HomeModules.TabletDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -32,25 +32,25 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.myViewHolder> {
+public class TabletAdapter extends RecyclerView.Adapter<TabletAdapter.myViewHolder> {
     Context context;
     ArrayList<MedicineModel> model;
     ExecutorService tracker;
 
-    public MedicineAdapter(Context context, ArrayList<MedicineModel> model) {
+    public TabletAdapter(Context context, ArrayList<MedicineModel> model) {
         this.context = context;
         this.model = model;
     }
 
     @NonNull
     @Override
-    public MedicineAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TabletAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_medicine_layout, parent, false);
         return new myViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MedicineAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TabletAdapter.myViewHolder holder, int position) {
         MedicineModel dbModel = model.get(position);
         holder.medicineName.setText(dbModel.getMedicineName());
         holder.medicineDosage.setText(dbModel.getMedicineDosage());
@@ -112,9 +112,9 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.myView
 
     public void launchMedicineDetails(MedicineModel dbModel) {
         AppCompatActivity activity = (AppCompatActivity) context;
-        Intent intent = new Intent(context, MedicineDetails.class);
+        Intent intent = new Intent(context, TabletDetails.class);
         intent.putExtra("medicineId", dbModel.getMedicineId());
-        if (context instanceof MedicineDetails) {
+        if (context instanceof TabletDetails) {
             activity.startActivity(intent);
             activity.finish();
             tracker.shutdown();

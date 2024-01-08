@@ -2,8 +2,6 @@ package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
-import com.example.doctorbabu.DatabaseModels.syrupModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.HomeModules.MedicineDetails;
 import com.example.doctorbabu.patient.HomeModules.SyrupDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,10 +34,10 @@ import java.util.concurrent.Executors;
 
 public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder> {
     Context context;
-    ArrayList<syrupModel> model;
+    ArrayList<MedicineModel> model;
     ExecutorService tracker;
 
-    public SyrupAdapter(Context context, ArrayList<syrupModel> model) {
+    public SyrupAdapter(Context context, ArrayList<MedicineModel> model) {
         this.context = context;
         this.model = model;
     }
@@ -55,9 +51,9 @@ public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SyrupAdapter.myViewHolder holder, int position) {
-        syrupModel dbModel = model.get(position);
-        Glide.with(context).load(dbModel.getSyrupPicture()).into(holder.syrupImage);
-        holder.syrupName.setText(dbModel.getSyrupName());
+        MedicineModel dbModel = model.get(position);
+        Glide.with(context).load(dbModel.getMedicinePicture()).into(holder.syrupImage);
+        holder.syrupName.setText(dbModel.getMedicineName());
         holder.syrupBottleSize.setText(dbModel.getBottleSize());
         holder.syrupPrice.setText(dbModel.getUnitPrice());
         tracker = Executors.newSingleThreadExecutor();
@@ -73,11 +69,11 @@ public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder
             }
         });
     }
-    public void trackMedicine(syrupModel dbModel) {
+    public void trackMedicine(MedicineModel dbModel) {
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
         DatabaseReference trackReference = firebase.getDatabaseReference("trackMedicine");
-        trackReference.child(dbModel.getSyrupId()).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        trackReference.child(dbModel.getMedicineId()).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
@@ -94,10 +90,10 @@ public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder
         });
     }
 
-    public void saveRecord(syrupModel dbModel, DatabaseReference trackReference, FirebaseUser user) {
+    public void saveRecord(MedicineModel dbModel, DatabaseReference trackReference, FirebaseUser user) {
         HashMap<String, String> data = new HashMap<>();
         data.put("count", String.valueOf(1));
-        trackReference.child(dbModel.getSyrupId()).child(user.getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+        trackReference.child(dbModel.getMedicineId()).child(user.getUid()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 launchMedicineDetails(dbModel);
@@ -110,10 +106,10 @@ public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder
         });
     }
 
-    public void launchMedicineDetails(syrupModel dbModel) {
+    public void launchMedicineDetails(MedicineModel dbModel) {
         AppCompatActivity activity = (AppCompatActivity) context;
         Intent intent = new Intent(context, SyrupDetails.class);
-        intent.putExtra("syrupId", dbModel.getSyrupId());
+        intent.putExtra("syrupId", dbModel.getMedicineId());
         if (context instanceof SyrupDetails) {
             activity.startActivity(intent);
             activity.finish();

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +20,9 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.HomeModules.Cart;
 import com.example.doctorbabu.patient.HomeModules.Checkout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +42,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
     RelativeLayout checkOutLayout;
     TextView totalPrice;
     double calculatedTotalPrice;
-    ExecutorService medicineDataExecutor;
+    ExecutorService tabletDataExecutor;
     ArrayList<String> itemPostion = new ArrayList<>();
     Dialog dialog;
     boolean isChecked;
@@ -69,14 +66,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.myViewHolder holder, int position) {
-        medicineDataExecutor = Executors.newSingleThreadExecutor();
+        tabletDataExecutor = Executors.newSingleThreadExecutor();
         CartModel dbModel = model.get(position);
         holder.quantity.setText(dbModel.getQuantity());
         holder.medicinePrice.setText(dbModel.getTotalPrice());
-        medicineDataExecutor.execute(new Runnable() {
+        tabletDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                loadMedicineData(dbModel, holder);
+                loadTabletData(dbModel, holder);
             }
         });
         holder.plus.setOnClickListener(new View.OnClickListener() {
@@ -147,10 +144,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
         });
     }
 
-    public void loadMedicineData(CartModel dbModel, CartAdapter.myViewHolder holder) {
+    public void loadTabletData(CartModel dbModel, CartAdapter.myViewHolder holder) {
         Firebase firebase = Firebase.getInstance();
         if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
-            DatabaseReference medicineInformationReference = firebase.getDatabaseReference("medicineData");
+            DatabaseReference medicineInformationReference = firebase.getDatabaseReference("tabletData");
             medicineInformationReference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -172,8 +169,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("syrupPicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("syrupName").getValue()));
+                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
+                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
                         holder.medicineBrand.setText(String.valueOf(snapshot.child("brandName").getValue()));
                         holder.medicineDosage.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
                     }
@@ -190,8 +187,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("syrupPicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("syrupName").getValue()));
+                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
+                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
                         holder.medicineBrand.setText(String.valueOf(snapshot.child("brandName").getValue()));
                         holder.medicineDosage.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
                     }
@@ -202,7 +199,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                 }
             });
         }
-        medicineDataExecutor.shutdown();
+        tabletDataExecutor.shutdown();
     }
 
     public void changePrice(CartModel dbModel, CartAdapter.myViewHolder holder, int medicineQuantity, boolean isPlus) {
@@ -217,7 +214,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
             holder.quantity.setText(String.valueOf(newMedicineQuantity));
             Firebase firebase = Firebase.getInstance();
             if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
-                DatabaseReference medicineStripReference = firebase.getDatabaseReference("medicineData");
+                DatabaseReference medicineStripReference = firebase.getDatabaseReference("tabletData");
                 medicineStripReference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -259,7 +256,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.myViewHolder> 
                             calculatePrice(holder, unitPrice, 0, isPlus, medicineQuantity, dbModel,newMedicineQuantity);
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         throw error.toException();

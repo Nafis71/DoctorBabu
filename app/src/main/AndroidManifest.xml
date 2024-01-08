@@ -40,7 +40,7 @@
             android:name=".patient.HomeModules.Cart"
             android:exported="false" />
         <activity
-            android:name=".patient.HomeModules.MedicineDetails"
+            android:name=".patient.HomeModules.TabletDetails"
             android:exported="false" />
         <activity
             android:name=".patient.HomeModules.MedicineShop"

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.Adapters.SyrupAdapter;
-import com.example.doctorbabu.DatabaseModels.syrupModel;
+import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivitySyrupDetailsBinding;
@@ -40,7 +40,7 @@ public class SyrupDetails extends AppCompatActivity {
     ActivitySyrupDetailsBinding binding;
     Dialog dialog;
     ArrayList<String> bottleList;
-    ArrayList<syrupModel> model;
+    ArrayList<MedicineModel> model;
     SyrupAdapter adapter;
     ExecutorService syrupDataExecutor, cartExecutor, cartCounterExecutor, relativeSyrupListExecutor, countExecutor;
     Firebase firebase;
@@ -373,8 +373,8 @@ public class SyrupDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        if (String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(syrupGenericName) && !String.valueOf(snap.child("syrupId").getValue()).equalsIgnoreCase(syrupId)) {
-                            syrupModel syrupModel = snap.getValue(syrupModel.class);
+                        if (String.valueOf(snap.child("genericName").getValue()).equalsIgnoreCase(syrupGenericName) && !String.valueOf(snap.child("medicineId").getValue()).equalsIgnoreCase(syrupId)) {
+                            MedicineModel syrupModel = snap.getValue(MedicineModel.class);
                             model.add(syrupModel);
                         }
                     }
@@ -395,8 +395,8 @@ public class SyrupDetails extends AppCompatActivity {
     }
 
     public void setViews(@NonNull DataSnapshot snapshot) {
-        Glide.with(this).load(String.valueOf(snapshot.child("syrupPicture").getValue())).into(binding.syrupImage);
-        binding.syrupName.setText(String.valueOf(snapshot.child("syrupName").getValue()));
+        Glide.with(this).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(binding.syrupImage);
+        binding.syrupName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
         binding.description.setText(String.valueOf(snapshot.child("description").getValue()));
         binding.syrupBottleSize.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
         syrupGenericName = String.valueOf(snapshot.child("genericName").getValue());
@@ -405,7 +405,7 @@ public class SyrupDetails extends AppCompatActivity {
         binding.syrupAdministration.setText(String.valueOf(snapshot.child("administrationOfTheMedicine").getValue()));
         binding.sideEffect.setText(String.valueOf(snapshot.child("sideEffect").getValue()));
         binding.storageCondition.setText(String.valueOf(snapshot.child("storageCondition").getValue()));
-        syrupQuantity = Integer.parseInt(String.valueOf(snapshot.child("syrupQuantity").getValue()));
+        syrupQuantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
         calculatePrice(snapshot);
     }
 

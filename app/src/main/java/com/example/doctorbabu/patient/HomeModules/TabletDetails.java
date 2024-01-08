@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.Adapters.MedicineAdapter;
+import com.example.doctorbabu.Adapters.TabletAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
@@ -38,13 +38,13 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MedicineDetails extends AppCompatActivity {
+public class TabletDetails extends AppCompatActivity {
     ActivityMedicineDetailsBinding binding;
     String medicineId;
     ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor, countExecutor, cartCounterExecutor;
     Firebase firebase;
     ArrayList<MedicineModel> model;
-    MedicineAdapter adapter;
+    TabletAdapter adapter;
     String medicineGenericName;
     FirebaseUser user;
     Dialog dialog;
@@ -105,7 +105,7 @@ public class MedicineDetails extends AppCompatActivity {
         binding.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MedicineDetails.this, Cart.class);
+                Intent intent = new Intent(TabletDetails.this, Cart.class);
                 startActivity(intent);
             }
         });
@@ -198,7 +198,7 @@ public class MedicineDetails extends AppCompatActivity {
                     if (quantity >= medicineSheets) {
                         saveToCart(medicineSheets);
                     } else {
-                        CookieBar.build(MedicineDetails.this)
+                        CookieBar.build(TabletDetails.this)
                                 .setTitle("Not Enough Sheets")
                                 .setMessage(quantity + " " + " Sheets available to purchase")
                                 .setTitleColor(R.color.white)
@@ -236,7 +236,7 @@ public class MedicineDetails extends AppCompatActivity {
         cartReference.child(user.getUid()).child(medicineId).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                CookieBar.build(MedicineDetails.this)
+                CookieBar.build(TabletDetails.this)
                         .setTitle("Added to cart")
                         .setMessage(totalSheets + " " + " Sheets of " + medicineName + " " + " added to cart successfully!")
                         .setTitleColor(R.color.white)
@@ -249,7 +249,7 @@ public class MedicineDetails extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                CookieBar.build(MedicineDetails.this)
+                CookieBar.build(TabletDetails.this)
                         .setTitle("Failed to add")
                         .setMessage("Please check your internet connection and try again")
                         .setTitleColor(R.color.white)
@@ -325,7 +325,7 @@ public class MedicineDetails extends AppCompatActivity {
     }
 
     public void loadMedicineData() {
-        DatabaseReference reference = firebase.getDatabaseReference("medicineData");
+        DatabaseReference reference = firebase.getDatabaseReference("tabletData");
         reference.child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -344,9 +344,9 @@ public class MedicineDetails extends AppCompatActivity {
     public void loadRelativeMedicines() {
         model = new ArrayList<>();
         binding.relativeMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
-        adapter = new MedicineAdapter(this, model);
+        adapter = new TabletAdapter(this, model);
         binding.relativeMedicineRecyclerView.setAdapter(adapter);
-        DatabaseReference reference = firebase.getDatabaseReference("medicineData");
+        DatabaseReference reference = firebase.getDatabaseReference("tabletData");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

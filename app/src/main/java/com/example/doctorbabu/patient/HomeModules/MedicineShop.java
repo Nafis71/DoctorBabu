@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient.HomeModules;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
@@ -10,10 +11,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.doctorbabu.Adapters.MedicineAdapter;
+import com.example.doctorbabu.Adapters.TabletAdapter;
 import com.example.doctorbabu.Adapters.SyrupAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
-import com.example.doctorbabu.DatabaseModels.syrupModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineShopBinding;
@@ -31,13 +31,14 @@ import java.util.concurrent.Executors;
 
 public class MedicineShop extends AppCompatActivity {
     ActivityMedicineShopBinding binding;
-    MedicineAdapter octMedicineAdapter;
+    TabletAdapter octMedicineAdapter;
     SyrupAdapter syrupAdapter;
     SyrupAdapter herbalSyrupAdapter;
     ArrayList<MedicineModel> octModel;
-    ArrayList<syrupModel> syrupModels;
-    ArrayList<syrupModel> syrupList;
-    ArrayList<syrupModel> herbalSyrupModels;
+    ArrayList<MedicineModel> syrupModels;
+    ArrayList<MedicineModel> syrupList;
+    ArrayList<MedicineModel> tabletList;
+    ArrayList<MedicineModel> herbalSyrupModels;
     ArrayList<String> genericNames;
     ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor;
     Firebase firebase;
@@ -114,9 +115,14 @@ public class MedicineShop extends AppCompatActivity {
                     binding.herbalLayout.setVisibility(View.GONE);
                     binding.prescriptionLayout.setVisibility(View.GONE);
                     binding.mainBody.setBackgroundColor(Color.parseColor("#ffffff"));
+                    searchMedicine();
                 }
             }
         });
+        tabletList = new ArrayList<>();
+        syrupList = new ArrayList<>();
+        getAllSyrupData();
+        getAllTabletData();
     }
 
     public void getAllSyrupData(){
@@ -130,7 +136,7 @@ public class MedicineShop extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         for(DataSnapshot snap : snapshot.getChildren()){
-                            syrupModel model = snap.getValue(syrupModel.class);
+                            MedicineModel model = snap.getValue(MedicineModel.class);
                             syrupList.add(model);
                         }
                     }
@@ -141,6 +147,49 @@ public class MedicineShop extends AppCompatActivity {
                 }
             });
         }
+    }
+    public void getAllTabletData(){
+        ArrayList<String> tabletReference = new ArrayList<>();
+        tabletReference.add("tabletData");
+        for(String databaseReference : tabletReference){
+            DatabaseReference reference = firebase.getDatabaseReference(databaseReference);
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            MedicineModel model = snap.getValue(MedicineModel.class);
+                            tabletList.add(model);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    throw error.toException();
+                }
+            });
+        }
+    }
+
+    public void searchMedicine(){
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String searchQuery) {
+                if (!searchQuery.isEmpty() && !searchQuery.equals(" ")) {
+                    binding.searchRecyclerView.setVisibility(View.VISIBLE);
+                    binding.searchRecyclerView.showShimmer();
+//                    filterList(searchQuery);
+                } else {
+                    binding.searchRecyclerView.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        });
     }
 
     public void setCartCounter(){
@@ -160,7 +209,6 @@ public class MedicineShop extends AppCompatActivity {
                     binding.cartCounter.setVisibility(View.INVISIBLE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -173,10 +221,10 @@ public class MedicineShop extends AppCompatActivity {
         genericNames = new ArrayList<>();
         loadGenericNames(genericNames);
         binding.octMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_medicine);
-        octMedicineAdapter = new MedicineAdapter(this, octModel);
+        octMedicineAdapter = new TabletAdapter(this, octModel);
         binding.octMedicineRecyclerView.setAdapter(octMedicineAdapter);
         binding.octMedicineRecyclerView.showShimmer();
-        DatabaseReference reference = firebase.getDatabaseReference("medicineData");
+        DatabaseReference reference = firebase.getDatabaseReference("tabletData");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -215,7 +263,7 @@ public class MedicineShop extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot snap : snapshot.getChildren()){
-                       syrupModel model = snap.getValue(syrupModel.class);
+                       MedicineModel model = snap.getValue(MedicineModel.class);
                        syrupModels.add(model);
                     }
                     Collections.shuffle(syrupModels);
@@ -245,7 +293,7 @@ public class MedicineShop extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot snap : snapshot.getChildren()){
-                        syrupModel model = snap.getValue(syrupModel.class);
+                        MedicineModel model = snap.getValue(MedicineModel.class);
                         herbalSyrupModels.add(model);
                     }
                     Collections.shuffle(herbalSyrupModels);
