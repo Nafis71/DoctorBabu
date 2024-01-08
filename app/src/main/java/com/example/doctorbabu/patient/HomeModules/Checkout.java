@@ -80,7 +80,7 @@ public class Checkout extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         rewardExecutor.execute(new Runnable() {
