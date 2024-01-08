@@ -189,7 +189,7 @@ public class TabletDetails extends AppCompatActivity {
     }
 
     public void checkQuantity(int medicineSheets) {
-        DatabaseReference quantityReference = firebase.getDatabaseReference("medicineData");
+        DatabaseReference quantityReference = firebase.getDatabaseReference("tabletData");
         quantityReference.child(medicineId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -1,5 +1,6 @@
 package com.example.doctorbabu.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -57,8 +59,10 @@ public class TabletAdapter extends RecyclerView.Adapter<TabletAdapter.myViewHold
         Glide.with(context).load(dbModel.getMedicinePicture()).into(holder.medicineImage);
         double perPiecePrice = Double.parseDouble(dbModel.getMedicinePerPiecePrice());
         double pataSize = Double.parseDouble(dbModel.getMedicinePataSize());
-        String price = String.valueOf(perPiecePrice * pataSize);
-        holder.medicinePrice.setText(price);
+        Double price = (perPiecePrice * pataSize);
+        @SuppressLint("DefaultLocale")
+        String formattedPrice = String.format("%.2f", price);
+        holder.medicinePrice.setText(formattedPrice);
         tracker = Executors.newSingleThreadExecutor();
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,9 +6,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.example.doctorbabu.Adapters.TabletAdapter;
@@ -40,10 +42,11 @@ public class MedicineShop extends AppCompatActivity {
     ArrayList<MedicineModel> tabletList;
     ArrayList<MedicineModel> herbalSyrupModels;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor;
+    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor, imageSliderExecutor;
     Firebase firebase;
     int countedCart = 0;
     boolean isSearchActive;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,19 @@ public class MedicineShop extends AppCompatActivity {
         binding = ActivityMedicineShopBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebase = Firebase.getInstance();
-        loadImageSlider();
+        loadingScreen();
+        imageSliderExecutor = Executors.newSingleThreadExecutor();
         octExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
         syrupExecutor = Executors.newSingleThreadExecutor();
         herbalSyrupExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
+        imageSliderExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadImageSlider();
+            }
+        });
         octExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -87,6 +97,7 @@ public class MedicineShop extends AppCompatActivity {
                 setSearch();
             }
         });
+        closeLoadingScreen();
 
     }
     @Override
@@ -99,6 +110,25 @@ public class MedicineShop extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void loadingScreen() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    public void closeLoadingScreen() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.header.setVisibility(View.VISIBLE);
+                binding.mainBody.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        }, 1200);
     }
 
     public void setSearch(){
@@ -183,7 +213,7 @@ public class MedicineShop extends AppCompatActivity {
                 if (!searchQuery.isEmpty() && !searchQuery.equals(" ")) {
                     binding.searchRecyclerView.setVisibility(View.VISIBLE);
                     binding.searchRecyclerView.showShimmer();
-//                    filterList(searchQuery);
+                    filterList(searchQuery);
                 } else {
                     binding.searchRecyclerView.setVisibility(View.GONE);
                 }
@@ -192,10 +222,14 @@ public class MedicineShop extends AppCompatActivity {
         });
     }
 
+    public void filterList(String searchQuery){
+        tabletList.addAll(syrupList);
+    }
+
     public void setCartCounter(){
         FirebaseUser user = firebase.getUserID();
         DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
-        cartCounterReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 countedCart = 0;
@@ -313,7 +347,7 @@ public class MedicineShop extends AppCompatActivity {
     public void loadGenericNames(ArrayList<String> genericNames){
         genericNames.add("Acetaminophen");
         genericNames.add("Ibuprofen");
-        genericNames.add("Fexofenadine");
+        genericNames.add("Fexofenadine Hydrochloride");
         genericNames.add("Loratadine");
         genericNames.add("Hydrocortisone creams");
         genericNames.add("Dextromethorphan");
@@ -337,12 +371,24 @@ public class MedicineShop extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        cartCounter.execute(new Runnable() {
+            @Override
+            public void run() {
+                setCartCounter();
+            }
+        });
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
         octExecutor.shutdown();
         cartCounter.shutdown();
         syrupExecutor.shutdown();
+        imageSliderExecutor.shutdown();
         herbalSyrupExecutor.shutdown();
         searchExecutor.shutdown();
     }

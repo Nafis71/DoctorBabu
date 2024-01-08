@@ -58,7 +58,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.myView
     public void fetchMedicineData(CheckoutAdapter.myViewHolder holder, CartModel dbModel) {
         Firebase firebase = Firebase.getInstance();
         if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
-            DatabaseReference reference = firebase.getDatabaseReference("medicineData");
+            DatabaseReference reference = firebase.getDatabaseReference("tabletData");
             reference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -80,8 +80,8 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.myView
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("syrupPicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("syrupName").getValue()));
+                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
+                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
                         holder.medicineDosageOrbottleSize.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
                     }
                 }
@@ -97,8 +97,8 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.myView
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("syrupPicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("syrupName").getValue()));
+                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
+                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
                         holder.medicineDosageOrbottleSize.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
                     }
                 }

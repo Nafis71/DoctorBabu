@@ -171,7 +171,7 @@ public class SyrupDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    int quantity = Integer.parseInt(String.valueOf(snapshot.child("syrupQuantity").getValue()));
+                    int quantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
                     if (quantity >= selectedbottles) {
                         saveToCart(selectedbottles, databaseReference);
                     } else {

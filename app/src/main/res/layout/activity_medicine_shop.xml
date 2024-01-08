@@ -10,6 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/header"
+        android:visibility="invisible"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,6 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mainBody"
+        android:visibility="invisible"
         android:background="#F8F9F9"
         android:layout_below="@+id/header"
         android:scrollbars="none">
