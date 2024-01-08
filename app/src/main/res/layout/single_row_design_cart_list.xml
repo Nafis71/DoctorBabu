@@ -28,14 +28,13 @@
 
         <ImageView
             android:id="@+id/medicinePicture"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_centerVertical="true"
             android:layout_marginTop="15dp"
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/circle"
             android:scaleType="centerCrop">
-
         </ImageView>
 
         <TextView

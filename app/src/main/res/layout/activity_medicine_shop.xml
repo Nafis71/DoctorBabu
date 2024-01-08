@@ -93,7 +93,47 @@
         </com.google.android.material.card.MaterialCardView>
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/noDataLayout">
+        <ImageView
+            android:id="@+id/notDataFoundImage"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/not_found"
+            android:layout_centerVertical="true"
+            >
 
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notDataFoundImage"
+            android:layout_centerHorizontal="true"
+            android:text="Couldn't find any relevant data"
+            android:fontFamily="@font/roboto"
+            >
+
+        </TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/searchDataLayout">
+        <ImageView
+            android:id="@+id/searchDataImage"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/searchimage"
+            android:layout_centerVertical="true"
+            >
+
+        </ImageView>
+
+    </RelativeLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,14 +156,14 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/searchCard"
                     android:layout_width="match_parent"
-                    android:layout_height="43dp"
+                    android:layout_height="48dp"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
                     android:visibility="visible"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="25dp"
                     app:cardElevation="3dp">
 
                     <androidx.appcompat.widget.SearchView
@@ -134,21 +174,31 @@
                         android:inputType="textPersonName"
                         android:theme="@style/AppSearchView"
                         android:visibility="visible"
-                        app:closeIcon="@drawable/close"
                         app:defaultQueryHint="@string/medicineSearch"
                         app:iconifiedByDefault="false">
 
                     </androidx.appcompat.widget.SearchView>
                 </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/searchResultTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/searchCard"
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    android:fontFamily="@font/roboto"
+                    android:text="Search Result :" />
                 <com.todkars.shimmer.ShimmerRecyclerView
                     android:id="@+id/searchRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/searchCard"
+                    android:layout_below="@+id/searchResultTxt"
                     android:background="@color/white"
                     android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     android:visibility="gone"
+                    android:padding="5dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="3"
                     app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search">

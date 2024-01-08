@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.doctorbabu.Adapters.MedicineSearchAdapter;
 import com.example.doctorbabu.Adapters.TabletAdapter;
@@ -154,8 +158,8 @@ public class MedicineShop extends AppCompatActivity {
                     binding.syrupLayout.setVisibility(View.GONE);
                     binding.herbalLayout.setVisibility(View.GONE);
                     binding.prescriptionLayout.setVisibility(View.GONE);
+                    binding.searchDataLayout.setVisibility(View.VISIBLE);
                     binding.mainBody.setBackgroundColor(Color.parseColor("#ffffff"));
-                    binding.searchRecyclerView.setVisibility(View.VISIBLE);
                     searchMedicine();
                 }
             }
@@ -164,7 +168,8 @@ public class MedicineShop extends AppCompatActivity {
             @Override
             public boolean onClose() {
                 restoreView();
-                return false;
+                Toast.makeText(MedicineShop.this, "CLose button pressed", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
         tabletList = new ArrayList<>();
@@ -172,6 +177,7 @@ public class MedicineShop extends AppCompatActivity {
         getAllSyrupData();
         getAllTabletData();
     }
+
 
     public void getAllSyrupData(){
         ArrayList<String> SyrupReference = new ArrayList<>();
@@ -223,17 +229,21 @@ public class MedicineShop extends AppCompatActivity {
     public void searchMedicine(){
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String searchQuery) {
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String searchQuery) {
-                if (!searchQuery.isEmpty() && !searchQuery.equals(" ")) {
-                    binding.searchRecyclerView.setVisibility(View.VISIBLE);
-                    binding.searchRecyclerView.showShimmer();
+                if (!searchQuery.isEmpty() && !searchQuery.equals(" ") && !searchQuery.equals("[") && !searchQuery.equals("]")) {
+                    binding.searchDataLayout.setVisibility(View.GONE);
+                    binding.searchResultTxt.setVisibility(View.VISIBLE);
                     filterList(searchQuery);
                 } else {
+                    binding.searchResultTxt.setVisibility(View.GONE);
+                    binding.searchDataLayout.setVisibility(View.VISIBLE);
+                    binding.noDataLayout.setVisibility(View.GONE);
                     binding.searchRecyclerView.setVisibility(View.GONE);
                 }
                 return true;
@@ -242,28 +252,33 @@ public class MedicineShop extends AppCompatActivity {
     }
 
     public void filterList(String searchQuery){
+        String combinedName;
         medicineList.clear();
         ArrayList<MedicineSearchModel> filteredList = new ArrayList<>();
         medicineSearchAdapter = new MedicineSearchAdapter(this, filteredList);
         medicineList.addAll(syrupList);
         medicineList.addAll(tabletList);
         for (MedicineSearchModel medicine : medicineList) {
-            if (medicine.getMedicineName().toLowerCase().contains(searchQuery.toLowerCase()) | medicine.getMedicineDosage().toLowerCase().contains(searchQuery.toLowerCase()) | medicine.getGenericName().toLowerCase().contains(searchQuery.toLowerCase())) {
+            combinedName = medicine.getMedicineName()+" "+medicine.getMedicineDosage();
+            if (combinedName.toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(medicine);
+            }else if(medicine.getMedicineName().toLowerCase().contains(searchQuery.toLowerCase()) | medicine.getMedicineDosage().toLowerCase().contains(searchQuery.toLowerCase()) | medicine.getGenericName().toLowerCase().contains(searchQuery.toLowerCase())){
                 filteredList.add(medicine);
             }
         }
         Handler handler = new Handler();
         if (filteredList.isEmpty()) {
             handler.postDelayed(() -> {
-                binding.searchRecyclerView.hideShimmer();
                 binding.searchRecyclerView.setVisibility(View.GONE);
-            }, 2000);
+                binding.noDataLayout.setVisibility(View.VISIBLE);
+            }, 200);
 
         } else {
             handler.postDelayed(() -> {
                 binding.searchRecyclerView.setAdapter(medicineSearchAdapter);
-                binding.searchRecyclerView.hideShimmer();
-            }, 2000);
+                binding.searchRecyclerView.setVisibility(View.VISIBLE);
+                binding.noDataLayout.setVisibility(View.GONE);
+            }, 200);
         }
     }
 
@@ -420,6 +435,8 @@ public class MedicineShop extends AppCompatActivity {
         binding.prescriptionLayout.setVisibility(View.VISIBLE);
         binding.mainBody.setBackgroundColor(Color.parseColor("#F8F9F9"));
         binding.searchRecyclerView.setVisibility(View.GONE);
+        binding.noDataLayout.setVisibility(View.GONE);
+        binding.searchResultTxt.setVisibility(View.GONE);
         binding.searchView.setQuery("",false);
         binding.searchView.clearFocus();
     }
