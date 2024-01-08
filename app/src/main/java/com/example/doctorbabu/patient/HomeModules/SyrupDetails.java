@@ -56,7 +56,7 @@ public class SyrupDetails extends AppCompatActivity {
         binding = ActivitySyrupDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loadingScreen();
-        syrupId = getIntent().getStringExtra("syrupId");
+        syrupId = getIntent().getStringExtra("medicineId");
         firebase = Firebase.getInstance();
         user = firebase.getUserID();
         syrupDataExecutor = Executors.newSingleThreadExecutor();

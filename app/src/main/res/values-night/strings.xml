@@ -12,6 +12,7 @@
     <!-- Home Fragment Strings -->
     <string name="languageName">English</string>
     <string name="doctorSearch">Search doctor by name/doctor code/department</string>
+    <string name="medicineSearch">Search Medicine with name/dosage/generic name</string>
     <string name="bookAppointment">Book Appointment</string>
     <string name="bookAppointmentDescription">Book appointment with MBBS and Specialist Doctors</string>
     <string name="takeConsultancy">Take Consultancy</string>
@@ -22,10 +23,10 @@
     <string name="onlineConsultantDescription">Currently online: 65</string>
     <string name="medicalReport">Medical Report</string>
     <string name="medicalReportDescription">Upload your diagonosis report</string>
-    <string name="medicineInformation">Medicine Information</string>
-    <string name="medicineInformationDescription">Learn more about prescribed medicine</string>
-    <string name="pendingAppointment">Appointment History</string>
-    <string name="pendingAppointmentDescription">Appointments Taken: 0</string>
+    <string name="medicinePurchase">Buy Medicine</string>
+    <string name="medicinePurchaseDescription">Buy from our Doctor Babu app</string>
+    <string name="pendingAppointment">Pending Appointment</string>
+    <string name="pendingAppointmentDescription">Appointments Pending:</string>
     <string name="recentlyViewed">Recently Viewed</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->
@@ -152,7 +153,7 @@
     <string name="bcs">BCS (Health)</string>
     <string name="totalRating">Total Rating</string>
     <string name="totalexperience">Total Experience</string>
-    <string name="instantVideoCall">Instant Video Call</string>
+    <string name="instantVideoCall">Video Call</string>
     <string name="bmdcNumber">BMDC Number</string>
     <string name="seeDoctorNow">Video Consultation</string>
     <string name="consultationFee">Consultation Fee</string>
@@ -173,6 +174,28 @@
     <string name="firstCheckBoxString">I read and accept Terms of Service</string>
     <string name="secondCheckBoxString">I agree for my health information to be used by Doctor Babu</string>
     <string name="nextButtonText">Next</string>
+    <string name="alcoholSafe">It is safe to consume alcohol with this medicine.</string>
+    <string name="alcoholUnSafe">It is unsafe to consume alcohol with this medicine.</string>
+    <string name="pregnancySafe">This medicine is safe to use during pregnancy. Most studies have shown low or no risk to the developing baby.</string>
+    <string name="pregnancyUnSafe">This medicine is not safe to use during pregnancy.</string>
+    <string name="pregnancyCaution">This medicine should be used with caution during pregnancy</string>
+    <string name="pregnancyConsult">This medicine may be unsafe to use during pregnancy. Although there are limited studies in humans, animal studies have shown harmful effects on the developing baby. Your doctor will weigh the benefits and any potential risks before prescribing it to you. Please consult your doctor.</string>
+    <string name="drivingSafe">This medicine does not usually affect your ability to drive.</string>
+    <string name="drivingUnSafe">This medicine may decrease alertness, affect your vision or make you feel sleepy and dizzy. Do not drive if these symptoms occur.</string>
+    <string name="kidneyCaution">This medicine should be used with caution in patients with severe kidney disease.</string>
+    <string name="kidneySafe">This medicine is safe for patients with severe kidney disease.</string>
+    <string name="kidneyUnSafe">This medicine is not safe for patients with severe kidney disease.</string>
+    <string name="liverCaution">This medicine should be used with caution in patients with liver disease.</string>
+    <string name="liverSafe">This medicine is safe for patients with liver disease.</string>
+    <string name="liverUnSafe">This medicine is not safe for patients with liver disease.</string>
+    <string name="openDrawer"></string>ww
+    <string name="closeDrawer"></string>
+    <string name="title_activity_add_medicine_alarm">AddMedicineAlarm</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

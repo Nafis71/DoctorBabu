@@ -12,7 +12,7 @@
     <!-- Home Fragment Strings -->
     <string name="languageName">English</string>
     <string name="doctorSearch">Search doctor by name/doctor code/department</string>
-    <string name="medicineSearch">Search Medicine</string>
+    <string name="medicineSearch">Search Medicine with name/dosage/generic name</string>
     <string name="bookAppointment">Book Appointment</string>
     <string name="bookAppointmentDescription">Book appointment with MBBS and Specialist Doctors</string>
     <string name="takeConsultancy">Take Consultancy</string>

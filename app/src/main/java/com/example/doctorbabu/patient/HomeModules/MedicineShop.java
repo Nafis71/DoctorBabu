@@ -11,11 +11,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 
+import com.example.doctorbabu.Adapters.MedicineSearchAdapter;
 import com.example.doctorbabu.Adapters.TabletAdapter;
 import com.example.doctorbabu.Adapters.SyrupAdapter;
+import com.example.doctorbabu.Adapters.doctorSearchAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
+import com.example.doctorbabu.DatabaseModels.MedicineSearchModel;
+import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineShopBinding;
@@ -36,10 +42,12 @@ public class MedicineShop extends AppCompatActivity {
     TabletAdapter octMedicineAdapter;
     SyrupAdapter syrupAdapter;
     SyrupAdapter herbalSyrupAdapter;
+    MedicineSearchAdapter medicineSearchAdapter;
     ArrayList<MedicineModel> octModel;
     ArrayList<MedicineModel> syrupModels;
-    ArrayList<MedicineModel> syrupList;
-    ArrayList<MedicineModel> tabletList;
+    ArrayList<MedicineSearchModel> syrupList;
+    ArrayList<MedicineSearchModel> tabletList;
+    ArrayList<MedicineSearchModel> medicineList;
     ArrayList<MedicineModel> herbalSyrupModels;
     ArrayList<String> genericNames;
     ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor, imageSliderExecutor;
@@ -54,6 +62,7 @@ public class MedicineShop extends AppCompatActivity {
         binding = ActivityMedicineShopBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         firebase = Firebase.getInstance();
+        medicineList = new ArrayList<>();
         loadingScreen();
         imageSliderExecutor = Executors.newSingleThreadExecutor();
         octExecutor = Executors.newSingleThreadExecutor();
@@ -132,6 +141,7 @@ public class MedicineShop extends AppCompatActivity {
     }
 
     public void setSearch(){
+        binding.searchRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_medicine_search_layout);
         binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -145,8 +155,16 @@ public class MedicineShop extends AppCompatActivity {
                     binding.herbalLayout.setVisibility(View.GONE);
                     binding.prescriptionLayout.setVisibility(View.GONE);
                     binding.mainBody.setBackgroundColor(Color.parseColor("#ffffff"));
+                    binding.searchRecyclerView.setVisibility(View.VISIBLE);
                     searchMedicine();
                 }
+            }
+        });
+        binding.searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                restoreView();
+                return false;
             }
         });
         tabletList = new ArrayList<>();
@@ -166,9 +184,10 @@ public class MedicineShop extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         for(DataSnapshot snap : snapshot.getChildren()){
-                            MedicineModel model = snap.getValue(MedicineModel.class);
+                            MedicineSearchModel model = snap.getValue(MedicineSearchModel.class);
                             syrupList.add(model);
                         }
+
                     }
                 }
                 @Override
@@ -177,6 +196,7 @@ public class MedicineShop extends AppCompatActivity {
                 }
             });
         }
+
     }
     public void getAllTabletData(){
         ArrayList<String> tabletReference = new ArrayList<>();
@@ -188,7 +208,7 @@ public class MedicineShop extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         for(DataSnapshot snap : snapshot.getChildren()){
-                            MedicineModel model = snap.getValue(MedicineModel.class);
+                            MedicineSearchModel model = snap.getValue(MedicineSearchModel.class);
                             tabletList.add(model);
                         }
                     }
@@ -200,7 +220,6 @@ public class MedicineShop extends AppCompatActivity {
             });
         }
     }
-
     public void searchMedicine(){
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -223,7 +242,29 @@ public class MedicineShop extends AppCompatActivity {
     }
 
     public void filterList(String searchQuery){
-        tabletList.addAll(syrupList);
+        medicineList.clear();
+        ArrayList<MedicineSearchModel> filteredList = new ArrayList<>();
+        medicineSearchAdapter = new MedicineSearchAdapter(this, filteredList);
+        medicineList.addAll(syrupList);
+        medicineList.addAll(tabletList);
+        for (MedicineSearchModel medicine : medicineList) {
+            if (medicine.getMedicineName().toLowerCase().contains(searchQuery.toLowerCase()) | medicine.getMedicineDosage().toLowerCase().contains(searchQuery.toLowerCase()) | medicine.getGenericName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(medicine);
+            }
+        }
+        Handler handler = new Handler();
+        if (filteredList.isEmpty()) {
+            handler.postDelayed(() -> {
+                binding.searchRecyclerView.hideShimmer();
+                binding.searchRecyclerView.setVisibility(View.GONE);
+            }, 2000);
+
+        } else {
+            handler.postDelayed(() -> {
+                binding.searchRecyclerView.setAdapter(medicineSearchAdapter);
+                binding.searchRecyclerView.hideShimmer();
+            }, 2000);
+        }
     }
 
     public void setCartCounter(){
@@ -368,6 +409,28 @@ public class MedicineShop extends AppCompatActivity {
         binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
         binding.imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         binding.imageSlider.startAutoCycle();
+    }
+    public void restoreView(){
+        binding.header.setVisibility(View.VISIBLE);
+        binding.medicineDeliveryBannerLayout.setVisibility(View.VISIBLE);
+        binding.octMedicineLayout.setVisibility(View.VISIBLE);
+        binding.sliderLayout.setVisibility(View.VISIBLE);
+        binding.syrupLayout.setVisibility(View.VISIBLE);
+        binding.herbalLayout.setVisibility(View.VISIBLE);
+        binding.prescriptionLayout.setVisibility(View.VISIBLE);
+        binding.mainBody.setBackgroundColor(Color.parseColor("#F8F9F9"));
+        binding.searchRecyclerView.setVisibility(View.GONE);
+        binding.searchView.setQuery("",false);
+        binding.searchView.clearFocus();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isSearchActive){
+            restoreView();
+        }else{
+            finish();
+        }
     }
 
     @Override

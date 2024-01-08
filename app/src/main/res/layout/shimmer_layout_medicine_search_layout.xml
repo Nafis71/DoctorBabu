@@ -19,20 +19,23 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:layout_alignParentStart="true"
+            android:background="#DDD"
             android:scaleType="centerCrop">
 
         </ImageView>
 
         <TextView
             android:id="@+id/medicineName"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_toEndOf="@+id/medicinePicture"
             android:fontFamily="@font/roboto"
             android:padding="3dp"
             android:textColor="@color/black"
+            android:background="#DDD"
             android:textSize="14sp"
             android:textStyle="normal">
 
@@ -40,12 +43,14 @@
 
         <TextView
             android:id="@+id/medicineDosage"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineName"
             android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
             android:layout_toEndOf="@+id/medicinePicture"
             android:fontFamily="@font/roboto"
+            android:background="#DDD"
             android:padding="3dp"
             android:textSize="13sp"
             android:textStyle="bold">
@@ -57,6 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineDosage"
             android:layout_marginStart="15dp"
+            android:background="#DDD"
+            android:layout_marginBottom="5dp"
             android:layout_toEndOf="@+id/medicinePicture"
             android:fontFamily="@font/roboto"
             android:padding="3dp"
