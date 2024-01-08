@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
+    android:id="@+id/parentLayout"
     tools:context=".patient.HomeModules.MedicineShop">
 
     <RelativeLayout
@@ -95,6 +96,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/mainBody"
         android:background="#F8F9F9"
         android:layout_below="@+id/header"
         android:scrollbars="none">
@@ -136,6 +138,20 @@
 
                     </androidx.appcompat.widget.SearchView>
                 </androidx.cardview.widget.CardView>
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/searchRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/searchCard"
+                    android:background="@color/white"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="3"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search">
+
+                </com.todkars.shimmer.ShimmerRecyclerView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -182,6 +198,7 @@
                 android:id="@+id/medicineDeliveryBannerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 android:layout_below="@+id/searchLayout"
                 android:layout_marginTop="-10dp">
 

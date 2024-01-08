@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -35,11 +36,13 @@ public class MedicineShop extends AppCompatActivity {
     SyrupAdapter herbalSyrupAdapter;
     ArrayList<MedicineModel> octModel;
     ArrayList<syrupModel> syrupModels;
+    ArrayList<syrupModel> syrupList;
     ArrayList<syrupModel> herbalSyrupModels;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor;
+    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor;
     Firebase firebase;
     int countedCart = 0;
+    boolean isSearchActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class MedicineShop extends AppCompatActivity {
         cartCounter = Executors.newSingleThreadExecutor();
         syrupExecutor = Executors.newSingleThreadExecutor();
         herbalSyrupExecutor = Executors.newSingleThreadExecutor();
+        searchExecutor = Executors.newSingleThreadExecutor();
         octExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -76,6 +80,13 @@ public class MedicineShop extends AppCompatActivity {
                 loadHerbalSyrups();
             }
         });
+        searchExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setSearch();
+            }
+        });
+
     }
     @Override
     protected void onStart() {
@@ -87,6 +98,49 @@ public class MedicineShop extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setSearch(){
+        binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    isSearchActive = true;
+                    binding.header.setVisibility(View.GONE);
+                    binding.medicineDeliveryBannerLayout.setVisibility(View.GONE);
+                    binding.octMedicineLayout.setVisibility(View.GONE);
+                    binding.sliderLayout.setVisibility(View.GONE);
+                    binding.syrupLayout.setVisibility(View.GONE);
+                    binding.herbalLayout.setVisibility(View.GONE);
+                    binding.prescriptionLayout.setVisibility(View.GONE);
+                    binding.mainBody.setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+            }
+        });
+    }
+
+    public void getAllSyrupData(){
+        ArrayList<String> SyrupReference = new ArrayList<>();
+        SyrupReference.add("syrupData");
+        SyrupReference.add("herbalSyrupData");
+        for(String databaseReference : SyrupReference){
+            DatabaseReference reference = firebase.getDatabaseReference(databaseReference);
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            syrupModel model = snap.getValue(syrupModel.class);
+                            syrupList.add(model);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    throw error.toException();
+                }
+            });
+        }
     }
 
     public void setCartCounter(){
@@ -242,5 +296,6 @@ public class MedicineShop extends AppCompatActivity {
         cartCounter.shutdown();
         syrupExecutor.shutdown();
         herbalSyrupExecutor.shutdown();
+        searchExecutor.shutdown();
     }
 }
