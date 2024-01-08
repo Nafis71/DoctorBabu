@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/card"
+    android:background="@color/white"
+    android:layout_marginBottom="5dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/medicineDescriptionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/medicinePicture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentStart="true"
+            android:scaleType="centerCrop">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/medicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicineDosage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineName"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:textSize="13sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicineBrandName"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineDosage"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/medicinePicture"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:textSize="12sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/checkoutLayout"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#F4F6F6"
+        android:layout_below="@+id/medicineDescriptionLayout"
+        >
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
