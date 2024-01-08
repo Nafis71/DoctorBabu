@@ -43,6 +43,7 @@ public class Checkout extends AppCompatActivity {
     FirebaseUser user;
     CheckoutAdapter adapter;
     ArrayList<CartModel> checkoutModels;
+    int backupRewardPoint;
     boolean hasAppliedReward;
 
     @Override
@@ -204,9 +205,11 @@ public class Checkout extends AppCompatActivity {
                 if (snapshot.exists()) {
                     int userRewardPoint = Integer.parseInt(String.valueOf(snapshot.child("reward").getValue()));
                     if (userRewardPoint >= rewardPoint) {
+                        backupRewardPoint = rewardPoint;
                         userRewardReference.child(user.getUid()).child("reward").setValue(String.valueOf(userRewardPoint - rewardPoint)).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                hasAppliedReward = true;
                                 applyReward(rewardPoint);
                             }
                         });
@@ -299,6 +302,22 @@ public class Checkout extends AppCompatActivity {
                     }
                 }).setCancelable(false);
         dialog.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(hasAppliedReward){
+            DatabaseReference rewardReference = firebase.getDatabaseReference("rewardPatient");
+            rewardReference.child(user.getUid()).child("reward").setValue(String.valueOf(backupRewardPoint)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    finish();
+                }
+            });
+        } else {
+            finish();
+        }
     }
 
     @Override

@@ -427,6 +427,7 @@ public class MedicineShop extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(isSearchActive){
+            isSearchActive = false;
             restoreView();
         }else{
             finish();
