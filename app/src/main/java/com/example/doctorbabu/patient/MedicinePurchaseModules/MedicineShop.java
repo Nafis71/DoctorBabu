@@ -454,6 +454,7 @@ public class MedicineShop extends AppCompatActivity {
         binding.prescriptionLayout.setVisibility(View.VISIBLE);
         binding.mainBody.setBackgroundColor(Color.parseColor("#F8F9F9"));
         binding.searchRecyclerView.setVisibility(View.GONE);
+        binding.searchDataLayout.setVisibility(View.GONE);
         binding.noDataLayout.setVisibility(View.GONE);
         binding.searchResultTxt.setVisibility(View.GONE);
         binding.searchView.setQuery("",false);
