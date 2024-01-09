@@ -47,7 +47,7 @@
             android:fontFamily="@font/roboto"
             android:padding="3dp"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:textStyle="normal">
 
         </TextView>
@@ -61,14 +61,14 @@
             android:layout_toEndOf="@+id/medicinePicture"
             android:fontFamily="@font/roboto"
             android:padding="3dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold">
 
         </TextView>
 
         <TextView
             android:id="@+id/medicineBrandName"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/medicineDosage"
             android:layout_marginStart="5dp"
@@ -159,10 +159,10 @@
     <RelativeLayout
         android:id="@+id/checkoutLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/divider">
-
-
+        android:layout_height="3dp"
+        android:background="#F4F6F6"
+        android:layout_below="@+id/medicineDescriptionLayout"
+        >
 
 
     </RelativeLayout>

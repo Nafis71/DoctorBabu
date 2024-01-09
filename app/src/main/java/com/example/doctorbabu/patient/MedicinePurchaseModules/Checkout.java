@@ -1,4 +1,4 @@
-package com.example.doctorbabu.patient.HomeModules;
+package com.example.doctorbabu.patient.MedicinePurchaseModules;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;

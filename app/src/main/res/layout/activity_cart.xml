@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F4F6F6"
     android:id="@+id/parentLayout"
-    tools:context=".patient.HomeModules.Cart">
+    tools:context=".patient.MedicinePurchaseModules.Cart">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -97,6 +97,7 @@
         android:id="@+id/recyclerViewLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_above="@+id/checkoutLayout"
         android:layout_below="@+id/header">
 
@@ -148,7 +149,7 @@
         android:layout_height="60dp"
         android:visibility="gone"
         android:layout_alignParentBottom="true"
-        android:elevation="1dp"
+        android:elevation="5dp"
         android:background="@color/white">
         <TextView
             android:id="@+id/deliveryPriceTitle"

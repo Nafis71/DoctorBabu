@@ -31,19 +31,19 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".patient.HomeModules.Checkout"
+            android:name=".patient.MedicinePurchaseModules.Checkout"
             android:exported="false" />
         <activity
-            android:name=".patient.HomeModules.SyrupDetails"
+            android:name=".patient.MedicinePurchaseModules.SyrupDetails"
             android:exported="false" />
         <activity
-            android:name=".patient.HomeModules.Cart"
+            android:name=".patient.MedicinePurchaseModules.Cart"
             android:exported="false" />
         <activity
-            android:name=".patient.HomeModules.TabletDetails"
+            android:name=".patient.MedicinePurchaseModules.TabletDetails"
             android:exported="false" />
         <activity
-            android:name=".patient.HomeModules.MedicineShop"
+            android:name=".patient.MedicinePurchaseModules.MedicineShop"
             android:exported="false" />
         <activity
             android:name=".patient.HomeModules.PendingAppointment"

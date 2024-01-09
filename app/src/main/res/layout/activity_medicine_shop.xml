@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:id="@+id/parentLayout"
-    tools:context=".patient.HomeModules.MedicineShop">
+    tools:context=".patient.MedicinePurchaseModules.MedicineShop">
 
     <RelativeLayout
         android:id="@+id/header"

@@ -1,4 +1,4 @@
-package com.example.doctorbabu.patient.HomeModules;
+package com.example.doctorbabu.patient.MedicinePurchaseModules;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;

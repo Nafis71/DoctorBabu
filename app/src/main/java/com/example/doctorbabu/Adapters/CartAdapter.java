@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.CartModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.HomeModules.Checkout;
+import com.example.doctorbabu.patient.MedicinePurchaseModules.Checkout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;

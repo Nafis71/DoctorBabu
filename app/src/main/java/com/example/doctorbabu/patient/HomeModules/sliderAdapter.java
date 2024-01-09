@@ -14,7 +14,7 @@ public class sliderAdapter extends SliderViewAdapter<SliderViewAdapter.ViewHolde
 
     ArrayList<Integer> images;
 
-    sliderAdapter(ArrayList<Integer> images) {
+    public sliderAdapter(ArrayList<Integer> images) {
         this.images = images;
     }
 

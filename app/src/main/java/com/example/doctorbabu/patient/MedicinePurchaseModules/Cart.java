@@ -1,4 +1,4 @@
-package com.example.doctorbabu.patient.HomeModules;
+package com.example.doctorbabu.patient.MedicinePurchaseModules;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.doctorbabu.Adapters.CartAdapter;
 import com.example.doctorbabu.Adapters.SelectedCard;
 import com.example.doctorbabu.DatabaseModels.CartModel;
-import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityCartBinding;

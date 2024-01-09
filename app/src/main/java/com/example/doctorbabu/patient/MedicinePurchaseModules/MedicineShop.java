@@ -1,4 +1,4 @@
-package com.example.doctorbabu.patient.HomeModules;
+package com.example.doctorbabu.patient.MedicinePurchaseModules;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,28 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.doctorbabu.Adapters.MedicineSearchAdapter;
 import com.example.doctorbabu.Adapters.TabletAdapter;
 import com.example.doctorbabu.Adapters.SyrupAdapter;
-import com.example.doctorbabu.Adapters.doctorSearchAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.DatabaseModels.MedicineSearchModel;
-import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineShopBinding;
+import com.example.doctorbabu.patient.HomeModules.sliderAdapter;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

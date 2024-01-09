@@ -14,12 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.DatabaseModels.MedicineSearchModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.HomeModules.SyrupDetails;
-import com.example.doctorbabu.patient.HomeModules.TabletDetails;
+import com.example.doctorbabu.patient.MedicinePurchaseModules.SyrupDetails;
+import com.example.doctorbabu.patient.MedicinePurchaseModules.TabletDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

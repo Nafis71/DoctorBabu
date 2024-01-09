@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.HomeModules.SyrupDetails;
+import com.example.doctorbabu.patient.MedicinePurchaseModules.SyrupDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
