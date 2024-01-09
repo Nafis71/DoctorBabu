@@ -697,9 +697,10 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/navigation_header"
         app:itemTextColor="#5D6D7E"
-        app:itemIconSize="20dp"
+        app:itemIconSize="22dp"
         app:itemIconTint="#FF7681D6"
         app:itemRippleColor="#F2F3F4"
+        android:padding="5dp"
         app:menu="@menu/nav_drawer_home">
 
     </com.google.android.material.navigation.NavigationView>

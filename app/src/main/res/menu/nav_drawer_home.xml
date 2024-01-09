@@ -32,9 +32,42 @@
         </item>
         <item
             android:id="@+id/navPredictDisease"
-            android:title="Diagnose your symptoms"
+            android:title="Diagnose Your Symptoms"
             android:icon="@drawable/diseasecolor"
             >
         </item>
+        <item
+            android:id="@+id/navMedicineReminder"
+            android:title="Add Medicine Reminder"
+            android:icon="@drawable/alarmringing"
+            >
+        </item>
+        <item
+            android:id="@+id/navDiagnosisReport"
+            android:title="Add Diagnosis Report"
+            android:icon="@drawable/medicalreport"
+            >
+        </item>
+        <item
+            android:id="@+id/navBuyMedicine"
+            android:title="Purchase Medicine"
+            android:icon="@drawable/medicineherbal"
+            >
+        </item>
+        <item
+            android:id="@+id/navEditProfile"
+            android:title="Edit Profile"
+            android:icon="@drawable/profile"
+            >
+        </item>
+        <item
+            android:id="@+id/navChangeLanguage"
+            android:title="Change Language"
+            android:icon="@drawable/languages"
+            >
+        </item>
+
     </group>
+
+
 </menu>
