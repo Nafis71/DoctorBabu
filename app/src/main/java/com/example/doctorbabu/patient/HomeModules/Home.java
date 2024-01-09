@@ -1,6 +1,5 @@
 package com.example.doctorbabu.patient.HomeModules;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -29,6 +28,7 @@ import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
 import com.example.doctorbabu.patient.DiagnoseReportUploadModule.DiagnosisReportUploadList;
+import com.example.doctorbabu.patient.MedicinePurchaseModules.Cart;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.MedicineShop;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
@@ -56,13 +56,12 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english, bengali;
     Animation leftAnim, rightAnim;
-    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor;
+    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor,cartCounter;
     ChipNavigationBar bottomNavigation;
 
     FragmentHomeBinding binding;
     Firebase firebase;
     ActionBarDrawerToggle toggle;
-    ActionBar actionBar;
 
     public Home() {
     }
@@ -80,6 +79,7 @@ public class Home extends Fragment {
         imageSliderExecutor = Executors.newSingleThreadExecutor();
         animationExecutor = Executors.newSingleThreadExecutor();
         drawerExecutor = Executors.newSingleThreadExecutor();
+        cartCounter = Executors.newSingleThreadExecutor();
         firebaseExecutor.execute(this::firebaseAuth);
         PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
@@ -137,6 +137,18 @@ public class Home extends Fragment {
         binding.reportCard.setOnClickListener(view -> callDiagnoseReportUploader());
         binding.pendingAppointment.setOnClickListener(view -> callPendingAppointment());
         binding.medicineCard.setOnClickListener(view -> callMedicineShop());
+        cartCounter.execute(new Runnable() {
+            @Override
+            public void run() {
+                setCartCounter();
+            }
+        });
+        binding.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callCart();
+            }
+        });
 
     }
 
@@ -147,6 +159,30 @@ public class Home extends Fragment {
             uId = user.getUid();
             loadUserProfileData();
         }
+    }
+
+    public void setCartCounter(){
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
+        cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int countedCart = 0;
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        countedCart += 1;
+                    }
+                    binding.cartCounter.setText(String.valueOf(countedCart));
+                    binding.cartCounter.setVisibility(View.VISIBLE);
+                } else {
+                    binding.cartCounter.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
 
     public void loadUserProfileData() {
@@ -202,6 +238,10 @@ public class Home extends Fragment {
         Intent intent = new Intent(requireActivity(), MedicineShop.class);
         startActivity(intent);
     }
+    public void callCart() {
+        Intent intent = new Intent(requireActivity(), Cart.class);
+        startActivity(intent);
+    }
 
     public void setAnimations() {
         leftAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.left_animation);
@@ -222,6 +262,7 @@ public class Home extends Fragment {
         images.add(R.drawable.banner1);
         images.add(R.drawable.banner2);
         images.add(R.drawable.banner3);
+        images.add(R.drawable.medicine_delivery_banner);
         sliderView = (SliderView) requireView().findViewById(R.id.imageSlider);
         sliderAdapter adapter = new sliderAdapter(images);
         sliderView.setSliderAdapter(adapter);
@@ -301,6 +342,7 @@ public class Home extends Fragment {
         imageSliderExecutor.shutdown();
         animationExecutor.shutdown();
         drawerExecutor.shutdown();
+        cartCounter.shutdown();
         binding = null;
     }
 
