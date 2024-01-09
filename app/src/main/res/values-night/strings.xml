@@ -81,7 +81,6 @@
     <string name="stroke">Stroke</string>
     <string name="ulcer">Ulcer</string>
     <string name="bmi">Body Mass Index (BMI)</string>
-    <string name="addressNotSet">Address is not set</string>
     <string name="noInfoFound">No information found</string>
     <!-- Profile Fragment Strings End -->
     <!-- Edit Profile Strings -->
@@ -192,8 +191,6 @@
     <string name="closeDrawer"></string>
     <string name="title_activity_add_medicine_alarm">AddMedicineAlarm</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <!-- TODO: Remove or change this placeholder text -->

@@ -45,17 +45,17 @@ import java.util.concurrent.Executors;
 
 
 public class Home extends Fragment {
-    FirebaseAuth auth;
     FirebaseUser user;
     String uId;
     BottomSheetDialog bookAppointmentSheet;
     Button buttonDialog;
     RadioButton english, bengali;
     Animation leftAnim, rightAnim;
-    ExecutorService firebaseExecutor;
+    ExecutorService firebaseExecutor,imageSliderExecutor,animationExecutor;
     ChipNavigationBar bottomNavigation;
 
     FragmentHomeBinding binding;
+    Firebase firebase;
 
     public Home() {
     }
@@ -70,12 +70,25 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         firebaseExecutor = Executors.newSingleThreadExecutor();
+        imageSliderExecutor = Executors.newSingleThreadExecutor();
+        animationExecutor = Executors.newSingleThreadExecutor();
         firebaseExecutor.execute(this::firebaseAuth);
         PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard,binding.pendingAppointment,binding.medicineCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
-        loadImageSlider();
-        setAnimations();
+        imageSliderExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadImageSlider();
+            }
+        });
+        animationExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setAnimations();
+            }
+        });
+
     }
 
     @Override
@@ -92,8 +105,8 @@ public class Home extends Fragment {
     }
 
     public void firebaseAuth() {
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        firebase = Firebase.getInstance();
+        user = firebase.getUserID();
         if (user != null) {
             uId = user.getUid();
             loadUserProfileData();
@@ -101,7 +114,6 @@ public class Home extends Fragment {
     }
 
     public void loadUserProfileData() {
-        Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("users");
         reference.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -122,7 +134,7 @@ public class Home extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
@@ -159,7 +171,6 @@ public class Home extends Fragment {
         leftAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.left_animation);
         rightAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.right_anim);
         binding.appointmentCard.setAnimation(leftAnim);
-        binding.sliderCard.setAnimation(rightAnim);
         binding.consultantCard.setAnimation(rightAnim);
         binding.medicineReminderCard.setAnimation(leftAnim);
         binding.reportCard.setAnimation(leftAnim);
@@ -181,6 +192,7 @@ public class Home extends Fragment {
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
+        binding.sliderCard.setAnimation(rightAnim);
     }
 
     public void callDoctorFragment() {
@@ -250,6 +262,8 @@ public class Home extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         firebaseExecutor.shutdown();
+        imageSliderExecutor.shutdown();
+        animationExecutor.shutdown();
         binding = null;
     }
 

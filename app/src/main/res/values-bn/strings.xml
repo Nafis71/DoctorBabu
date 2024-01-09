@@ -82,7 +82,6 @@
     <string name="stroke">স্ট্রোক</string>
     <string name="ulcer">আলসার</string>
     <string name="bmi">বডি মাস ইনডেক্স (BMI)</string>
-    <string name="addressNotSet">ঠিকানা সেট করা নেই</string>
     <string name="noInfoFound">কোনও তথ্য পাওয়া যায়নি</string>
     <!-- Profile Fragment Strings End -->
     <!-- Edit Profile Strings -->
