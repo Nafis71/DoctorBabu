@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navVideoConsultation"
+            android:title="@string/nav_video_consultation_title"
+            android:icon="@drawable/videoconsultation"
+
+            >
+
+        </item>
+        <item
+            android:id="@+id/navBookAppointment"
+            android:title="@string/bookAppointment"
+            android:icon="@drawable/appointment_done"
+            >
+
+        </item>
+        <item
+            android:id="@+id/navPendingAppointment"
+            android:title="@string/pendingAppointment"
+            android:icon="@drawable/appointment_pending"
+            >
+
+        </item>
+        <item
+            android:id="@+id/navPrescriptionHistory"
+            android:title="Prescription History"
+            android:icon="@drawable/prescription"
+            >
+        </item>
+        <item
+            android:id="@+id/navPredictDisease"
+            android:title="Diagnose your symptoms"
+            android:icon="@drawable/diseasecolor"
+            >
+        </item>
+    </group>
+</menu>

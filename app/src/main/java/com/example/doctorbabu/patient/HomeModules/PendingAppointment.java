@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +48,7 @@ public class PendingAppointment extends AppCompatActivity {
         toggle = new ActionBarDrawerToggle(this,binding.drawerLayout,R.string.openDrawer,R.string.closeDrawer);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        binding.drawerLayout.setStatusBarBackgroundColor(Color.parseColor("#FDFEFE"));
         getAppointmentData();
     }
 
