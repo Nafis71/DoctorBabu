@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="115dp"
+    android:layout_height="170dp"
+    android:padding="2dp"
+    android:layout_margin="3dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="1.5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/medicineImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/medicineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineImage"
+            android:layout_marginStart="5dp"
+            android:padding="2dp"
+            android:text="Napa"
+            android:fontFamily="@font/roboto"
+            android:textStyle="normal"
+            android:textColor="@color/black"
+            android:textSize="13sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/medicineDosage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medicineName"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:padding="1dp"
+            android:text="500mg"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto"
+            android:textSize="11dp">
+
+        </TextView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#E5E8E8"
+            >
+            <TextView
+                android:id="@+id/amounticon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/roboto"
+                android:text="\u09F3"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/medicinePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/amounticon"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="-10dp"
+                android:padding="5dp"
+                android:text="100"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/black"
+                android:textSize="14sp">
+
+            </TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

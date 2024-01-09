@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -30,6 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".patient.MedicinePurchaseModules.SeeAll"
+            android:exported="false" />
         <activity
             android:name=".patient.MedicinePurchaseModules.Checkout"
             android:exported="false" />

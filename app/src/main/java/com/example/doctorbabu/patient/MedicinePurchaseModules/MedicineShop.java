@@ -117,7 +117,32 @@ public class MedicineShop extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.octAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCategorialMedicineList("tablet");
+            }
+        });
+        binding.syrupAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCategorialMedicineList("syrup");
+            }
+        });
+        binding.herbalAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCategorialMedicineList("herbalSyrup");
+            }
+        });
     }
+
+    public void launchCategorialMedicineList(String medicineType){
+        Intent intent = new Intent(MedicineShop.this, SeeAll.class);
+        intent.putExtra("medicineType",medicineType);
+        startActivity(intent);
+    }
+
 
     public void loadingScreen() {
         dialog = new Dialog(this);

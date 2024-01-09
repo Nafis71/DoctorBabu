@@ -108,6 +108,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="1dp"
             android:animationCache="true"
+
             android:orientation="vertical"
             android:overScrollMode="ifContentScrolls"
             android:padding="2.5dp"

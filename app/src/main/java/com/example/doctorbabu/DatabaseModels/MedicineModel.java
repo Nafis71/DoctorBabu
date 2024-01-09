@@ -2,9 +2,13 @@ package com.example.doctorbabu.DatabaseModels;
 
 public class MedicineModel {
     String administrationOfTheMedicine,alcoholEffect,brandName,drivingEffect,genericName,kidneyEffect,liverEffect,medicineDosage ="0",medicineId,medicineQuantity,
-            medicineName,medicinePataSize,medicinePerPiecePrice,medicinePicture,overdoseEffects,pregnancyAndLactation,sideEffect,storageCondition,bottleSize="0",description,unitPrice;
+            medicineName,medicineType,medicinePataSize,medicinePerPiecePrice,medicinePicture,overdoseEffects,pregnancyAndLactation,sideEffect,storageCondition,bottleSize="0",description,unitPrice;
 
     public MedicineModel() {
+    }
+
+    public String getMedicineType() {
+        return medicineType;
     }
 
     public String getBottleSize() {

@@ -161,11 +161,4 @@ public class PatientCall extends AppCompatActivity{
     public void onBackPressed() {
        //
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        ActivityManager activityManager = (ActivityManager) getApplicationContext()
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        activityManager.moveTaskToFront(getTaskId(), 0);
-    }
 }
