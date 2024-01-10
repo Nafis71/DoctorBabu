@@ -28,8 +28,11 @@ import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
 import com.example.doctorbabu.patient.DiagnoseReportUploadModule.DiagnosisReportUploadList;
+import com.example.doctorbabu.patient.DoctorConsultationModule.DiagnosisTerms;
+import com.example.doctorbabu.patient.DoctorConsultationModule.ViewAllDoctor;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.Cart;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.MedicineShop;
+import com.example.doctorbabu.patient.PatientProfileModule.EditProfile;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,7 +59,7 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english, bengali;
     Animation leftAnim, rightAnim;
-    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor,cartCounter;
+    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter;
     ChipNavigationBar bottomNavigation;
 
     FragmentHomeBinding binding;
@@ -112,11 +115,38 @@ public class Home extends Fragment {
                 binding.navBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        if (item.getItemId() == R.id.navMissed) {
+                        if (item.getItemId() == R.id.navVideoConsultation) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START);
-                        } else if (item.getItemId() == R.id.navPending) {
+                            callDoctorFragment();
+                        } else if (item.getItemId() == R.id.navBookAppointment) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callAllDoctorModule();
+                        } else if (item.getItemId() == R.id.navPendingAppointment) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callPendingAppointment();
+                        } else if (item.getItemId() == R.id.navPrescriptionHistory) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callPrescriptionHistory();
+                        } else if (item.getItemId() == R.id.navPredictDisease) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callDiseasePredictor();
+                        } else if (item.getItemId() == R.id.navMedicineReminder) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callMedicineReminder();
+                        } else if (item.getItemId() == R.id.navDiagnosisReport) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callDiagnoseReportUploader();
+                        } else if (item.getItemId() == R.id.navBuyMedicine) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callMedicineShop();
+                        } else if (item.getItemId() == R.id.navEditProfile) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callEditProfile();
+                        } else if (item.getItemId() == R.id.navChangeLanguage) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            callLanguageChanger();
                         }
+
                         return false;
                     }
                 });
@@ -161,15 +191,15 @@ public class Home extends Fragment {
         }
     }
 
-    public void setCartCounter(){
+    public void setCartCounter() {
         FirebaseUser user = firebase.getUserID();
         DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
         cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int countedCart = 0;
-                if(snapshot.exists()){
-                    for(DataSnapshot snap : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         countedCart += 1;
                     }
                     binding.cartCounter.setText(String.valueOf(countedCart));
@@ -178,6 +208,7 @@ public class Home extends Fragment {
                     binding.cartCounter.setVisibility(View.INVISIBLE);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -211,11 +242,28 @@ public class Home extends Fragment {
         });
     }
 
+
+    public void callEditProfile(){
+        Intent intent = new Intent(requireActivity(), EditProfile.class);
+        intent.putExtra("uId", user.getUid());
+        intent.putExtra("email", user.getEmail());
+        startActivity(intent);
+    }
+    public void callDiseasePredictor() {
+        Intent intent = new Intent(requireActivity(), DiagnosisTerms.class);
+        startActivity(intent);
+    }
+
     public void callPendingAppointment() {
         Intent intent = new Intent(requireActivity(), PendingAppointment.class);
         intent.putExtra("userID", user.getUid());
         startActivity(intent);
 
+    }
+
+    public void callPrescriptionHistory() {
+        bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
+        bottomNavigation.setItemSelected(R.id.nav_history, true);
     }
 
     public void callMedicineReminder() {
@@ -225,8 +273,6 @@ public class Home extends Fragment {
 
     public void callWelcomeSection() {
         binding.welcomeSection.setVisibility(View.VISIBLE);
-//        binding.welcomeAnimation.playAnimation();
-
     }
 
     public void callDiagnoseReportUploader() {
@@ -234,13 +280,37 @@ public class Home extends Fragment {
         startActivity(intent);
     }
 
+    public void callAllDoctorModule() {
+        Intent intent = new Intent(requireActivity(), ViewAllDoctor.class);
+        startActivity(intent);
+    }
+
     public void callMedicineShop() {
         Intent intent = new Intent(requireActivity(), MedicineShop.class);
         startActivity(intent);
     }
+
     public void callCart() {
         Intent intent = new Intent(requireActivity(), Cart.class);
         startActivity(intent);
+    }
+
+    public void callDoctorFragment() {
+        bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
+        bottomNavigation.setItemSelected(R.id.nav_doctor_video, true);
+    }
+
+    public void callProfileFragment() {
+        bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
+        bottomNavigation.setItemSelected(R.id.nav_profile, true);
+    }
+
+
+    public void callAppointmentBottomSheet() {
+        bookAppointmentSheet = new BottomSheetDialog(requireContext(), R.style.bottomSheetTheme);
+        View appointmentView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_book_doctor, null);
+        bookAppointmentSheet.setContentView(appointmentView);
+        bookAppointmentSheet.show();
     }
 
     public void setAnimations() {
@@ -270,24 +340,6 @@ public class Home extends Fragment {
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
         binding.sliderCard.setAnimation(rightAnim);
-    }
-
-    public void callDoctorFragment() {
-        bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
-        bottomNavigation.setItemSelected(R.id.nav_doctor_video, true);
-    }
-
-    public void callProfileFragment() {
-        bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
-        bottomNavigation.setItemSelected(R.id.nav_profile, true);
-    }
-
-
-    public void callAppointmentBottomSheet() {
-        bookAppointmentSheet = new BottomSheetDialog(requireContext(), R.style.bottomSheetTheme);
-        View appointmentView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_book_doctor, null);
-        bookAppointmentSheet.setContentView(appointmentView);
-        bookAppointmentSheet.show();
     }
 
 

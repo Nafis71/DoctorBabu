@@ -23,6 +23,8 @@ import com.example.doctorbabu.DatabaseModels.MedicineSearchModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivitySeeAllBinding;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
