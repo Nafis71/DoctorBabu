@@ -172,6 +172,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         prescriptionRecycler.setAdapter(adapter);
         DatabaseReference medicineDetailsReference = database.getReference("prescription");
         medicineDetailsReference.child(patientId).child(prescriptionId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful())
@@ -199,6 +200,8 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                             prescriptionMedicineModel model2 =  new prescriptionMedicineModel();
                             model2.setMedicineName(medicineName);
                             model2.setMedicineDetails(medicineDetails);
+                            rmodel.add(model2);
+                            adapter.notifyDataSetChanged();
                         }
                         DisplayMetrics displayMetrics = new DisplayMetrics();
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
