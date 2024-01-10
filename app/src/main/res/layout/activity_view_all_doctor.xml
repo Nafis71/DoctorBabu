@@ -14,21 +14,20 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/back2">
-
-        </ImageView>
-
         <RelativeLayout
             android:id="@+id/firstLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/back2">
+
+            </ImageView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/searchCard"
@@ -154,7 +153,7 @@
         android:orientation="vertical"
         android:overScrollMode="ifContentScrolls"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:shimmer_recycler_item_count="4"
+        app:shimmer_recycler_item_count="6"
         app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

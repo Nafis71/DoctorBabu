@@ -321,54 +321,63 @@ public class Home extends Fragment {
         generalPhysician.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("General Physician");
             }
         });
         gynecologist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Gynecologist");
             }
         });
         paediatrician.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Paediatrician");
             }
         });
         dermatologist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Dermatologist");
             }
         });
         psychiatrist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Psychiatrist");
             }
         });
         cardiologist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Cardiologist");
             }
         });
         nutritionist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Nutritionist");
             }
         });
         ophthalmologist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Ophthalmologist");
             }
         });
         neurologist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bookAppointmentSheet.dismiss();
                 loadSpecialistDoctor("Neurologist");
             }
         });

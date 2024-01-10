@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="199dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="190dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
@@ -20,7 +20,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profilePictureCard"
-                android:layout_width="140dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="3dp"
@@ -30,8 +30,8 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/profilePicture"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="3dp"
                     android:elevation="2dp"
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profilePictureCard"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="4dp"
                 android:fontFamily="@font/roboto"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorName"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="5dp"
                 android:fontFamily="@font/roboto"
@@ -73,12 +73,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorDegree"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/roboto"
                 android:text="General Physician"
-                android:textColor="#4F5FDE"
                 android:textSize="10sp"
                 android:textStyle="bold" />
 
@@ -87,7 +86,7 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_below="@+id/doctorSpecialties"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/star">
 
@@ -115,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ratingStar"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/rubik"
                 android:text="\u09F3"
@@ -166,15 +165,17 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/videoCallIcon"
-                        android:layout_width="29dp"
-                        android:layout_height="29dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_marginStart="5dp"
-                        android:src="@drawable/videocall" />
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/go" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
@@ -183,12 +184,12 @@
                         android:layout_marginStart="3dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_toEndOf="@id/videoCallIcon"
+                        android:layout_centerHorizontal="true"
                         android:fontFamily="@font/roboto"
-                        android:padding="6dp"
+                        android:padding="2dp"
                         android:text="Check out"
-                        android:textColor="#4F5FDE"
-                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
                         android:textStyle="bold">
 
                     </androidx.appcompat.widget.AppCompatTextView>

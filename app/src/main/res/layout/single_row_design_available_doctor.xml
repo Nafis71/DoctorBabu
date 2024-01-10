@@ -84,7 +84,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_toEndOf="@+id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="Tonmoy"
                 android:textColor="@color/black"
                 android:textSize="12.5sp"
                 android:textStyle="bold">
@@ -101,7 +100,6 @@
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@+id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="Medical officer"
                 android:textColor="#666666"
                 android:textSize="11.5sp"
                 android:textStyle="bold">
@@ -128,7 +126,6 @@
                 android:layout_marginTop="4dp"
                 android:layout_toEndOf="@+id/ratingStar"
                 android:fontFamily="@font/roboto"
-                android:text="4.6"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 android:textStyle="bold">
@@ -143,7 +140,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="General Physician"
                 android:textColor="#4F5FDE"
                 android:textSize="11.5sp">
 
@@ -172,7 +168,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="Doctor's Point Hospital"
                 android:textColor="@color/black"
                 android:textSize="12.5sp"
                 android:textStyle="bold">

@@ -20,12 +20,11 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="10dp"
             android:columnCount="3"
-            android:padding="5dp"
             android:rowCount="3">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fever"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_alignParentStart="true"
                 android:layout_margin="7dp"
@@ -43,7 +42,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="90dp"
+                            android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_gravity="center"
                             android:layout_margin="8dp"
@@ -70,7 +69,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/weightLossAndGain"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="7dp"
@@ -82,7 +81,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
@@ -107,7 +106,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/skinDisease"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="7dp"
@@ -144,7 +143,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/abdominalPain"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_below="@+id/fever"
                 android:layout_alignParentStart="true"
@@ -157,7 +156,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
@@ -182,7 +181,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/acidity"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_below="@+id/weightLossAndGain"
                 android:layout_centerHorizontal="true"
@@ -195,7 +194,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
@@ -220,7 +219,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/headache"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_below="@+id/skinDisease"
                 android:layout_alignParentEnd="true"
@@ -233,7 +232,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
@@ -258,7 +257,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/childDisease"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_below="@+id/abdominalPain"
                 android:layout_alignParentStart="true"
@@ -271,7 +270,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
@@ -296,7 +295,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/stress"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_below="@+id/acidity"
                 android:layout_centerHorizontal="true"
@@ -309,7 +308,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
@@ -334,7 +333,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/pregnancy"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="135dp"
                 android:layout_below="@+id/headache"
                 android:layout_alignParentEnd="true"
@@ -347,7 +346,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="90dp"
+                        android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:layout_margin="8dp"
