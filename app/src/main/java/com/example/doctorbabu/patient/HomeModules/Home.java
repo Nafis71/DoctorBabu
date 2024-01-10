@@ -34,6 +34,7 @@ import com.example.doctorbabu.patient.MedicinePurchaseModules.Cart;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.MedicineShop;
 import com.example.doctorbabu.patient.PatientProfileModule.EditProfile;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +62,7 @@ public class Home extends Fragment {
     Animation leftAnim, rightAnim;
     ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter;
     ChipNavigationBar bottomNavigation;
-
+    MaterialCardView generalPhysician,gynecologist,paediatrician,dermatologist,psychiatrist,cardiologist,nutritionist,ophthalmologist,neurologist;
     FragmentHomeBinding binding;
     Firebase firebase;
     ActionBarDrawerToggle toggle;
@@ -179,7 +180,6 @@ public class Home extends Fragment {
                 callCart();
             }
         });
-
     }
 
     public void firebaseAuth() {
@@ -309,8 +309,77 @@ public class Home extends Fragment {
     public void callAppointmentBottomSheet() {
         bookAppointmentSheet = new BottomSheetDialog(requireContext(), R.style.bottomSheetTheme);
         View appointmentView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_book_doctor, null);
+        generalPhysician = appointmentView.findViewById(R.id.generalPhysician);
+        gynecologist = appointmentView.findViewById(R.id.gynecologist);
+        paediatrician = appointmentView.findViewById(R.id.paediatrician);
+        dermatologist = appointmentView.findViewById(R.id.dermatologist);
+        psychiatrist = appointmentView.findViewById(R.id.psychiatrist);
+        cardiologist = appointmentView.findViewById(R.id.cardiologist);
+        nutritionist = appointmentView.findViewById(R.id.nutritionist);
+        ophthalmologist = appointmentView.findViewById(R.id.ophthalmologist);
+        neurologist = appointmentView.findViewById(R.id.neurologist);
+        generalPhysician.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("General Physician");
+            }
+        });
+        gynecologist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Gynecologist");
+            }
+        });
+        paediatrician.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Paediatrician");
+            }
+        });
+        dermatologist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Dermatologist");
+            }
+        });
+        psychiatrist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Psychiatrist");
+            }
+        });
+        cardiologist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Cardiologist");
+            }
+        });
+        nutritionist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Nutritionist");
+            }
+        });
+        ophthalmologist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Ophthalmologist");
+            }
+        });
+        neurologist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadSpecialistDoctor("Neurologist");
+            }
+        });
         bookAppointmentSheet.setContentView(appointmentView);
         bookAppointmentSheet.show();
+    }
+
+    public void loadSpecialistDoctor(String specialist){
+        Intent intent = new Intent(requireActivity(), ViewAllDoctor.class);
+        intent.putExtra("specialist",specialist);
+        startActivity(intent);
     }
 
     public void setAnimations() {

@@ -125,7 +125,7 @@ public class ViewAllDoctor extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
 

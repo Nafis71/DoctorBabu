@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
 
-        <GridLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -24,8 +24,10 @@
             android:rowCount="3">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/fever"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_alignParentStart="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -67,8 +69,10 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weightLossAndGain"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -102,8 +106,10 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/skinDisease"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_alignParentEnd="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -137,8 +143,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/abdominalPain"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_below="@+id/fever"
+                android:layout_alignParentStart="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -172,8 +181,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/acidity"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_below="@+id/weightLossAndGain"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -207,8 +219,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/headache"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_below="@+id/skinDisease"
+                android:layout_alignParentEnd="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -242,8 +257,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/childDisease"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_below="@+id/abdominalPain"
+                android:layout_alignParentStart="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -277,8 +295,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stress"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_below="@+id/acidity"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -312,8 +333,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pregnancy"
                 android:layout_width="115dp"
                 android:layout_height="135dp"
+                android:layout_below="@+id/headache"
+                android:layout_alignParentEnd="true"
                 android:layout_margin="7dp"
                 app:cardElevation="2dp">
 
@@ -347,7 +371,7 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-        </GridLayout>
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

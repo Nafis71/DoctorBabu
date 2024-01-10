@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".patient.DoctorConsultationModule.Department">
 
-    <GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -14,12 +14,14 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:columnCount="3"
-        android:padding="5dp"
+        android:padding="0dp"
         android:rowCount="3">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/generalPhysician"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_alignParentStart="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -45,15 +47,17 @@
                     android:text="@string/generalPhysician"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/gynecologist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_centerHorizontal="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -79,15 +83,17 @@
                     android:text="@string/gynecology"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/paediatrician"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_alignParentEnd="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -113,15 +119,18 @@
                     android:text="@string/pediatrics"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/dermatologist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_below="@+id/generalPhysician"
+            android:layout_alignParentStart="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -147,15 +156,18 @@
                     android:text="@string/dermatology"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/psychiatrist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_below="@+id/gynecologist"
+            android:layout_centerHorizontal="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -181,15 +193,18 @@
                     android:text="@string/psychiatry"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/cardiologist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_below="@+id/paediatrician"
+            android:layout_alignParentEnd="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -215,15 +230,18 @@
                     android:text="@string/cardiology"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/nutritionist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_below="@+id/dermatologist"
+            android:layout_alignParentStart="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -249,15 +267,18 @@
                     android:text="@string/nutritionDietetic"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/ophthalmologist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_below="@+id/psychiatrist"
+            android:layout_centerHorizontal="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -283,15 +304,18 @@
                     android:text="@string/ophthalmology"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="115dp"
+            android:id="@+id/neurologist"
+            android:layout_width="110dp"
             android:layout_height="115dp"
+            android:layout_below="@+id/cardiologist"
+            android:layout_alignParentEnd="true"
             android:layout_margin="7dp"
             app:cardElevation="2dp">
 
@@ -317,13 +341,13 @@
                     android:text="@string/neurology"
                     android:textAlignment="center"
                     android:textColor="#2C3E50"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"></TextView>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
 
-    </GridLayout>
+    </RelativeLayout>
 
 </FrameLayout>
