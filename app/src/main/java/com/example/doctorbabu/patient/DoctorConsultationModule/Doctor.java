@@ -9,16 +9,17 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.doctorbabu.Adapters.availableDoctorAdapter;
-import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.Adapters.doctorSearchAdapter;
-import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
 import com.example.doctorbabu.Adapters.recentlyViewedDoctorAdapter;
+import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
+import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
 import com.example.doctorbabu.DatabaseModels.recentlyViewedDoctorModel;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorBinding;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutorService;
@@ -80,10 +82,10 @@ public class Doctor extends Fragment {
         binding.vPager.setVisibility(View.GONE);
         binding.consultationAnim2.setVisibility(View.VISIBLE);
         binding.consultationAnim.setVisibility(View.VISIBLE);
-
     }
 
     public void onStart() {
+        super.onStart();
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
@@ -114,11 +116,9 @@ public class Doctor extends Fragment {
                     code = 1;
                     dialog.dismiss();
                 },500);
-            }, 1000);
+            }, 1100);
 
         } else {
-            binding.vPager.setVisibility(View.VISIBLE);
-            binding.searchCard.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.VISIBLE);
             recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
             loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
@@ -142,6 +142,7 @@ public class Doctor extends Fragment {
         });
 
     }
+
     public void loadingScreen(){
         dialog = new Dialog(requireContext());
         dialog.setContentView(R.layout.loading_screen);
@@ -193,6 +194,7 @@ public class Doctor extends Fragment {
                         }
 
                     }
+                    Collections.shuffle(list);
                     adapter.notifyDataSetChanged();
                     requireActivity().runOnUiThread(() -> {
                         binding.availableDoctorRecyclerView.hideShimmer();

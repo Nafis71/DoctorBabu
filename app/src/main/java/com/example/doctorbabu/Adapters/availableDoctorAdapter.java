@@ -1,6 +1,7 @@
 package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.DoctorConsultationModule.DoctorInfo;
+import com.example.doctorbabu.patient.DoctorConsultationModule.SpecificDoctorInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -79,7 +80,6 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         if (!dbModel.getPhotoUrl().equals("null")) {
             Glide.with(context).load(dbModel.getPhotoUrl()).into(holder.profilePicture);
             holder.profilePicture.setBackgroundColor(Color.parseColor("#DDDDDD"));
-//            holder.profilePicture.setAlpha(50);
         }
         holder.card.setOnClickListener(view -> {
             DatabaseReference reference = database.getReference();
@@ -93,8 +93,9 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     AppCompatActivity activity = (AppCompatActivity) context;
-                    activity.getSupportFragmentManager().beginTransaction().addToBackStack("doctorProfile")
-                            .replace(R.id.container, new DoctorInfo(dbModel)).commit();
+                    Intent intent = new Intent(context, SpecificDoctorInfo.class);
+                    intent.putExtra("doctorId",dbModel.getDoctorId());
+                    activity.startActivity(intent);
                 }
             });
 

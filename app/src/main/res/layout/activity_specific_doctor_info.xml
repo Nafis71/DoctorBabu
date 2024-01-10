@@ -2,12 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".patient.DoctorConsultationModule.DoctorInfo">
-
+    android:id="@+id/parentLayout"
+    tools:context=".patient.DoctorConsultationModule.SpecificDoctorInfo">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,23 +14,27 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F7F9F9">
+            android:background="@color/white">
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/goback"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/goback" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/back2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
                 android:layout_toEndOf="@id/goback"
                 android:fontFamily="@font/rubik"
+                android:layout_centerVertical="true"
                 android:text="@string/profile"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -42,15 +44,16 @@
                 android:layout_width="29dp"
                 android:layout_height="29dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/blanklove" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F7F9F9">
+            android:background="@color/white">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profilePicture"
@@ -213,7 +216,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="@string/totalRating"
                 android:textColor="#666666"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/ratingIcon"
@@ -254,7 +257,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="@string/totalexperience"
                 android:textColor="#666666"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/totalExperience"
@@ -287,7 +290,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="@string/bmdcNumber"
                 android:textColor="#666666"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/bmdc"
@@ -358,7 +361,7 @@
         </androidx.viewpager2.widget.ViewPager2>
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
@@ -457,7 +460,6 @@
 
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
+    </LinearLayout>
 
-
-    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

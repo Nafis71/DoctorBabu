@@ -14,17 +14,16 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <uses-permission android:name="android.permission.REORDER_TASKS"/>
-
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:alwaysRetainTaskState="true"
-        android:directBootAware="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:directBootAware="true"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@drawable/doctorbabulogo"
@@ -33,6 +32,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".patient.DoctorConsultationModule.SpecificDoctorInfo"
+            android:exported="false" />
         <activity
             android:name=".patient.MedicinePurchaseModules.SeeAll"
             android:exported="false" />

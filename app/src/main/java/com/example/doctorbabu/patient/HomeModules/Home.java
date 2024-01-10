@@ -62,7 +62,7 @@ public class Home extends Fragment {
     Animation leftAnim, rightAnim;
     ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter;
     ChipNavigationBar bottomNavigation;
-    MaterialCardView generalPhysician,gynecologist,paediatrician,dermatologist,psychiatrist,cardiologist,nutritionist,ophthalmologist,neurologist;
+    MaterialCardView generalPhysician, gynecologist, paediatrician, dermatologist, psychiatrist, cardiologist, nutritionist, ophthalmologist, neurologist;
     FragmentHomeBinding binding;
     Firebase firebase;
     ActionBarDrawerToggle toggle;
@@ -192,6 +192,7 @@ public class Home extends Fragment {
     }
 
     public void setCartCounter() {
+        Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
         DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineCart");
         cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -202,8 +203,12 @@ public class Home extends Fragment {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         countedCart += 1;
                     }
-                    binding.cartCounter.setText(String.valueOf(countedCart));
-                    binding.cartCounter.setVisibility(View.VISIBLE);
+                    try {
+                        binding.cartCounter.setText(String.valueOf(countedCart));
+                        binding.cartCounter.setVisibility(View.VISIBLE);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 } else {
                     binding.cartCounter.setVisibility(View.INVISIBLE);
                 }
@@ -243,12 +248,13 @@ public class Home extends Fragment {
     }
 
 
-    public void callEditProfile(){
+    public void callEditProfile() {
         Intent intent = new Intent(requireActivity(), EditProfile.class);
         intent.putExtra("uId", user.getUid());
         intent.putExtra("email", user.getEmail());
         startActivity(intent);
     }
+
     public void callDiseasePredictor() {
         Intent intent = new Intent(requireActivity(), DiagnosisTerms.class);
         startActivity(intent);
@@ -385,9 +391,9 @@ public class Home extends Fragment {
         bookAppointmentSheet.show();
     }
 
-    public void loadSpecialistDoctor(String specialist){
+    public void loadSpecialistDoctor(String specialist) {
         Intent intent = new Intent(requireActivity(), ViewAllDoctor.class);
-        intent.putExtra("specialist",specialist);
+        intent.putExtra("specialist", specialist);
         startActivity(intent);
     }
 

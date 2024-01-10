@@ -2,6 +2,7 @@ package com.example.doctorbabu.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.DoctorConsultationModule.DoctorInfo;
+import com.example.doctorbabu.patient.DoctorConsultationModule.SpecificDoctorInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -98,8 +98,9 @@ public class doctorSearchAdapter extends RecyclerView.Adapter<doctorSearchAdapte
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 AppCompatActivity activity = (AppCompatActivity) context;
-                activity.getSupportFragmentManager().beginTransaction().addToBackStack("doctorProfile")
-                        .replace(R.id.container, new DoctorInfo(model)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                Intent intent = new Intent(context, SpecificDoctorInfo.class);
+                intent.putExtra("doctorId",model.getDoctorId());
+                activity.startActivity(intent);
             }
         });
     }
