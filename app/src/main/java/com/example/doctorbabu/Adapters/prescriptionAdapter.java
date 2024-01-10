@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.doctorbabu.DatabaseModels.prescriptionMedicineModel;
 import com.example.doctorbabu.DatabaseModels.prescriptionModel;
 import com.example.doctorbabu.R;
@@ -22,11 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.todkars.shimmer.ShimmerRecyclerView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.aviran.cookiebar2.CookieBar;
 
@@ -41,12 +41,13 @@ import java.util.ArrayList;
 public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapter.myViewHolder> {
     Context context;
     ArrayList<prescriptionModel> model;
-    TextView doctorName,degree,specialty,bmdc,prescriptionDate,diagnosis,patientAge,pName,pGender,pWeight;
+    TextView doctorName, degree, specialty, bmdc, prescriptionDate, diagnosis, patientAge, pName, pGender, pWeight;
     ShimmerRecyclerView prescriptionRecycler;
     ArrayList<prescriptionMedicineModel> rmodel = new ArrayList<>();
     prescriptionMedicineAdapter adapter;
-    String prescriptionId,doctorId,patientId,title,fullName,date,nameWithTitle,doctorSpecialties,doctorBmdc,age,weight,patientNames,patientGender,doctorPhoto,doctorDegree,patientDiagnosis;
+    String prescriptionId, doctorId, patientId, title, fullName, date, nameWithTitle, doctorSpecialties, doctorBmdc, age, weight, patientNames, patientGender, doctorPhoto, doctorDegree, patientDiagnosis;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
     public prescriptionAdapter(Context context, ArrayList<prescriptionModel> model) {
         this.context = context;
         this.model = model;
@@ -55,7 +56,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
     @NonNull
     @Override
     public prescriptionAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_line_design_prescription_list,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_line_design_prescription_list, parent, false);
         return new myViewHolder(view);
     }
 
@@ -66,17 +67,17 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         prescriptionId = dbmodel.getPrescriptionId();
         doctorId = dbmodel.getPrescribedBy();
         patientId = dbmodel.getPrescribedTo();
-        patientDiagnosis =dbmodel.getDiagnosis();
+        patientDiagnosis = dbmodel.getDiagnosis();
         holder.date.setText(dbmodel.getDate());
         holder.diagnosisResult.setText(dbmodel.getDiagnosis());
-        holder.prescriptionNumber.setText(String.valueOf(position+1));
+        holder.prescriptionNumber.setText(String.valueOf(position + 1));
         DatabaseReference reference = database.getReference("doctorInfo");
         reference.child(doctorId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
-                    if(task.getResult().exists()){
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
                         DataSnapshot snapshot = task.getResult();
                         title = String.valueOf(snapshot.child("title").getValue());
                         fullName = String.valueOf(snapshot.child("fullName").getValue());
@@ -84,7 +85,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                         doctorBmdc = String.valueOf(snapshot.child("bmdc").getValue());
                         doctorPhoto = String.valueOf(snapshot.child("photoUrl").getValue());
                         doctorDegree = String.valueOf(snapshot.child("degrees").getValue());
-                        nameWithTitle = title+" "+fullName;
+                        nameWithTitle = title + " " + fullName;
                         holder.doctorName.setText(nameWithTitle);
                     }
                 }
@@ -94,8 +95,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         userReference.child(patientId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     DataSnapshot snapshot = task.getResult();
                     String birthDate = String.valueOf(snapshot.child("birthDate").getValue());
                     String[] splitText = birthDate.split("/");
@@ -124,27 +124,15 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
 
 
     }
-    public static class myViewHolder extends RecyclerView.ViewHolder{
-        TextView prescriptionNumber,date,doctorName,diagnosisResult;
-        Button view;
-
-        public myViewHolder(@NonNull View itemView) {
-            super(itemView);
-            prescriptionNumber = itemView.findViewById(R.id.prescriptionNumber);
-            date = itemView.findViewById(R.id.date);
-            doctorName = itemView.findViewById(R.id.doctorName);
-            diagnosisResult = itemView.findViewById(R.id.diagnosisResult);
-            view = itemView.findViewById(R.id.download);
-        }
-    }
 
     @Override
     public int getItemCount() {
         return model.size();
     }
-    public void convertXMLtoPDF(){
+
+    public void convertXMLtoPDF() {
         AppCompatActivity activity = (AppCompatActivity) context;
-        View view = LayoutInflater.from(context).inflate(R.layout.pdf_layout,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.pdf_layout, null);
         prescriptionRecycler = view.findViewById(R.id.prescriptionRecycler);
         doctorName = view.findViewById(R.id.doctorName);
         doctorName.setText(nameWithTitle);
@@ -162,7 +150,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         patientAge.setText(age);
         pName = view.findViewById(R.id.patientName);
         pName.setText(patientNames);
-        pGender =view.findViewById(R.id.gender);
+        pGender = view.findViewById(R.id.gender);
         pGender.setText(patientGender);
         pWeight = view.findViewById(R.id.weight);
         pWeight.setText(weight);
@@ -175,20 +163,16 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    if(task.getResult().exists())
-                    {
+                if (task.isSuccessful()) {
+                    if (task.getResult().exists()) {
                         DataSnapshot snapshot = task.getResult();
-                        String medicineName =  String.valueOf(snapshot.child("medicineName").getValue());
+                        String medicineName = String.valueOf(snapshot.child("medicineName").getValue());
                         String medicineDetails = String.valueOf(snapshot.child("medicineDetails").getValue());
                         int medicineCounter = Integer.parseInt(String.valueOf(snapshot.child("medicineCounter").getValue()));
-                        if(medicineCounter > 1)
-                        {
+                        if (medicineCounter > 1) {
                             String[] tempMedicineName = medicineName.split(",");
                             String[] tempMedicineDetails = medicineDetails.split(",");
-                            for(int i = 0; i < medicineCounter; i++)
-                            {
+                            for (int i = 0; i < medicineCounter; i++) {
                                 prescriptionMedicineModel model = new prescriptionMedicineModel();
                                 model.setMedicineName(tempMedicineName[i]);
                                 model.setMedicineDetails(tempMedicineDetails[i]);
@@ -196,26 +180,26 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                             }
                             adapter.notifyDataSetChanged();
 
-                        } else{
-                            prescriptionMedicineModel model2 =  new prescriptionMedicineModel();
+                        } else {
+                            prescriptionMedicineModel model2 = new prescriptionMedicineModel();
                             model2.setMedicineName(medicineName);
                             model2.setMedicineDetails(medicineDetails);
                             rmodel.add(model2);
                             adapter.notifyDataSetChanged();
                         }
                         DisplayMetrics displayMetrics = new DisplayMetrics();
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                             context.getDisplay().getRealMetrics(displayMetrics);
-                        }else{
+                        } else {
                             activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                         }
-                        view.measure(View.MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels,View.MeasureSpec.EXACTLY),
-                                View.MeasureSpec.makeMeasureSpec(displayMetrics.heightPixels,View.MeasureSpec.EXACTLY));
-                        view.layout(0,0,displayMetrics.widthPixels,displayMetrics.heightPixels);
+                        view.measure(View.MeasureSpec.makeMeasureSpec(displayMetrics.widthPixels, View.MeasureSpec.EXACTLY),
+                                View.MeasureSpec.makeMeasureSpec(displayMetrics.heightPixels, View.MeasureSpec.EXACTLY));
+                        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
                         PdfDocument document = new PdfDocument();
                         int viewWidth = view.getMeasuredWidth();
                         int viewHeight = view.getMeasuredHeight();
-                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(viewWidth,viewHeight,1).create();
+                        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(viewWidth, viewHeight, 1).create();
                         PdfDocument.Page page = document.startPage(pageInfo);
                         Canvas canvas = page.getCanvas();
                         view.draw(canvas);
@@ -223,7 +207,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                         File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
                         String fileName = "Prescription.pdf";
                         File file = new File(downloadsDir, fileName);
-                        try{
+                        try {
                             FileOutputStream fileOutputStream = new FileOutputStream(file);
                             document.writeTo(fileOutputStream);
                             document.close();
@@ -236,7 +220,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                                     .setBackgroundColor(R.color.blue)
                                     .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
                                     .show();
-                        }catch (FileNotFoundException e){
+                        } catch (FileNotFoundException e) {
                             e.printStackTrace();
                             CookieBar.build(activity)
                                     .setTitle("Permission Needed")
@@ -245,7 +229,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                                     .setBackgroundColor(R.color.blue)
                                     .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
                                     .show();
-                        }catch (IOException e){
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
 
@@ -254,5 +238,19 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
             }
         });
 
+    }
+
+    public static class myViewHolder extends RecyclerView.ViewHolder {
+        TextView prescriptionNumber, date, doctorName, diagnosisResult;
+        Button view;
+
+        public myViewHolder(@NonNull View itemView) {
+            super(itemView);
+            prescriptionNumber = itemView.findViewById(R.id.prescriptionNumber);
+            date = itemView.findViewById(R.id.date);
+            doctorName = itemView.findViewById(R.id.doctorName);
+            diagnosisResult = itemView.findViewById(R.id.diagnosisResult);
+            view = itemView.findViewById(R.id.download);
+        }
     }
 }
