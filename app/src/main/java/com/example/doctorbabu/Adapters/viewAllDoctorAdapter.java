@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.DoctorConsultationModule.DoctorInfoActivity;
+import com.example.doctorbabu.patient.DoctorConsultationModule.SpecificDoctorInfo;
 
 import java.util.ArrayList;
 
@@ -50,15 +50,8 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
         holder.doctorRating.setText(String.valueOf(dbmodel.getRating()));
         holder.takeConsultation.setOnClickListener(view -> {
             AppCompatActivity activity = (AppCompatActivity) context;
-            Intent intent = new Intent(activity, DoctorInfoActivity.class);
+            Intent intent = new Intent(activity, SpecificDoctorInfo.class);
             intent.putExtra("doctorId",dbmodel.getDoctorId());
-            intent.putExtra("doctorName",dbmodel.getFullName());
-            intent.putExtra("doctorTitle",dbmodel.getTitle());
-            intent.putExtra("doctorDegree",dbmodel.getDegrees());
-            intent.putExtra("doctorSpecialties",dbmodel.getSpecialty());
-            intent.putExtra("photoUrl",dbmodel.getPhotoUrl());
-            intent.putExtra("doctorRating",String.valueOf(dbmodel.getRating()));
-            intent.putExtra("bmdc",dbmodel.getBmdc());
             activity.startActivity(intent);
             activity.finish();
         });

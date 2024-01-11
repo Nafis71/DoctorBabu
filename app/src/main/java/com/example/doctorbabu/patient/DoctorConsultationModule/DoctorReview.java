@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.doctorbabu.Adapters.doctorReviewAdapter;
 import com.example.doctorbabu.DatabaseModels.doctorReviewModel;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.databinding.FragmentDoctorReviewBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +26,7 @@ import java.util.Collections;
 
 
 public class DoctorReview extends Fragment {
-    RecyclerView recyclerView;
+    FragmentDoctorReviewBinding binding;
     String doctorId;
     doctorReviewAdapter adapter;
     ArrayList<doctorReviewModel> list;
@@ -49,11 +50,10 @@ public class DoctorReview extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recyler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyler.setLayoutManager(new LinearLayoutManager(requireContext()));
         list =  new ArrayList<>();
         adapter = new doctorReviewAdapter(requireContext(),list);
-        recyclerView.setAdapter(adapter);
+        binding.recyler.setAdapter(adapter);
         DatabaseReference reference = database.getReference("reviews");
         reference.child(doctorId).orderByChild("rating").limitToLast(20).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
@@ -69,6 +69,8 @@ public class DoctorReview extends Fragment {
                     }
                     Collections.reverse(list);
                     adapter.notifyDataSetChanged();
+                }else{
+                    binding.noReviewLayout.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -83,6 +85,7 @@ public class DoctorReview extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_doctor_review, container, false);
+        binding = FragmentDoctorReviewBinding.inflate(inflater,container,false);
+        return binding.getRoot();
     }
 }

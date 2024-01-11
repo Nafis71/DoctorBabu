@@ -108,8 +108,8 @@
 
             <ImageView
                 android:id="@+id/ratingStar"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_below="@+id/profilePictureCard"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="0dp"
@@ -127,7 +127,7 @@
                 android:layout_toEndOf="@+id/ratingStar"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="14sp"
                 android:textStyle="bold">
 
             </TextView>
@@ -231,7 +231,7 @@
                     android:fontFamily="@font/rubik"
                     android:text="\u09F3"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -243,7 +243,7 @@
                     android:fontFamily="@font/rubik"
                     android:text="210"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView

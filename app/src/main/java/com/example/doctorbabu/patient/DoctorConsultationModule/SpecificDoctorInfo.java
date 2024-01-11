@@ -1,7 +1,9 @@
 package com.example.doctorbabu.patient.DoctorConsultationModule;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -41,19 +43,29 @@ public class SpecificDoctorInfo extends AppCompatActivity {
     doctorInfoModel model;
     private final String[] titles = new String[]{"Info", "Experience", "Reviews"};
     ActivitySpecificDoctorInfoBinding binding;
-    ExecutorService favouriteRecordExecutor,doctorDataExecutor,doctorExperienceExecutor;
+    ExecutorService favouriteRecordExecutor,doctorDataExecutor,doctorExperienceExecutor,getFavouriteDoctorStatus;
+    boolean toggleButton;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySpecificDoctorInfoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        loadingScreen();
         doctorId = getIntent().getStringExtra("doctorId");
         firebase = Firebase.getInstance();
         user = firebase.getUserID();
         favouriteRecordExecutor = Executors.newSingleThreadExecutor();
         doctorDataExecutor = Executors.newSingleThreadExecutor();
         doctorExperienceExecutor = Executors.newSingleThreadExecutor();
+        getFavouriteDoctorStatus = Executors.newSingleThreadExecutor();
+        getFavouriteDoctorStatus.execute(new Runnable() {
+            @Override
+            public void run() {
+                getFavouriteDoctorStatus();
+            }
+        });
         doctorDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -93,10 +105,32 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 finish();
             }
         });
+        closeLoadingScreen();
     }
+
+    public void loadingScreen() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    public void closeLoadingScreen() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.mainBody.setVisibility(View.VISIBLE);
+                binding.subBody.setVisibility(View.VISIBLE);
+                dialog.dismiss();
+            }
+        }, 1000);
+    }
+
+
+
     public void recordFavourite(){
         binding.outlinedLove.setOnClickListener(new View.OnClickListener() {
-            boolean toggleButton = true;
 
             @Override
             public void onClick(View view) {
@@ -108,6 +142,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 } else {
                     binding.outlinedLove.setImageResource(R.drawable.blanklove);
                     toggleButton = true;
+                    removeFavourite();
                 }
             }
         });
@@ -239,6 +274,25 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         String totalExperienceString = String.valueOf(totalExperience) + "+ years";
         binding.totalExperience.setText(totalExperienceString);
     }
+    public void getFavouriteDoctorStatus(){
+        DatabaseReference reference = firebase.getDatabaseReference("favouriteDoctors");
+        reference.child(user.getUid()).child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    binding.outlinedLove.setImageResource(R.drawable.filledlove);
+                    toggleButton = false;
+                }else{
+                    toggleButton = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
 
     public void addFavourite() {
         HashMap<String, String> data = new HashMap<>();
@@ -255,6 +309,15 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
     }
+    public void removeFavourite() {
+        DatabaseReference reference = firebase.getDatabaseReference("favouriteDoctors");
+        reference.child(user.getUid()).child(doctorId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Snackbar.make(binding.parentLayout, model.getTitle() + " " + model.getFullName() + " removed from your favourite list", Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
 
     @Override
     protected void onDestroy() {
@@ -263,5 +326,6 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         doctorDataExecutor.shutdown();
         favouriteRecordExecutor.shutdown();
         doctorExperienceExecutor.shutdown();
+        getFavouriteDoctorStatus.shutdown();
     }
 }

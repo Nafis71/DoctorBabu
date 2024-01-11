@@ -107,16 +107,18 @@ public class ViewAllDoctor extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 doctors.clear();
+                int count = 0;
                 if(snapshot.exists()){
-                    binding.doctorCount.setText(String.valueOf(snapshot.getChildrenCount()));
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         doctorInfoModel model = snap.getValue(doctorInfoModel.class);
                         assert model != null;
                         if(model.getSpecialty().contains(specialist))
                         {
                             doctors.add(model);
+                            count +=1;
                         }
                     }
+                    binding.doctorCount.setText(String.valueOf(count));
                     adapter.notifyDataSetChanged();
                     binding.doctorRecyclerView.hideShimmer();
                     binding.progressBar.setVisibility(View.GONE);
