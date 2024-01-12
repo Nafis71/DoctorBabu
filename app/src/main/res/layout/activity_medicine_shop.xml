@@ -138,7 +138,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mainBody"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:background="#F8F9F9"
         android:layout_below="@+id/header"
         android:scrollbars="none">
@@ -151,7 +151,9 @@
                 android:id="@+id/searchLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:background="@color/white"
+
+                android:layout_marginTop="0dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/searchCard"
@@ -161,10 +163,10 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="15dp"
                     android:visibility="visible"
                     app:cardCornerRadius="25dp"
-                    app:cardElevation="3dp">
+                    app:cardElevation="8dp">
 
                     <androidx.appcompat.widget.SearchView
                         android:id="@+id/searchView"
@@ -252,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 android:layout_below="@+id/searchLayout"
-                android:layout_marginTop="-10dp">
+                android:layout_marginTop="-20dp">
 
                 <ImageView
                     android:layout_width="match_parent"
