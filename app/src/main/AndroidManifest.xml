@@ -33,6 +33,9 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".patient.DoctorConsultationModule.DoctorSearch"
+            android:exported="false" />
+        <activity
             android:name=".patient.DoctorConsultationModule.SpecificDoctorInfo"
             android:exported="false" />
         <activity

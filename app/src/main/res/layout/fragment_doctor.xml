@@ -4,406 +4,413 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5sp"
     android:background="#ffff"
+    android:padding="5dp"
     tools:context=".patient.DoctorConsultationModule.Doctor">
 
-
     <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginStart="-8dp"
-        android:layout_marginEnd="-8dp"
-        android:background="#ffff">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/headerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.5"
-            android:text="Doctor"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/headerText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="2dp"
-            android:layout_toEndOf="@+id/headerText"
-            android:fontFamily="@font/roboto"
-            android:shadowColor="@color/black"
-            android:shadowRadius="0.5"
-            android:text="Consultation"
-            android:textColor="#4E5EDE"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:background="#F7F9F9"
-        android:fillViewport="true"
         android:visibility="visible">
 
         <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="-8dp"
+            android:layout_marginEnd="-8dp"
+            android:background="#ffff">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/headerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Doctor"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/headerText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/headerText"
+                android:fontFamily="@font/roboto"
+                android:shadowColor="@color/black"
+                android:shadowRadius="0.5"
+                android:text="Consultation"
+                android:textColor="#4E5EDE"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/searchCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="4dp"
-                android:visibility="gone"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="10dp">
-
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="textPersonName"
-                    android:theme="@style/AppSearchView"
-                    android:visibility="visible"
-                    app:closeIcon="@drawable/close"
-                    app:defaultQueryHint="@string/doctorSearch"
-                    app:iconifiedByDefault="false">
-
-                </androidx.appcompat.widget.SearchView>
-            </androidx.cardview.widget.CardView>
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progressBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:indeterminate="true"
-                android:visibility="gone" />
-
-            <com.todkars.shimmer.ShimmerRecyclerView
-                android:id="@+id/searchRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/searchCard"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/custom_button_back"
-                android:elevation="4dp"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:shimmer_recycler_item_count="3"
-                app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search">
-
-            </com.todkars.shimmer.ShimmerRecyclerView>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/consultationAnim"
-                android:layout_width="200dp"
-                android:layout_height="130dp"
-                android:layout_below="@+id/searchCard"
-                android:visibility="gone"
-                app:lottie_autoPlay="true"
-                app:lottie_cacheComposition="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/consultation"
-                app:lottie_renderMode="hardware"
-                app:lottie_speed="1" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/consultationAnim2"
-                android:layout_width="200dp"
-                android:layout_height="130dp"
-                android:layout_below="@+id/searchCard"
-                android:layout_toEndOf="@+id/consultationAnim"
-                android:visibility="gone"
-                app:lottie_autoPlay="true"
-                app:lottie_cacheComposition="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/bookconsultation"
-                app:lottie_renderMode="hardware"
-                app:lottie_speed="1" />
+            android:layout_below="@+id/header"
+            android:background="#F7F9F9"
+            android:fillViewport="true"
+            android:visibility="visible">
 
             <RelativeLayout
-                android:id="@+id/pagerCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/consultationAnim"
-                android:background="#F7F9F9">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/diseaseIdentificationCard"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#fff"
-                    >
-                    <TextView
-                        android:id="@+id/diseaseIdentificationHeaderText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/identifyDiseaseHeader"
-                        android:fontFamily="@font/roboto"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="3dp"
-                        >
+                android:background="#fff">
 
-                    </TextView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/diseaseIdentificationHeaderText"
-                        android:id="@+id/diseaseIdentificationBodyText"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/identifyDiseaseHeaderBody"
-                        android:textSize="12sp">
-                        >
-
-                    </TextView>
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/diseaseIdentificationAnimation"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_below="@id/diseaseIdentificationBodyText"
-                        app:lottie_rawRes="@raw/identifydisease"
-                        android:layout_marginBottom="4dp"
-                        app:lottie_loop="false"
-                        app:lottie_autoPlay="true"
-                        app:lottie_renderMode="hardware"
-                        app:lottie_cacheComposition="true"
-                        >
-
-                    </com.airbnb.lottie.LottieAnimationView>
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/identifyDisease"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_below="@+id/diseaseIdentificationBodyText"
-                        android:shadowColor="@color/black_shade_1"
-                        android:text="@string/check"
-                        android:textColor="#4F5FDE"
-                        android:textSize="12sp"
-                        app:cornerRadius="8dp" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/DepartmentCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_below="@+id/diseaseIdentificationCard"
-                    android:background="#fff">
-
-                    <TextView
-                        android:id="@+id/dsText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="3dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/ChoosedepartmentSymptoms"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/dsText2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/dsText"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/clinicalAreas"
-                        android:textSize="12sp">
-
-                    </TextView>
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/dsText2"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="#ffff"
-                        app:tabMode="fixed"
-                        app:tabTextAppearance="@style/MineCustomTabText">
-
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                        </com.google.android.material.tabs.TabItem>
-
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                        </com.google.android.material.tabs.TabItem>
-
-                    </com.google.android.material.tabs.TabLayout>
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/vPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/tabs"
-                        android:layout_marginBottom="0dp">
-
-                    </androidx.viewpager2.widget.ViewPager2>
-
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/recentlyViewedCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/pagerCard"
-                android:background="#F7F9F9">
-
-                <RelativeLayout
-                    android:id="@+id/recentlyViewed"
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#ffff"
-                    android:visibility="visible">
+                    android:indeterminate="true"
+                    android:visibility="gone" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/searchCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="4dp"
+                    android:visibility="visible"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="10dp">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:inputType="textPersonName"
+                        android:theme="@style/AppSearchView"
+                        android:visibility="visible"
+                        app:closeIcon="@drawable/close"
+                        app:defaultQueryHint="@string/doctorSearch"
+                        app:iconifiedByDefault="false">
+
+                    </androidx.appcompat.widget.SearchView>
+                </androidx.cardview.widget.CardView>
+
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/searchRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/searchCard"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/custom_button_back"
+                    android:elevation="4dp"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="3"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search">
+
+                </com.todkars.shimmer.ShimmerRecyclerView>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/consultationAnim"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_below="@+id/searchCard"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="true"
+                    app:lottie_cacheComposition="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/consultation"
+                    app:lottie_renderMode="hardware"
+                    app:lottie_speed="1" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/consultationAnim2"
+                    android:layout_width="200dp"
+                    android:layout_height="130dp"
+                    android:layout_below="@+id/searchCard"
+                    android:layout_toEndOf="@+id/consultationAnim"
+                    android:visibility="gone"
+                    app:lottie_autoPlay="true"
+                    app:lottie_cacheComposition="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/bookconsultation"
+                    app:lottie_renderMode="hardware"
+                    app:lottie_speed="1" />
+
+                <RelativeLayout
+                    android:id="@+id/pagerCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/consultationAnim"
+                    android:background="#F7F9F9">
+
+                    <RelativeLayout
+                        android:id="@+id/diseaseIdentificationCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#fff">
+
+                        <TextView
+                            android:id="@+id/diseaseIdentificationHeaderText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/identifyDiseaseHeader"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/diseaseIdentificationBodyText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/diseaseIdentificationHeaderText"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/identifyDiseaseHeaderBody"
+                            android:textSize="12sp">
+                            >
+
+                        </TextView>
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/diseaseIdentificationAnimation"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_below="@id/diseaseIdentificationBodyText"
+                            android:layout_marginBottom="4dp"
+                            app:lottie_autoPlay="true"
+                            app:lottie_cacheComposition="true"
+                            app:lottie_loop="false"
+                            app:lottie_rawRes="@raw/identifydisease"
+                            app:lottie_renderMode="hardware">
+
+                        </com.airbnb.lottie.LottieAnimationView>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/identifyDisease"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/diseaseIdentificationBodyText"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginEnd="10dp"
+                            android:shadowColor="@color/black_shade_1"
+                            android:text="@string/check"
+                            android:textColor="#4F5FDE"
+                            android:textSize="12sp"
+                            app:cornerRadius="8dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/DepartmentCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/diseaseIdentificationCard"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#fff">
+
+                        <TextView
+                            android:id="@+id/dsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="3dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/ChoosedepartmentSymptoms"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/dsText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/dsText"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/clinicalAreas"
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/dsText2"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#ffff"
+                            app:tabMode="fixed"
+                            app:tabTextAppearance="@style/MineCustomTabText">
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </com.google.android.material.tabs.TabItem>
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            </com.google.android.material.tabs.TabItem>
+
+                        </com.google.android.material.tabs.TabLayout>
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/tabs"
+                            android:layout_marginBottom="0dp">
+
+                        </androidx.viewpager2.widget.ViewPager2>
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/recentlyViewedCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pagerCard"
+                    android:background="#F7F9F9">
+
+                    <RelativeLayout
+                        android:id="@+id/recentlyViewed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#ffff"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/recentlyViewedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="2dp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/recentlyViewed"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <com.todkars.shimmer.ShimmerRecyclerView
+                            android:id="@+id/recentlyViewedRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/recentlyViewedText"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:shimmer_recycler_item_count="6"
+                            app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+
+                        </com.todkars.shimmer.ShimmerRecyclerView>
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/availableDoctorLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/recentlyViewedCard"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="#ffff">
 
                     <TextView
-                        android:id="@+id/recentlyViewedText"
+                        android:id="@+id/doctorText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="2dp"
+                        android:focusableInTouchMode="true"
                         android:fontFamily="@font/roboto"
-                        android:text="@string/recentlyViewed"
+                        android:text="@string/availabledoctors"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/doctorText2"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/doctorText"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/takeInstantConsultancy"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/viewAll"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10sp"
+                        android:layout_toEndOf="@+id/doctorText2"
+                        android:shadowColor="@color/black_shade_1"
+                        android:text="@string/viewAll"
+                        android:textColor="#4F5FDE"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp" />
+
                     <com.todkars.shimmer.ShimmerRecyclerView
-                        android:id="@+id/recentlyViewedRecyclerView"
+                        android:id="@+id/availableDoctorRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/recentlyViewedText"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="0dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal"
-                        android:visibility="visible"
+                        android:layout_below="@+id/doctorText2"
+                        android:layout_marginTop="16dp"
+                        android:animationCache="true"
+                        android:orientation="vertical"
+                        android:overScrollMode="ifContentScrolls"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:shimmer_recycler_item_count="6"
-                        app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
-
-                    </com.todkars.shimmer.ShimmerRecyclerView>
+                        app:shimmer_recycler_item_count="4"
+                        app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
 
                 </RelativeLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/recentlyViewedCard"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                android:background="#ffff">
-
-                <TextView
-                    android:id="@+id/doctorText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:focusableInTouchMode="true"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/availabledoctors"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/doctorText2"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/doctorText"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/takeInstantConsultancy"
-                    android:textSize="12sp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/viewAll"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/doctorText2"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10sp"
-                    android:shadowColor="@color/black_shade_1"
-                    android:text="@string/viewAll"
-                    android:textColor="#4F5FDE"
-                    android:textSize="12sp"
-                    app:cornerRadius="8dp" />
-
-                <com.todkars.shimmer.ShimmerRecyclerView
-                    android:id="@+id/availableDoctorRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/doctorText2"
-                    android:layout_marginTop="16dp"
-                    android:animationCache="true"
-                    android:orientation="vertical"
-                    android:overScrollMode="ifContentScrolls"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:shimmer_recycler_item_count="4"
-                    app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
 
             </RelativeLayout>
 
-        </RelativeLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>

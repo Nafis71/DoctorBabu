@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.patient.DoctorConsultationModule.DoctorSearch;
 import com.example.doctorbabu.patient.DoctorConsultationModule.SpecificDoctorInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +46,7 @@ public class doctorSearchAdapter extends RecyclerView.Adapter<doctorSearchAdapte
     @NonNull
     @Override
     public doctorSearchAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_doctor_search, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_doctor_search_layout, parent, false);
         return new myViewHolder(view);
     }
 
@@ -86,21 +88,24 @@ public class doctorSearchAdapter extends RecyclerView.Adapter<doctorSearchAdapte
     }
 
     protected void keepSearchedDoctorRecord(doctorSearchResultModel model){
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference reference = database.getReference();
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("recentlyViewed");
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String currentTime = sdf.format(new Date());
         HashMap<String, Object> data = new HashMap<>();
         data.put("doctorId", model.getDoctorId());
         data.put("photoUrl", model.getPhotoUrl());
         data.put("time", currentTime);
-        reference.child("recentlyViewed").child(userId).child(model.getDoctorId()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+        reference.child(userId).child(model.getDoctorId()).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 AppCompatActivity activity = (AppCompatActivity) context;
                 Intent intent = new Intent(context, SpecificDoctorInfo.class);
                 intent.putExtra("doctorId",model.getDoctorId());
                 activity.startActivity(intent);
+                if(context instanceof DoctorSearch){
+                    activity.finish();
+                }
             }
         });
     }

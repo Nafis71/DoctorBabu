@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.doctorbabu.Adapters.doctorSearchAdapter;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.Adapters.viewAllDoctorAdapter;
+import com.example.doctorbabu.DatabaseModels.doctorSearchResultModel;
 import com.example.doctorbabu.databinding.ActivityViewAllDoctorBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +27,9 @@ import java.util.concurrent.Executors;
 
 public class ViewAllDoctor extends AppCompatActivity {
     viewAllDoctorAdapter adapter;
+    doctorSearchAdapter searchAdapter;
     ArrayList<doctorInfoModel> doctors = new ArrayList<>();
+    ArrayList<doctorSearchResultModel> searchModel;
     ExecutorService allDoctorLoadExecutor;
     ActivityViewAllDoctorBinding binding;
     String specialist = null;
@@ -36,9 +40,6 @@ public class ViewAllDoctor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityViewAllDoctorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.doctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new viewAllDoctorAdapter(this, doctors);
-        binding.doctorRecyclerView.setAdapter(adapter);
         allDoctorLoadExecutor = Executors.newSingleThreadExecutor();
         allDoctorLoadExecutor.execute(this::loadData);
         binding.back.setOnClickListener(view -> {
@@ -80,6 +81,9 @@ public class ViewAllDoctor extends AppCompatActivity {
 
     }
     protected void loadAllDoctor(DatabaseReference loadAllDataReference){
+        binding.doctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        adapter = new viewAllDoctorAdapter(this, doctors);
+        binding.doctorRecyclerView.setAdapter(adapter);
         loadAllDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -99,6 +103,7 @@ public class ViewAllDoctor extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
             }
         });
     }

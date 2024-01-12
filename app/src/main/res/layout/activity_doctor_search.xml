@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context=".patient.DoctorConsultationModule.DoctorSearch">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/searchCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="visible"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="textPersonName"
+            android:theme="@style/AppSearchView"
+            android:visibility="visible"
+            app:closeIcon="@drawable/close"
+            app:defaultQueryHint="@string/doctorSearch"
+            app:iconifiedByDefault="false">
+
+        </androidx.appcompat.widget.SearchView>
+
+    </androidx.cardview.widget.CardView>
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchCard"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:padding="4dp"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:shimmer_recycler_item_count="10"
+        app:shimmer_recycler_layout="@layout/shimmer_layout_doctor_search">
+
+    </com.todkars.shimmer.ShimmerRecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/noDataLayout">
+        <ImageView
+            android:id="@+id/notDataFoundImage"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/not_found"
+            android:layout_centerVertical="true"
+            >
+
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notDataFoundImage"
+            android:layout_centerHorizontal="true"
+            android:text="Couldn't find any relevant data"
+            android:fontFamily="@font/roboto"
+            >
+
+        </TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:id="@+id/searchDataLayout">
+        <ImageView
+            android:id="@+id/searchDataImage"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/searchimage"
+            android:layout_centerVertical="true"
+            >
+
+        </ImageView>
+
+    </RelativeLayout>
+
+</RelativeLayout>
