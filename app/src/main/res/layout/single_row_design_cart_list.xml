@@ -86,12 +86,12 @@
             android:layout_below="@+id/medicineBrandName"
             android:layout_toEndOf="@+id/medicinePicture"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="@font/roboto"
             android:padding="2dp"
             android:text="\u09F3"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold">
 
         </TextView>
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@+id/medicineBrandName"
@@ -109,7 +109,7 @@
             android:fontFamily="@font/roboto"
             android:padding="2dp"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold">
 
         </TextView>

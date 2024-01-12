@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
+        android:elevation="1dp"
         >
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -105,7 +106,7 @@
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="1dp"
             android:animationCache="true"
 

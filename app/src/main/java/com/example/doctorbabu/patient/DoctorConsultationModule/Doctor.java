@@ -51,6 +51,7 @@ public class Doctor extends Fragment {
     FragmentDoctorBinding binding;
     doctorInfoModel model = doctorInfoModel.getInstance();
     ExecutorService loadDoctorExecutor, recentlyViewedExecutor;
+    boolean hasPressed;
 
 
     Dialog dialog;
@@ -127,16 +128,22 @@ public class Doctor extends Fragment {
                 startActivity(intent);
             }
         });
-        binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean isFocused) {
-                if (isFocused) {
-                    binding.searchView.clearFocus();
-                    Intent intent = new Intent(requireActivity(), DoctorSearch.class);
-                    requireActivity().startActivity(intent);
+        try{
+            binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean isFocused) {
+                    if (isFocused && !hasPressed) {
+                        hasPressed = true;
+                        binding.searchView.clearFocus();
+                        Intent intent = new Intent(requireActivity(), DoctorSearch.class);
+                        requireActivity().startActivity(intent);
+                    }
                 }
-            }
-        });
+            });
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void loadingScreen() {
@@ -252,6 +259,7 @@ public class Doctor extends Fragment {
     public void onResume() {
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
+        hasPressed = false;
         super.onResume();
 
     }
