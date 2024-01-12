@@ -176,7 +176,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/availableforText"
+                android:id="@+id/workingPostTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/currentlyWorking"
@@ -184,22 +184,21 @@
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="Available for"
+                android:text="Designation"
                 android:textColor="#666666"
                 android:textSize="11.5sp">
 
             </TextView>
 
             <TextView
-                android:id="@+id/availableforText2"
+                android:id="@+id/workingPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/availableforText"
+                android:layout_below="@+id/workingPostTxt"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/rubik"
-                android:text="Instant Video Call"
                 android:textColor="@color/green_shade_1"
                 android:textSize="13sp"
                 android:textStyle="bold">
@@ -261,7 +260,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/currentlyWorkingCard"
-                    style="@style/Widget.Material3.CardView.Outlined"
+                    style="@style/Widget.Material3.CardView.Elevated"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_centerVertical="true"
@@ -270,9 +269,8 @@
                     android:layout_marginBottom="5dp"
                     android:layout_alignParentEnd="true"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="2dp"
-                    app:strokeColor="#C2C2C2"
-                    app:strokeWidth="1dp">
+                    app:cardElevation="3dp"
+                    >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -283,7 +281,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_centerVertical="true"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="10dp"
                             android:src="@drawable/go" />
 
                         <TextView
@@ -298,8 +296,9 @@
                             android:fontFamily="@font/roboto"
                             android:padding="6dp"
                             android:text="Checkout"
+                            android:textColor="@color/black"
                             android:textSize="13sp"
-                            android:textStyle="bold">
+                            android:textStyle="normal">
 
                         </TextView>
                     </RelativeLayout>

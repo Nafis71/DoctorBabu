@@ -60,7 +60,6 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
             Intent intent = new Intent(activity, SpecificDoctorInfo.class);
             intent.putExtra("doctorId",dbmodel.getDoctorId());
             activity.startActivity(intent);
-            activity.finish();
         });
         getWorkingData(dbmodel,holder);
         if(dbmodel.getOnlineStatus() == 1){
@@ -80,19 +79,20 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     holder.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                    holder.workingPost.setText(String.valueOf(snapshot.child("designation").getValue()));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicture;
-        TextView doctorName, doctorSpecialties, doctorDegree, doctorRating,currentlyWorking,onlineStatus;
+        TextView doctorName, doctorSpecialties, doctorDegree, doctorRating,currentlyWorking,onlineStatus,workingPost;
         LinearLayout takeConsultation;
         MaterialCardView onlineCard;
 
@@ -107,6 +107,7 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
             currentlyWorking  = itemView.findViewById(R.id.currentlyWorking);
             onlineStatus = itemView.findViewById(R.id.onlineStatus);
             onlineCard = itemView.findViewById(R.id.onlineCard);
+            workingPost = itemView.findViewById(R.id.workingPost);
         }
     }
 
