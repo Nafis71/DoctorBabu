@@ -1,202 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
+    android:background="#F7F9F9"
     android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="170dp"
+    <LinearLayout
+        android:id="@+id/card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2.5dp">
+        android:layout_marginBottom="5dp"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/onlineCard"
+                android:layout_width="90dp"
+                android:layout_height="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="-40dp"
+                android:foregroundGravity="center"
+                app:cardBackgroundColor="@color/green_shade_1"
+                app:cardCornerRadius="14dp">
+
+                <TextView
+                    android:id="@+id/onlineStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="2.8dp"
+                    android:fontFamily="@font/overpass_semibold"
+                    android:text="@string/onlineStatus"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp">
+
+                </TextView>
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:id="@+id/profilePictureCard"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginBottom="3dp">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                app:shapeAppearanceOverlay="@style/RoundedSquare"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profilePicture"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:scaleType="centerCrop"
+                        android:elevation="2dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:shapeAppearanceOverlay="@style/RoundedSquare">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/profilePicture"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
-                    android:elevation="2dp"
-                    android:scaleType="center"
-                    app:shapeAppearanceOverlay="@style/minRoundedSquare">
+                    </com.google.android.material.imageview.ShapeableImageView>
+                </RelativeLayout>
 
-                </com.google.android.material.imageview.ShapeableImageView>
             </com.google.android.material.card.MaterialCardView>
 
-            <androidx.appcompat.widget.AppCompatTextView
+
+
+            <TextView
                 android:id="@+id/doctorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profilePictureCard"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="left"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="Dr. Tonmoy"
                 android:textColor="@color/black"
-                android:textSize="11.5sp"
-                android:textStyle="bold" />
+                android:textSize="12.5sp"
+                android:textStyle="bold">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            </TextView>
+
+            <TextView
                 android:id="@+id/doctorDegree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorName"
+                android:layout_gravity="left"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="MBBS"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textColor="#666666"
+                android:textSize="11.5sp"
+                android:textStyle="bold">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            </TextView>
+
+            <ImageView
+                android:id="@+id/ratingStar"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@+id/profilePictureCard"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/star">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profilePictureCard"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/ratingStar"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
                 android:id="@+id/doctorSpecialties"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorDegree"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="General Physician"
-                android:textSize="10sp"
-                android:textStyle="bold" />
+                android:textColor="#4F5FDE"
+                android:textSize="11.5sp">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ratingStar"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_below="@+id/doctorSpecialties"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/star">
+            </TextView>
 
-            </androidx.appcompat.widget.AppCompatImageView>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/doctorRating"
+            <TextView
+                android:id="@+id/workinginText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/doctorSpecialties"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@+id/ratingStar"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="4.6"
+                android:text="Working in"
+                android:textColor="#666666"
+                android:textSize="11.5sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/currentlyWorking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/workinginText"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/profilePictureCard"
+                android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold">
 
-            </androidx.appcompat.widget.AppCompatTextView>
+            </TextView>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amounticon"
+            <TextView
+                android:id="@+id/availableforText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ratingStar"
-                android:layout_centerVertical="true"
+                android:layout_below="@+id/currentlyWorking"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:fontFamily="@font/rubik"
-                android:text="\u09F3"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ratingStar"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="2dp"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/amounticon"
-                android:fontFamily="@font/helveticaneue"
-                android:text="210"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amountDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ratingStar"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/amount"
+                android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:text="(Incl. VAT)"
-                android:textSize="12sp" />
+                android:text="Available for"
+                android:textColor="#666666"
+                android:textSize="11.5sp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/takeConsultation"
-                style="@style/Widget.Material3.CardView.Outlined"
-                android:layout_width="150dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/profilePictureCard"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="120dp"
+            </TextView>
+
+            <TextView
+                android:id="@+id/availableforText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/availableforText"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@id/profilePictureCard"
+                android:fontFamily="@font/rubik"
+                android:text="Instant Video Call"
+                android:textColor="@color/green_shade_1"
+                android:textSize="13sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ratingStar"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bar"
                 android:layout_marginBottom="5dp"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="1dp"
-                app:strokeColor="#DDDDDD"
-                app:strokeWidth="1dp">
+                android:background="#ffff">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/amounticon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/rubik"
+                    android:text="\u09F3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/videoCallIcon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/go" />
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/amounticon"
+                    android:fontFamily="@font/rubik"
+                    android:text="210"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_centerHorizontal="true"
-                        android:fontFamily="@font/roboto"
-                        android:padding="2dp"
-                        android:text="Check out"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold">
+                <TextView
+                    android:id="@+id/amountDescription"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/amount"
+                    android:fontFamily="@font/roboto"
+                    android:textAlignment="textStart"
+                    android:text="(Incl. VAT) per consultation)"
+                    android:textSize="13sp" />
 
-                    </androidx.appcompat.widget.AppCompatTextView>
-                </RelativeLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/currentlyWorkingCard"
+                    style="@style/Widget.Material3.CardView.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentEnd="true"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="#C2C2C2"
+                    app:strokeWidth="1dp">
 
-            </com.google.android.material.card.MaterialCardView>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/videoCallIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:src="@drawable/go" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10sp"
+                            android:layout_toEndOf="@id/videoCallIcon"
+                            android:fontFamily="@font/roboto"
+                            android:padding="6dp"
+                            android:text="Checkout"
+                            android:textSize="13sp"
+                            android:textStyle="bold">
+
+                        </TextView>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
         </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
 
 </LinearLayout>

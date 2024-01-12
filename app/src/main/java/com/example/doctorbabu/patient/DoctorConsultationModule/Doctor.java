@@ -261,7 +261,6 @@ public class Doctor extends Fragment {
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
         hasPressed = false;
         super.onResume();
-
     }
 
     @Override

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.doctor.DoctorDashboard;
 import com.example.doctorbabu.doctor.DoctorLogin;
-import com.example.doctorbabu.patient.DoctorConsultationModule.Dashboard;
+import com.example.doctorbabu.patient.DoctorConsultationModule.PatientBottomBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -35,7 +35,7 @@ public class LoginOptions extends AppCompatActivity {
             SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
             String login = preferences.getString("loginAs", "");
             if (login.equals("patient")) {
-                Intent intent = new Intent(LoginOptions.this, Dashboard.class);
+                Intent intent = new Intent(LoginOptions.this, PatientBottomBar.class);
                 startActivity(intent);
                 finish();
             }

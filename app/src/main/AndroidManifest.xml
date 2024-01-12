@@ -126,7 +126,7 @@
             android:name=".patient.PatientProfileModule.EditProfile"
             android:exported="false" />
         <activity
-            android:name=".patient.DoctorConsultationModule.Dashboard"
+            android:name=".patient.DoctorConsultationModule.PatientBottomBar"
             android:exported="false" />
         <activity
             android:name=".patient.AuthenticationModule.SignUp"

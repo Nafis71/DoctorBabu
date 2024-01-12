@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.patient.DoctorConsultationModule.SpecificDoctorInfo;
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -55,22 +62,51 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
             activity.startActivity(intent);
             activity.finish();
         });
+        getWorkingData(dbmodel,holder);
+        if(dbmodel.getOnlineStatus() == 1){
+            holder.onlineStatus.setText("Online");
+        } else {
+            holder.onlineStatus.setText("Offline");
+            holder.onlineCard.setCardBackgroundColor(Color.parseColor("#CD6155"));
+        }
 
+    }
+
+    public void getWorkingData(doctorInfoModel dbmodel,myViewHolder holder){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorCurrentlyWorking");
+        reference.child(dbmodel.getDoctorId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    holder.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicture;
-        TextView doctorName, doctorSpecialties, doctorDegree, doctorRating;
-        CardView takeConsultation;
+        TextView doctorName, doctorSpecialties, doctorDegree, doctorRating,currentlyWorking,onlineStatus;
+        LinearLayout takeConsultation;
+        MaterialCardView onlineCard;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicture = itemView.findViewById(R.id.profilePicture);
             doctorName = itemView.findViewById(R.id.doctorName);
             doctorSpecialties = itemView.findViewById(R.id.doctorSpecialties);
-            doctorRating = itemView.findViewById(R.id.doctorRating);
+            doctorRating = itemView.findViewById(R.id.rating);
             doctorDegree = itemView.findViewById(R.id.doctorDegree);
-            takeConsultation = itemView.findViewById(R.id.takeConsultation);
+            takeConsultation = itemView.findViewById(R.id.card);
+            currentlyWorking  = itemView.findViewById(R.id.currentlyWorking);
+            onlineStatus = itemView.findViewById(R.id.onlineStatus);
+            onlineCard = itemView.findViewById(R.id.onlineCard);
         }
     }
 

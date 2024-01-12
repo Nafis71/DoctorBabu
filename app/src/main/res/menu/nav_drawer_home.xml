@@ -66,6 +66,12 @@
             android:icon="@drawable/languages"
             >
         </item>
+        <item
+            android:id="@+id/navFavouriteDoctor"
+            android:title="Favourite Doctor"
+            android:icon="@drawable/blanklove"
+            >
+        </item>
 
     </group>
 

@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.doctorbabu.Adapters.doctorSearchAdapter;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -77,11 +79,9 @@ public class ViewAllDoctor extends AppCompatActivity {
         } else {
             loadSpecificSpecialistDoctor(reference);
         }
-
-
     }
     protected void loadAllDoctor(DatabaseReference loadAllDataReference){
-        binding.doctorRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.doctorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         adapter = new viewAllDoctorAdapter(this, doctors);
         binding.doctorRecyclerView.setAdapter(adapter);
         loadAllDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,6 +95,7 @@ public class ViewAllDoctor extends AppCompatActivity {
                         doctorInfoModel model = snap.getValue(doctorInfoModel.class);
                         doctors.add(model);
                     }
+                    Collections.shuffle(doctors);
                     adapter.notifyDataSetChanged();
                     binding.doctorRecyclerView.hideShimmer();
                     binding.progressBar.setVisibility(View.GONE);
@@ -108,6 +109,9 @@ public class ViewAllDoctor extends AppCompatActivity {
         });
     }
     protected void loadSpecificSpecialistDoctor(DatabaseReference specificSpecialistReference){
+        binding.doctorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        adapter = new viewAllDoctorAdapter(this, doctors);
+        binding.doctorRecyclerView.setAdapter(adapter);
         specificSpecialistReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

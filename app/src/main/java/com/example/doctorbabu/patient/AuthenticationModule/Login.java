@@ -28,7 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.DoctorConsultationModule.Dashboard;
+import com.example.doctorbabu.patient.DoctorConsultationModule.PatientBottomBar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -250,7 +250,7 @@ public class Login extends AppCompatActivity {
                                                 if (user.isEmailVerified()) {
                                                     storeLoginInfo();
                                                     progressBar.setVisibility(View.GONE);
-                                                    Intent intent = new Intent(Login.this, Dashboard.class);
+                                                    Intent intent = new Intent(Login.this, PatientBottomBar.class);
                                                     startActivity(intent);
                                                     finish();
                                                 } else {
