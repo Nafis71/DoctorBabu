@@ -235,7 +235,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/amount"
+                    android:id="@+id/consultationFee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -252,7 +252,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/amount"
+                    android:layout_toEndOf="@+id/consultationFee"
                     android:fontFamily="@font/roboto"
                     android:textAlignment="textStart"
                     android:text="(Incl. VAT) per consultation)"

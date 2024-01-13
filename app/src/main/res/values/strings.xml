@@ -1,4 +1,11 @@
 <resources>
+
+    <string-array name="consultationFees">
+        <item>100</item>
+        <item>3000</item>
+    </string-array>
+
+
     <string name="app_name">Doctor Babu</string>
     <string name="custom_dialog_email_verification">Please verify your email address!</string>
     <string name="custom_dialog_email_sent">An email has been sent to your mail</string>

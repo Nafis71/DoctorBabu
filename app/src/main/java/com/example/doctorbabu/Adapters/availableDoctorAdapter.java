@@ -35,7 +35,6 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     Context context;
     ArrayList<doctorInfoModel> model;
     String userId;
-    Bitmap avatar;
     StringBuilder stringBuilder = new StringBuilder();
 
     public availableDoctorAdapter(Context context, ArrayList<doctorInfoModel> model, String userId) {
@@ -60,6 +59,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
         holder.doctordegree.setText(dbModel.getDegrees());
         holder.rating.setText(String.valueOf(dbModel.getRating()));
         holder.doctorSpecialties.setText(dbModel.getSpecialty());
+        holder.consultationFee.setText(dbModel.getConsultationFee());
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
         DatabaseReference currentlyWorkingReference = database.getReference("doctorCurrentlyWorking");
         currentlyWorkingReference.child(dbModel.getDoctorId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -111,7 +111,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
     public static class myViewHolder extends RecyclerView.ViewHolder {
         LinearLayout card;
         ImageView profilePicture;
-        TextView doctorName, doctordegree, rating, doctorSpecialties, currentlyWorking;
+        TextView doctorName, doctordegree, rating, doctorSpecialties, currentlyWorking,consultationFee;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -121,6 +121,7 @@ public class availableDoctorAdapter extends RecyclerView.Adapter<availableDoctor
             rating = itemView.findViewById(R.id.rating);
             doctorSpecialties = itemView.findViewById(R.id.doctorSpecialties);
             currentlyWorking = itemView.findViewById(R.id.currentlyWorking);
+            consultationFee = itemView.findViewById(R.id.consultationFee);
             card = itemView.findViewById(R.id.card);
         }
     }

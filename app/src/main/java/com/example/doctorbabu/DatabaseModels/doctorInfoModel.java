@@ -1,9 +1,13 @@
 package com.example.doctorbabu.DatabaseModels;
 
 public class doctorInfoModel {
-    String area, bmdc, dateofBirth, district, doctorId, doctorType, email, fullName, gender, nid, photoUrl, title, uId, currentlyWorking, workingExperience, degrees, specialty;
+    String area, bmdc, dateofBirth, district, doctorId, doctorType, email, fullName, gender, nid, photoUrl, title, uId, currentlyWorking, workingExperience, degrees, specialty,consultationFee;
     int onlineStatus;
     float rating;
+
+    public String getConsultationFee() {
+        return consultationFee;
+    }
 
     private doctorInfoModel() {
     }

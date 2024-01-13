@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:maxHeight="800dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bottom_sheet_design"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:id="@+id/bottomSheetDragger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/consultationFeeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bottomSheetDragger"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/consultationFeeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Set Consultation Fee"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/consultationFeeRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/consultationFeeHeader"
+            android:stepSize="1"
+            android:valueFrom="100"
+            android:valueTo="3000"
+            app:values="@array/consultationFees">
+
+        </com.google.android.material.slider.RangeSlider>
+
+        <TextView
+            android:id="@+id/rangeMinAmountHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consultationFeeRange"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Min: "
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/rangeMinAmountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consultationFeeRange"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@+id/rangeMinAmountHeader"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="\u09F3"
+            android:textColor="@color/blue"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/rangeMinAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consultationFeeRange"
+            android:layout_marginStart="0dp"
+            android:layout_toEndOf="@+id/rangeMinAmountIcon"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="100"
+            android:textColor="@color/blue"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/rangeMaxAmountHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consultationFeeRange"
+            android:layout_marginStart="5dp"
+            android:layout_toStartOf="@+id/rangeMaxAmountIcon"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Max: "
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/rangeMaxAmountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consultationFeeRange"
+            android:layout_marginStart="2dp"
+            android:layout_toStartOf="@+id/rangeMaxAmount"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="\u09F3"
+            android:textColor="@color/blue"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/rangeMaxAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consultationFeeRange"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="3000"
+            android:textColor="@color/blue"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/doctorTitleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/consultationFeeLayout"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/doctorTitleHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Set Doctor's Title"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doctorTitleHeader"
+            android:fontFamily="@font/roboto"
+            android:text="Doctor"
+            android:textSize="13sp">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/assistantDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doctor"
+            android:fontFamily="@font/roboto"
+            android:text="Assistant Doctor"
+            android:textSize="13sp">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/assistantProfessorDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/assistantDoctor"
+            android:fontFamily="@font/roboto"
+            android:text="Assistant Professor"
+            android:textSize="13sp">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/professorDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/assistantProfessorDoctor"
+            android:fontFamily="@font/roboto"
+            android:text="Professor"
+            android:textSize="13sp">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/doctorTitleLayout"
+        android:layout_marginTop="10dp"
+        android:id="@+id/genderLayout">
+        <TextView
+            android:id="@+id/doctorGenderHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Set Doctor's Gender"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <RadioGroup
+            android:id="@+id/radioGroupLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doctorGenderHeader"
+            >
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/maleRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:fontFamily="@font/roboto"
+                android:textSize="13sp">
+
+            </com.google.android.material.radiobutton.MaterialRadioButton>
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/femaleRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:fontFamily="@font/roboto"
+                android:textSize="13sp">
+
+            </com.google.android.material.radiobutton.MaterialRadioButton>
+        </RadioGroup>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/ratingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/genderLayout"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/doctorRatingHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Set Rating"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doctorRatingHeader"
+            android:layout_marginTop="10dp"
+            android:stepSize="0.5"
+            android:visibility="visible" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/applyFilter"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@+id/ratingBar"
+            android:layout_marginStart="58dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="58dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Apply"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:backgroundTint="#3C4DD8"
+            app:cornerRadius="12dp"
+            app:elevation="500dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+    </RelativeLayout>
+
+</RelativeLayout>

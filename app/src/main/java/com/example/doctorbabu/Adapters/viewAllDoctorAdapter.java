@@ -55,6 +55,7 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
         holder.doctorDegree.setText(dbmodel.getDegrees());
         holder.doctorSpecialties.setText(dbmodel.getSpecialty());
         holder.doctorRating.setText(String.valueOf(dbmodel.getRating()));
+        holder.consultationFee.setText(String.valueOf(dbmodel.getConsultationFee()));
         holder.takeConsultation.setOnClickListener(view -> {
             AppCompatActivity activity = (AppCompatActivity) context;
             Intent intent = new Intent(activity, SpecificDoctorInfo.class);
@@ -92,7 +93,7 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicture;
-        TextView doctorName, doctorSpecialties, doctorDegree, doctorRating,currentlyWorking,onlineStatus,workingPost;
+        TextView doctorName, doctorSpecialties, doctorDegree, doctorRating,currentlyWorking,onlineStatus,workingPost,consultationFee;
         LinearLayout takeConsultation;
         MaterialCardView onlineCard;
 
@@ -108,6 +109,7 @@ public class viewAllDoctorAdapter extends RecyclerView.Adapter<viewAllDoctorAdap
             onlineStatus = itemView.findViewById(R.id.onlineStatus);
             onlineCard = itemView.findViewById(R.id.onlineCard);
             workingPost = itemView.findViewById(R.id.workingPost);
+            consultationFee = itemView.findViewById(R.id.consultationFee);
         }
     }
 

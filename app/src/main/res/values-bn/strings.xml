@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="consultationFees">
+        <item>100</item>
+        <item>3000</item>
+    </string-array>
     <string name="app_name">ডাক্তার বাবু</string>
     <string name="custom_dialog_email_verification">আপনার ইমেল ঠিকানা যাচাই করুন!</string>
     <string name="custom_dialog_email_sent">আপনার মেইলে একটি ইমেল পাঠানো হয়েছে</string>
