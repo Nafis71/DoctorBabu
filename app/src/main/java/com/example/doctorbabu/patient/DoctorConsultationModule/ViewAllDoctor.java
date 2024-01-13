@@ -504,6 +504,8 @@ public class ViewAllDoctor extends AppCompatActivity {
         super.onDestroy();
         binding = null;
         allDoctorLoadExecutor.shutdown();
+        searchDoctor.shutdown();
+        filterExecutor.shutdown();
     }
 
     public void onBackPressed() {

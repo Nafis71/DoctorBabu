@@ -106,6 +106,14 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
         closeLoadingScreen();
+        binding.appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SpecificDoctorInfo.this, BookAppointment.class);
+                intent.putExtra("doctorId",doctorId);
+                startActivity(intent);
+            }
+        });
     }
 
     public void loadingScreen() {
