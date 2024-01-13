@@ -159,6 +159,8 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:shimmer_recycler_item_count="6"
         app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

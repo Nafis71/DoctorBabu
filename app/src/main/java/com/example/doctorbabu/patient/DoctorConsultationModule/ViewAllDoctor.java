@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -26,6 +27,7 @@ import com.example.doctorbabu.databinding.ActivityViewAllDoctorBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.google.firebase.database.DataSnapshot;
@@ -144,15 +146,15 @@ public class ViewAllDoctor extends AppCompatActivity {
                 for (doctorInfoModel doctor : doctors) {
                     if (Integer.parseInt(doctor.getConsultationFee()) >= consultationMinAmount && Integer.parseInt(doctor.getConsultationFee()) <= consultationMaxAmount) {
                         if (!doctorTitle.isEmpty()) {
-                            if(doctorTitle.contains(doctor.getTitle())){
+                            if (doctorTitle.contains(doctor.getTitle())) {
                                 if (!gender.isEmpty()) {
-                                    if(doctor.getGender().equalsIgnoreCase(gender)){
+                                    if (doctor.getGender().equalsIgnoreCase(gender)) {
                                         if (doctor.getRating() >= rating) {
                                             filteredList.add(doctor);
                                             count++;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (doctor.getRating() >= rating) {
                                         filteredList.add(doctor);
                                         count++;
@@ -161,7 +163,7 @@ public class ViewAllDoctor extends AppCompatActivity {
                             }
                         } else {
                             if (!gender.isEmpty()) {
-                                if(doctor.getGender().equalsIgnoreCase(gender)){
+                                if (doctor.getGender().equalsIgnoreCase(gender)) {
                                     if (doctor.getRating() >= rating) {
                                         filteredList.add(doctor);
                                         count++;
@@ -184,6 +186,17 @@ public class ViewAllDoctor extends AppCompatActivity {
                         binding.progressBar.setVisibility(View.GONE);
                         binding.doctorRecyclerView.hideShimmer();
                         binding.doctorRecyclerView.setVisibility(View.GONE);
+                        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(ViewAllDoctor.this);
+                        dialog.setTitle("No doctors found!").setIcon(R.drawable.cross)
+                                .setMessage("No doctor is currently matching your criteria, try again.")
+                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        binding.doctorRecyclerView.setVisibility(View.VISIBLE);
+                                        loadData();
+                                    }
+                                }).setCancelable(false);
+                        dialog.create().show();
                     }, 200);
 
                 } else {
@@ -192,6 +205,7 @@ public class ViewAllDoctor extends AppCompatActivity {
                         binding.doctorRecyclerView.setAdapter(adapter);
                         binding.doctorRecyclerView.hideShimmer();
                         binding.progressBar.setVisibility(View.GONE);
+                        binding.doctorRecyclerView.setVisibility(View.VISIBLE);
                         binding.doctorCount.setText(String.valueOf(finalCount));
                     }, 1000);
                 }
@@ -204,10 +218,10 @@ public class ViewAllDoctor extends AppCompatActivity {
             if (doctorTitle.contains("Dr.")) {
                 doctor.setChecked(true);
             }
-            if (doctorTitle.contains("Asst.")) {
+            if (doctorTitle.contains("Asst. Dr.")) {
                 assistantDoctor.setChecked(true);
             }
-            if (doctorTitle.contains("Asst. Prof.")) {
+            if (doctorTitle.contains("Asst. Prof. Dr.")) {
                 assistantProfessorDoctor.setChecked(true);
             }
             if (doctorTitle.contains("Prof. Dr.")) {
@@ -231,9 +245,9 @@ public class ViewAllDoctor extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    doctorTitle.add("Asst.");
+                    doctorTitle.add("Asst. Dr.");
                 } else {
-                    doctorTitle.remove("Asst.");
+                    doctorTitle.remove("Asst. Dr.");
                 }
             }
         });
@@ -241,9 +255,9 @@ public class ViewAllDoctor extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    doctorTitle.add("Asst. Prof.");
+                    doctorTitle.add("Asst. Prof. Dr.");
                 } else {
-                    doctorTitle.remove("Asst. Prof.");
+                    doctorTitle.remove("Asst. Prof. Dr.");
                 }
             }
         });
@@ -386,6 +400,17 @@ public class ViewAllDoctor extends AppCompatActivity {
                 binding.progressBar.setVisibility(View.GONE);
                 binding.doctorRecyclerView.hideShimmer();
                 binding.doctorRecyclerView.setVisibility(View.GONE);
+                MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(ViewAllDoctor.this);
+                dialog.setTitle("No doctors found!").setIcon(R.drawable.cross)
+                        .setMessage("No doctor is currently matching your criteria, try again.")
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                binding.doctorRecyclerView.setVisibility(View.VISIBLE);
+                                loadData();
+                            }
+                        }).setCancelable(false);
+                dialog.create().show();
             }, 200);
 
         } else {
