@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -86,6 +87,7 @@ public class CheckoutDoctor extends AppCompatActivity {
         binding.doctorDegree.setText(doctorDegree);
         binding.doctorSpecialties.setText(doctorSpecialty);
         binding.currentlyWorking.setText(doctorCurrentlyWorking);
+
         binding.amount.setText(consultationFee);
         double vat = Double.parseDouble(consultationFee) * 0.05;
         binding.vatAmount.setText(String.valueOf(Math.round(vat)));

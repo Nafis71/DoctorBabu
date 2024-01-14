@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivitySpecificDoctorInfoBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -46,6 +48,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
     ExecutorService favouriteRecordExecutor,doctorDataExecutor,doctorExperienceExecutor,getFavouriteDoctorStatus;
     boolean toggleButton;
     Dialog dialog;
+    String onlineStatus,currentlyWorking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,17 +90,22 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         binding.videoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SpecificDoctorInfo.this, CheckoutDoctor.class);
-                intent.putExtra("doctorId", doctorId);
-                intent.putExtra("doctorTitle", model.getTitle());
-                String doctorName = model.getTitle() + model.getFullName();
-                intent.putExtra("doctorName", doctorName);
-                intent.putExtra("doctorDegree", model.getDegrees());
-                intent.putExtra("doctorSpecialty", model.getSpecialty());
-                intent.putExtra("doctorCurrentlyWorking", model.getCurrentlyWorking());
-                intent.putExtra("photoUrl", model.getPhotoUrl());
-                intent.putExtra("consultationFee", model.getConsultationFee());
-                startActivity(intent);
+                if(Integer.parseInt(onlineStatus) == 1){
+                    Intent intent = new Intent(SpecificDoctorInfo.this, CheckoutDoctor.class);
+                    intent.putExtra("doctorId", doctorId);
+                    intent.putExtra("doctorTitle", model.getTitle());
+                    String doctorName = model.getTitle() + model.getFullName();
+                    intent.putExtra("doctorName", doctorName);
+                    intent.putExtra("doctorDegree", model.getDegrees());
+                    intent.putExtra("doctorSpecialty", model.getSpecialty());
+                    intent.putExtra("doctorCurrentlyWorking", currentlyWorking);
+                    intent.putExtra("photoUrl", model.getPhotoUrl());
+                    intent.putExtra("consultationFee", model.getConsultationFee());
+                    startActivity(intent);
+                } else {
+                    errorMessage("Offline","We can't establish a video call due to doctor's unavailability");
+                }
+
             }
         });
         binding.goback.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +144,18 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         }, 1000);
     }
 
+    public void errorMessage(String title, String message) {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(SpecificDoctorInfo.this);
+        dialog.setTitle(title).setIcon(R.drawable.cross)
+                .setMessage(message)
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-
+                    }
+                }).setCancelable(false);
+        dialog.create().show();
+    }
     public void recordFavourite(){
         binding.outlinedLove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,8 +202,8 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String status = String.valueOf(snapshot.getValue());
-                    if (Integer.parseInt(status) != 0) {
+                    onlineStatus = String.valueOf(snapshot.getValue());
+                    if (Integer.parseInt(onlineStatus) != 0) {
                         binding.onlineStatusBanner.setVisibility(View.VISIBLE);
                         binding.onlineStatus.setVisibility(View.VISIBLE);
                         binding.offlineStatusBanner.setVisibility(View.GONE);
@@ -252,6 +270,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     if (!String.valueOf(snapshot.child("joiningDate").getValue()).equals("null")) {
+                        currentlyWorking = String.valueOf(snapshot.child("hospitalName").getValue());
                         binding.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
                         String date = String.valueOf(snapshot.child("joiningDate").getValue());
                         String[] splitText = date.split("/");
