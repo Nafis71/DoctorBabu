@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/doctor_appointment_background_layout">
+
+    <RelativeLayout
+        android:id="@+id/patientDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:cardBackgroundColor="#EDF6FD">
+
+        <TextView
+            android:id="@+id/patientNameHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Patient Name :"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/patientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/patientNameHeader"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Nafis Hasan Tonmoy"
+            android:textColor="@color/black"
+            android:textSize="13sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/appointmentTimeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/patientNameHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Appointment Time :"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/appointmentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/patientNameHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/appointmentTimeHeader"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="10:48 PM"
+            android:textColor="@color/black"
+            android:textSize="13sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/appointmentDateHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appointmentTimeHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="Appointment Date :"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/appointmentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appointmentTime"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/appointmentDateHeader"
+            android:fontFamily="@font/roboto"
+            android:padding="2dp"
+            android:text="12/1/2001"
+            android:textColor="@color/black"
+            android:textSize="13sp">
+
+        </TextView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10sp"
+            android:shadowColor="@color/black_shade_1"
+            android:text="Cancel"
+            android:textColor="#4F5FDE"
+            android:textSize="12sp"
+            app:cornerRadius="18dp" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

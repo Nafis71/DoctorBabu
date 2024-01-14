@@ -31,7 +31,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
 
     Context context;
     ArrayList<PendingAppointmentModel> model;
-    String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl;
+    String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl,consultationFee;
     Firebase firebase;
 
     public PendingAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model) {
@@ -67,6 +67,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                     doctorFullName = String.valueOf(snapshot.child("fullName").getValue());
                     doctorDegree = String.valueOf(snapshot.child("degrees").getValue());
                     doctorSpecialty = String.valueOf(snapshot.child("specialty").getValue());
+                    consultationFee = String.valueOf(snapshot.child("consultationFee").getValue());
                     getCurrentlyWorkingData(dbModel, holder);
                     holder.doctorName.setText(doctorTitle + doctorFullName);
                     getAppointmentData(holder, dbModel);
@@ -104,7 +105,9 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                                     intent.putExtra("doctorSpecialty", doctorSpecialty);
                                     intent.putExtra("doctorCurrentlyWorking", doctorCurrentlyWorking);
                                     intent.putExtra("photoUrl", photoUrl);
+                                    intent.putExtra("consultationFee",consultationFee);
                                     activity.startActivity(intent);
+                                    activity.finish();
                                 }
                             });
                         }
