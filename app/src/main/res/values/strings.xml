@@ -4,7 +4,8 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
-
+    <string name="hospitalListHeader">Emergency Hospital Finder</string>
+    <string name="hospitalListDescription">Find hospital which has emergency ward</string>
     <string name="nav_appointment">Appointments</string>
     <string name="app_name">Doctor Babu</string>
     <string name="custom_dialog_email_verification">Please verify your email address!</string>

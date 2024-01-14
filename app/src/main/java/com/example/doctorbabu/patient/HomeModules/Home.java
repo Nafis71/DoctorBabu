@@ -1,13 +1,23 @@
 package com.example.doctorbabu.patient.HomeModules;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +26,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -28,13 +40,29 @@ import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
 import com.example.doctorbabu.patient.DiagnoseReportUploadModule.DiagnosisReportUploadList;
+import com.example.doctorbabu.patient.DoctorConsultationModule.BookAppointment;
 import com.example.doctorbabu.patient.DoctorConsultationModule.DiagnosisTerms;
 import com.example.doctorbabu.patient.DoctorConsultationModule.ViewAllDoctor;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.Cart;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.MedicineShop;
 import com.example.doctorbabu.patient.PatientProfileModule.EditProfile;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,7 +76,10 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.thekhaeng.pushdownanim.PushDownAnim;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -66,6 +97,9 @@ public class Home extends Fragment {
     FragmentHomeBinding binding;
     Firebase firebase;
     ActionBarDrawerToggle toggle;
+    FusedLocationProviderClient locationProviderClient;
+    Dialog dialog;
+    List<Address> addresses;
 
     public Home() {
     }
@@ -84,6 +118,7 @@ public class Home extends Fragment {
         animationExecutor = Executors.newSingleThreadExecutor();
         drawerExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         firebaseExecutor.execute(this::firebaseAuth);
         PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
@@ -180,6 +215,55 @@ public class Home extends Fragment {
                 callCart();
             }
         });
+        binding.hospitalListCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findNearbyEmergencyHospital();
+            }
+        });
+    }
+
+    public void findNearbyEmergencyHospital(){
+        if(ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            locationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if(location != null){
+                        Geocoder geo = new Geocoder(requireActivity(), Locale.getDefault());
+                        try {
+                            addresses = geo.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                            assert addresses != null;
+                            String latitude = String.valueOf(addresses.get(0).getLatitude());
+                            String longitude = String.valueOf(addresses.get(0).getLongitude());
+                            Uri gmmIntentUri = Uri.parse("geo:"+latitude+","+longitude+"?z=10&q=emergency hospitals");
+                            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                            mapIntent.setPackage("com.google.android.apps.maps");
+                            if(mapIntent.resolveActivity(requireActivity().getPackageManager())!=null){
+                                startActivity(mapIntent);
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }else{
+                        errorMessage("Location Not Found","Please turn on location and wait");
+                    }
+                }
+            });
+        }
+    }
+
+    public void errorMessage(String title, String message) {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(requireActivity());
+        dialog.setTitle(title).setIcon(R.drawable.cross)
+                .setMessage(message)
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setCancelable(false);
+        dialog.create().show();
     }
 
     public void firebaseAuth() {

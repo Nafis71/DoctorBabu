@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     TextView text1, text2;
     String language;
     int requestCode = 1;
-    String[] permissions = new String[]{android.Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.POST_NOTIFICATIONS};
+    String[] permissions = new String[]{android.Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.POST_NOTIFICATIONS,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
 
     public void onStart() {
         super.onStart();

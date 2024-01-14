@@ -6,6 +6,8 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -32,6 +34,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".patient.HomeModules.EmergencyHospital"
+            android:exported="false" />
         <activity
             android:name=".doctor.DoctorAppointments"
             android:exported="false" />
