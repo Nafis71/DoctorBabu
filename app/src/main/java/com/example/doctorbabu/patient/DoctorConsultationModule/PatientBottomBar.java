@@ -125,7 +125,7 @@ public class PatientBottomBar extends AppCompatActivity {
     public void loadFragment(Fragment fragment, String tag) {
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction().addToBackStack(tag);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.replace(R.id.container, fragment);
         ft.commit();
     }

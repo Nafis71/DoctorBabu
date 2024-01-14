@@ -13,19 +13,20 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.databinding.ActivityCheckoutBinding;
+import com.example.doctorbabu.databinding.ActivityCheckoutDoctorBinding;
 
 public class CheckoutDoctor extends AppCompatActivity {
-    TextView doctorNameView, doctorDegreeView, doctorSpecialtiesView, currentlyWorkingView;
-    ImageView profilePicture, goBack;
-    CardView bkash, nagad;
-    String doctorId, doctorTitle, doctorName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl;
+    String doctorId, doctorTitle, doctorName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl,consultationFee;
     String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
     int requestCode = 1;
+    ActivityCheckoutDoctorBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkout_doctor);
+        binding = ActivityCheckoutDoctorBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         doctorId = getIntent().getStringExtra("doctorId");
         doctorTitle = getIntent().getStringExtra("doctorTitle");
         doctorName = getIntent().getStringExtra("doctorName");
@@ -33,10 +34,10 @@ public class CheckoutDoctor extends AppCompatActivity {
         doctorSpecialty = getIntent().getStringExtra("doctorSpecialty");
         doctorCurrentlyWorking = getIntent().getStringExtra("doctorCurrentlyWorking");
         photoUrl = getIntent().getStringExtra("photoUrl");
-        viewBinding();
+        consultationFee = getIntent().getStringExtra("consultationFee");
         loadData();
-        goBack.setOnClickListener(view -> finish());
-        bkash.setOnClickListener(view -> {
+        binding.back.setOnClickListener(view -> finish());
+        binding.bkash.setOnClickListener(view -> {
             if (isPermissionGranted()) {
                 Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
                 intent.putExtra("doctorId", doctorId);
@@ -50,7 +51,7 @@ public class CheckoutDoctor extends AppCompatActivity {
             }
 
         });
-        nagad.setOnClickListener(view -> {
+        binding.nagad.setOnClickListener(view -> {
             if (isPermissionGranted()) {
                 Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
                 intent.putExtra("doctorId", doctorId);
@@ -64,18 +65,6 @@ public class CheckoutDoctor extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    private void viewBinding() {
-        doctorNameView = findViewById(R.id.doctorName);
-        doctorDegreeView = findViewById(R.id.doctorDegree);
-        doctorSpecialtiesView = findViewById(R.id.doctorSpecialties);
-        currentlyWorkingView = findViewById(R.id.currentlyWorking);
-        profilePicture = findViewById(R.id.profilePicture);
-        goBack = findViewById(R.id.back);
-        bkash = findViewById(R.id.bkash);
-        nagad = findViewById(R.id.nagad);
     }
 
     private void askPermission() {
@@ -93,10 +82,15 @@ public class CheckoutDoctor extends AppCompatActivity {
 
     private void loadData() {
         String name = doctorTitle + doctorName;
-        doctorNameView.setText(name);
-        doctorDegreeView.setText(doctorDegree);
-        doctorSpecialtiesView.setText(doctorSpecialty);
-        currentlyWorkingView.setText(doctorCurrentlyWorking);
-        Glide.with(this).load(photoUrl).into(profilePicture);
+        binding.doctorName.setText(name);
+        binding.doctorDegree.setText(doctorDegree);
+        binding.doctorSpecialties.setText(doctorSpecialty);
+        binding.currentlyWorking.setText(doctorCurrentlyWorking);
+        binding.amount.setText(consultationFee);
+        double vat = Double.parseDouble(consultationFee) * 0.05;
+        binding.vatAmount.setText(String.valueOf(Math.round(vat)));
+        double totalAmount = vat + Double.parseDouble(consultationFee);
+        binding.totalAmount.setText(String.valueOf(Math.round(totalAmount)));
+        Glide.with(this).load(photoUrl).into(binding.profilePicture);
     }
 }

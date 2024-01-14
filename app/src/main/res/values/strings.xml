@@ -5,7 +5,7 @@
         <item>3000</item>
     </string-array>
 
-
+    <string name="nav_appointment">Appointments</string>
     <string name="app_name">Doctor Babu</string>
     <string name="custom_dialog_email_verification">Please verify your email address!</string>
     <string name="custom_dialog_email_sent">An email has been sent to your mail</string>
@@ -200,6 +200,8 @@
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

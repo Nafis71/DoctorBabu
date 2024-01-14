@@ -96,6 +96,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 intent.putExtra("doctorSpecialty", model.getSpecialty());
                 intent.putExtra("doctorCurrentlyWorking", model.getCurrentlyWorking());
                 intent.putExtra("photoUrl", model.getPhotoUrl());
+                intent.putExtra("consultationFee", model.getConsultationFee());
                 startActivity(intent);
             }
         });
@@ -139,7 +140,6 @@ public class SpecificDoctorInfo extends AppCompatActivity {
 
     public void recordFavourite(){
         binding.outlinedLove.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
 
@@ -169,6 +169,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                     binding.doctorSpecialties.setText(model.getSpecialty());
                     binding.rating.setText(String.valueOf(model.getRating()));
                     binding.bmdc.setText(model.getBmdc());
+                    binding.consultationFee.setText(model.getConsultationFee());
                     Glide.with(SpecificDoctorInfo.this).load(model.getPhotoUrl()).into(binding.profilePicture);
                 }
             }

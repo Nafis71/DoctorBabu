@@ -13,8 +13,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F7F9F9">
+            android:layout_height="40dp"
+            >
 
             <ImageView
                 android:id="@+id/back"
@@ -22,7 +22,8 @@
                 android:layout_height="25dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/goback" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/back2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@id/back"
                 android:fontFamily="@font/rubik"
+                android:layout_centerVertical="true"
                 android:text="@string/overview"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -39,7 +41,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F7F9F9">
+            >
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profilePicture"
@@ -251,10 +253,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bar"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="330dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto"
+                    android:layout_toStartOf="@+id/amount"
                     android:text="\u09F3"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -265,8 +266,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bar"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/moneySign"
+                    android:layout_alignParentEnd="true"
                     android:fontFamily="@font/roboto"
                     android:text="200"
                     android:textColor="@color/black"
@@ -288,8 +290,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/moneySign"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="330dp"
+                    android:layout_toStartOf="@+id/vatAmount"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto"
                     android:text="\u09F3"
@@ -303,7 +304,8 @@
                     android:layout_below="@+id/moneySign"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/moneySign2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/roboto"
                     android:text="10"
                     android:textColor="@color/black"
@@ -336,8 +338,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bar2"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="330dp"
+                    android:layout_toStartOf="@+id/totalAmount"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto"
                     android:text="\u09F3"
@@ -345,12 +346,14 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/totalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bar2"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/moneySign3"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/roboto"
                     android:text="210"
                     android:textColor="@color/black"

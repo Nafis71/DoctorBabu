@@ -334,7 +334,6 @@ public class BookAppointment extends AppCompatActivity {
                     String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
                     String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
                     String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
-                    String formattedCurrentDate = currentYear + "-" + currentMonth + "-" + currentDay;
                     year = date.getYear();
                     month = date.getMonth();
                     day = date.getDay();

@@ -30,11 +30,14 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DoctorDashboard extends AppCompatActivity {
     private static final String CHANNEL_ID = "Call Channel";
     private static final int NOTIFICATION_ID = 100;
     String doctorId, callerId, callerName, callerPicture;
+    ExecutorService callerNotification;
     ChipNavigationBar bottomNavigation;
     FragmentManager fm;
     Bitmap image;
@@ -45,8 +48,14 @@ public class DoctorDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_dashboard);
+        callerNotification = Executors.newSingleThreadExecutor();
         loadDoctorid();
-        loadCallerId();
+        callerNotification.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadCallerId();
+            }
+        });
         bottomNavigation = findViewById(R.id.bottomBar);
         bottomNavigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
@@ -56,8 +65,8 @@ public class DoctorDashboard extends AppCompatActivity {
 
                 } else if (id == R.id.nav_call) {
                     loadFragment(new DoctorCallRoom(), false);
-                } else if (id == R.id.nav_history) {
-                    loadFragment(new PrescriptionHistory(), false);
+                } else if (id == R.id.nav_appointment) {
+                    loadFragment(new DoctorAppointments(), false);
                 } else {
                     loadFragment(new DoctorProfile(), false);
                 }

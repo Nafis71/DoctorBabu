@@ -11,9 +11,9 @@
         android:icon="@drawable/phonecall"
         />
     <item
-        android:id="@+id/nav_history"
-        android:title = "@string/nav_history_title"
-        android:icon="@drawable/history2"
+        android:id="@+id/nav_appointment"
+        android:title = "@string/nav_appointment"
+        android:icon="@drawable/appointmenticon"
         />
     <item
         android:id="@+id/nav_profile"
