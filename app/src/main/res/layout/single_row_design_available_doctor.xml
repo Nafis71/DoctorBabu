@@ -141,7 +141,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/profilePictureCard"
                 android:fontFamily="@font/roboto"
-                android:textColor="#4F5FDE"
                 android:textSize="11.5sp">
 
             </TextView>

@@ -14,10 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.doctorbabu.Adapters.FavouriteDoctorAdapter;
 import com.example.doctorbabu.Adapters.availableDoctorAdapter;
 import com.example.doctorbabu.Adapters.recentlyViewedDoctorAdapter;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.DatabaseModels.recentlyViewedDoctorModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -37,6 +39,8 @@ import java.util.concurrent.Executors;
 
 public class Doctor extends Fragment {
     availableDoctorAdapter adapter;
+    FavouriteDoctorAdapter favouriteDoctorAdapter;
+    ArrayList<doctorInfoModel> favouriteDoctorModels;
     recentlyViewedDoctorAdapter recentlyViewedAdapter;
     ArrayList<doctorInfoModel> list;
     ArrayList<recentlyViewedDoctorModel> recentlyViewedModel = new ArrayList<>();
@@ -50,7 +54,7 @@ public class Doctor extends Fragment {
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
     doctorInfoModel model = doctorInfoModel.getInstance();
-    ExecutorService loadDoctorExecutor, recentlyViewedExecutor;
+    ExecutorService loadDoctorExecutor, recentlyViewedExecutor,favouriteDoctorExecutor;
     boolean hasPressed;
 
 
@@ -83,6 +87,7 @@ public class Doctor extends Fragment {
         super.onStart();
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
+        favouriteDoctorExecutor = Executors.newSingleThreadExecutor();
         super.onStart();
         if (code == 0) {
             loadingScreen();
@@ -100,6 +105,7 @@ public class Doctor extends Fragment {
             handler.postDelayed(() -> {
                 binding.searchCard.setVisibility(View.VISIBLE);
                 recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
+                favouriteDoctorExecutor.execute(this::loadFavouriteDoctor);
                 binding.vPager.setVisibility(View.VISIBLE);
                 handler.postDelayed(() -> {
                     loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
@@ -111,6 +117,7 @@ public class Doctor extends Fragment {
         } else {
             binding.progressBar.setVisibility(View.VISIBLE);
             recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
+            favouriteDoctorExecutor.execute(this::loadFavouriteDoctor);
             loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
             binding.consultationAnim2.setOnClickListener(view1 -> {
                 binding.availableDoctorRecyclerView.requestFocus();
@@ -171,6 +178,38 @@ public class Doctor extends Fragment {
         pageAdapter pageadapter = new pageAdapter(requireActivity());
         binding.vPager.setAdapter(pageadapter);
         new TabLayoutMediator(binding.tabs, binding.vPager, ((tab, position) -> tab.setText(titles[position]))).attach();
+    }
+
+    public void loadFavouriteDoctor(){
+        if(isAdded()){
+            favouriteDoctorModels = new ArrayList<>();
+            binding.favouriteDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false),R.layout.shimmer_layout_favourite_doctor);
+            favouriteDoctorAdapter = new FavouriteDoctorAdapter(requireContext(),favouriteDoctorModels);
+            binding.favouriteDoctorRecyclerView.showShimmer();
+            Firebase firebase = Firebase.getInstance();
+            FirebaseUser user = firebase.getUserID();
+            DatabaseReference reference = firebase.getDatabaseReference("favouriteDoctors");
+            reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            doctorInfoModel model = snap.getValue(doctorInfoModel.class);
+                            favouriteDoctorModels.add(model);
+                        }
+                        binding.favouriteDoctorRecyclerView.setAdapter(favouriteDoctorAdapter);
+                        binding.favouriteDoctorRecyclerView.hideShimmer();
+                        binding.favouriteLayout.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    throw error.toException();
+                }
+            });
+
+        }
     }
 
     public void loadAvailableDoctor() {
@@ -259,6 +298,7 @@ public class Doctor extends Fragment {
     public void onResume() {
         recentlyViewedExecutor = Executors.newSingleThreadExecutor();
         loadDoctorExecutor = Executors.newSingleThreadExecutor();
+        favouriteDoctorExecutor = Executors.newSingleThreadExecutor();
         hasPressed = false;
         super.onResume();
     }
@@ -274,6 +314,7 @@ public class Doctor extends Fragment {
         binding = null;
         loadDoctorExecutor.shutdown();
         recentlyViewedExecutor.shutdown();
+        favouriteDoctorExecutor.shutdown();
     }
 
     @Override

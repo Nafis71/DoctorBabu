@@ -1,34 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="170dp"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="180dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/doctor_appointment_background_layout"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
+    android:elevation="5dp"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:padding="5dp">
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="5dp"
-        android:layout_centerHorizontal="true"
-        app:shapeAppearanceOverlay="@style/circular"
-        android:src="@drawable/profile_picture"
-        android:id="@+id/profilePicture">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        >
 
-    </com.google.android.material.imageview.ShapeableImageView>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="5dp"
+            android:background="#DDDDDD"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_picture"
+            app:layout_constraintDimensionRatio="1:1"
+            app:shapeAppearanceOverlay="@style/circular">
+
+        </com.google.android.material.imageview.ShapeableImageView>
     <TextView
         android:id="@+id/doctorName"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:text="Asst. Prof. Dr. Nafis Hasan Tonmoy"
         android:layout_below="@+id/profilePicture"
         android:textSize="12sp"
         android:fontFamily="@font/roboto"
         android:textColor="@color/black"
         android:layout_marginTop="3dp"
-        android:layout_marginStart="1dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="5dp"
         >
 
     </TextView>
+        <TextView
+            android:id="@+id/specialty"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/doctorName"
+            android:textSize="11sp"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            >
+
+        </TextView>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/checkOut"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -44,5 +73,5 @@
         android:textColor="#4F5FDE"
         android:textSize="12sp"
         app:cornerRadius="10dp" />
-
-</RelativeLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

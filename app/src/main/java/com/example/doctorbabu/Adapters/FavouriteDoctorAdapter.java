@@ -2,7 +2,6 @@ package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,12 @@ import java.util.ArrayList;
 public class FavouriteDoctorAdapter extends RecyclerView.Adapter<FavouriteDoctorAdapter.myViewHolder> {
     Context context;
     ArrayList<doctorInfoModel> model;
+
+    public FavouriteDoctorAdapter(Context context, ArrayList<doctorInfoModel> model) {
+        this.context = context;
+        this.model = model;
+    }
+
     @NonNull
     @Override
     public FavouriteDoctorAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +42,7 @@ public class FavouriteDoctorAdapter extends RecyclerView.Adapter<FavouriteDoctor
         Glide.with(context).load(dbModel.getPhotoUrl()).into(holder.profilePicture);
         String doctorName = dbModel.getTitle() + dbModel.getFullName();
         holder.doctorName.setText(doctorName);
+        holder.doctorSpecialty.setText(dbModel.getSpecialty());
         holder.checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +56,7 @@ public class FavouriteDoctorAdapter extends RecyclerView.Adapter<FavouriteDoctor
     }
     public static class myViewHolder extends RecyclerView.ViewHolder{
         ImageView profilePicture;
-        TextView doctorName;
+        TextView doctorName,doctorSpecialty;
         MaterialButton checkout;
 
         public myViewHolder(@NonNull View itemView) {
@@ -58,6 +64,7 @@ public class FavouriteDoctorAdapter extends RecyclerView.Adapter<FavouriteDoctor
             profilePicture = itemView.findViewById(R.id.profilePicture);
             doctorName = itemView.findViewById(R.id.doctorName);
             checkout = itemView.findViewById(R.id.checkOut);
+            doctorSpecialty = itemView.findViewById(R.id.specialty);
         }
     }
 
