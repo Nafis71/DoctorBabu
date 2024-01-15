@@ -56,8 +56,8 @@ public class BookAppointment extends AppCompatActivity {
     String chipName, appointmentHour, appointmentMinute, timePeriod, doctorID;
     ArrayList<String> databaseAppointmentTime = new ArrayList<>();
     AlarmManager alarmManager;
-    String appointmentID;
-    ExecutorService appointmentTimeExecutor,appointmentDateExecutor,bookAppointmentExecutor;
+    String appointmentID,currentDate,selectedDate;
+    ExecutorService appointmentTimeExecutor, appointmentDateExecutor, bookAppointmentExecutor;
 
 
     @Override
@@ -69,7 +69,7 @@ public class BookAppointment extends AppCompatActivity {
         createNotificationChannel();
         firebase = Firebase.getInstance();
         appointmentTimeExecutor = Executors.newSingleThreadExecutor();
-        appointmentDateExecutor= Executors.newSingleThreadExecutor();
+        appointmentDateExecutor = Executors.newSingleThreadExecutor();
         bookAppointmentExecutor = Executors.newSingleThreadExecutor();
         appointmentTimeExecutor.execute(new Runnable() {
             @Override
@@ -138,7 +138,6 @@ public class BookAppointment extends AppCompatActivity {
         reference.child(doctorID).child(appointmentID).setValue(appointmentData);
         reference.child(user.getUid()).child(appointmentID).setValue(appointmentData);
         clearChipViews();
-        checkAppointmentDate();
         binding.mainBody.setVisibility(View.GONE);
         binding.bookAppointment.setVisibility(View.GONE);
         binding.bookAppointmentDoneLayout.setVisibility(View.VISIBLE);
@@ -227,7 +226,7 @@ public class BookAppointment extends AppCompatActivity {
         }
     }
 
-    public void calculaterAfternoonTime() {
+    public void calculateAfternoonTime() {
         int timeLimit = afternoonEndHour - afternoonStartHour;
         String pattern = "00";
         DecimalFormat numberFormatter = new DecimalFormat(pattern);
@@ -272,7 +271,7 @@ public class BookAppointment extends AppCompatActivity {
         }
     }
 
-    public void calculaterNightTime() {
+    public void calculateNightTime() {
         int timeLimit = nightEndHour - nightStartHour;
         String pattern = "00";
         DecimalFormat numberFormatter = new DecimalFormat(pattern);
@@ -318,6 +317,14 @@ public class BookAppointment extends AppCompatActivity {
     }
 
     public void createAppointmentChips(String dayTime, boolean clickable) {
+        String currentTime = getCurrentTime();
+        String[] currentTimeArray = currentTime.split(":");
+        String[] generatedTimeArray = chipName.split(":");
+        int currentHour = Integer.parseInt(currentTimeArray[0]);
+        int generatedHour = Integer.parseInt(generatedTimeArray[0]);
+        if(dayTime.equalsIgnoreCase("afternoon") | dayTime.equalsIgnoreCase("night")){
+            generatedHour += 12;
+        }
         Random random = new Random();
         @SuppressLint("InflateParams")
         Chip chip = (Chip) LayoutInflater.from(BookAppointment.this).inflate(R.layout.appointment_chip, null);
@@ -325,12 +332,22 @@ public class BookAppointment extends AppCompatActivity {
         chip.setId(random.nextInt());
         chip.setHeight(80);
         chip.setClickable(clickable);
-        if (clickable) {
-            chip.setEnabled(true);
+        if(currentDate.equals(selectedDate)){
+            if (clickable && generatedHour >= currentHour) {
+                chip.setEnabled(true);
+            } else {
+                chip.setEnabled(false);
+                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+            }
         } else {
-            chip.setEnabled(false);
-            chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+            if (clickable) {
+                chip.setEnabled(true);
+            } else {
+                chip.setEnabled(false);
+                chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+            }
         }
+
         if (dayTime.equalsIgnoreCase("morning")) {
             binding.morningChipGroup.addView(chip);
         } else if (dayTime.equalsIgnoreCase("afternoon")) {
@@ -349,16 +366,18 @@ public class BookAppointment extends AppCompatActivity {
                 if (selected) {
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDateTime now = LocalDateTime.now();
-                    String currentDate = dtf.format(now);
+                    currentDate = dtf.format(now);
                     String[] dateArray = currentDate.split("-");
                     String pattern = "0";
                     DecimalFormat numberFormatter = new DecimalFormat(pattern);
                     String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
                     String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
                     String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
+                    currentDate = currentYear+"-"+currentMonth+"-"+currentDay;
                     year = date.getYear();
                     month = date.getMonth();
                     day = date.getDay();
+                    selectedDate = year+"-"+month+"-"+day;
                     if (month == Integer.parseInt(currentMonth) && year == Integer.parseInt(currentYear)) {
                         if (day >= Integer.parseInt(currentDay) && month >= Integer.parseInt(currentMonth) && year >= Integer.parseInt(currentYear)) {
                             clearChipViews();
@@ -429,9 +448,8 @@ public class BookAppointment extends AppCompatActivity {
                 if (snapshot.exists()) {
                     databaseAppointmentTime.clear();
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        String today = year + "-" + month + "-" + day;
-                        Log.w("Today's Date", today);
-                        if (today.equals(snap.child("appointmentDate").getValue().toString())) {
+                        String appointedTime = year + "-" + month + "-" + day;
+                        if (appointedTime.equals(snap.child("appointmentDate").getValue().toString())) {
                             String hour = snap.child("appointmentHour").getValue().toString();
                             String minute = snap.child("appointmentMinute").getValue().toString();
                             String time = hour + ":" + minute;
@@ -439,9 +457,39 @@ public class BookAppointment extends AppCompatActivity {
                         }
                     }
                 }
+                if(currentDate.equals(selectedDate)){
+                    String currentTime = getCurrentTime();
+                    String[] currentTimeArray = currentTime.split(":");
+                    int hour = Integer.parseInt(currentTimeArray[0]);
+                    if (hour > 12 && hour <= 18) {
+                        binding.morningHeader.setVisibility(View.GONE);
+                        binding.morningDivider.setVisibility(View.GONE);
+                        binding.morningChipGroup.setVisibility(View.GONE);
+                        calculateAfternoonTime();
+                        calculateNightTime();
+                        return;
+                    } else if (hour > 18) {
+                        binding.morningHeader.setVisibility(View.GONE);
+                        binding.morningDivider.setVisibility(View.GONE);
+                        binding.morningChipGroup.setVisibility(View.GONE);
+                        binding.afternoonHeader.setVisibility(View.GONE);
+                        binding.afternoonDivider.setVisibility(View.GONE);
+                        binding.afternoonChipGroup.setVisibility(View.GONE);
+                        calculateNightTime();
+                        return;
+                    }
+                }
                 calculateMorningTime();
-                calculaterAfternoonTime();
-                calculaterNightTime();
+                calculateAfternoonTime();
+                calculateNightTime();
+                binding.morningHeader.setVisibility(View.VISIBLE);
+                binding.morningDivider.setVisibility(View.VISIBLE);
+                binding.morningChipGroup.setVisibility(View.VISIBLE);
+                binding.afternoonHeader.setVisibility(View.VISIBLE);
+                binding.afternoonDivider.setVisibility(View.VISIBLE);
+                binding.afternoonChipGroup.setVisibility(View.VISIBLE);
+
+
             }
 
             @Override
@@ -483,10 +531,16 @@ public class BookAppointment extends AppCompatActivity {
         });
     }
 
-    public void toggleBookButton(List<Integer> checkedIds){
-        if(checkedIds.isEmpty()){
+    public String getCurrentTime(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
+    public void toggleBookButton(List<Integer> checkedIds) {
+        if (checkedIds.isEmpty()) {
             binding.bookAppointment.setVisibility(View.GONE);
-        }else{
+        } else {
             binding.bookAppointment.setVisibility(View.VISIBLE);
         }
     }
