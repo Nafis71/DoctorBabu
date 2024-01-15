@@ -238,9 +238,7 @@ public class Home extends Fragment {
                             Uri gmmIntentUri = Uri.parse("geo:"+latitude+","+longitude+"?z=10&q=emergency hospitals");
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                             mapIntent.setPackage("com.google.android.apps.maps");
-                            if(mapIntent.resolveActivity(requireActivity().getPackageManager())!=null){
-                                startActivity(mapIntent);
-                            }
+                            startActivity(mapIntent);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

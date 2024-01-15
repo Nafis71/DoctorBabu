@@ -4,6 +4,8 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="favouriteDoctor">Your Favourite Doctor</string>
+    <string name="checkout">Checkout</string>
     <string name="hospitalListHeader">Emergency Hospital Finder</string>
     <string name="hospitalListDescription">Find hospital which has emergency ward</string>
     <string name="nav_appointment">Appointments</string>

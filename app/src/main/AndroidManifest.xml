@@ -35,9 +35,6 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".patient.HomeModules.EmergencyHospital"
-            android:exported="false" />
-        <activity
             android:name=".doctor.DoctorAppointments"
             android:exported="false" />
         <activity
@@ -93,9 +90,6 @@
             android:exported="false" />
         <activity
             android:name=".patient.DoctorConsultationModule.IdentifyDisease"
-            android:exported="false" />
-        <activity
-            android:name=".patient.DoctorConsultationModule.DoctorInfoActivity"
             android:exported="false" />
         <activity
             android:name=".patient.DoctorConsultationModule.ViewAllDoctor"

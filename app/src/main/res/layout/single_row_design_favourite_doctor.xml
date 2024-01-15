@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="170dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/doctor_appointment_background_layout"
+    android:padding="5dp">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:layout_centerHorizontal="true"
+        app:shapeAppearanceOverlay="@style/circular"
+        android:src="@drawable/profile_picture"
+        android:id="@+id/profilePicture">
+
+    </com.google.android.material.imageview.ShapeableImageView>
+    <TextView
+        android:id="@+id/doctorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Asst. Prof. Dr. Nafis Hasan Tonmoy"
+        android:layout_below="@+id/profilePicture"
+        android:textSize="12sp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="1dp"
+        >
+
+    </TextView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/checkOut"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:shadowColor="@color/black_shade_1"
+        android:drawableStart="@drawable/go"
+        android:text="@string/checkout"
+        android:textColor="#4F5FDE"
+        android:textSize="12sp"
+        app:cornerRadius="10dp" />
+
+</RelativeLayout>

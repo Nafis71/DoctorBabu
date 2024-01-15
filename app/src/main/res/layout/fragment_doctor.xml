@@ -293,12 +293,47 @@
 
                     </RelativeLayout>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favouriteLayout"
+                    android:layout_below="@+id/pagerCard">
+                    <TextView
+                        android:id="@+id/fovouriteDoctorHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/favouriteDoctor"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.todkars.shimmer.ShimmerRecyclerView
+                        android:id="@+id/favouriteDoctorRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fovouriteDoctorHeader"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:shimmer_recycler_item_count="6"
+                        app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+
+                    </com.todkars.shimmer.ShimmerRecyclerView>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/recentlyViewedCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/pagerCard"
+                    android:layout_below="@+id/favouriteLayout"
                     android:background="#F7F9F9">
 
                     <RelativeLayout

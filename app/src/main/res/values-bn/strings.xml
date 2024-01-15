@@ -4,6 +4,8 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="favouriteDoctor">আপনার প্রিয় ডাক্তার</string>
+    <string name="checkout">চেকআউট</string>
     <string name="hospitalListHeader">ইমার্জেন্সি হাসপাতাল ফাইন্ডার</string>
     <string name="hospitalListDescription">জরুরি ওয়ার্ড আছে এমন হাসপাতালে খুঁজুন</string>
     <string name="nav_appointment">অ্যাপয়েন্টমেন্ট</string>
