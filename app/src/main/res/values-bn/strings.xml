@@ -17,7 +17,7 @@
     <string name="nav_home_title">হোম</string>
     <string name="nav_video_consultation_title">পরামর্শ</string>
     <string name="nav_profile_title">প্রোফাইল</string>
-    <string name="nav_history_title">ইতিহাস</string>
+    <string name="nav_history_title">ই-প্রেসক্রিপশন</string>
     <string name="nav_call">Call Room</string>
     <!-- Home Fragment Strings. -->
     <string name="consultancyTaken">কনসালটেন্সি নেওয়া হয়েছে</string>

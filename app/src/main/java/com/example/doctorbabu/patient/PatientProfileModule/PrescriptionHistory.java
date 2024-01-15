@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PrescriptionHistory extends Fragment {
     prescriptionAdapter adapter;
@@ -31,6 +33,7 @@ public class PrescriptionHistory extends Fragment {
     FragmentPrescriptionHistoryBinding binding;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
+    ExecutorService loadPrescription;
 
 
     public PrescriptionHistory() {
@@ -43,18 +46,26 @@ public class PrescriptionHistory extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.prescriptionRecycler.showShimmer();
-        binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        loadPrescription = Executors.newSingleThreadExecutor();
+        loadPrescription.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadPrescriptionList();
+            }
+        });
     }
     public void onStart(){
         super.onStart();
-        loadPrescriptionList();
+
 
     }
     public void loadPrescriptionList(){
+        binding.prescriptionRecycler.showShimmer();
+        binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        adapter = new prescriptionAdapter(requireContext(),list);
         DatabaseReference reference = database.getReference("prescription");
-        reference.child(user.getUid()).orderByChild("date").addValueEventListener(new ValueEventListener() {
+        reference.child(user.getUid()).orderByChild("date").addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -64,16 +75,19 @@ public class PrescriptionHistory extends Fragment {
                     for(DataSnapshot snap : snapshot.getChildren()){
                         prescriptionModel model = snap.getValue(prescriptionModel.class);
                         list.add(model);
-                        adapter = new prescriptionAdapter(requireContext(),list);
-                        binding.prescriptionRecycler.setAdapter(adapter);
                     }
-//                    adapter.notifyDataSetChanged();
+                    binding.prescriptionRecycler.setAdapter(adapter);
+                    binding.prescriptionRecycler.hideShimmer();
+                } else{
+                    binding.prescriptionRecycler.hideShimmer();
+                    binding.noPrescriptionLayout.setVisibility(View.VISIBLE);
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
@@ -86,5 +100,6 @@ public class PrescriptionHistory extends Fragment {
     public void onDestroyView(){
         super.onDestroyView();
         binding =null;
+        loadPrescription.shutdown();
     }
 }

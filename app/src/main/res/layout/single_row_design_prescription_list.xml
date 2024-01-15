@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:outlineSpotShadowColor="@color/black"
+    android:padding="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/doctor_appointment_background_layout">
+
+        <TextView
+            android:id="@+id/prescriptionTopHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="#"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/prescriptionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/prescriptionTopHeader"
+            android:fontFamily="@font/roboto"
+            android:text="34"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/delete" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/prescriptionNumber"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/prescriptionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prescriptionTopHeader"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto"
+            android:text="From - "
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/doctorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prescriptionTopHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/prescriptionHeader"
+            android:fontFamily="@font/roboto"
+            android:text="Dr Ali mostafa"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/creationDateHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prescriptionHeader"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="Created On - "
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/prescriptionHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/creationDateHeader"
+            android:fontFamily="@font/roboto"
+            android:text="8/09/23"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/diagnosisHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/creationDateHeader"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:text="Diagnosis Result - "
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/diagnosisResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/creationDateHeader"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/diagnosisHeader"
+            android:fontFamily="@font/roboto"
+            android:text="Headache"
+            android:textColor="@color/blue"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/download"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            app:cardCornerRadius="17dp"
+            app:cardElevation="2.5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/downloadIcon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/pdfdownload" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="3sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10sp"
+                    android:layout_toEndOf="@id/downloadIcon"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+                    android:text="Download"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal">
+
+                </TextView>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

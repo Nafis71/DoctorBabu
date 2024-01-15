@@ -17,7 +17,7 @@
     <string name="nav_home_title">Home</string>
     <string name="nav_video_consultation_title">Consultation</string>
     <string name="nav_profile_title">Profile</string>
-    <string name="nav_history_title">History</string>
+    <string name="nav_history_title">E-Prescription</string>
     <string name="nav_call">Call Room</string>
     <!-- Home Fragment Strings -->
     <string name="languageName">English</string>

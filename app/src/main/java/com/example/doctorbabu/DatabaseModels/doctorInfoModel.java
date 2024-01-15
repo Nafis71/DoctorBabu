@@ -9,7 +9,7 @@ public class doctorInfoModel {
         return consultationFee;
     }
 
-    private doctorInfoModel() {
+    public doctorInfoModel() {
     }
     public static  doctorInfoModel instance = null;
     public static  doctorInfoModel getInstance(){
