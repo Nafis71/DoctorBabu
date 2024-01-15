@@ -1,13 +1,11 @@
 package com.example.doctorbabu.patient.HomeModules;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -17,7 +15,6 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +23,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -40,25 +36,14 @@ import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
 import com.example.doctorbabu.patient.DiagnoseReportUploadModule.DiagnosisReportUploadList;
-import com.example.doctorbabu.patient.DoctorConsultationModule.BookAppointment;
 import com.example.doctorbabu.patient.DoctorConsultationModule.DiagnosisTerms;
 import com.example.doctorbabu.patient.DoctorConsultationModule.ViewAllDoctor;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.Cart;
 import com.example.doctorbabu.patient.MedicinePurchaseModules.MedicineShop;
 import com.example.doctorbabu.patient.PatientProfileModule.EditProfile;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
@@ -98,7 +83,6 @@ public class Home extends Fragment {
     Firebase firebase;
     ActionBarDrawerToggle toggle;
     FusedLocationProviderClient locationProviderClient;
-    Dialog dialog;
     List<Address> addresses;
 
     public Home() {
@@ -120,7 +104,7 @@ public class Home extends Fragment {
         cartCounter = Executors.newSingleThreadExecutor();
         locationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         firebaseExecutor.execute(this::firebaseAuth);
-        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard)
+        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard,binding.hospitalListCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
         imageSliderExecutor.execute(new Runnable() {
@@ -223,20 +207,20 @@ public class Home extends Fragment {
         });
     }
 
-    public void findNearbyEmergencyHospital(){
-        if(ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+    public void findNearbyEmergencyHospital() {
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
-                    if(location != null){
+                    if (location != null) {
                         Geocoder geo = new Geocoder(requireActivity(), Locale.getDefault());
                         try {
-                            addresses = geo.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                            addresses = geo.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             assert addresses != null;
                             String latitude = String.valueOf(addresses.get(0).getLatitude());
                             String longitude = String.valueOf(addresses.get(0).getLongitude());
-                            Uri gmmIntentUri = Uri.parse("geo:"+latitude+","+longitude+"?z=10&q=emergency hospitals");
+                            Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?z=10&q=emergency hospitals");
                             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                             mapIntent.setPackage("com.google.android.apps.maps");
                             startActivity(mapIntent);
@@ -244,8 +228,8 @@ public class Home extends Fragment {
                             throw new RuntimeException(e);
                         }
 
-                    }else{
-                        errorMessage("Location Not Found","Please turn on location and wait");
+                    } else {
+                        errorMessage("Location Not Found", "Please turn on location and wait");
                     }
                 }
             });

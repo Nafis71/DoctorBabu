@@ -6,13 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.DatabaseModels.joiningDates;
 import com.example.doctorbabu.DatabaseModels.leavingDates;
@@ -23,7 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,16 +37,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class SpecificDoctorInfo extends AppCompatActivity {
+    private final String[] titles = new String[]{"Info", "Experience", "Reviews"};
     String doctorId;
     Firebase firebase;
     FirebaseUser user;
     doctorInfoModel model;
-    private final String[] titles = new String[]{"Info", "Experience", "Reviews"};
     ActivitySpecificDoctorInfoBinding binding;
-    ExecutorService favouriteRecordExecutor,doctorDataExecutor,doctorExperienceExecutor,getFavouriteDoctorStatus;
+    ExecutorService favouriteRecordExecutor, doctorDataExecutor, doctorExperienceExecutor, getFavouriteDoctorStatus, appointmentExecutor;
     boolean toggleButton;
     Dialog dialog;
-    String onlineStatus,currentlyWorking;
+    String onlineStatus, currentlyWorking;
+    boolean hasBooked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +62,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         doctorDataExecutor = Executors.newSingleThreadExecutor();
         doctorExperienceExecutor = Executors.newSingleThreadExecutor();
         getFavouriteDoctorStatus = Executors.newSingleThreadExecutor();
+        appointmentExecutor = Executors.newSingleThreadExecutor();
         getFavouriteDoctorStatus.execute(new Runnable() {
             @Override
             public void run() {
@@ -90,7 +90,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         binding.videoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.parseInt(onlineStatus) == 1){
+                if (Integer.parseInt(onlineStatus) == 1) {
                     Intent intent = new Intent(SpecificDoctorInfo.this, CheckoutDoctor.class);
                     intent.putExtra("doctorId", doctorId);
                     intent.putExtra("doctorTitle", model.getTitle());
@@ -103,7 +103,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                     intent.putExtra("consultationFee", model.getConsultationFee());
                     startActivity(intent);
                 } else {
-                    errorMessage("Offline","We can't establish a video call due to doctor's unavailability");
+                    errorMessage("Offline", "We can't establish a video call due to doctor's unavailability");
                 }
 
             }
@@ -115,12 +115,15 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
         closeLoadingScreen();
-        binding.appointment.setOnClickListener(new View.OnClickListener() {
+        appointmentExecutor.execute(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SpecificDoctorInfo.this, BookAppointment.class);
-                intent.putExtra("doctorId",doctorId);
-                startActivity(intent);
+            public void run() {
+                binding.appointment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        checkAppointmentHistory();
+                    }
+                });
             }
         });
     }
@@ -144,6 +147,37 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         }, 1000);
     }
 
+    public void checkAppointmentHistory() {
+        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        assert model != null;
+                        if (model.getDoctorID().equals(doctorId)) {
+                            hasBooked = true;
+                        }
+                    }
+                    if (hasBooked) {
+                        errorMessage("Already Booked", "You have already booked appointment with this doctor,you will be able to book again when the previous one is finished or cancelled");
+                        return;
+                    }
+                }
+                Intent intent = new Intent(SpecificDoctorInfo.this, BookAppointment.class);
+                intent.putExtra("doctorId", doctorId);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
     public void errorMessage(String title, String message) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(SpecificDoctorInfo.this);
         dialog.setTitle(title).setIcon(R.drawable.cross)
@@ -156,7 +190,8 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 }).setCancelable(false);
         dialog.create().show();
     }
-    public void recordFavourite(){
+
+    public void recordFavourite() {
         binding.outlinedLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,12 +208,13 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
     }
+
     public void loadData() {
         DatabaseReference DoctorReference = firebase.getDatabaseReference("doctorInfo");
         DoctorReference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     model = snapshot.getValue(doctorInfoModel.class);
                     assert model != null;
                     String doctorName = model.getTitle() + model.getFullName();
@@ -231,7 +267,8 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
     }
-    public void getDoctorExperience(){
+
+    public void getDoctorExperience() {
         ArrayList<Integer> periods = new ArrayList<>();
         DatabaseReference experienceReference = firebase.getDatabaseReference("doctorPastExperience");
         experienceReference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -259,6 +296,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                     periods.add(Integer.parseInt(years));
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
@@ -268,7 +306,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         currentlyWorkingReference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     if (!String.valueOf(snapshot.child("joiningDate").getValue()).equals("null")) {
                         currentlyWorking = String.valueOf(snapshot.child("hospitalName").getValue());
                         binding.currentlyWorking.setText(String.valueOf(snapshot.child("hospitalName").getValue()));
@@ -294,7 +332,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         });
     }
 
-    public void calculateExperience(ArrayList<Integer> periods){
+    public void calculateExperience(ArrayList<Integer> periods) {
         int totalExperience = 0;
         for (int i = 0; i < periods.size(); i++) {
             totalExperience = totalExperience + periods.get(i);
@@ -302,15 +340,16 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         String totalExperienceString = String.valueOf(totalExperience) + "+ years";
         binding.totalExperience.setText(totalExperienceString);
     }
-    public void getFavouriteDoctorStatus(){
+
+    public void getFavouriteDoctorStatus() {
         DatabaseReference reference = firebase.getDatabaseReference("favouriteDoctors");
         reference.child(user.getUid()).child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     binding.outlinedLove.setImageResource(R.drawable.filledlove);
                     toggleButton = false;
-                }else{
+                } else {
                     toggleButton = true;
                 }
             }
@@ -337,6 +376,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
     }
+
     public void removeFavourite() {
         DatabaseReference reference = firebase.getDatabaseReference("favouriteDoctors");
         reference.child(user.getUid()).child(doctorId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -355,5 +395,6 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         favouriteRecordExecutor.shutdown();
         doctorExperienceExecutor.shutdown();
         getFavouriteDoctorStatus.shutdown();
+        appointmentExecutor.shutdown();
     }
 }
