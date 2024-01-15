@@ -225,9 +225,10 @@ public class Home extends Fragment {
 
     public void findNearbyEmergencyHospital(){
         if(ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            locationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            locationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
-                public void onSuccess(Location location) {
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
                     if(location != null){
                         Geocoder geo = new Geocoder(requireActivity(), Locale.getDefault());
                         try {
