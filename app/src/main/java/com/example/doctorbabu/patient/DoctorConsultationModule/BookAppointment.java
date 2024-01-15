@@ -348,8 +348,13 @@ public class BookAppointment extends AppCompatActivity {
         chip.setHeight(80);
         chip.setClickable(clickable);
         if(currentDate.equals(selectedDate)){
-            if (clickable && generatedHour >= currentHour && generatedMinute > currentMinute) {
-                chip.setEnabled(true);
+            if (clickable && generatedHour >= currentHour) {
+                if(generatedHour == currentHour && generatedMinute > currentMinute || generatedHour > currentHour){
+                    chip.setEnabled(true);
+                }else{
+                    chip.setEnabled(false);
+                    chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+                }
             } else {
                 chip.setEnabled(false);
                 chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
