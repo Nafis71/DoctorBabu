@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -58,6 +59,7 @@ public class BookAppointment extends AppCompatActivity {
     AlarmManager alarmManager;
     String appointmentID,currentDate,selectedDate;
     ExecutorService appointmentTimeExecutor, appointmentDateExecutor, bookAppointmentExecutor;
+    Dialog dialog;
 
 
     @Override
@@ -97,6 +99,12 @@ public class BookAppointment extends AppCompatActivity {
                 binding.bookAppointment.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadingScreen();
+                            }
+                        });
                         bookAppointment();
                     }
                 });
@@ -137,10 +145,15 @@ public class BookAppointment extends AppCompatActivity {
         setReminder(appointmentHour, appointmentMinute);                        //setting alarm broadcast here
         reference.child(doctorID).child(appointmentID).setValue(appointmentData);
         reference.child(user.getUid()).child(appointmentID).setValue(appointmentData);
-        clearChipViews();
         binding.mainBody.setVisibility(View.GONE);
         binding.bookAppointment.setVisibility(View.GONE);
         binding.bookAppointmentDoneLayout.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        });
         CookieBar.build(BookAppointment.this)
                 .setTitle("Appointment Booked")
                 .setMessage("Your appointment has been booked")
@@ -321,7 +334,9 @@ public class BookAppointment extends AppCompatActivity {
         String[] currentTimeArray = currentTime.split(":");
         String[] generatedTimeArray = chipName.split(":");
         int currentHour = Integer.parseInt(currentTimeArray[0]);
+        int currentMinute = Integer.parseInt(currentTimeArray[1]);
         int generatedHour = Integer.parseInt(generatedTimeArray[0]);
+        int generatedMinute = Integer.parseInt(generatedTimeArray[1]);
         if(dayTime.equalsIgnoreCase("afternoon") | dayTime.equalsIgnoreCase("night")){
             generatedHour += 12;
         }
@@ -333,7 +348,7 @@ public class BookAppointment extends AppCompatActivity {
         chip.setHeight(80);
         chip.setClickable(clickable);
         if(currentDate.equals(selectedDate)){
-            if (clickable && generatedHour >= currentHour) {
+            if (clickable && generatedHour >= currentHour && generatedMinute > currentMinute) {
                 chip.setEnabled(true);
             } else {
                 chip.setEnabled(false);
@@ -565,6 +580,16 @@ public class BookAppointment extends AppCompatActivity {
         channel.setDescription(description);
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
+    }
+    public void loadingScreen() {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    public void closeLoadingScreen() {
+        dialog.dismiss();
     }
 
 
