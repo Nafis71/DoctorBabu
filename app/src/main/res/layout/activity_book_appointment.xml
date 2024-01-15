@@ -6,11 +6,63 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     tools:context=".patient.DoctorConsultationModule.BookAppointment">
+    <RelativeLayout
+        android:id="@+id/bookAppointmentDoneLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/appointmentDoneImage"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:src="@drawable/bookappointmentdone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:text="Your appointment has been recorded successfully!"
+            android:layout_below="@+id/appointmentDoneImage"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black">
+
+        </TextView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/okayButton"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Okay"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="#3C4DD8"
+            app:cornerRadius="12dp"
+            app:elevation="500dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+    </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/mainBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="58dp"
+        android:visibility="visible"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -245,6 +297,7 @@
         app:backgroundTint="#3C4DD8"
         app:cornerRadius="12dp"
         app:elevation="500dp"
+        android:visibility="gone"
         app:strokeColor="@color/white"
         tools:ignore="NotSibling" />
 

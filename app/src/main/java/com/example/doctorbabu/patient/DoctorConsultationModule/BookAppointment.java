@@ -54,11 +54,10 @@ public class BookAppointment extends AppCompatActivity {
             afternoonEndHour = 18, afternoonStartMinute = 0, nightStartHour = 19, nightEndHour = 23, nightStartMinute = 0;
     int year, month, day;
     String chipName, appointmentHour, appointmentMinute, timePeriod, doctorID;
-    //    ArrayList<AppointmentModel> appointmentModel;
     ArrayList<String> databaseAppointmentTime = new ArrayList<>();
     AlarmManager alarmManager;
     String appointmentID;
-    ExecutorService loadExecutor;
+    ExecutorService appointmentTimeExecutor,appointmentDateExecutor,bookAppointmentExecutor;
 
 
     @Override
@@ -69,23 +68,38 @@ public class BookAppointment extends AppCompatActivity {
         doctorID = getIntent().getStringExtra("doctorId");
         createNotificationChannel();
         firebase = Firebase.getInstance();
-        loadExecutor = Executors.newSingleThreadExecutor();
-        loadExecutor.execute(new Runnable() {
+        appointmentTimeExecutor = Executors.newSingleThreadExecutor();
+        appointmentDateExecutor= Executors.newSingleThreadExecutor();
+        bookAppointmentExecutor = Executors.newSingleThreadExecutor();
+        appointmentTimeExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 getAppointmentTime();
+
+            }
+        });
+        appointmentDateExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
                 getAppointmentDate();
             }
         });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        binding.bookAppointment.setOnClickListener(new View.OnClickListener() {
+
+        bookAppointmentExecutor.execute(new Runnable() {
             @Override
-            public void onClick(View view) {
-                bookAppointment();
+            public void run() {
+                binding.bookAppointment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bookAppointment();
+                    }
+                });
             }
         });
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +108,12 @@ public class BookAppointment extends AppCompatActivity {
                 finish();
             }
         });
-
+        binding.okayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void bookAppointment() {
@@ -115,11 +134,14 @@ public class BookAppointment extends AppCompatActivity {
         appointmentData.put("appointmentMinute", appointmentMinute.trim());
         appointmentData.put("timePeriod", timePeriod);
         appointmentData.put("appointmentDate", year + "-" + month + "-" + day);
-        setReminder(appointmentHour, appointmentMinute);
+        setReminder(appointmentHour, appointmentMinute);                        //setting alarm broadcast here
         reference.child(doctorID).child(appointmentID).setValue(appointmentData);
         reference.child(user.getUid()).child(appointmentID).setValue(appointmentData);
         clearChipViews();
         checkAppointmentDate();
+        binding.mainBody.setVisibility(View.GONE);
+        binding.bookAppointment.setVisibility(View.GONE);
+        binding.bookAppointmentDoneLayout.setVisibility(View.VISIBLE);
         CookieBar.build(BookAppointment.this)
                 .setTitle("Appointment Booked")
                 .setMessage("Your appointment has been booked")
@@ -424,7 +446,7 @@ public class BookAppointment extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
 
@@ -435,6 +457,7 @@ public class BookAppointment extends AppCompatActivity {
         binding.morningChipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                toggleBookButton(checkedIds);
                 recordTime(checkedIds, "AM");
                 binding.afternoonChipGroup.clearCheck();
                 binding.nightChipGroup.clearCheck();
@@ -443,6 +466,7 @@ public class BookAppointment extends AppCompatActivity {
         binding.afternoonChipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                toggleBookButton(checkedIds);
                 recordTime(checkedIds, "PM");
                 binding.nightChipGroup.clearCheck();
                 binding.morningChipGroup.clearCheck();
@@ -451,11 +475,20 @@ public class BookAppointment extends AppCompatActivity {
         binding.nightChipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+                toggleBookButton(checkedIds);
                 recordTime(checkedIds, "PM");
                 binding.afternoonChipGroup.clearCheck();
                 binding.morningChipGroup.clearCheck();
             }
         });
+    }
+
+    public void toggleBookButton(List<Integer> checkedIds){
+        if(checkedIds.isEmpty()){
+            binding.bookAppointment.setVisibility(View.GONE);
+        }else{
+            binding.bookAppointment.setVisibility(View.VISIBLE);
+        }
     }
 
     public void recordTime(List<Integer> checkedIds, String period) {
@@ -485,6 +518,8 @@ public class BookAppointment extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
-        loadExecutor.shutdown();
+        appointmentTimeExecutor.shutdown();
+        appointmentDateExecutor.shutdown();
+        bookAppointmentExecutor.shutdown();
     }
 }

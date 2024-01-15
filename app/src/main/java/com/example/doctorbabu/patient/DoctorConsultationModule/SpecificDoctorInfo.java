@@ -168,7 +168,6 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 Intent intent = new Intent(SpecificDoctorInfo.this, BookAppointment.class);
                 intent.putExtra("doctorId", doctorId);
                 startActivity(intent);
-
             }
 
             @Override

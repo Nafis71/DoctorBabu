@@ -20,10 +20,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class DoctorExtraInfo extends Fragment {
     FragmentDoctorExtraInfoBinding binding;
     String doctorId;
+    ExecutorService loadDataExecutor;
 
     public DoctorExtraInfo() {
         // Required empty public constructor
@@ -37,7 +41,14 @@ public class DoctorExtraInfo extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.doctorCode.setText(doctorId);
-        loadAbout();
+        loadDataExecutor = Executors.newSingleThreadExecutor();
+        loadDataExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadAbout();
+            }
+        });
+
     }
 
     public void loadAbout() {
@@ -69,6 +80,12 @@ public class DoctorExtraInfo extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        loadDataExecutor.shutdown();
     }
 
     @Override
