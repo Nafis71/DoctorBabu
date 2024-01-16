@@ -27,9 +27,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/oswald"
-                    android:text="Call Room"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
+                    android:text="Call Room"
                     android:textStyle="bold" />
 
             </RelativeLayout>

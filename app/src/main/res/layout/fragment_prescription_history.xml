@@ -6,9 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".patient.PatientProfileModule.PrescriptionHistory">
     <RelativeLayout
+        android:padding="5dp"
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dp"
         android:layout_marginStart="-8dp"
         android:layout_marginEnd="-8dp"
         android:elevation="2dp"
@@ -25,7 +26,7 @@
             android:shadowRadius="0.5"
             android:text="E-"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -40,7 +41,7 @@
             android:shadowRadius="0.5"
             android:text="Prescription"
             android:textColor="#4E5EDE"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
