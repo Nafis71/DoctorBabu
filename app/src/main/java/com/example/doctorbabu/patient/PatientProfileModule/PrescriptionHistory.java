@@ -57,15 +57,13 @@ public class PrescriptionHistory extends Fragment {
     }
     public void onStart(){
         super.onStart();
-
-
     }
     public void loadPrescriptionList(){
         binding.prescriptionRecycler.showShimmer();
         binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         adapter = new prescriptionAdapter(requireContext(),list);
         DatabaseReference reference = database.getReference("prescription");
-        reference.child(user.getUid()).orderByChild("date").addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(user.getUid()).orderByChild("time").limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,6 +88,7 @@ public class PrescriptionHistory extends Fragment {
                 throw error.toException();
             }
         });
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,6 +99,6 @@ public class PrescriptionHistory extends Fragment {
     public void onDestroyView(){
         super.onDestroyView();
         binding =null;
-        loadPrescription.shutdown();
+        loadPrescription.shutdownNow();
     }
 }

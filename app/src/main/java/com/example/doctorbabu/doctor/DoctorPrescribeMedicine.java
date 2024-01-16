@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.aviran.cookiebar2.CookieBar;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -108,6 +109,8 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
     }
 
     public void uploadData() {
+        Clock clock = Clock.systemDefaultZone();
+        long milliSeconds=clock.millis();
         String uniqueID = getUniqueId();
         LocalDate date = LocalDate.now();
         HashMap<String, Object> prescription = new HashMap<>();
@@ -116,9 +119,12 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         prescription.put("PrescribedBy",doctorId);
         prescription.put("PrescribedTo",patientId);
         prescription.put("date",date.toString());
+        prescription.put("time",milliSeconds);
         prescription.put("diagnosis",binding.diagnosis.getEditText().getText().toString().trim());
         prescription.put("medicineCounter",String.valueOf(medicineCounter));
-        prescription.put("advice",binding.advice.getEditText().getText().toString().trim());
+        if(!binding.advice.getEditText().getText().toString().trim().isEmpty()){
+            prescription.put("advice",binding.advice.getEditText().getText().toString().trim());
+        }
         if(medicineName.size() == 0)
         {
             prescription.put("medicineName",binding.medicineName.getEditText().getText().toString());
@@ -162,7 +168,6 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                     @Override
                     public void run() {
                         finish();
-
                     }
                 },2000);
             }

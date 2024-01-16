@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,10 +22,12 @@ import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.DatabaseModels.prescriptionMedicineModel;
 import com.example.doctorbabu.DatabaseModels.prescriptionModel;
 import com.example.doctorbabu.DatabaseModels.userHelper;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -114,6 +117,12 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
             @Override
             public void onClick(View view) {
                 convertXMLtoPDF(dbModel,doctorModel[0],userInfo);
+            }
+        });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletePrescription(dbModel);
             }
         });
 
@@ -237,6 +246,14 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         });
 
     }
+
+    public void deletePrescription(prescriptionModel dbModel){
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference deleteReference = firebase.getDatabaseReference("prescription");
+        deleteReference.child(user.getUid()).child(dbModel.getPrescriptionId()).removeValue();
+        AppCompatActivity activity = (AppCompatActivity) context;
+    }
     public String getUniqueKey() {
         Random random = new Random();
         return String.valueOf(random.nextInt());
@@ -244,6 +261,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         TextView prescriptionNumber, date, doctorName, diagnosisResult;
+        ImageView delete;
         MaterialCardView download;
 
         public myViewHolder(@NonNull View itemView) {
@@ -253,6 +271,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
             doctorName = itemView.findViewById(R.id.doctorName);
             diagnosisResult = itemView.findViewById(R.id.diagnosisResult);
             download = itemView.findViewById(R.id.download);
+            delete = itemView.findViewById(R.id.delete);
         }
     }
 }

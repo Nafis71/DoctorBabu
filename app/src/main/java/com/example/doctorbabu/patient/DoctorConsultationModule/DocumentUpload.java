@@ -84,14 +84,13 @@ public class DocumentUpload extends AppCompatActivity {
 
     @SuppressLint("Range")
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {  //catching the file from activity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
             //extracting name of the pdf file
             String uriString = uri.toString();
             File myfile = new File(uriString);
-            String path = myfile.getAbsolutePath();
             String displayName = null;
             if (uriString.startsWith("content://")) {
                 Cursor cursor = null;
@@ -140,13 +139,7 @@ public class DocumentUpload extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 closeLoadingScreen();
-                                Intent intent = new Intent(DocumentUpload.this, CallDoctor.class);
-                                intent.putExtra("doctorId", doctorId);
-                                intent.putExtra("doctorTitle", doctorTitle);
-                                intent.putExtra("doctorName", doctorName);
-                                intent.putExtra("photoUrl", photoUrl);
-                                startActivity(intent);
-                                finish();
+                                launchActivity();
                             }
                         });
                     }
@@ -172,7 +165,7 @@ public class DocumentUpload extends AppCompatActivity {
     }
 
     public void launchActivity() {
-        Intent intent = new Intent(DocumentUpload.this, CheckoutDoctor.class);
+        Intent intent = new Intent(DocumentUpload.this, CallDoctor.class);
         intent.putExtra("doctorId", doctorId);
         intent.putExtra("doctorTitle", doctorTitle);
         intent.putExtra("doctorName", doctorName);
