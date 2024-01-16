@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     android:layout_margin="5dp"
-    android:elevation="5dp"
+    app:cardElevation="3dp"
     style="@style/Widget.Material3.CardView.Elevated"
     android:padding="5dp">
     <RelativeLayout

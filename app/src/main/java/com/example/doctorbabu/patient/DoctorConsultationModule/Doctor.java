@@ -197,6 +197,7 @@ public class Doctor extends Fragment {
             reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    favouriteDoctorModels.clear();
                     if (snapshot.exists()) {
                         for (DataSnapshot snap : snapshot.getChildren()) {
                             doctorInfoModel model = snap.getValue(doctorInfoModel.class);

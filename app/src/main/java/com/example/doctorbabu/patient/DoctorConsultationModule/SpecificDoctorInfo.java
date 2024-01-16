@@ -167,12 +167,11 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                         String[] currentTimeArray = currentTime.split(":");
                         int hour = Integer.parseInt(currentTimeArray[0]);
                         int minute = Integer.parseInt(currentTimeArray[1]);
-                        if (getCurrentDate().equalsIgnoreCase(model.getAppointmentDate())) {
+                        if (getCurrentDate().equalsIgnoreCase(model.getAppointmentDate()) && model.getDoctorID().equalsIgnoreCase(doctorId)) {
                             if (hour == Integer.parseInt(model.getAppointmentHour()) && minute == Integer.parseInt(model.getAppointmentMinute())) {
                                 proceedToVideoCall();
                                 return;
                             } else if (hour == Integer.parseInt(model.getAppointmentHour()) && (Integer.parseInt(model.getAppointmentMinute())+19) >= minute) {
-                                Log.w("Second If true","true");
                                 proceedToVideoCall();
                                 return;
                             }

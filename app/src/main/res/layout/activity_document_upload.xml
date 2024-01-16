@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".patient.DoctorConsultationModule.DocumentUpload">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:padding="5dp"
+        android:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Upload"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/headerText"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Documents"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/startingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_below="@+id/header">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/eprescription"
+           >
+
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you want to upload prescription for the doctor to review?"
+            android:layout_below="@+id/image"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:layout_marginTop="20dp">
+
+        </TextView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Skip"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:visibility="visible"
+            app:backgroundTint="#DDD"
+            app:cornerRadius="12dp"
+            app:elevation="10dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/yes"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Yes"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:backgroundTint="#3C4DD8"
+            app:cornerRadius="12dp"
+            app:elevation="10dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/uploadLayout"
+        android:layout_below="@+id/header">
+        <ImageView
+            android:id="@+id/uploadImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/upload"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp">
+
+        </ImageView>
+        <TextView
+            android:id="@+id/fileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose a file..."
+            android:layout_below="@+id/uploadImage"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/roboto"
+            android:textSize="14sp">
+
+        </TextView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pdfSelector"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/fileName"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2.5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/pdfIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/pdf" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/pdfIcon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10sp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="3dp"
+                    android:text="Choose"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="normal">
+
+                </TextView>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/upload"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_back"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Upload File"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:backgroundTint="#3C4DD8"
+            app:cornerRadius="12dp"
+            app:elevation="10dp"
+            app:strokeColor="@color/white"
+            tools:ignore="NotSibling" />
+    </RelativeLayout>
+</RelativeLayout>

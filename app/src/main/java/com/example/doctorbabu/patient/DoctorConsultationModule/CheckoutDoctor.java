@@ -4,21 +4,26 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.R;
-import com.example.doctorbabu.databinding.ActivityCheckoutBinding;
+import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.databinding.ActivityCheckoutDoctorBinding;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.UUID;
 
 public class CheckoutDoctor extends AppCompatActivity {
-    String doctorId, doctorTitle, doctorName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl,consultationFee;
+    String doctorId, doctorTitle, doctorName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl, consultationFee, appointmentId;
     String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
     int requestCode = 1;
     ActivityCheckoutDoctorBinding binding;
@@ -36,36 +41,69 @@ public class CheckoutDoctor extends AppCompatActivity {
         doctorCurrentlyWorking = getIntent().getStringExtra("doctorCurrentlyWorking");
         photoUrl = getIntent().getStringExtra("photoUrl");
         consultationFee = getIntent().getStringExtra("consultationFee");
+        appointmentId = getIntent().getStringExtra("appointmentId");
         loadData();
         binding.back.setOnClickListener(view -> finish());
-        binding.bkash.setOnClickListener(view -> {
-            if (isPermissionGranted()) {
-                Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
-                intent.putExtra("doctorId", doctorId);
-                intent.putExtra("doctorTitle", doctorTitle);
-                intent.putExtra("doctorName", doctorName);
-                intent.putExtra("photoUrl", photoUrl);
-                startActivity(intent);
-                finish();
-            } else {
-                askPermission();
-            }
-
-        });
-        binding.nagad.setOnClickListener(view -> {
-            if (isPermissionGranted()) {
-                Intent intent = new Intent(CheckoutDoctor.this, CallDoctor.class);
-                intent.putExtra("doctorId", doctorId);
-                intent.putExtra("doctorTitle", doctorTitle);
-                intent.putExtra("doctorName", doctorName);
-                intent.putExtra("photoUrl", photoUrl);
-                startActivity(intent);
-                finish();
-            } else {
-                askPermission();
+        binding.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkingAppointment();
             }
         });
 
+    }
+
+    public void checkingAppointment() {
+        if (isPermissionGranted()) {
+            if (!appointmentId.equalsIgnoreCase("null")) {
+                removeBooking();
+            } else {
+                launchActivity();
+            }
+
+        } else {
+            askPermission();
+        }
+    }
+
+    public void removeBooking() {
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        reference.child(user.getUid()).child(appointmentId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    PendingAppointmentModel model = snapshot.getValue(PendingAppointmentModel.class);
+                    reference.child(user.getUid()).child(appointmentId).removeValue();
+                    reference.child(doctorId).child(appointmentId).removeValue();
+                    DatabaseReference appointmentTakenReference = firebase.getDatabaseReference("takenAppointments");
+                    String uniqueKey = getUniqueKey();
+                    appointmentTakenReference.child(user.getUid()).child(uniqueKey).setValue(model);
+                    appointmentTakenReference.child(doctorId).child(uniqueKey).setValue(model);
+                    launchActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void launchActivity() {
+        Intent intent = new Intent(CheckoutDoctor.this, DocumentUpload.class);
+        intent.putExtra("doctorId", doctorId);
+        intent.putExtra("doctorTitle", doctorTitle);
+        intent.putExtra("doctorName", doctorName);
+        intent.putExtra("photoUrl", photoUrl);
+        startActivity(intent);
+        finish();
+    }
+
+    public String getUniqueKey() {
+        return UUID.randomUUID().toString();
     }
 
     private void askPermission() {
