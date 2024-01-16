@@ -29,8 +29,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -43,11 +46,11 @@ public class SpecificDoctorInfo extends AppCompatActivity {
     FirebaseUser user;
     doctorInfoModel model;
     ActivitySpecificDoctorInfoBinding binding;
-    ExecutorService favouriteRecordExecutor, doctorDataExecutor, doctorExperienceExecutor, getFavouriteDoctorStatus, appointmentExecutor;
+    ExecutorService favouriteRecordExecutor, doctorDataExecutor, doctorExperienceExecutor, getFavouriteDoctorStatus, appointmentExecutor, videoCallAppointmentExecutor;
     boolean toggleButton;
     Dialog dialog;
-    String onlineStatus, currentlyWorking;
-    boolean hasBooked;
+    String onlineStatus, currentlyWorking, currentDate, appointmentId = "";
+    boolean hasBooked, hasBookedToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         doctorExperienceExecutor = Executors.newSingleThreadExecutor();
         getFavouriteDoctorStatus = Executors.newSingleThreadExecutor();
         appointmentExecutor = Executors.newSingleThreadExecutor();
+        videoCallAppointmentExecutor = Executors.newSingleThreadExecutor();
         getFavouriteDoctorStatus.execute(new Runnable() {
             @Override
             public void run() {
@@ -87,25 +91,19 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 getDoctorExperience();
             }
         });
-        binding.videoCall.setOnClickListener(new View.OnClickListener() {
+        videoCallAppointmentExecutor.execute(new Runnable() {
             @Override
-            public void onClick(View view) {
-                if (Integer.parseInt(onlineStatus) == 1) {
-                    Intent intent = new Intent(SpecificDoctorInfo.this, CheckoutDoctor.class);
-                    intent.putExtra("doctorId", doctorId);
-                    intent.putExtra("doctorTitle", model.getTitle());
-                    String doctorName = model.getTitle() + model.getFullName();
-                    intent.putExtra("doctorName", doctorName);
-                    intent.putExtra("doctorDegree", model.getDegrees());
-                    intent.putExtra("doctorSpecialty", model.getSpecialty());
-                    intent.putExtra("doctorCurrentlyWorking", currentlyWorking);
-                    intent.putExtra("photoUrl", model.getPhotoUrl());
-                    intent.putExtra("consultationFee", model.getConsultationFee());
-                    startActivity(intent);
-                } else {
-                    errorMessage("Offline", "We can't establish a video call due to doctor's unavailability");
-                }
-
+            public void run() {
+                binding.videoCall.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (Integer.parseInt(onlineStatus) == 1) {
+                            checkAppointmentHistoryVideoCall();
+                        } else {
+                            errorMessage("Offline", "We can't establish a video call due to doctor's unavailability");
+                        }
+                    }
+                });
             }
         });
         binding.goback.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +143,82 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 dialog.dismiss();
             }
         }, 1000);
+    }
+
+    public void checkAppointmentHistoryVideoCall() {
+        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDateTime now = LocalDateTime.now();
+                    currentDate = dtf.format(now);
+                    String[] dateArray = currentDate.split("-");
+                    String pattern = "0";
+                    DecimalFormat numberFormatter = new DecimalFormat(pattern);
+                    String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
+                    String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
+                    String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
+                    currentDate = currentYear + "-" + currentMonth + "-" + currentDay;
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        assert model != null;
+                        String currentTime = getCurrentTime();
+                        String[] currentTimeArray = currentTime.split(":");
+                        int hour = Integer.parseInt(currentTimeArray[0]);
+                        int minute = Integer.parseInt(currentTimeArray[1]);
+                        if (currentDate.equalsIgnoreCase(model.getAppointmentDate())) {
+                            if (hour == Integer.parseInt(model.getAppointmentHour()) && minute == Integer.parseInt(model.getAppointmentMinute())) {
+                                proceedToVideoCall();
+                                return;
+                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && Integer.parseInt(model.getAppointmentMinute()) <= (minute + 20)) {
+                                proceedToVideoCall();
+                                return;
+                            }
+                            hasBookedToday = true;
+                        }
+                    }
+                    if (hasBookedToday) {
+                        errorMessage("Found Appointment", "You have already booked appointment for this doctor today. Check Pending Appointment Section for more info.");
+                        return;
+                    }
+                }
+                proceedToVideoCall();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+
+    }
+
+    public void proceedToVideoCall() {
+        Intent intent = new Intent(SpecificDoctorInfo.this, CheckoutDoctor.class);
+        intent.putExtra("doctorId", doctorId);
+        intent.putExtra("doctorTitle", model.getTitle());
+        String doctorName = model.getTitle() + model.getFullName();
+        intent.putExtra("doctorName", doctorName);
+        intent.putExtra("doctorDegree", model.getDegrees());
+        intent.putExtra("doctorSpecialty", model.getSpecialty());
+        intent.putExtra("doctorCurrentlyWorking", currentlyWorking);
+        intent.putExtra("photoUrl", model.getPhotoUrl());
+        intent.putExtra("consultationFee", model.getConsultationFee());
+        if (!appointmentId.isEmpty()) {
+            intent.putExtra("appointmentId", appointmentId);
+        } else {
+            intent.putExtra("appointmentId", "null");
+        }
+        startActivity(intent);
+    }
+
+
+    public String getCurrentTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
     }
 
     public void checkAppointmentHistory() {
