@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -46,10 +47,11 @@ public class SpecificDoctorInfo extends AppCompatActivity {
     FirebaseUser user;
     doctorInfoModel model;
     ActivitySpecificDoctorInfoBinding binding;
-    ExecutorService favouriteRecordExecutor, doctorDataExecutor, doctorExperienceExecutor, getFavouriteDoctorStatus, appointmentExecutor, videoCallAppointmentExecutor;
+    ExecutorService favouriteRecordExecutor, doctorDataExecutor, doctorExperienceExecutor, getFavouriteDoctorStatus, appointmentExecutor, videoCallAppointmentExecutor,
+            removeBookingExecutor;
     boolean toggleButton;
     Dialog dialog;
-    String onlineStatus, currentlyWorking, currentDate, appointmentId = "";
+    String onlineStatus, currentlyWorking, appointmentId = "";
     boolean hasBooked, hasBookedToday;
 
     @Override
@@ -67,10 +69,17 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         getFavouriteDoctorStatus = Executors.newSingleThreadExecutor();
         appointmentExecutor = Executors.newSingleThreadExecutor();
         videoCallAppointmentExecutor = Executors.newSingleThreadExecutor();
+        removeBookingExecutor = Executors.newSingleThreadExecutor();
         getFavouriteDoctorStatus.execute(new Runnable() {
             @Override
             public void run() {
                 getFavouriteDoctorStatus();
+            }
+        });
+        removeBookingExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                removeBooking();
             }
         });
         doctorDataExecutor.execute(new Runnable() {
@@ -151,16 +160,6 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    LocalDateTime now = LocalDateTime.now();
-                    currentDate = dtf.format(now);
-                    String[] dateArray = currentDate.split("-");
-                    String pattern = "0";
-                    DecimalFormat numberFormatter = new DecimalFormat(pattern);
-                    String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
-                    String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
-                    String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
-                    currentDate = currentYear + "-" + currentMonth + "-" + currentDay;
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
                         assert model != null;
@@ -168,11 +167,12 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                         String[] currentTimeArray = currentTime.split(":");
                         int hour = Integer.parseInt(currentTimeArray[0]);
                         int minute = Integer.parseInt(currentTimeArray[1]);
-                        if (currentDate.equalsIgnoreCase(model.getAppointmentDate())) {
+                        if (getCurrentDate().equalsIgnoreCase(model.getAppointmentDate())) {
                             if (hour == Integer.parseInt(model.getAppointmentHour()) && minute == Integer.parseInt(model.getAppointmentMinute())) {
                                 proceedToVideoCall();
                                 return;
-                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && Integer.parseInt(model.getAppointmentMinute()) <= (minute + 20)) {
+                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && (Integer.parseInt(model.getAppointmentMinute())+19) >= minute) {
+                                Log.w("Second If true","true");
                                 proceedToVideoCall();
                                 return;
                             }
@@ -180,7 +180,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                         }
                     }
                     if (hasBookedToday) {
-                        errorMessage("Found Appointment", "You have already booked appointment for this doctor today. Check Pending Appointment Section for more info.");
+                        errorMessage("Found Pending Appointment", "You have already booked appointment for this doctor today. Check Pending Appointment Section for more info.");
                         return;
                     }
                 }
@@ -193,6 +193,64 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void removeBooking() {
+        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        assert model != null;
+                        String currentTime = getCurrentTime();
+                        String[] currentTimeArray = currentTime.split(":");
+                        int hour = Integer.parseInt(currentTimeArray[0]);
+                        int minute = Integer.parseInt(currentTimeArray[1]);
+                        String currentDate = getCurrentDate();
+                        if (currentDate.equalsIgnoreCase(model.getAppointmentDate())) {
+                            if (hour >= Integer.parseInt(model.getAppointmentHour()) && minute > Integer.parseInt(model.getAppointmentMinute())) {
+                                reference.child(user.getUid()).child(model.getAppointmentID()).removeValue();
+                                reference.child(doctorId).child(model.getAppointmentID()).removeValue();
+                                return;
+                            }
+                        } else {
+                            String[] currentDateArray = currentDate.split("-");
+                            int year = Integer.parseInt(currentDateArray[0]);
+                            int month = Integer.parseInt(currentDateArray[1]);
+                            int day = Integer.parseInt(currentDateArray[2]);
+                            String[] appointedDateArray = model.getAppointmentDate().split("-");
+                            int appointedYear = Integer.parseInt(appointedDateArray[0]);
+                            int appointedMonth = Integer.parseInt(appointedDateArray[1]);
+                            int appointedDay = Integer.parseInt(appointedDateArray[2]);
+                            if(year >= appointedYear && month == appointedMonth && day > appointedDay){
+                                reference.child(user.getUid()).child(model.getAppointmentID()).removeValue();
+                                reference.child(doctorId).child(model.getAppointmentID()).removeValue();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public String getCurrentDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String currentDate = dtf.format(now);
+        String[] dateArray = currentDate.split("-");
+        String pattern = "0";
+        DecimalFormat numberFormatter = new DecimalFormat(pattern);
+        String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
+        String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
+        String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
+        return currentYear + "-" + currentMonth + "-" + currentDay;
     }
 
     public void proceedToVideoCall() {
@@ -469,5 +527,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
         doctorExperienceExecutor.shutdown();
         getFavouriteDoctorStatus.shutdown();
         appointmentExecutor.shutdown();
+        videoCallAppointmentExecutor.shutdown();
+        removeBookingExecutor.shutdown();
     }
 }

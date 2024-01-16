@@ -54,7 +54,7 @@ public class Doctor extends Fragment {
     DatabaseReference availableDoctorReference;
     FragmentDoctorBinding binding;
     doctorInfoModel model = doctorInfoModel.getInstance();
-    ExecutorService loadDoctorExecutor, recentlyViewedExecutor,favouriteDoctorExecutor;
+    ExecutorService loadDoctorExecutor, recentlyViewedExecutor, favouriteDoctorExecutor;
     boolean hasPressed;
 
 
@@ -135,7 +135,7 @@ public class Doctor extends Fragment {
                 startActivity(intent);
             }
         });
-        try{
+        try {
             binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean isFocused) {
@@ -147,7 +147,7 @@ public class Doctor extends Fragment {
                     }
                 }
             });
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -169,6 +169,9 @@ public class Doctor extends Fragment {
             list = new ArrayList<>();
             adapter = new availableDoctorAdapter(requireContext(), list, userId);
             binding.availableDoctorRecyclerView.setAdapter(adapter);
+            favouriteDoctorModels = new ArrayList<>();
+            binding.favouriteDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false), R.layout.shimmer_layout_favourite_doctor);
+            favouriteDoctorAdapter = new FavouriteDoctorAdapter(requireContext(), favouriteDoctorModels);
         }
 
     }
@@ -180,26 +183,33 @@ public class Doctor extends Fragment {
         new TabLayoutMediator(binding.tabs, binding.vPager, ((tab, position) -> tab.setText(titles[position]))).attach();
     }
 
-    public void loadFavouriteDoctor(){
-        if(isAdded()){
-            favouriteDoctorModels = new ArrayList<>();
-            binding.favouriteDoctorRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false),R.layout.shimmer_layout_favourite_doctor);
-            favouriteDoctorAdapter = new FavouriteDoctorAdapter(requireContext(),favouriteDoctorModels);
-            binding.favouriteDoctorRecyclerView.showShimmer();
+    public void loadFavouriteDoctor() {
+        if (isAdded()) {
+            requireActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    binding.favouriteDoctorRecyclerView.showShimmer();
+                }
+            });
             Firebase firebase = Firebase.getInstance();
             FirebaseUser user = firebase.getUserID();
             DatabaseReference reference = firebase.getDatabaseReference("favouriteDoctors");
             reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        for(DataSnapshot snap : snapshot.getChildren()){
+                    if (snapshot.exists()) {
+                        for (DataSnapshot snap : snapshot.getChildren()) {
                             doctorInfoModel model = snap.getValue(doctorInfoModel.class);
                             favouriteDoctorModels.add(model);
                         }
-                        binding.favouriteDoctorRecyclerView.setAdapter(favouriteDoctorAdapter);
-                        binding.favouriteDoctorRecyclerView.hideShimmer();
-                        binding.favouriteLayout.setVisibility(View.VISIBLE);
+                        requireActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.favouriteDoctorRecyclerView.setAdapter(favouriteDoctorAdapter);
+                                binding.favouriteDoctorRecyclerView.hideShimmer();
+                                binding.favouriteLayout.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
                 }
 
@@ -252,8 +262,6 @@ public class Doctor extends Fragment {
         }
 
     }
-
-
 
 
     public void loadRecentlyViewed() {

@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PendingAppointment extends AppCompatActivity {
     ActivityPendingAppointmentBinding binding;
@@ -37,6 +39,7 @@ public class PendingAppointment extends AppCompatActivity {
     PendingAppointmentAdapter adapter;
     MissedAppointmentAdapter missedAdapter;
     PendingAppointmentModel pendingAppointmentModel;
+    ExecutorService pendingAppointmentExecutor, missedAppointmentExecutor;
 
     ActionBarDrawerToggle toggle;
 
@@ -49,7 +52,15 @@ public class PendingAppointment extends AppCompatActivity {
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         binding.drawerLayout.setStatusBarBackgroundColor(Color.parseColor("#FDFEFE"));
-        getAppointmentData();
+        pendingAppointmentExecutor = Executors.newSingleThreadExecutor();
+        missedAppointmentExecutor = Executors.newSingleThreadExecutor();
+        pendingAppointmentExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                getAppointmentData();
+            }
+        });
+
     }
 
     @Override
@@ -66,7 +77,12 @@ public class PendingAppointment extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.navMissed){
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
-                    getMissedAppointmentData();
+                    missedAppointmentExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            getMissedAppointmentData();
+                        }
+                    });
                 } else if(item.getItemId() == R.id.navPending){
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                     getAppointmentData();
@@ -87,7 +103,7 @@ public class PendingAppointment extends AppCompatActivity {
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
-        reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,7 +140,7 @@ public class PendingAppointment extends AppCompatActivity {
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
         DatabaseReference reference = firebase.getDatabaseReference("missedAppointments");
-        reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -145,7 +161,7 @@ public class PendingAppointment extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
@@ -156,6 +172,8 @@ public class PendingAppointment extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPressed();
+            pendingAppointmentExecutor.shutdown();
+            missedAppointmentExecutor.shutdown();
         }
 
     }
@@ -164,5 +182,7 @@ public class PendingAppointment extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+        pendingAppointmentExecutor.shutdown();
+        missedAppointmentExecutor.shutdown();
     }
 }

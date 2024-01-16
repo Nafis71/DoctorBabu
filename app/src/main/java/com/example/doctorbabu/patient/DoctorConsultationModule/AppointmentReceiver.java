@@ -90,7 +90,7 @@ public class AppointmentReceiver extends BroadcastReceiver {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        notificationManagerCompat.notify(224, builder.build());
+        notificationManagerCompat.notify(225, builder.build());
     }
 
     public void setTimer() {
