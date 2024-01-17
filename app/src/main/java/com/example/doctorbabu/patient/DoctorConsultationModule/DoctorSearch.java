@@ -57,7 +57,6 @@ public class DoctorSearch extends AppCompatActivity {
         });
 
     }
-
     public void setSearch() {
         binding.searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

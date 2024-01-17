@@ -41,6 +41,7 @@
     <string name="noMissingAppointments">There are no missed appointments</string>
     <string name="noAppointmentTaken">There is no history of taken appointment</string>
     <string name="noAppointmentCancelled">There is no history of cancelled appointment</string>
+    <string name="cancel">Cancel</string>
     <string name="recentlyViewed">Recently Viewed</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->

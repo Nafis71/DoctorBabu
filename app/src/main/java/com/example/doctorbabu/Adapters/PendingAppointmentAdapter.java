@@ -25,13 +25,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppointmentAdapter.myViewHolder> {
 
     Context context;
     ArrayList<PendingAppointmentModel> model;
-    String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl,consultationFee;
+    String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl, consultationFee;
     Firebase firebase;
 
     public PendingAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model) {
@@ -50,7 +53,36 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     public void onBindViewHolder(@NonNull PendingAppointmentAdapter.myViewHolder holder, int position) {
         PendingAppointmentModel dbModel = model.get(position);
         getDoctorData(holder, dbModel);
+        String currentTime = getCurrentTime();
+        String currentDate = getCurrentDate();
+        String[] currentTimeArray = currentTime.split(":");
+        int hour = Integer.parseInt(currentTimeArray[0]);
+        int minute = Integer.parseInt(currentTimeArray[1]);
+        if (currentDate.equalsIgnoreCase(dbModel.getAppointmentDate())) {
+            if (hour == Integer.parseInt(dbModel.getAppointmentHour()) && minute == Integer.parseInt(dbModel.getAppointmentMinute()) || hour == Integer.parseInt(dbModel.getAppointmentHour()) && (Integer.parseInt(dbModel.getAppointmentMinute()) + 10) >= minute) {
+                holder.cancel.setVisibility(View.GONE);
+                holder.videoCall.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
+    public String getCurrentTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
+    public String getCurrentDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String currentDate = dtf.format(now);
+        String[] dateArray = currentDate.split("-");
+        String pattern = "0";
+        DecimalFormat numberFormatter = new DecimalFormat(pattern);
+        String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
+        String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
+        String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
+        return currentYear + "-" + currentMonth + "-" + currentDay;
     }
 
     public void getDoctorData(myViewHolder holder, PendingAppointmentModel dbModel) {
@@ -105,7 +137,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                                     intent.putExtra("doctorSpecialty", doctorSpecialty);
                                     intent.putExtra("doctorCurrentlyWorking", doctorCurrentlyWorking);
                                     intent.putExtra("photoUrl", photoUrl);
-                                    intent.putExtra("consultationFee",consultationFee);
+                                    intent.putExtra("consultationFee", consultationFee);
                                     activity.startActivity(intent);
                                     activity.finish();
                                 }
@@ -144,7 +176,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     public class myViewHolder extends RecyclerView.ViewHolder {
         ImageView profilePicture;
         TextView doctorName, appointmentDate, appointmentTime;
-        MaterialCardView card, videoCall;
+        MaterialCardView videoCall, cancel;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -153,7 +185,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
             appointmentDate = itemView.findViewById(R.id.appointmentDate);
             appointmentTime = itemView.findViewById(R.id.appointmentTime);
             videoCall = itemView.findViewById(R.id.videoCall);
-            card = itemView.findViewById(R.id.card);
+            cancel = itemView.findViewById(R.id.cancel);
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card"
     android:layout_width="match_parent"
@@ -8,6 +8,7 @@
     android:layout_marginBottom="8dp"
     android:padding="3dp"
     app:cardCornerRadius="11dp"
+    android:background="@drawable/doctor_appointment_background_layout"
     app:cardElevation="3dp">
 
     <RelativeLayout
@@ -112,7 +113,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/videoCall"
-            style="@style/Widget.Material3.CardView.Outlined"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
@@ -122,9 +123,8 @@
             android:layout_marginBottom="5dp"
             android:visibility="gone"
             app:cardCornerRadius="10dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#C2C2C2"
-            app:strokeWidth="1dp">
+            app:cardElevation="3dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -157,7 +157,53 @@
             </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cancel"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible"
+            app:cardCornerRadius="10dp"
+            android:layout_below="@+id/videoCall"
+            app:cardElevation="3dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/cancelIcon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/cross" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="3sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10sp"
+                    android:layout_toEndOf="@id/cancelIcon"
+                    android:fontFamily="@font/roboto"
+                    android:padding="6dp"
+                    android:text="@string/cancel"
+                    android:textColor="#4F5FDE"
+                    android:textSize="13sp"
+                    android:textStyle="bold">
+
+                </TextView>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 
 
-</com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

@@ -105,6 +105,7 @@
             android:id="@+id/noAppointmentHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="visible"
             >
 
             <ImageView
@@ -135,7 +136,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/noAppointmentHeader"
+            android:layout_below="@+id/descriptionHeader"
             android:padding="2dp">
 
             <com.todkars.shimmer.ShimmerRecyclerView
@@ -146,7 +147,7 @@
                 android:animationCache="true"
                 android:orientation="vertical"
                 android:overScrollMode="ifContentScrolls"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:shimmer_recycler_item_count="4"
                 app:shimmer_recycler_layout="@layout/shimmer_layout_appointment" />

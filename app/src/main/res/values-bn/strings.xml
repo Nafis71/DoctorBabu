@@ -43,6 +43,7 @@
     <string name="noAppointmentTaken">অ্যাপয়েন্টমেন্ট নেওয়ার ইতিহাস নেই</string>
     <string name="noAppointmentCancelled">নিয়োগ বাতিলের কোনো ইতিহাস নেই</string>
     <string name="recentlyViewed">সম্প্রতি দেখা হয়েছে</string>
+    <string name="cancel">বাতিল</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->
     <string name="chooseSpecialization">একটি স্পেশালাইজেশন নির্বাচন করুন</string>
