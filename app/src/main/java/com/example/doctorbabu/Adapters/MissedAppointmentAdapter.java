@@ -4,13 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +24,9 @@ import java.util.ArrayList;
 public class MissedAppointmentAdapter extends RecyclerView.Adapter<MissedAppointmentAdapter.myViewHolder> {
 
     Context context;
-    ArrayList<PendingAppointmentModel> model;
+    ArrayList<AppointmentModel> model;
 
-    public MissedAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model) {
+    public MissedAppointmentAdapter(Context context, ArrayList<AppointmentModel> model) {
         this.context = context;
         this.model = model;
     }
@@ -39,11 +40,11 @@ public class MissedAppointmentAdapter extends RecyclerView.Adapter<MissedAppoint
 
     @Override
     public void onBindViewHolder(@NonNull MissedAppointmentAdapter.myViewHolder holder, int position) {
-        PendingAppointmentModel dbModel = model.get(position);
+        AppointmentModel dbModel = model.get(position);
         getDoctorData(holder,dbModel);
 
     }
-    public void getDoctorData(myViewHolder holder, PendingAppointmentModel dbModel){
+    public void getDoctorData(myViewHolder holder, AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
         reference.child(dbModel.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -53,6 +54,7 @@ public class MissedAppointmentAdapter extends RecyclerView.Adapter<MissedAppoint
                     String title = String.valueOf(snapshot.child("title").getValue());
                     String fullName = String.valueOf(snapshot.child("fullName").getValue());
                     String doctorName = title+fullName;
+                    Glide.with(context).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(holder.profilePicture);
                     holder.doctorName.setText(doctorName);
                     getAppointmentData(holder,dbModel);
                 }
@@ -65,7 +67,7 @@ public class MissedAppointmentAdapter extends RecyclerView.Adapter<MissedAppoint
         });
     }
 
-    public void getAppointmentData(myViewHolder holder, PendingAppointmentModel dbModel){
+    public void getAppointmentData(myViewHolder holder, AppointmentModel dbModel){
         String hour = dbModel.getAppointmentHour();
         String timePeriod = dbModel.getTimePeriod();
         if(timePeriod.equalsIgnoreCase("pm")){
@@ -86,12 +88,14 @@ public class MissedAppointmentAdapter extends RecyclerView.Adapter<MissedAppoint
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         TextView doctorName,appointmentDate,appointmentTime;
+        ImageView profilePicture;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             doctorName = itemView.findViewById(R.id.doctorName);
             appointmentDate = itemView.findViewById(R.id.appointmentDate);
             appointmentTime = itemView.findViewById(R.id.appointmentTime);
+            profilePicture = itemView.findViewById(R.id.profilePicture);
         }
     }
 }

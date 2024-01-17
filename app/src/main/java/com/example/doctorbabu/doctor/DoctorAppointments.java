@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.doctorbabu.Adapters.DoctorAppointmentAdapter;
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorAppointmentsBinding;
@@ -36,7 +36,7 @@ public class DoctorAppointments extends Fragment {
     Firebase firebase;
     String doctorId;
     DoctorAppointmentAdapter adapter;
-    ArrayList<PendingAppointmentModel> appointmentModels;
+    ArrayList<AppointmentModel> appointmentModels;
 
 
     public DoctorAppointments() {
@@ -80,7 +80,7 @@ public class DoctorAppointments extends Fragment {
                 appointmentModels.clear();
                 if (snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        AppointmentModel model = snap.getValue(AppointmentModel.class);
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                         LocalDateTime now = LocalDateTime.now();
                         String currentDate = dtf.format(now);

@@ -17,17 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
-import com.example.doctorbabu.patient.AlarmModules.AlarmReceiver;
 import com.example.doctorbabu.patient.DoctorConsultationModule.AppointmentReceiver;
 import com.example.doctorbabu.patient.DoctorConsultationModule.CheckoutDoctor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,12 +42,12 @@ import java.util.HashMap;
 public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppointmentAdapter.myViewHolder> {
 
     Context context;
-    ArrayList<PendingAppointmentModel> model;
+    ArrayList<AppointmentModel> model;
     String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl, consultationFee;
     Firebase firebase;
     RelativeLayout descriptionHeader,noAppointmentHeader;
 
-    public PendingAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model,RelativeLayout descriptionHeader,RelativeLayout noAppointmentHeader) {
+    public PendingAppointmentAdapter(Context context, ArrayList<AppointmentModel> model, RelativeLayout descriptionHeader, RelativeLayout noAppointmentHeader) {
         this.context = context;
         this.model = model;
         this.descriptionHeader = descriptionHeader;
@@ -65,7 +63,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
 
     @Override
     public void onBindViewHolder(@NonNull PendingAppointmentAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        PendingAppointmentModel dbModel = model.get(position);
+        AppointmentModel dbModel = model.get(position);
         getDoctorData(holder, dbModel);
         String currentTime = getCurrentTime();
         String currentDate = getCurrentDate();
@@ -91,10 +89,10 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                 notifyDataSetChanged();
             }
         });
-        failSafeAutoCancelAppointment(dbModel);
+        failSafeAutoCancelAppointment(dbModel,position);
     }
 
-    public void failSafeAutoCancelAppointment(PendingAppointmentModel dbModel){
+    public void failSafeAutoCancelAppointment(AppointmentModel dbModel, int position){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         String currentTime = getCurrentTime();
@@ -104,7 +102,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
         String currentDate = getCurrentDate();
         if (currentDate.equalsIgnoreCase(dbModel.getAppointmentDate())) {
             if (hour >= Integer.parseInt(dbModel.getAppointmentHour()) && minute > Integer.parseInt(dbModel.getAppointmentMinute())) {
-                saveMissedAppointment(reference,dbModel);
+                saveMissedAppointment(reference,dbModel,position);
             }
         } else {
             String[] currentDateArray = currentDate.split("-");
@@ -116,18 +114,25 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
             int appointedMonth = Integer.parseInt(appointedDateArray[1]);
             int appointedDay = Integer.parseInt(appointedDateArray[2]);
             if(year >= appointedYear && month == appointedMonth && day > appointedDay){
-                saveMissedAppointment(reference,dbModel);
+                saveMissedAppointment(reference,dbModel,position);
             }
         }
     }
 
-    public void saveMissedAppointment(DatabaseReference reference, PendingAppointmentModel dbModel){
+    @SuppressLint("NotifyDataSetChanged")
+    public void saveMissedAppointment(DatabaseReference reference, AppointmentModel dbModel, int position){
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
         reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).removeValue();
         reference = firebase.getDatabaseReference("missedAppointments");
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(dbModel);
+        model.remove(position);
+        if(model.size() == 0){
+            descriptionHeader.setVisibility(View.GONE);
+            noAppointmentHeader.setVisibility(View.VISIBLE);
+        }
+        notifyDataSetChanged();
     }
-    public void cancelAppointment(PendingAppointmentModel dbModel){
+    public void cancelAppointment(AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
@@ -138,7 +143,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
             }
         });
     }
-    public void saveCancelledAppointment(PendingAppointmentModel dbModel){
+    public void saveCancelledAppointment(AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         HashMap<String,String> data = new HashMap<>();
         data.put("appointmentDate",dbModel.getAppointmentDate());
@@ -165,7 +170,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                 .show();
     }
 
-    public void cancelAlarm(PendingAppointmentModel dbModel) {
+    public void cancelAlarm(AppointmentModel dbModel) {
         Intent intent = new Intent(context, AppointmentReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(dbModel.getBroadcastCode()), intent, PendingIntent.FLAG_MUTABLE);
         AppCompatActivity activity = (AppCompatActivity)context;
@@ -192,7 +197,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
         return currentYear + "-" + currentMonth + "-" + currentDay;
     }
 
-    public void getDoctorData(myViewHolder holder, PendingAppointmentModel dbModel) {
+    public void getDoctorData(myViewHolder holder, AppointmentModel dbModel) {
         firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
         reference.child(dbModel.getDoctorID()).addValueEventListener(new ValueEventListener() {
@@ -221,7 +226,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
         });
     }
 
-    public void getCurrentlyWorkingData(PendingAppointmentModel dbModel, myViewHolder holder) {
+    public void getCurrentlyWorkingData(AppointmentModel dbModel, myViewHolder holder) {
         DatabaseReference reference = firebase.getDatabaseReference("doctorCurrentlyWorking");
         reference.child(dbModel.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -263,7 +268,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
         });
     }
 
-    public void getAppointmentData(myViewHolder holder, PendingAppointmentModel dbModel) {
+    public void getAppointmentData(myViewHolder holder, AppointmentModel dbModel) {
         String hour = dbModel.getAppointmentHour();
         String minute = dbModel.getAppointmentMinute();
         String timePeriod = dbModel.getTimePeriod();

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.databinding.ActivityCheckoutDoctorBinding;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,7 +74,7 @@ public class CheckoutDoctor extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    PendingAppointmentModel model = snapshot.getValue(PendingAppointmentModel.class);
+                    AppointmentModel model = snapshot.getValue(AppointmentModel.class);
                     reference.child(user.getUid()).child(appointmentId).removeValue();
                     reference.child(doctorId).child(appointmentId).removeValue();
                     DatabaseReference appointmentTakenReference = firebase.getDatabaseReference("takenAppointments");

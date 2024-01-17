@@ -13,7 +13,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
@@ -75,7 +75,7 @@ public class AppointmentReceiver extends BroadcastReceiver {
 
     public void buildNotification() {
         notificationText = notificationText + doctorName;
-        Intent intent = new Intent(context, PendingAppointmentModel.class);
+        Intent intent = new Intent(context, AppointmentModel.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "appointmentReminder")

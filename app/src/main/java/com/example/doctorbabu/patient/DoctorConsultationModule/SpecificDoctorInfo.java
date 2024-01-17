@@ -5,14 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.DatabaseModels.joiningDates;
 import com.example.doctorbabu.DatabaseModels.leavingDates;
@@ -161,7 +160,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        AppointmentModel model = snap.getValue(AppointmentModel.class);
                         assert model != null;
                         String currentTime = getCurrentTime();
                         String[] currentTimeArray = currentTime.split(":");
@@ -201,7 +200,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        AppointmentModel model = snap.getValue(AppointmentModel.class);
                         assert model != null;
                         String currentTime = getCurrentTime();
                         String[] currentTimeArray = currentTime.split(":");
@@ -285,7 +284,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
-                        PendingAppointmentModel model = snap.getValue(PendingAppointmentModel.class);
+                        AppointmentModel model = snap.getValue(AppointmentModel.class);
                         assert model != null;
                         if (model.getDoctorID().equals(doctorId)) {
                             hasBooked = true;

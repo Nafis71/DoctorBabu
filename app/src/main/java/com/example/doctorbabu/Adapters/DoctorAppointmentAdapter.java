@@ -4,17 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.patient.DoctorConsultationModule.BookAppointment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -27,16 +25,15 @@ import org.aviran.cookiebar2.CookieBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppointmentAdapter.myViewHolder> {
     Context context;
-    ArrayList<PendingAppointmentModel> model;
+    ArrayList<AppointmentModel> model;
     ExecutorService cancelAppointmentExecutor;
 
-    public DoctorAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model) {
+    public DoctorAppointmentAdapter(Context context, ArrayList<AppointmentModel> model) {
         this.context = context;
         this.model = model;
     }
@@ -51,7 +48,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
     @Override
     public void onBindViewHolder(@NonNull DoctorAppointmentAdapter.myViewHolder holder, int position) {
         cancelAppointmentExecutor = Executors.newSingleThreadExecutor();
-        PendingAppointmentModel dbModel = model.get(position);
+        AppointmentModel dbModel = model.get(position);
         getAppointmentData(holder,dbModel);
         getPatientData(holder, dbModel);
         holder.cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +63,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
             }
         });
     }
-    public void cancelAppointment(PendingAppointmentModel dbModel){
+    public void cancelAppointment(AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
@@ -77,7 +74,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
             }
         });
     }
-    public void saveCancelledAppointment(PendingAppointmentModel dbModel){
+    public void saveCancelledAppointment(AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         HashMap<String,String> data = new HashMap<>();
         data.put("appointmentDate",dbModel.getAppointmentDate());
@@ -103,7 +100,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
                 .show();
     }
 
-    public void getPatientData(myViewHolder holder, PendingAppointmentModel dbModel){
+    public void getPatientData(myViewHolder holder, AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("users");
         reference.child(dbModel.getPatientID()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,7 +116,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
             }
         });
     }
-    public void getAppointmentData(myViewHolder holder, PendingAppointmentModel dbModel) {
+    public void getAppointmentData(myViewHolder holder, AppointmentModel dbModel) {
         String hour = dbModel.getAppointmentHour();
         String minute = dbModel.getAppointmentMinute();
         String timePeriod = dbModel.getTimePeriod();

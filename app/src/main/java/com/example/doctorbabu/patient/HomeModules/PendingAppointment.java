@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
@@ -12,13 +11,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.doctorbabu.Adapters.MissedAppointmentAdapter;
 import com.example.doctorbabu.Adapters.PendingAppointmentAdapter;
-import com.example.doctorbabu.Adapters.alarmListAdapter;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
-import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityPendingAppointmentBinding;
@@ -35,10 +31,10 @@ import java.util.concurrent.Executors;
 
 public class PendingAppointment extends AppCompatActivity {
     ActivityPendingAppointmentBinding binding;
-    ArrayList<PendingAppointmentModel> model;
+    ArrayList<AppointmentModel> model;
     PendingAppointmentAdapter adapter;
     MissedAppointmentAdapter missedAdapter;
-    PendingAppointmentModel pendingAppointmentModel;
+    AppointmentModel appointmentModel;
     ExecutorService pendingAppointmentExecutor, missedAppointmentExecutor;
 
     ActionBarDrawerToggle toggle;
@@ -106,8 +102,8 @@ public class PendingAppointment extends AppCompatActivity {
                     binding.descriptionHeader.setVisibility(View.VISIBLE);
                     model.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
-                        pendingAppointmentModel = snap.getValue(PendingAppointmentModel.class);
-                        model.add(pendingAppointmentModel);
+                        appointmentModel = snap.getValue(AppointmentModel.class);
+                        model.add(appointmentModel);
                     }
                     adapter.notifyDataSetChanged();
                     binding.appointmentRecyclerView.hideShimmer();
@@ -147,8 +143,8 @@ public class PendingAppointment extends AppCompatActivity {
                     binding.descriptionHeader.setVisibility(View.VISIBLE);
                     model.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
-                        pendingAppointmentModel = snap.getValue(PendingAppointmentModel.class);
-                        model.add(pendingAppointmentModel);
+                        appointmentModel = snap.getValue(AppointmentModel.class);
+                        model.add(appointmentModel);
                     }
                     missedAdapter.notifyDataSetChanged();
                     binding.appointmentRecyclerView.hideShimmer();
