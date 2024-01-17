@@ -91,8 +91,42 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                 notifyDataSetChanged();
             }
         });
+        failSafeAutoCancelAppointment(dbModel);
     }
 
+    public void failSafeAutoCancelAppointment(PendingAppointmentModel dbModel){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        String currentTime = getCurrentTime();
+        String[] currentTimeArray = currentTime.split(":");
+        int hour = Integer.parseInt(currentTimeArray[0]);
+        int minute = Integer.parseInt(currentTimeArray[1]);
+        String currentDate = getCurrentDate();
+        if (currentDate.equalsIgnoreCase(dbModel.getAppointmentDate())) {
+            if (hour >= Integer.parseInt(dbModel.getAppointmentHour()) && minute > Integer.parseInt(dbModel.getAppointmentMinute())) {
+                saveMissedAppointment(reference,dbModel);
+            }
+        } else {
+            String[] currentDateArray = currentDate.split("-");
+            int year = Integer.parseInt(currentDateArray[0]);
+            int month = Integer.parseInt(currentDateArray[1]);
+            int day = Integer.parseInt(currentDateArray[2]);
+            String[] appointedDateArray = dbModel.getAppointmentDate().split("-");
+            int appointedYear = Integer.parseInt(appointedDateArray[0]);
+            int appointedMonth = Integer.parseInt(appointedDateArray[1]);
+            int appointedDay = Integer.parseInt(appointedDateArray[2]);
+            if(year >= appointedYear && month == appointedMonth && day > appointedDay){
+                saveMissedAppointment(reference,dbModel);
+            }
+        }
+    }
+
+    public void saveMissedAppointment(DatabaseReference reference, PendingAppointmentModel dbModel){
+        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
+        reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).removeValue();
+        reference = firebase.getDatabaseReference("missedAppointments");
+        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(dbModel);
+    }
     public void cancelAppointment(PendingAppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
