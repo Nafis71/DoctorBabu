@@ -115,6 +115,8 @@ public class PendingAppointment extends AppCompatActivity {
                 }else{
                     binding.appointmentRecyclerView.hideShimmer();
                     binding.nodataText.setText(R.string.noPendingAppointments);
+                    binding.noAppointmentHeader.setVisibility(View.VISIBLE);
+                    binding.descriptionHeader.setVisibility(View.GONE);
                 }
 
             }
@@ -154,6 +156,8 @@ public class PendingAppointment extends AppCompatActivity {
                 }else{
                     binding.appointmentRecyclerView.hideShimmer();
                     binding.nodataText.setText(R.string.noMissingAppointments);
+                    binding.noAppointmentHeader.setVisibility(View.VISIBLE);
+                    binding.descriptionHeader.setVisibility(View.GONE);
                 }
 
             }
