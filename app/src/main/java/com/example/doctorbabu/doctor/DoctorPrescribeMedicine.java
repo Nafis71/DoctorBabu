@@ -222,6 +222,9 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                 },2000);
             }
         });
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference deleteReference = firebase.getDatabaseReference("appointmentDocuments");
+        deleteReference.child(patientId).removeValue();
     }
 
 
