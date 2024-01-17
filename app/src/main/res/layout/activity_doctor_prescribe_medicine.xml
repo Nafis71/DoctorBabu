@@ -57,7 +57,9 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    >
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottieAnimation"
@@ -330,11 +332,41 @@
                         </RelativeLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/providedPrescriptionLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    android:padding="5dp"
+                    >
+                    <TextView
+                        android:id="@+id/prescriptionHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Provided Prescription"
+                        android:textColor="@color/black"
+                        android:textStyle="bold">
+                    </TextView>
+                    <com.todkars.shimmer.ShimmerRecyclerView
+                        android:id="@+id/prescriptionRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/prescriptionHeader"
+                        android:layout_marginTop="5dp"
+                        android:animationCache="true"
+                        android:orientation="vertical"
+                        android:overScrollMode="ifContentScrolls"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:shimmer_recycler_item_count="4"
+                        app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/medicineAddLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -347,9 +379,11 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/roboto"
-                        android:text="Enter Medicine 1 Details"
+                        android:text="Enter Medicine Details"
                         android:textColor="@color/black"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold">
+
+                    </TextView>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/diagnosis"
@@ -419,7 +453,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/medicineDetails"
                             android:layout_width="match_parent"
-                            android:layout_height="180dp"
+                            android:layout_height="150dp"
                             android:enabled="true"
                             android:inputType="textMultiLine"
                             android:padding="13dp"

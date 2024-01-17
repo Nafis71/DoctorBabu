@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.doctorbabu.Adapters.ProvidedPrescriptionAdapter;
+import com.example.doctorbabu.DatabaseModels.ProvidedPrescriptionModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityDoctorPrescribeMedicineBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +40,8 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DoctorPrescribeMedicine extends AppCompatActivity {
     String patientId, doctorId;
@@ -46,6 +52,9 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
 
     ArrayList<String> medicineName = new ArrayList<>();
     ArrayList<String> medicineDetails = new ArrayList<>();
+    ArrayList<ProvidedPrescriptionModel> prescriptionModels;
+    ProvidedPrescriptionAdapter adapter;
+    ExecutorService loadPatientExecutor,loadPrescriptionExecutor;
 
     ActivityDoctorPrescribeMedicineBinding binding;
 
@@ -63,7 +72,20 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("loginDetails", MODE_PRIVATE);
         doctorId = preferences.getString("doctorId", "");
         patientId = getIntent().getStringExtra("patientId");
-        loadPatientData();
+        loadPatientExecutor = Executors.newSingleThreadExecutor();
+        loadPrescriptionExecutor = Executors.newSingleThreadExecutor();
+        loadPatientExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadPatientData();
+            }
+        });
+        loadPrescriptionExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadPrescriptions();
+            }
+        });
         binding.addBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +110,34 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
     }
     public void onStart(){
         super.onStart();
+    }
+
+    public void loadPrescriptions(){
+        prescriptionModels = new ArrayList<>();
+        binding.prescriptionRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_provided_prescription);
+        adapter = new ProvidedPrescriptionAdapter(this,prescriptionModels);
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("appointmentDocuments");
+        reference.child(patientId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    binding.providedPrescriptionLayout.setVisibility(View.VISIBLE);
+                    binding.prescriptionRecyclerView.showShimmer();
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        ProvidedPrescriptionModel model = snap.getValue(ProvidedPrescriptionModel.class);
+                        prescriptionModels.add(model);
+                    }
+                    binding.prescriptionRecyclerView.setAdapter(adapter);
+                    binding.prescriptionRecyclerView.hideShimmer();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -317,5 +367,12 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
 
     public String getUniqueId() {
         return UUID.randomUUID().toString();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loadPatientExecutor.shutdown();
+        loadPrescriptionExecutor.shutdown();
     }
 }
