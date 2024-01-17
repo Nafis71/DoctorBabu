@@ -77,12 +77,7 @@ public class PendingAppointment extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.navMissed){
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
-                    missedAppointmentExecutor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            getMissedAppointmentData();
-                        }
-                    });
+                    getMissedAppointmentData();
                 } else if(item.getItemId() == R.id.navPending){
                     binding.drawerLayout.closeDrawer(GravityCompat.START);
                     getAppointmentData();
@@ -109,6 +104,7 @@ public class PendingAppointment extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     binding.noAppointmentHeader.setVisibility(View.GONE);
+                    binding.descriptionHeader.setVisibility(View.VISIBLE);
                     model.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
                         pendingAppointmentModel = snap.getValue(PendingAppointmentModel.class);
@@ -118,13 +114,14 @@ public class PendingAppointment extends AppCompatActivity {
                     binding.appointmentRecyclerView.hideShimmer();
                 }else{
                     binding.appointmentRecyclerView.hideShimmer();
+                    binding.nodataText.setText(R.string.noPendingAppointments);
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
@@ -146,6 +143,7 @@ public class PendingAppointment extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     binding.noAppointmentHeader.setVisibility(View.GONE);
+                    binding.descriptionHeader.setVisibility(View.VISIBLE);
                     model.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
                         pendingAppointmentModel = snap.getValue(PendingAppointmentModel.class);
@@ -155,6 +153,7 @@ public class PendingAppointment extends AppCompatActivity {
                     binding.appointmentRecyclerView.hideShimmer();
                 }else{
                     binding.appointmentRecyclerView.hideShimmer();
+                    binding.nodataText.setText(R.string.noMissingAppointments);
                 }
 
             }

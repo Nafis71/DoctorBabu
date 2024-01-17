@@ -53,7 +53,6 @@ public class DoctorSearch extends AppCompatActivity {
             @Override
             public void run() {
                 setSearch();
-                binding.searchView.requestFocus();
             }
         });
 
@@ -67,6 +66,12 @@ public class DoctorSearch extends AppCompatActivity {
                     showInputMethod(view.findFocus());
                     searchDoctor();
                 }
+            }
+        });
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.searchView.requestFocus();
             }
         });
     }

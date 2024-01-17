@@ -97,7 +97,6 @@ public class DocumentUpload extends AppCompatActivity {
                 uploadPdf(uri);
             }
         });
-
     }
 
     public void selectPdf() {

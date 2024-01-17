@@ -36,8 +36,12 @@
     <string name="medicalReportDescription">আপনার ডায়াগোনোসিস রিপোর্ট আপলোড করুন</string>
     <string name="medicinePurchase">ওষুধ কিনুন</string>
     <string name="medicinePurchaseDescription">আমাদের ডক্টর বাবু অ্যাপ থেকে কিনুন</string>
-    <string name="pendingAppointment">মুলতুবি অ্যাপয়েন্টমেন্ট</string>
+    <string name="pendingAppointment">অ্যাপয়েন্টমেন্ট তালিকা</string>
     <string name="pendingAppointmentDescription">অ্যাপয়েন্টমেন্ট নেওয়া হয়েছে: 0</string>
+    <string name="noPendingAppointments">কোনও মুলতুবি অ্যাপয়েন্টমেন্ট নেই</string>
+    <string name="noMissingAppointments">কোনও মিসড অ্যাপয়েন্টমেন্ট নেই</string>
+    <string name="noAppointmentTaken">অ্যাপয়েন্টমেন্ট নেওয়ার ইতিহাস নেই</string>
+    <string name="noAppointmentCancelled">নিয়োগ বাতিলের কোনো ইতিহাস নেই</string>
     <string name="recentlyViewed">সম্প্রতি দেখা হয়েছে</string>
     <!-- Home Fragment Strings Ends -->
     <!-- Home Fragment Bottom Sheet Strings -->
