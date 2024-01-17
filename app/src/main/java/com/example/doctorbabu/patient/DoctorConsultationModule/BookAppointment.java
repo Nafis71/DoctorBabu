@@ -142,7 +142,9 @@ public class BookAppointment extends AppCompatActivity {
         appointmentData.put("appointmentMinute", appointmentMinute.trim());
         appointmentData.put("timePeriod", timePeriod);
         appointmentData.put("appointmentDate", year + "-" + month + "-" + day);
-        setReminder(appointmentHour, appointmentMinute);                        //setting alarm broadcast here
+        int broadcastCode = getBroadcastCode();
+        appointmentData.put("broadcastCode", String.valueOf(broadcastCode));
+        setReminder(appointmentHour, appointmentMinute,broadcastCode);                        //setting alarm broadcast here
         reference.child(doctorID).child(appointmentID).setValue(appointmentData);
         reference.child(user.getUid()).child(appointmentID).setValue(appointmentData);
         binding.mainBody.setVisibility(View.GONE);
@@ -165,7 +167,7 @@ public class BookAppointment extends AppCompatActivity {
                 .show();
     }
 
-    public void setReminder(String hour, String minute) {
+    public void setReminder(String hour, String minute,int broadcastCode) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.YEAR, year);
@@ -180,7 +182,6 @@ public class BookAppointment extends AppCompatActivity {
         Intent intent = new Intent(this, AppointmentReceiver.class);
         intent.putExtra("doctorId", doctorID);
         intent.putExtra("appointmentID", appointmentID);
-        int broadcastCode = getBroadcastCode();
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);

@@ -69,6 +69,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
     public void cancelAppointment(PendingAppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
         reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -86,6 +87,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
         data.put("doctorID", dbModel.getDoctorID());
         data.put("patientID",dbModel.getPatientID());
         data.put("timePeriod",dbModel.getTimePeriod());
+        data.put("cancelledBy","doctor");
         DatabaseReference reference = firebase.getDatabaseReference("cancelledAppointments");
         reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).setValue(data);
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(data);

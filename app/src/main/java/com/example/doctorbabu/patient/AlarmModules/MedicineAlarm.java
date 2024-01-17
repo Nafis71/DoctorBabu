@@ -337,13 +337,6 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
         }
         pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
     }
-
-    public void cancelAlarm(int broadcastCode) {
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, broadcastCode, intent, PendingIntent.FLAG_MUTABLE);
-        alarmManager.cancel(pendingIntent);
-    }
-
     public void saveData(String id, String medicineName, int hour, int minute, int broadcastCode, String alarmType, int alarmStatus) {
         try (SqliteDatabase database = new SqliteDatabase(this)) {
             long result = database.addAlarmInfo(id, medicineName, hour, minute, broadcastCode, alarmType, alarmStatus);

@@ -86,14 +86,13 @@ public class PendingAppointment extends AppCompatActivity {
             }
         });
     }
-
     public void getAppointmentData(){
         binding.headerText.setText("Pending");
         binding.appointmentRecyclerView.removeAllViews();
         binding.appointmentRecyclerView.showShimmer();
         model = new ArrayList<>();
         binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
-        adapter = new PendingAppointmentAdapter(this,model);
+        adapter = new PendingAppointmentAdapter(this,model,binding.descriptionHeader,binding.noAppointmentHeader);
         binding.appointmentRecyclerView.setAdapter(adapter);
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();

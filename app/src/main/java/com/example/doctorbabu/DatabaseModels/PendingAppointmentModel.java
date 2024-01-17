@@ -1,10 +1,14 @@
 package com.example.doctorbabu.DatabaseModels;
 
 public class PendingAppointmentModel {
-    String appointmentDate,appointmentHour,appointmentID,appointmentMinute,doctorID,patientID,timePeriod;
+    String appointmentDate,appointmentHour,appointmentID,appointmentMinute,doctorID,patientID,timePeriod,broadcastCode;
 
     public PendingAppointmentModel(){
 
+    }
+
+    public String getBroadcastCode() {
+        return broadcastCode;
     }
 
     public String getAppointmentDate() {

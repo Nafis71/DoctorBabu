@@ -1,12 +1,15 @@
 package com.example.doctorbabu.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,17 +21,25 @@ import com.example.doctorbabu.DatabaseModels.PendingAppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
+import com.example.doctorbabu.patient.AlarmModules.AlarmReceiver;
+import com.example.doctorbabu.patient.DoctorConsultationModule.AppointmentReceiver;
 import com.example.doctorbabu.patient.DoctorConsultationModule.CheckoutDoctor;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import org.aviran.cookiebar2.CookieBar;
+
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppointmentAdapter.myViewHolder> {
 
@@ -36,10 +47,13 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     ArrayList<PendingAppointmentModel> model;
     String doctorTitle, doctorFullName, doctorDegree, doctorSpecialty, doctorCurrentlyWorking, photoUrl, consultationFee;
     Firebase firebase;
+    RelativeLayout descriptionHeader,noAppointmentHeader;
 
-    public PendingAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model) {
+    public PendingAppointmentAdapter(Context context, ArrayList<PendingAppointmentModel> model,RelativeLayout descriptionHeader,RelativeLayout noAppointmentHeader) {
         this.context = context;
         this.model = model;
+        this.descriptionHeader = descriptionHeader;
+        this.noAppointmentHeader = noAppointmentHeader;
     }
 
     @NonNull
@@ -50,7 +64,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PendingAppointmentAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PendingAppointmentAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position) {
         PendingAppointmentModel dbModel = model.get(position);
         getDoctorData(holder, dbModel);
         String currentTime = getCurrentTime();
@@ -64,6 +78,65 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                 holder.videoCall.setVisibility(View.VISIBLE);
             }
         }
+        holder.cancel.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onClick(View view) {
+                model.remove(position);
+                if(model.size() == 0){
+                    descriptionHeader.setVisibility(View.GONE);
+                    noAppointmentHeader.setVisibility(View.VISIBLE);
+                }
+                cancelAppointment(dbModel);
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void cancelAppointment(PendingAppointmentModel dbModel){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
+        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
+        reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                saveCancelledAppointment(dbModel);
+            }
+        });
+    }
+    public void saveCancelledAppointment(PendingAppointmentModel dbModel){
+        Firebase firebase = Firebase.getInstance();
+        HashMap<String,String> data = new HashMap<>();
+        data.put("appointmentDate",dbModel.getAppointmentDate());
+        data.put("appointmentHour",dbModel.getAppointmentHour());
+        data.put("appointmentMinute", dbModel.getAppointmentMinute());
+        data.put("appointmentID",dbModel.getAppointmentID());
+        data.put("doctorID", dbModel.getDoctorID());
+        data.put("patientID",dbModel.getPatientID());
+        data.put("timePeriod",dbModel.getTimePeriod());
+        data.put("cancelledBy","patient");
+        DatabaseReference reference = firebase.getDatabaseReference("cancelledAppointments");
+        reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).setValue(data);
+        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(data);
+        cancelAlarm(dbModel);
+        AppCompatActivity activity = (AppCompatActivity)context;
+        CookieBar.build(activity)
+                .setTitle("Appointment Cancelled")
+                .setMessage("Appointment has been cancelled successfully")
+                .setSwipeToDismiss(true)
+                .setDuration(3000)
+                .setTitleColor(R.color.white)
+                .setBackgroundColor(R.color.blue)
+                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+                .show();
+    }
+
+    public void cancelAlarm(PendingAppointmentModel dbModel) {
+        Intent intent = new Intent(context, AppointmentReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(dbModel.getBroadcastCode()), intent, PendingIntent.FLAG_MUTABLE);
+        AppCompatActivity activity = (AppCompatActivity)context;
+        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
     }
 
     public String getCurrentTime() {
