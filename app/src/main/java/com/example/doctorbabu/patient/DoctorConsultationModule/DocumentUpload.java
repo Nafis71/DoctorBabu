@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,20 +14,27 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.doctorbabu.Adapters.PdfAdapter;
+import com.example.doctorbabu.DatabaseModels.PdfModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityDocumentUploadBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.aviran.cookiebar2.CookieBar;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -37,12 +45,19 @@ public class DocumentUpload extends AppCompatActivity {
     String doctorId, doctorTitle, doctorName, photoUrl;
     ExecutorService pdfUploader;
     Dialog dialog;
+    Uri uri;
+    ArrayList<PdfModel> pdfModels;
+    ArrayList<String> pdfNames;
+    PdfAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDocumentUploadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        pdfModels = new ArrayList<>();
+        pdfNames = new ArrayList<>();
+        adapter = new PdfAdapter(this,pdfModels,pdfNames,binding.upload,binding.fileName);
         doctorId = getIntent().getStringExtra("doctorId");
         doctorTitle = getIntent().getStringExtra("doctorTitle");
         doctorName = getIntent().getStringExtra("doctorName");
@@ -67,9 +82,19 @@ public class DocumentUpload extends AppCompatActivity {
                 binding.pdfSelector.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        selectPdf();
+                        if((adapter.getItemCount()+1) <=3){
+                            selectPdf();
+                        }else{
+                            errorMessage("Limit exceeded","You can only select pdf upto 3 only");
+                        }
                     }
                 });
+            }
+        });
+        binding.upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadPdf(uri);
             }
         });
 
@@ -87,7 +112,7 @@ public class DocumentUpload extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {  //catching the file from activity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri uri = data.getData();
+            uri = data.getData();
             //extracting name of the pdf file
             String uriString = uri.toString();
             File myfile = new File(uriString);
@@ -106,15 +131,23 @@ public class DocumentUpload extends AppCompatActivity {
             } else if (uriString.startsWith("file://")) {
                 displayName = myfile.getName();
             }
-            binding.upload.setVisibility(View.VISIBLE);
-            binding.fileName.setText(displayName);
-            binding.upload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    uploadPdf(uri);
-                }
-            });
+            if(pdfNames.contains(displayName)){
+                errorMessage("Duplicate Selection",displayName +" is already selected!");
+                return;
+            }
+            PdfModel model = new PdfModel();
+            model.setUri(uri);
+            model.setFileName(displayName);
+            pdfModels.add(model);
+            setRecyclerView();
+            binding.fileName.setVisibility(View.GONE);
         }
+    }
+
+    public void setRecyclerView(){
+        binding.pdfRecyclerView.setVisibility(View.VISIBLE);
+        binding.pdfRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        binding.pdfRecyclerView.setAdapter(adapter);
     }
 
     public void uploadPdf(Uri data) {
@@ -123,29 +156,41 @@ public class DocumentUpload extends AppCompatActivity {
         FirebaseUser user = firebase.getUserID();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference uploader = storage.getReference("pdfFiles");
-        uploader.child(user.getUid()).child(binding.fileName.getText().toString()).putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.w("Dhukse??","Dhukse");
-                uploader.child(user.getUid()).child(binding.fileName.getText().toString()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        DatabaseReference reference = firebase.getDatabaseReference("appointmentDocuments");
-                        HashMap<String, String> hashData = new HashMap<>();
-                        hashData.put("fileName", binding.fileName.getText().toString());
-                        hashData.put("fileUrl", uri.toString());
-                        String uniqueKey = getUniqueKey();
-                        reference.child(user.getUid()).child(uniqueKey).setValue(hashData).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                closeLoadingScreen();
-                                launchActivity();
-                            }
-                        });
-                    }
-                });
-            }
-        });
+        for(int i =0; i<pdfModels.size();i++){
+            int index = i;
+            uploader.child(user.getUid()).child(pdfNames.get(index)).putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    uploader.child(user.getUid()).child(pdfNames.get(index)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            DatabaseReference reference = firebase.getDatabaseReference("appointmentDocuments");
+                            HashMap<String, String> hashData = new HashMap<>();
+                            hashData.put("fileName", pdfNames.get(index));
+                            hashData.put("fileUrl", uri.toString());
+                            String uniqueKey = getUniqueKey();
+                            reference.child(user.getUid()).child(uniqueKey).setValue(hashData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    closeLoadingScreen();
+                                    launchActivity();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    public void errorMessage(String title, String message) {
+        CookieBar.build(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setTitleColor(R.color.white)
+                .setBackgroundColor(R.color.dark_red)
+                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+                .show();
     }
 
     public String getUniqueKey(){
