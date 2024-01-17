@@ -1,6 +1,8 @@
 package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doctorbabu.DatabaseModels.ProvidedPrescriptionModel;
@@ -39,10 +42,17 @@ public class ProvidedPrescriptionAdapter extends RecyclerView.Adapter<ProvidedPr
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                downloadPdf(dbModel);
             }
         });
 
+    }
+
+    public void downloadPdf(ProvidedPrescriptionModel dbModel){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse(dbModel.getFileUrl()),"application/pdf");
+        AppCompatActivity activity = (AppCompatActivity) context;
+        activity.startActivity(intent);
     }
     public static class myViewHolder extends RecyclerView.ViewHolder{
         TextView fileName;

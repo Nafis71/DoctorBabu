@@ -274,7 +274,7 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
                 throw error.toException();
             }
         });
-        Handler handler = new Handler();
+        Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
