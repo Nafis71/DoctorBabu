@@ -2,6 +2,7 @@ package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import com.example.doctorbabu.patient.PatientProfileModule.PrescriptionHistory;
 import com.example.doctorbabu.patient.PatientProfileModule.Profile;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,6 +27,7 @@ public class PatientBottomBar extends AppCompatActivity {
     String code = null;
     int count, fragmentId = -1;
     String fragmentName;
+    ExecutorService executorService;
 
 
     @Override
@@ -33,7 +36,7 @@ public class PatientBottomBar extends AppCompatActivity {
         code = getIntent().getStringExtra("code");
         setContentView(R.layout.activity_patient_bottom_bar);
         bottomNavigation = findViewById(R.id.bottomBar);
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService = Executors.newSingleThreadExecutor();
         try{
             executorService.execute(() -> bottomNavigation.setOnItemSelectedListener(id -> {
                 if (id == R.id.nav_doctor_video) {
@@ -60,6 +63,7 @@ public class PatientBottomBar extends AppCompatActivity {
                         count = getSupportFragmentManager().getBackStackEntryCount();
                         for (int i = 0; i < count; i++) {
                             fragmentName = getSupportFragmentManager().getBackStackEntryAt(i).getName();
+                            assert fragmentName != null;
                             if (fragmentName.equals("home")) {
                                 fragmentId = getSupportFragmentManager().getBackStackEntryAt(i).getId();
                                 break;
@@ -78,6 +82,7 @@ public class PatientBottomBar extends AppCompatActivity {
                         count = getSupportFragmentManager().getBackStackEntryCount();
                         for (int i = 0; i < count; i++) {
                             fragmentName = getSupportFragmentManager().getBackStackEntryAt(i).getName();
+                            assert fragmentName != null;
                             if (fragmentName.equals("history")) {
                                 fragmentId = getSupportFragmentManager().getBackStackEntryAt(i).getId();
                                 break;
@@ -97,6 +102,7 @@ public class PatientBottomBar extends AppCompatActivity {
                         count = getSupportFragmentManager().getBackStackEntryCount();
                         for (int i = 0; i < count; i++) {
                             fragmentName = getSupportFragmentManager().getBackStackEntryAt(i).getName();
+                            assert fragmentName != null;
                             if (fragmentName.equals("profile")) {
                                 fragmentId = getSupportFragmentManager().getBackStackEntryAt(i).getId();
                                 break;
@@ -139,53 +145,68 @@ public class PatientBottomBar extends AppCompatActivity {
         } else {
             fragmentName = getSupportFragmentManager().getBackStackEntryAt(count - 2).getName();
         }
-        if (count == 1 && fragmentName == "home") {
+        if (count == 1 && Objects.equals(fragmentName, "home")) {
             finish();
         } else {
             getSupportFragmentManager().popBackStack();
-            if (fragmentName.equals("doctor")) {
-                bottomNavigation.setItemSelected(R.id.nav_doctor_video, true);
-                navBarEnableDisable("doctor");
-            } else if (fragmentName.equals("history")) {
-                bottomNavigation.setItemSelected(R.id.nav_history, true);
-                navBarEnableDisable("history");
-            } else if (fragmentName.equals("home")) {
-                bottomNavigation.setItemSelected(R.id.nav_home, true);
-                navBarEnableDisable("home");
-            } else if (fragmentName.equals("profile")) {
-                bottomNavigation.setItemSelected(R.id.nav_profile, true);
-                navBarEnableDisable("profile");
+            switch (Objects.requireNonNull(fragmentName)) {
+                case "doctor":
+                    bottomNavigation.setItemSelected(R.id.nav_doctor_video, true);
+                    navBarEnableDisable("doctor");
+                    break;
+                case "history":
+                    bottomNavigation.setItemSelected(R.id.nav_history, true);
+                    navBarEnableDisable("history");
+                    break;
+                case "home":
+                    bottomNavigation.setItemSelected(R.id.nav_home, true);
+                    navBarEnableDisable("home");
+                    break;
+                case "profile":
+                    bottomNavigation.setItemSelected(R.id.nav_profile, true);
+                    navBarEnableDisable("profile");
+                    break;
             }
         }
     }
 
     private void navBarEnableDisable(String tag) {
-        if (tag.equals("doctor")) {
-            isOpenDoctorVideo = true;
-            isOpenHome = false;
-            isOpenProfile = false;
-            isOpenHistory = false;
-            isBackPressed = false;
-        } else if (tag.equals("home")) {
-            isOpenHome = true;
-            isOpenHistory = false;
-            isOpenProfile = false;
-            isOpenDoctorVideo = false;
-            isBackPressed = false;
-        } else if (tag.equals("history")) {
-            isOpenHistory = true;
-            isOpenHome = false;
-            isOpenProfile = false;
-            isOpenDoctorVideo = false;
-            isBackPressed = false;
-        } else if (tag.equals("profile")) {
-            isOpenProfile = true;
-            isOpenHistory = false;
-            isOpenHome = false;
-            isOpenDoctorVideo = false;
-            isBackPressed = false;
+        switch (tag) {
+            case "doctor":
+                isOpenDoctorVideo = true;
+                isOpenHome = false;
+                isOpenProfile = false;
+                isOpenHistory = false;
+                isBackPressed = false;
+                break;
+            case "home":
+                isOpenHome = true;
+                isOpenHistory = false;
+                isOpenProfile = false;
+                isOpenDoctorVideo = false;
+                isBackPressed = false;
+                break;
+            case "history":
+                isOpenHistory = true;
+                isOpenHome = false;
+                isOpenProfile = false;
+                isOpenDoctorVideo = false;
+                isBackPressed = false;
+                break;
+            case "profile":
+                isOpenProfile = true;
+                isOpenHistory = false;
+                isOpenHome = false;
+                isOpenDoctorVideo = false;
+                isBackPressed = false;
+                break;
         }
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executorService.shutdown();
+    }
 }
