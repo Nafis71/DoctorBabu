@@ -4,6 +4,7 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="appointmentFinished">অ্যাপয়েন্টমেন্ট শেষ</string>
     <string name="PatientCancelledBySelf">আপনার দ্বারা বাতিল</string>
     <string name="PatientCancelledByDoctor">ডাক্তার দ্বারা বাতিল</string>
     <string name="DoctorCancelledBySelf">আপনার দ্বারা বাতিল</string>

@@ -4,6 +4,7 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="appointmentFinished">Appointment Finished</string>
     <string name="PatientCancelledBySelf">Cancelled by you</string>
     <string name="PatientCancelledByDoctor">Cancelled by doctor</string>
     <string name="DoctorCancelledBySelf">Cancelled by you</string>

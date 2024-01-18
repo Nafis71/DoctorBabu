@@ -76,20 +76,20 @@ public class TakenAppointmentAdapter extends RecyclerView.Adapter<TakenAppointme
         String time = hour+":"+minute+" "+timePeriod;
         holder.appointmentTime.setText(time);
         holder.appointmentDate.setText(dbModel.getAppointmentDate());
-        holder.cancelledBy.setText("Appointment finished");
-        holder.cancelledBy.setTextColor(Color.parseColor("#27AE60"));
+        holder.status.setText(R.string.appointmentFinished);
+        holder.status.setTextColor(Color.parseColor("#27AE60"));
     }
 
     public static class myViewHolder extends RecyclerView.ViewHolder{
         ImageView profilePicture;
-        TextView doctorName,appointmentDate,appointmentTime,cancelledBy;
+        TextView doctorName,appointmentDate,appointmentTime, status;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             profilePicture = itemView.findViewById(R.id.profilePicture);
             doctorName = itemView.findViewById(R.id.doctorName);
             appointmentDate = itemView.findViewById(R.id.appointmentDate);
             appointmentTime = itemView.findViewById(R.id.appointmentTime);
-            cancelledBy = itemView.findViewById(R.id.cancelledBy);
+            status = itemView.findViewById(R.id.cancelledBy);
         }
     }
     @Override

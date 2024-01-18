@@ -36,7 +36,10 @@ import java.util.concurrent.Executors;
 
 public class PendingAppointment extends AppCompatActivity {
     ActivityPendingAppointmentBinding binding;
-    ArrayList<AppointmentModel> model;
+    ArrayList<AppointmentModel> pendingModel;
+    ArrayList<AppointmentModel> takenModel;
+    ArrayList<AppointmentModel> missedModel;
+    ArrayList<AppointmentModel> cancelledModel;
     PendingAppointmentAdapter adapter;
     MissedAppointmentAdapter missedAdapter;
     TakenAppointmentAdapter takenAppointmentAdapter;
@@ -51,7 +54,10 @@ public class PendingAppointment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPendingAppointmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        model = new ArrayList<>();
+        missedModel = new ArrayList<>();
+        pendingModel = new ArrayList<>();
+        takenModel = new ArrayList<>();
+        cancelledModel = new ArrayList<>();
         toggle = new ActionBarDrawerToggle(this,binding.drawerLayout,R.string.openDrawer,R.string.closeDrawer);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -100,7 +106,7 @@ public class PendingAppointment extends AppCompatActivity {
         binding.appointmentRecyclerView.removeAllViews();
         binding.appointmentRecyclerView.showShimmer();
         binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
-        adapter = new PendingAppointmentAdapter(this,model,binding.descriptionHeader,binding.noAppointmentHeader);
+        adapter = new PendingAppointmentAdapter(this,pendingModel,binding.descriptionHeader,binding.noAppointmentHeader);
         binding.appointmentRecyclerView.setAdapter(adapter);
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
@@ -113,7 +119,7 @@ public class PendingAppointment extends AppCompatActivity {
                     if(snapshot.exists()){
                         binding.noAppointmentHeader.setVisibility(View.GONE);
                         binding.descriptionHeader.setVisibility(View.VISIBLE);
-                        model.clear();
+                        pendingModel.clear();
                         for(DataSnapshot snap : snapshot.getChildren()){
                             appointmentModel = snap.getValue(AppointmentModel.class);
                             assert appointmentModel != null;
@@ -144,9 +150,8 @@ public class PendingAppointment extends AppCompatActivity {
         binding.headerText.setText("Missed");
         binding.appointmentRecyclerView.removeAllViews();
         binding.appointmentRecyclerView.showShimmer();
-        model.clear();
         binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
-        missedAdapter = new MissedAppointmentAdapter(this,model);
+        missedAdapter = new MissedAppointmentAdapter(this,missedModel);
         binding.appointmentRecyclerView.setAdapter(missedAdapter);
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
@@ -158,10 +163,10 @@ public class PendingAppointment extends AppCompatActivity {
                 if(snapshot.exists()){
                     binding.noAppointmentHeader.setVisibility(View.GONE);
                     binding.descriptionHeader.setVisibility(View.VISIBLE);
-                    model.clear();
+                    missedModel.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
                         appointmentModel = snap.getValue(AppointmentModel.class);
-                        model.add(appointmentModel);
+                        missedModel.add(appointmentModel);
                     }
                     missedAdapter.notifyDataSetChanged();
                     binding.appointmentRecyclerView.hideShimmer();
@@ -185,7 +190,7 @@ public class PendingAppointment extends AppCompatActivity {
         binding.appointmentRecyclerView.removeAllViews();
         binding.appointmentRecyclerView.showShimmer();
         binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
-        takenAppointmentAdapter = new TakenAppointmentAdapter(this,model);
+        takenAppointmentAdapter = new TakenAppointmentAdapter(this,takenModel);
         binding.appointmentRecyclerView.setAdapter(takenAppointmentAdapter);
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
@@ -197,10 +202,10 @@ public class PendingAppointment extends AppCompatActivity {
                 if(snapshot.exists()){
                     binding.noAppointmentHeader.setVisibility(View.GONE);
                     binding.descriptionHeader.setVisibility(View.VISIBLE);
-                    model.clear();
+                    takenModel.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
                         appointmentModel = snap.getValue(AppointmentModel.class);
-                        model.add(appointmentModel);
+                        takenModel.add(appointmentModel);
                     }
                     takenAppointmentAdapter.notifyDataSetChanged();
                     binding.appointmentRecyclerView.hideShimmer();
@@ -224,9 +229,8 @@ public class PendingAppointment extends AppCompatActivity {
         binding.headerText.setText("Cancelled");
         binding.appointmentRecyclerView.removeAllViews();
         binding.appointmentRecyclerView.showShimmer();
-        model.clear();
         binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false),R.layout.shimmer_layout_appointment);
-        cancelledAdapter = new CancelledAppointmentAdapter(this,model);
+        cancelledAdapter = new CancelledAppointmentAdapter(this,cancelledModel);
         binding.appointmentRecyclerView.setAdapter(cancelledAdapter);
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
@@ -238,10 +242,10 @@ public class PendingAppointment extends AppCompatActivity {
                 if(snapshot.exists()){
                     binding.noAppointmentHeader.setVisibility(View.GONE);
                     binding.descriptionHeader.setVisibility(View.VISIBLE);
-                    model.clear();
+                    cancelledModel.clear();
                     for(DataSnapshot snap : snapshot.getChildren()){
                         appointmentModel = snap.getValue(AppointmentModel.class);
-                        model.add(appointmentModel);
+                        cancelledModel.add(appointmentModel);
                     }
                     cancelledAdapter.notifyDataSetChanged();
                     binding.appointmentRecyclerView.hideShimmer();
@@ -287,7 +291,7 @@ public class PendingAppointment extends AppCompatActivity {
                 return;
             }
         }
-        model.add(appointmentModel);
+        pendingModel.add(appointmentModel);
     }
     @SuppressLint("NotifyDataSetChanged")
     public void saveMissedAppointment(DatabaseReference reference, AppointmentModel dbModel){
