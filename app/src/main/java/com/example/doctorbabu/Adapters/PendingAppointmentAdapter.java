@@ -18,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
+import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.SqliteDatabase.SqliteDatabase;
 import com.example.doctorbabu.patient.DoctorConsultationModule.AppointmentReceiver;
 import com.example.doctorbabu.patient.DoctorConsultationModule.CheckoutDoctor;
+import com.example.doctorbabu.patient.DoctorConsultationModule.SpecificDoctorInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.card.MaterialCardView;
@@ -65,13 +67,11 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
     public void onBindViewHolder(@NonNull PendingAppointmentAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position) {
         AppointmentModel dbModel = model.get(position);
         getDoctorData(holder, dbModel);
-        String currentTime = getCurrentTime();
-        String currentDate = getCurrentDate();
-        String[] currentTimeArray = currentTime.split(":");
+        String[] currentTimeArray = getCurrentTime().split(":");
         int hour = Integer.parseInt(currentTimeArray[0]);
         int minute = Integer.parseInt(currentTimeArray[1]);
-        if (currentDate.equalsIgnoreCase(dbModel.getAppointmentDate())) {
-            if (hour == Integer.parseInt(dbModel.getAppointmentHour()) && minute == Integer.parseInt(dbModel.getAppointmentMinute()) || hour == Integer.parseInt(dbModel.getAppointmentHour()) && (Integer.parseInt(dbModel.getAppointmentMinute()) + 10) >= minute) {
+        if (getCurrentDate().equalsIgnoreCase(dbModel.getAppointmentDate())) {
+            if (hour == Integer.parseInt(dbModel.getAppointmentHour()) && minute == Integer.parseInt(dbModel.getAppointmentMinute()) || hour == Integer.parseInt(dbModel.getAppointmentHour()) && minute> Integer.parseInt(dbModel.getAppointmentMinute()) && minute <= (Integer.parseInt(dbModel.getAppointmentMinute()) + 10)) {
                 holder.cancel.setVisibility(View.GONE);
                 holder.videoCall.setVisibility(View.VISIBLE);
             }
@@ -89,49 +89,78 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
                 notifyDataSetChanged();
             }
         });
-        failSafeAutoCancelAppointment(dbModel,position);
+        holder.videoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Firebase firebase = Firebase.getInstance();
+                DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
+                reference.child(dbModel.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            doctorInfoModel doctorModel = snapshot.getValue(doctorInfoModel.class);
+                            assert doctorModel != null;
+                            proceedToVideoCall(doctorModel,dbModel);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        throw error.toException();
+                    }
+                });
+            }
+        });
     }
 
-    public void failSafeAutoCancelAppointment(AppointmentModel dbModel, int position){
-        Firebase firebase = Firebase.getInstance();
-        DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
-        String currentTime = getCurrentTime();
-        String[] currentTimeArray = currentTime.split(":");
-        int hour = Integer.parseInt(currentTimeArray[0]);
-        int minute = Integer.parseInt(currentTimeArray[1]);
-        String currentDate = getCurrentDate();
-        if (currentDate.equalsIgnoreCase(dbModel.getAppointmentDate())) {
-            if (hour >= Integer.parseInt(dbModel.getAppointmentHour()) && minute > Integer.parseInt(dbModel.getAppointmentMinute())) {
-                saveMissedAppointment(reference,dbModel,position);
+
+    public void proceedToVideoCall(doctorInfoModel doctorModel,AppointmentModel dbModel) {
+        Intent intent = new Intent(context, CheckoutDoctor.class);
+        intent.putExtra("doctorId", doctorModel.getDoctorId());
+        intent.putExtra("doctorTitle", doctorModel.getTitle());
+        String doctorName = doctorModel.getTitle() + doctorModel.getFullName();
+        intent.putExtra("doctorName", doctorName);
+        intent.putExtra("doctorDegree", doctorModel.getDegrees());
+        intent.putExtra("doctorSpecialty", doctorModel.getSpecialty());
+        intent.putExtra("photoUrl", doctorModel.getPhotoUrl());
+        intent.putExtra("consultationFee", doctorModel.getConsultationFee());
+        Firebase firebase =  Firebase.getInstance();
+        DatabaseReference workingReference = firebase.getDatabaseReference("doctorCurrentlyWorking");
+        workingReference.child(doctorModel.getDoctorId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    intent.putExtra("doctorCurrentlyWorking", String.valueOf(snapshot.child("hospitalName").getValue()));
+                    intent.putExtra("appointmentId", dbModel.getAppointmentID());
+                    AppCompatActivity activity = (AppCompatActivity) context;
+                    activity.startActivity(intent);
+                }
             }
-        } else {
-            String[] currentDateArray = currentDate.split("-");
-            int year = Integer.parseInt(currentDateArray[0]);
-            int month = Integer.parseInt(currentDateArray[1]);
-            int day = Integer.parseInt(currentDateArray[2]);
-            String[] appointedDateArray = dbModel.getAppointmentDate().split("-");
-            int appointedYear = Integer.parseInt(appointedDateArray[0]);
-            int appointedMonth = Integer.parseInt(appointedDateArray[1]);
-            int appointedDay = Integer.parseInt(appointedDateArray[2]);
-            if(year >= appointedYear && month == appointedMonth && day > appointedDay){
-                saveMissedAppointment(reference,dbModel,position);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
             }
-        }
+        });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void saveMissedAppointment(DatabaseReference reference, AppointmentModel dbModel, int position){
-        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
-        reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).removeValue();
-        reference = firebase.getDatabaseReference("missedAppointments");
-        reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(dbModel);
-        model.remove(position);
-        if(model.size() == 0){
-            descriptionHeader.setVisibility(View.GONE);
-            noAppointmentHeader.setVisibility(View.VISIBLE);
-        }
-        notifyDataSetChanged();
+    public String getCurrentTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
     }
+
+    public String getCurrentDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String currentDate = dtf.format(now);
+        String[] dateArray = currentDate.split("-");
+        String pattern = "0";
+        DecimalFormat numberFormatter = new DecimalFormat(pattern);
+        String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
+        String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
+        String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
+        return currentYear + "-" + currentMonth + "-" + currentDay;
+    }
+
     public void cancelAppointment(AppointmentModel dbModel){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
@@ -178,24 +207,7 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
         alarmManager.cancel(pendingIntent);
     }
 
-    public String getCurrentTime() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        return dtf.format(now);
-    }
 
-    public String getCurrentDate() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        String currentDate = dtf.format(now);
-        String[] dateArray = currentDate.split("-");
-        String pattern = "0";
-        DecimalFormat numberFormatter = new DecimalFormat(pattern);
-        String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
-        String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
-        String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
-        return currentYear + "-" + currentMonth + "-" + currentDay;
-    }
 
     public void getDoctorData(myViewHolder holder, AppointmentModel dbModel) {
         firebase = Firebase.getInstance();

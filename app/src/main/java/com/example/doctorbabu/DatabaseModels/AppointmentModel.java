@@ -1,10 +1,14 @@
 package com.example.doctorbabu.DatabaseModels;
 
 public class AppointmentModel {
-    String appointmentDate,appointmentHour,appointmentID,appointmentMinute,doctorID,patientID,timePeriod,broadcastCode;
+    String appointmentDate,appointmentHour,appointmentID,appointmentMinute,doctorID,patientID,timePeriod,broadcastCode,cancelledBy;
 
     public AppointmentModel(){
 
+    }
+
+    public String getCancelledBy() {
+        return cancelledBy;
     }
 
     public String getBroadcastCode() {

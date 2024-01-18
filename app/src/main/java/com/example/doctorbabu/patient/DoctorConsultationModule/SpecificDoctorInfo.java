@@ -170,7 +170,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                             if (hour == Integer.parseInt(model.getAppointmentHour()) && minute == Integer.parseInt(model.getAppointmentMinute())) {
                                 proceedToVideoCall();
                                 return;
-                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && (Integer.parseInt(model.getAppointmentMinute())+10) >= minute) {
+                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && minute> Integer.parseInt(model.getAppointmentMinute()) && minute <= (Integer.parseInt(model.getAppointmentMinute()) + 10)) {
                                 proceedToVideoCall();
                                 return;
                             }

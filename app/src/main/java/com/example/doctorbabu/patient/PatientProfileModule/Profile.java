@@ -204,6 +204,8 @@ public class Profile extends Fragment {
                 if (task.getResult().exists()) {
                     DataSnapshot snapshot = task.getResult();
                     binding.appointmentDone.setText(String.valueOf(snapshot.child("done").getValue()));
+                }else{
+                    binding.appointmentDone.setText("0");
                 }
             }
         });

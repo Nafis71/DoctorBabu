@@ -22,5 +22,12 @@
             >
 
         </item>
+        <item
+            android:id="@+id/navCancelled"
+            android:title="Appointment Cancelled"
+            android:icon="@drawable/appointmentcancelled"
+            >
+
+        </item>
     </group>
 </menu>

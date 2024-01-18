@@ -11,8 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -34,7 +40,47 @@ public class CancelledAppointmentAdapter extends RecyclerView.Adapter<CancelledA
 
     @Override
     public void onBindViewHolder(@NonNull CancelledAppointmentAdapter.myViewHolder holder, int position) {
+        AppointmentModel dbModel = model.get(position);
+        getDoctorData(holder,dbModel);
 
+    }
+    public void getDoctorData(myViewHolder holder, AppointmentModel dbModel){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
+        reference.child(dbModel.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String title = String.valueOf(snapshot.child("title").getValue());
+                    String fullName = String.valueOf(snapshot.child("fullName").getValue());
+                    String doctorName = title+fullName;
+                    Glide.with(context).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(holder.profilePicture);
+                    holder.doctorName.setText(doctorName);
+                    getAppointmentData(holder,dbModel);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+    public void getAppointmentData(myViewHolder holder, AppointmentModel dbModel){
+        String hour = dbModel.getAppointmentHour();
+        String timePeriod = dbModel.getTimePeriod();
+        if(timePeriod.equalsIgnoreCase("pm")){
+            hour = String.valueOf(Integer.parseInt(hour) - 12);
+        }
+        String minute = dbModel.getAppointmentMinute();
+        String time = hour+":"+minute+" "+timePeriod;
+        holder.appointmentTime.setText(time);
+        holder.appointmentDate.setText(dbModel.getAppointmentDate());
+        if(dbModel.getCancelledBy().equalsIgnoreCase("patient")){
+            holder.cancelledBy.setText(R.string.PatientCancelledBySelf);
+        } else {
+            holder.cancelledBy.setText(R.string.PatientCancelledByDoctor);
+        }
     }
     public static class myViewHolder extends RecyclerView.ViewHolder{
         ImageView profilePicture;

@@ -77,11 +77,27 @@ public class CheckoutDoctor extends AppCompatActivity {
                     AppointmentModel model = snapshot.getValue(AppointmentModel.class);
                     reference.child(user.getUid()).child(appointmentId).removeValue();
                     reference.child(doctorId).child(appointmentId).removeValue();
-                    DatabaseReference appointmentTakenReference = firebase.getDatabaseReference("takenAppointments");
-                    String uniqueKey = getUniqueKey();
-                    appointmentTakenReference.child(user.getUid()).child(uniqueKey).setValue(model);
-                    appointmentTakenReference.child(doctorId).child(uniqueKey).setValue(model);
-                    launchActivity();
+                    DatabaseReference counterReference = firebase.getDatabaseReference("appointmentPatient");
+                    counterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                int appointmentDone = Integer.parseInt(String.valueOf(snapshot.child("done").getValue()));
+                                appointmentDone += 1;
+                                counterReference.child("done").setValue(String.valueOf(appointmentDone));
+                                DatabaseReference appointmentTakenReference = firebase.getDatabaseReference("takenAppointments");
+                                String uniqueKey = getUniqueKey();
+                                appointmentTakenReference.child(user.getUid()).child(uniqueKey).setValue(model);
+                                appointmentTakenReference.child(doctorId).child(uniqueKey).setValue(model);
+                                launchActivity();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            throw error.toException();
+                        }
+                    });
                 }
             }
 

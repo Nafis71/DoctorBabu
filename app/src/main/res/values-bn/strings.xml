@@ -4,6 +4,10 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="PatientCancelledBySelf">আপনার দ্বারা বাতিল</string>
+    <string name="PatientCancelledByDoctor">ডাক্তার দ্বারা বাতিল</string>
+    <string name="DoctorCancelledBySelf">আপনার দ্বারা বাতিল</string>
+    <string name="DoctorCancelledByOther">রোগীর দ্বারা বাতিল</string>
     <string name="favouriteDoctor">আপনার প্রিয় ডাক্তার</string>
     <string name="checkout">চেকআউট</string>
     <string name="hospitalListHeader">ইমার্জেন্সি হাসপাতাল ফাইন্ডার</string>
