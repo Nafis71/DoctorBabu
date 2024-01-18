@@ -1,33 +1,54 @@
 package com.example.doctorbabu.patient.DoctorConsultationModule;
 
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.doctorbabu.DatabaseModels.AppointmentModel;
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.patient.HomeModules.Home;
 import com.example.doctorbabu.patient.PatientProfileModule.PrescriptionHistory;
 import com.example.doctorbabu.patient.PatientProfileModule.Profile;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
 public class PatientBottomBar extends AppCompatActivity {
+    private static final String CHANNEL_ID = "Appointment Cancelled Channel";
+    private static final int NOTIFICATION_ID = 300;
     ChipNavigationBar bottomNavigation;
     FragmentManager fm;
     boolean isOpenDoctorVideo = false, isOpenHome = false, isOpenHistory = false, isOpenProfile = false, isBackPressed = false, isAdded;
     String code = null;
     int count, fragmentId = -1;
-    String fragmentName;
-    ExecutorService executorService;
+    String fragmentName,doctorName = "";
+    Bitmap image;
+    ExecutorService executorService,cancelledAppointmentNotifier,notificationExecutor;
 
 
     @Override
@@ -37,6 +58,14 @@ public class PatientBottomBar extends AppCompatActivity {
         setContentView(R.layout.activity_patient_bottom_bar);
         bottomNavigation = findViewById(R.id.bottomBar);
         executorService = Executors.newSingleThreadExecutor();
+        cancelledAppointmentNotifier = Executors.newSingleThreadExecutor();
+        notificationExecutor = Executors.newSingleThreadExecutor();
+        cancelledAppointmentNotifier.execute(new Runnable() {
+            @Override
+            public void run() {
+                listenCancelledAppointment();
+            }
+        });
         try{
             executorService.execute(() -> bottomNavigation.setOnItemSelectedListener(id -> {
                 if (id == R.id.nav_doctor_video) {
@@ -202,6 +231,65 @@ public class PatientBottomBar extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    public void listenCancelledAppointment(){
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user =  firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("cancelledAppointmentNotification");
+        reference.child(user.getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    AppointmentModel model = snapshot.getValue(AppointmentModel.class);
+                    reference.child(user.getUid()).removeValue();
+                    loadDoctorInfo(model);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void loadDoctorInfo(AppointmentModel model){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
+        reference.child(model.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                doctorName = String.valueOf(snapshot.child("title").getValue()) + String.valueOf(snapshot.child("fullName").getValue());
+                notificationExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        notificationManager(String.valueOf(snapshot.child("photoUrl").getValue()));
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void notificationManager(String callerPicture) {
+        try {
+            URL url = new URL(callerPicture);
+            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        String notificationText = doctorName + " cancelled an appointment with you";
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification.Builder(this).setLargeIcon(image).setSmallIcon(R.drawable.applogo).setContentText(notificationText).setSubText("Appointment Cancellation").setChannelId(CHANNEL_ID).build();
+        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, "Appointment Cancelled Channel", NotificationManager.IMPORTANCE_HIGH));
+        notificationManager.notify(NOTIFICATION_ID, notification);
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(1500, VibrationEffect.DEFAULT_AMPLITUDE));
     }
 
     @Override

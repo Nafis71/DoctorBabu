@@ -88,6 +88,8 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
         DatabaseReference reference = firebase.getDatabaseReference("cancelledAppointments");
         reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).setValue(data);
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(data);
+        DatabaseReference notificationReference = firebase.getDatabaseReference("cancelledAppointmentNotification");
+        notificationReference.child(dbModel.getPatientID()).child("doctorID").setValue(dbModel.getDoctorID());
         AppCompatActivity activity = (AppCompatActivity)context;
         CookieBar.build(activity)
                 .setTitle("Appointment Cancelled")

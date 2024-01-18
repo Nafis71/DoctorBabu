@@ -74,11 +74,11 @@ public class DoctorAppointments extends Fragment {
         adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels);
         binding.appointmentRecyclerView.showShimmer();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
-        reference.child(doctorId).addValueEventListener(new ValueEventListener() {
+        reference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 appointmentModels.clear();
-                if (snapshot.exists()) {
+                if (snapshot.exists() && isAdded()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         AppointmentModel model = snap.getValue(AppointmentModel.class);
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

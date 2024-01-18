@@ -186,6 +186,8 @@ public class PendingAppointmentAdapter extends RecyclerView.Adapter<PendingAppoi
         DatabaseReference reference = firebase.getDatabaseReference("cancelledAppointments");
         reference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).setValue(data);
         reference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(data);
+        DatabaseReference notificationReference = firebase.getDatabaseReference("cancelledAppointmentNotification");
+        notificationReference.child(dbModel.getDoctorID()).child("patientID").setValue(dbModel.getPatientID());
         cancelAlarm(dbModel);
         AppCompatActivity activity = (AppCompatActivity)context;
         CookieBar.build(activity)

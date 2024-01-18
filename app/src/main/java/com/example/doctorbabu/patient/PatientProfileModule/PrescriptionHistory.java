@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient.PatientProfileModule;
 
 import android.annotation.SuppressLint;
+import android.graphics.Path;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -63,7 +66,7 @@ public class PrescriptionHistory extends Fragment {
         binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         adapter = new prescriptionAdapter(requireContext(),list);
         DatabaseReference reference = database.getReference("prescription");
-        reference.child(user.getUid()).orderByChild("time").limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(user.getUid()).limitToFirst(1000).orderByChild("time").addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,6 +76,7 @@ public class PrescriptionHistory extends Fragment {
                     for(DataSnapshot snap : snapshot.getChildren()){
                         prescriptionModel model = snap.getValue(prescriptionModel.class);
                         list.add(model);
+                        Collections.reverse(list);
                     }
                     binding.prescriptionRecycler.setAdapter(adapter);
                     binding.prescriptionRecycler.hideShimmer();
