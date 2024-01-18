@@ -101,18 +101,23 @@ public class Doctor extends Fragment {
                 Intent intent = new Intent(requireContext(), ViewAllDoctor.class);
                 startActivity(intent);
             });
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(() -> {
-                binding.searchCard.setVisibility(View.VISIBLE);
-                recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
-                favouriteDoctorExecutor.execute(this::loadFavouriteDoctor);
-                binding.vPager.setVisibility(View.VISIBLE);
+            try {
+                Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(() -> {
-                    loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
-                    code = 1;
-                    dialog.dismiss();
-                }, 500);
-            }, 1100);
+                    binding.searchCard.setVisibility(View.VISIBLE);
+                    recentlyViewedExecutor.execute(Doctor.this::loadRecentlyViewed);
+                    favouriteDoctorExecutor.execute(this::loadFavouriteDoctor);
+                    binding.vPager.setVisibility(View.VISIBLE);
+                    handler.postDelayed(() -> {
+                        loadDoctorExecutor.execute(Doctor.this::loadAvailableDoctor);
+                        code = 1;
+                        dialog.dismiss();
+                    }, 500);
+                }, 1100);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
 
         } else {
             binding.progressBar.setVisibility(View.VISIBLE);
@@ -197,20 +202,22 @@ public class Doctor extends Fragment {
             reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    favouriteDoctorModels.clear();
-                    if (snapshot.exists()) {
-                        for (DataSnapshot snap : snapshot.getChildren()) {
-                            doctorInfoModel model = snap.getValue(doctorInfoModel.class);
-                            favouriteDoctorModels.add(model);
-                        }
-                        requireActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.favouriteDoctorRecyclerView.setAdapter(favouriteDoctorAdapter);
-                                binding.favouriteDoctorRecyclerView.hideShimmer();
-                                binding.favouriteLayout.setVisibility(View.VISIBLE);
+                    if(isAdded()){
+                        favouriteDoctorModels.clear();
+                        if (snapshot.exists()) {
+                            for (DataSnapshot snap : snapshot.getChildren()) {
+                                doctorInfoModel model = snap.getValue(doctorInfoModel.class);
+                                favouriteDoctorModels.add(model);
                             }
-                        });
+                            requireActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    binding.favouriteDoctorRecyclerView.setAdapter(favouriteDoctorAdapter);
+                                    binding.favouriteDoctorRecyclerView.hideShimmer();
+                                    binding.favouriteLayout.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
                     }
                 }
 
@@ -233,30 +240,32 @@ public class Doctor extends Fragment {
                 @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    list.clear();
-                    count = 0;
-                    for (DataSnapshot snap : snapshot.getChildren()) {
-                        model = snap.getValue(doctorInfoModel.class);
-                        assert model != null;
-                        if (model.getRating() >= 4.8) {
-                            if (count < 11) {
-                                list.add(model);
-                                count++;
+                    if(isAdded()){
+                        list.clear();
+                        count = 0;
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            model = snap.getValue(doctorInfoModel.class);
+                            assert model != null;
+                            if (model.getRating() >= 4.8) {
+                                if (count < 11) {
+                                    list.add(model);
+                                    count++;
+                                }
                             }
-                        }
 
+                        }
+                        Collections.shuffle(list);
+                        adapter.notifyDataSetChanged();
+                        requireActivity().runOnUiThread(() -> {
+                            binding.availableDoctorRecyclerView.hideShimmer();
+                            binding.progressBar.setVisibility(View.GONE);
+                        });
                     }
-                    Collections.shuffle(list);
-                    adapter.notifyDataSetChanged();
-                    requireActivity().runOnUiThread(() -> {
-                        binding.availableDoctorRecyclerView.hideShimmer();
-                        binding.progressBar.setVisibility(View.GONE);
-                    });
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    throw error.toException();
                 }
             };
             availableDoctorReference.orderByChild("onlineStatus").equalTo(1).addValueEventListener(listener);
@@ -274,15 +283,17 @@ public class Doctor extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     recentlyViewedModel.clear();
                     if (snapshot.exists()) {
-                        requireActivity().runOnUiThread(() -> binding.recentlyViewed.setVisibility(View.VISIBLE));
-                        binding.recentlyViewedRecyclerView.showShimmer();
-                        for (DataSnapshot snap : snapshot.getChildren()) {
-                            recentlyViewedDoctorModel model = snap.getValue(recentlyViewedDoctorModel.class);
-                            recentlyViewedModel.add(model);
+                        if(isAdded()){
+                            requireActivity().runOnUiThread(() -> binding.recentlyViewed.setVisibility(View.VISIBLE));
+                            binding.recentlyViewedRecyclerView.showShimmer();
+                            for (DataSnapshot snap : snapshot.getChildren()) {
+                                recentlyViewedDoctorModel model = snap.getValue(recentlyViewedDoctorModel.class);
+                                recentlyViewedModel.add(model);
+                            }
+                            Collections.reverse(recentlyViewedModel);
+                            recentlyViewedAdapter.notifyDataSetChanged();
+                            binding.recentlyViewedRecyclerView.hideShimmer();
                         }
-                        Collections.reverse(recentlyViewedModel);
-                        recentlyViewedAdapter.notifyDataSetChanged();
-                        binding.recentlyViewedRecyclerView.hideShimmer();
                     } else {
                         requireActivity().runOnUiThread(() -> binding.recentlyViewed.setVisibility(View.GONE));
                     }

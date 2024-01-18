@@ -100,35 +100,39 @@ public class PendingAppointment extends AppCompatActivity {
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
-        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    binding.noAppointmentHeader.setVisibility(View.GONE);
-                    binding.descriptionHeader.setVisibility(View.VISIBLE);
-                    model.clear();
-                    for(DataSnapshot snap : snapshot.getChildren()){
-                        appointmentModel = snap.getValue(AppointmentModel.class);
-                        assert appointmentModel != null;
-                        failSafeAutoCancelAppointment(appointmentModel);
+        try {
+            reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        binding.noAppointmentHeader.setVisibility(View.GONE);
+                        binding.descriptionHeader.setVisibility(View.VISIBLE);
+                        model.clear();
+                        for(DataSnapshot snap : snapshot.getChildren()){
+                            appointmentModel = snap.getValue(AppointmentModel.class);
+                            assert appointmentModel != null;
+                            failSafeAutoCancelAppointment(appointmentModel);
+                        }
+                        adapter.notifyDataSetChanged();
+                        binding.appointmentRecyclerView.hideShimmer();
+                    }else{
+                        binding.appointmentRecyclerView.hideShimmer();
+                        binding.nodataText.setText(R.string.noPendingAppointments);
+                        binding.noAppointmentHeader.setVisibility(View.VISIBLE);
+                        binding.descriptionHeader.setVisibility(View.GONE);
                     }
-                    adapter.notifyDataSetChanged();
-                    binding.appointmentRecyclerView.hideShimmer();
-                }else{
-                    binding.appointmentRecyclerView.hideShimmer();
-                    binding.nodataText.setText(R.string.noPendingAppointments);
-                    binding.noAppointmentHeader.setVisibility(View.VISIBLE);
-                    binding.descriptionHeader.setVisibility(View.GONE);
+
                 }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                throw error.toException();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    throw error.toException();
+                }
+            });
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void getMissedAppointmentData(){
@@ -282,7 +286,6 @@ public class PendingAppointment extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         pendingAppointmentExecutor.shutdown();
     }
 }

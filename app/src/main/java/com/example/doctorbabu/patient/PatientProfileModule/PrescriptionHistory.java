@@ -68,7 +68,7 @@ public class PrescriptionHistory extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                if(snapshot.exists())
+                if(snapshot.exists() && isAdded())
                 {
                     for(DataSnapshot snap : snapshot.getChildren()){
                         prescriptionModel model = snap.getValue(prescriptionModel.class);

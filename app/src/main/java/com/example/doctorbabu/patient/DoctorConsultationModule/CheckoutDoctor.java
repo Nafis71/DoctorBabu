@@ -65,7 +65,6 @@ public class CheckoutDoctor extends AppCompatActivity {
             askPermission();
         }
     }
-
     public void removeBooking() {
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
@@ -84,15 +83,12 @@ public class CheckoutDoctor extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 int appointmentDone = Integer.parseInt(String.valueOf(snapshot.child("done").getValue()));
                                 appointmentDone += 1;
-                                counterReference.child("done").setValue(String.valueOf(appointmentDone));
-                                DatabaseReference appointmentTakenReference = firebase.getDatabaseReference("takenAppointments");
-                                String uniqueKey = getUniqueKey();
-                                appointmentTakenReference.child(user.getUid()).child(uniqueKey).setValue(model);
-                                appointmentTakenReference.child(doctorId).child(uniqueKey).setValue(model);
-                                launchActivity();
+                                addAppointmentCounter(appointmentDone,counterReference,model);
+
+                            }else {
+                                addAppointmentCounter(1,counterReference,model);
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             throw error.toException();
@@ -107,6 +103,17 @@ public class CheckoutDoctor extends AppCompatActivity {
             }
         });
     }
+    public void addAppointmentCounter(int appointmentDone,DatabaseReference counterReference,AppointmentModel model){
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        counterReference.child("done").setValue(String.valueOf(appointmentDone));
+        DatabaseReference appointmentTakenReference = firebase.getDatabaseReference("takenAppointments");
+        String uniqueKey = getUniqueKey();
+        appointmentTakenReference.child(user.getUid()).child(uniqueKey).setValue(model);
+        appointmentTakenReference.child(doctorId).child(uniqueKey).setValue(model);
+        launchActivity();
+    }
+
 
     public void launchActivity() {
         Intent intent = new Intent(CheckoutDoctor.this, DocumentUpload.class);
