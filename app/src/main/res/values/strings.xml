@@ -4,6 +4,7 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="prescriptionNote">Note : You can upload only three prescription at a time</string>
     <string name="Eliminatethechallenge">4.Not understanding the handwriting on prescriptions</string>
     <string name="EliminatethechallengeDesc">Eliminate the challenge of deciphering illegible handwriting on prescriptions by transitioning to our digital platform, ensuring clear and standardized prescription information that enhances efficiency, accuracy, and communication between healthcare providers and our pharmacists.</string>
     <string name="EfficientOrderProcessing">3.Efficient Order Processing</string>
