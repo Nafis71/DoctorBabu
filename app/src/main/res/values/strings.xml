@@ -4,6 +4,17 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="Eliminatethechallenge">4.Not understanding the handwriting on prescriptions</string>
+    <string name="EliminatethechallengeDesc">Eliminate the challenge of deciphering illegible handwriting on prescriptions by transitioning to our digital platform, ensuring clear and standardized prescription information that enhances efficiency, accuracy, and communication between healthcare providers and our pharmacists.</string>
+    <string name="EfficientOrderProcessing">3.Efficient Order Processing</string>
+    <string name="EfficientOrderProcessingDesc">It reduces the need for additional verifications and accelerates the fulfillment of your order, leading to faster delivery of your essential medications.</string>
+    <string name="CompliancewithRegulations">2.Compliance with Regulations</string>
+    <string name="CompliancewithRegulationsDesc">Our app prioritizes adherence to regulatory guidelines and standards. Requiring a prescription for certain medications helps us comply with healthcare regulations, ensuring that you receive medications in a legal and responsible manner.</string>
+    <string name="benefitsOfOrdering">Benefits of ordering medicines with prescriptions :</string>
+    <string name="medicalAccuracy">1.Medical Accuracy and Safety:</string>
+    <string name="medicalAccuracyDesc">Attaching a prescription ensures that you receive the exact medications prescribed by your healthcare professional. his significantly reduces the risk of errors, such as incorrect dosage or medication mix-ups, promoting overall safety </string>
+    <string name="haveAprescription">Have a prescription? Upload here</string>
+    <string name="privacy">Your attached prescription will be secure and private. Only our pharmacist will review it.</string>
     <string name="prescriptionSearch">Search prescription by doctor name/diagnosis/date</string>
     <string name="appointmentFinished">Appointment Finished</string>
     <string name="PatientCancelledBySelf">Cancelled by you</string>

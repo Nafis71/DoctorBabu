@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".patient.MedicinePurchaseModules.ShopByPrescription">
+
+    <RelativeLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:elevation="1dp"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/back2">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/checkOutHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/back"
+            android:fontFamily="@font/roboto"
+            android:padding="3dp"
+            android:text="Shop by prescription"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold">
+
+        </TextView>
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerLayout"
+        android:layout_above="@+id/placeOrder"
+        android:scrollbars="none">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/uploadLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/uploadHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp"
+                    android:shadowColor="@color/black"
+                    android:shadowRadius="0.1"
+                    android:text="@string/haveAprescription"
+                    android:textColor="@color/blue"
+                    android:textSize="15sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_below="@+id/uploadHeader"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="4dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/camera"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/cameraImage"
+                                android:layout_width="40dp"
+                                android:layout_height="45dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/camera">
+
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/cameraImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="Upload Picture"
+                                android:textColor="@color/black"
+                                android:textSize="13sp">
+
+                            </TextView>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/pdf"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/pdfImage"
+                                android:layout_width="40dp"
+                                android:layout_height="45dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/pdf">
+
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/pdfImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="Upload Pdf"
+                                android:textColor="@color/black"
+                                android:textSize="13sp">
+
+                            </TextView>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/myPrescription"
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/myPrescriptionImage"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/myprescription">
+
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/myPrescriptionImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="3dp"
+                                android:text="My Prescriptions"
+                                android:textColor="@color/black"
+                                android:textSize="13sp">
+
+                            </TextView>
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/privacyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/uploadLayout"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/sheildImage"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/sheild">
+
+                </ImageView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/sheildImage"
+                    android:animateLayoutChanges="true"
+                    app:cardBackgroundColor="#EDF6FD"
+                    app:cardCornerRadius="7dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/infoImage"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8sp"
+                            android:src="@drawable/info">
+
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toEndOf="@+id/infoImage"
+                            android:fontFamily="@font/roboto"
+                            android:justificationMode="inter_word"
+                            android:text="@string/privacy"
+                            android:textColor="@color/black"
+                            android:textSize="13sp"
+                            android:textStyle="normal">
+
+                        </TextView>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/infoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/privacyLayout">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/checkoutLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/privacyLayout"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/uploadPrescriptionImage"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/uploadprescription">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/descriptionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/uploadPrescriptionImage"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/benefitsOfOrdering"
+                    android:textColor="@color/black"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/firstPointHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/descriptionHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/uploadPrescriptionImage"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/medicalAccuracy"
+                    android:textColor="@color/black"
+                    android:textSize="13sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/firstPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/firstPointHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/uploadPrescriptionImage"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/medicalAccuracyDesc"
+                    android:textSize="12sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/secondPointHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/uploadPrescriptionImage"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/CompliancewithRegulations"
+                    android:textColor="@color/black"
+                    android:textSize="13sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/secondPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/secondPointHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/CompliancewithRegulationsDesc"
+                    android:textSize="12sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/thirdPointHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/secondPoint"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/EfficientOrderProcessing"
+                    android:textColor="@color/black"
+                    android:textSize="13sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/thirdPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/thirdPointHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/EfficientOrderProcessingDesc"
+                    android:textSize="12sp">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/fourthPointHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/thirdPoint"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/Eliminatethechallenge"
+                    android:textColor="@color/black"
+                    android:textSize="13sp">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/fourthPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fourthPointHeader"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:text="@string/EliminatethechallengeDesc"
+                    android:textSize="12sp">
+
+                </TextView>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/placeOrder"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Place Order"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:backgroundTint="#3C4DD8"
+        app:cornerRadius="12dp"
+        app:elevation="10dp"
+        app:strokeColor="@color/white"
+        tools:ignore="NotSibling" />
+
+</RelativeLayout>

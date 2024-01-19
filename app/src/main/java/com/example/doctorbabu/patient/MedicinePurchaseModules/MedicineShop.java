@@ -135,6 +135,13 @@ public class MedicineShop extends AppCompatActivity {
                 launchCategorialMedicineList("herbalSyrup");
             }
         });
+        binding.uploadPrescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MedicineShop.this,ShopByPrescription.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void launchCategorialMedicineList(String medicineType){
@@ -485,7 +492,6 @@ public class MedicineShop extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         octExecutor.shutdown();
         cartCounter.shutdown();
         syrupExecutor.shutdown();

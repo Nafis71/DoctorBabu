@@ -429,7 +429,6 @@ public class SyrupDetails extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         syrupDataExecutor.shutdown();
         relativeSyrupListExecutor.shutdown();
         cartExecutor.shutdown();

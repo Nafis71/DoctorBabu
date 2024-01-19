@@ -499,7 +499,6 @@ public class TabletDetails extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         medicineDataExecutor.shutdown();
         relativeMedicineListExecutor.shutdown();
         countExecutor.shutdown();

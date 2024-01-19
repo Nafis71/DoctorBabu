@@ -187,7 +187,6 @@ public class Cart extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         cartItemExecutor.shutdown();
         removeExecutor.shutdown();
     }

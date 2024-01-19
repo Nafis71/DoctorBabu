@@ -329,7 +329,6 @@ public class Checkout extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         customerDataExecutor.shutdown();
         loadSelectedCardExecutor.shutdown();
     }
