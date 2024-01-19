@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,14 +52,14 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
     ShimmerRecyclerView prescriptionRecycler;
     ArrayList<prescriptionMedicineModel> rmodel = new ArrayList<>();
     prescriptionMedicineAdapter adapter;
-    RecyclerView prescriptionRecyclerView;
-    RelativeLayout noPrescriptionLayout;
+    RelativeLayout noPrescriptionLayout,recyclerLayout;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-    public prescriptionAdapter(Context context, ArrayList<prescriptionModel> model, RecyclerView prescriptionRecyclerView, RelativeLayout noPrescriptionLayout) {
+    public prescriptionAdapter(Context context, ArrayList<prescriptionModel> model, RelativeLayout recyclerLayout, RelativeLayout noPrescriptionLayout) {
         this.context = context;
         this.model = model;
-        this.prescriptionRecyclerView = prescriptionRecyclerView;
+        this.recyclerLayout = recyclerLayout;
         this.noPrescriptionLayout = noPrescriptionLayout;
     }
 
@@ -260,7 +261,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         model.remove(position);
         notifyDataSetChanged();
         if (model.size() == 0) {
-            prescriptionRecyclerView.setVisibility(View.GONE);
+            recyclerLayout.setVisibility(View.GONE);
             noPrescriptionLayout.setVisibility(View.VISIBLE);
         }
         AppCompatActivity activity = (AppCompatActivity) context;

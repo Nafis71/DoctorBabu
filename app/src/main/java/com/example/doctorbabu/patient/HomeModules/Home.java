@@ -126,10 +126,15 @@ public class Home extends Fragment {
                 binding.drawerLayout.addDrawerListener(toggle);
                 toggle.syncState();
                 binding.drawerLayout.setStatusBarBackgroundColor(Color.parseColor("#FDFEFE"));
-                binding.toolBar.setOnClickListener(new View.OnClickListener() {
+                requireActivity().runOnUiThread(new Runnable() {
                     @Override
-                    public void onClick(View view) {
-                        binding.drawerLayout.openDrawer(GravityCompat.START);
+                    public void run() {
+                        binding.toolBar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                binding.drawerLayout.openDrawer(GravityCompat.START);
+                            }
+                        });
                     }
                 });
                 binding.navBar.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

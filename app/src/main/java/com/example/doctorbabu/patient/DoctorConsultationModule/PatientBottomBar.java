@@ -326,7 +326,9 @@ public class PatientBottomBar extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("counter",prescriptionCounter);
         editor.apply();
-        bottomNavigation.showBadge(R.id.nav_history,prescriptionCounter);
+        if(prescriptionCounter != 0){
+            bottomNavigation.showBadge(R.id.nav_history,prescriptionCounter);
+        }
     }
 
     public void cancelledAppointmentNotificationManager(String doctorPicture) {

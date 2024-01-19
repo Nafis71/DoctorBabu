@@ -45,23 +45,66 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
-
-    <com.todkars.shimmer.ShimmerRecyclerView
-        android:id="@+id/prescriptionRecycler"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:padding="5dp"
-        android:animationCache="true"
-        android:orientation="vertical"
-        android:visibility="visible"
-        android:overScrollMode="ifContentScrolls"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:shimmer_recycler_item_count="4"
-        app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+        android:visibility="gone"
+        android:id="@+id/recyclerLayout"
+        >
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/searchCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="visible"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="10dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="textPersonName"
+                android:theme="@style/AppSearchView"
+                android:visibility="visible"
+                app:closeIcon="@drawable/close"
+                app:defaultQueryHint="@string/prescriptionSearch"
+                app:iconifiedByDefault="false">
+
+            </androidx.appcompat.widget.SearchView>
+        </androidx.cardview.widget.CardView>
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/prescriptionRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchCard"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:padding="5dp"
+            android:animationCache="true"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:shimmer_recycler_item_count="4"
+            app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
+    </RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
