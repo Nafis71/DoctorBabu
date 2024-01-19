@@ -1,19 +1,20 @@
 package com.example.doctorbabu.patient.PatientProfileModule;
 
 import android.annotation.SuppressLint;
-import android.graphics.Path;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.doctorbabu.Adapters.prescriptionAdapter;
 import com.example.doctorbabu.DatabaseModels.prescriptionModel;
+import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentPrescriptionHistoryBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,10 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,6 +38,7 @@ public class PrescriptionHistory extends Fragment {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
     ExecutorService loadPrescription;
+    ChipNavigationBar bottomNavigation;
 
 
     public PrescriptionHistory() {
@@ -49,7 +51,12 @@ public class PrescriptionHistory extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        bottomNavigation = requireActivity().findViewById(R.id.bottomBar);
+        bottomNavigation.dismissBadge(R.id.nav_history);
+        SharedPreferences preferences = requireActivity().getSharedPreferences("prescriptionCounter", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("counter",0);
+        editor.apply();
         loadPrescription = Executors.newSingleThreadExecutor();
         loadPrescription.execute(new Runnable() {
             @Override
@@ -58,30 +65,46 @@ public class PrescriptionHistory extends Fragment {
             }
         });
     }
-    public void onStart(){
+
+    public void onStart() {
         super.onStart();
     }
-    public void loadPrescriptionList(){
-        binding.prescriptionRecycler.showShimmer();
-        binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        adapter = new prescriptionAdapter(requireContext(),list);
+
+    public void loadPrescriptionList() {
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.prescriptionRecycler.showShimmer();
+            }
+        });
+        binding.prescriptionRecycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+        adapter = new prescriptionAdapter(requireContext(), list, binding.prescriptionRecycler, binding.noPrescriptionLayout);
         DatabaseReference reference = database.getReference("prescription");
         reference.child(user.getUid()).limitToFirst(1000).orderByChild("time").addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
-                if(snapshot.exists() && isAdded())
-                {
-                    for(DataSnapshot snap : snapshot.getChildren()){
+                if (snapshot.exists() && isAdded()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         prescriptionModel model = snap.getValue(prescriptionModel.class);
                         list.add(model);
                         Collections.reverse(list);
                     }
                     binding.prescriptionRecycler.setAdapter(adapter);
-                    binding.prescriptionRecycler.hideShimmer();
-                } else{
-                    binding.prescriptionRecycler.hideShimmer();
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.prescriptionRecycler.hideShimmer();
+                        }
+                    });
+                } else {
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.prescriptionRecycler.hideShimmer();
+                        }
+                    });
                     binding.noPrescriptionLayout.setVisibility(View.VISIBLE);
                 }
 
@@ -94,15 +117,17 @@ public class PrescriptionHistory extends Fragment {
         });
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentPrescriptionHistoryBinding.inflate(inflater,container,false);
+        binding = FragmentPrescriptionHistoryBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-    public void onDestroyView(){
+
+    public void onDestroyView() {
         super.onDestroyView();
-        binding =null;
+        binding = null;
         loadPrescription.shutdownNow();
     }
 }

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.doctorbabu.DatabaseModels.doctorInfoModel;
 import com.example.doctorbabu.DatabaseModels.prescriptionMedicineModel;
 import com.example.doctorbabu.DatabaseModels.prescriptionModel;
-import com.example.doctorbabu.DatabaseModels.userHelper;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,11 +51,15 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
     ShimmerRecyclerView prescriptionRecycler;
     ArrayList<prescriptionMedicineModel> rmodel = new ArrayList<>();
     prescriptionMedicineAdapter adapter;
+    RecyclerView prescriptionRecyclerView;
+    RelativeLayout noPrescriptionLayout;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-    public prescriptionAdapter(Context context, ArrayList<prescriptionModel> model) {
+    public prescriptionAdapter(Context context, ArrayList<prescriptionModel> model, RecyclerView prescriptionRecyclerView, RelativeLayout noPrescriptionLayout) {
         this.context = context;
         this.model = model;
+        this.prescriptionRecyclerView = prescriptionRecyclerView;
+        this.noPrescriptionLayout = noPrescriptionLayout;
     }
 
     @NonNull
@@ -66,10 +70,10 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull prescriptionAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull prescriptionAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position) {
         prescriptionModel dbModel = model.get(position);
         final doctorInfoModel[] doctorModel = new doctorInfoModel[1];
-        HashMap<String,String> userInfo= new HashMap<>();
+        HashMap<String, String> userInfo = new HashMap<>();
         String doctorId = dbModel.getPrescribedBy();
         String patientId = dbModel.getPrescribedTo();
         holder.date.setText(dbModel.getDate());
@@ -106,23 +110,23 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
                     LocalDate to = LocalDate.now();
                     Period calculateAge = Period.between(from, to);
                     String calculatedYears = String.valueOf(calculateAge.getYears());
-                    userInfo.put("age",calculatedYears);
-                    userInfo.put("weight",String.valueOf(snapshot.child("weight").getValue()));
-                    userInfo.put("patientName",String.valueOf(snapshot.child("fullName").getValue()));
-                    userInfo.put("patientGender",String.valueOf(snapshot.child("gender").getValue()));
+                    userInfo.put("age", calculatedYears);
+                    userInfo.put("weight", String.valueOf(snapshot.child("weight").getValue()));
+                    userInfo.put("patientName", String.valueOf(snapshot.child("fullName").getValue()));
+                    userInfo.put("patientGender", String.valueOf(snapshot.child("gender").getValue()));
                 }
             }
         });
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                convertXMLtoPDF(dbModel,doctorModel[0],userInfo);
+                convertXMLtoPDF(dbModel, doctorModel[0], userInfo);
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deletePrescription(dbModel);
+                deletePrescription(dbModel, position);
             }
         });
 
@@ -134,7 +138,7 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
         return model.size();
     }
 
-    public void convertXMLtoPDF(prescriptionModel dbmodel,doctorInfoModel doctorModel,HashMap<String,String> userInfo) {
+    public void convertXMLtoPDF(prescriptionModel dbmodel, doctorInfoModel doctorModel, HashMap<String, String> userInfo) {
         TextView doctorName, degree, specialty, bmdc, prescriptionDate, diagnosis, patientAge, pName, pGender, pWeight;
         AppCompatActivity activity = (AppCompatActivity) context;
         View view = LayoutInflater.from(context).inflate(R.layout.pdf_layout, null);
@@ -247,13 +251,28 @@ public class prescriptionAdapter extends RecyclerView.Adapter<prescriptionAdapte
 
     }
 
-    public void deletePrescription(prescriptionModel dbModel){
+    @SuppressLint("NotifyDataSetChanged")
+    public void deletePrescription(prescriptionModel dbModel, int position) {
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
         DatabaseReference deleteReference = firebase.getDatabaseReference("prescription");
         deleteReference.child(user.getUid()).child(dbModel.getPrescriptionId()).removeValue();
+        model.remove(position);
+        notifyDataSetChanged();
+        if (model.size() == 0) {
+            prescriptionRecyclerView.setVisibility(View.GONE);
+            noPrescriptionLayout.setVisibility(View.VISIBLE);
+        }
         AppCompatActivity activity = (AppCompatActivity) context;
+        CookieBar.build(activity)
+                .setTitle("Removed")
+                .setMessage("Prescription Removed Successfuly")
+                .setTitleColor(R.color.white)
+                .setBackgroundColor(R.color.blue)
+                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+                .show();
     }
+
     public String getUniqueKey() {
         Random random = new Random();
         return String.valueOf(random.nextInt());

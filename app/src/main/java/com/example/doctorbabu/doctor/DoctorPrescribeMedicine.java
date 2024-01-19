@@ -225,6 +225,8 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
         Firebase firebase = Firebase.getInstance();
         DatabaseReference deleteReference = firebase.getDatabaseReference("appointmentDocuments");
         deleteReference.child(patientId).removeValue();
+        DatabaseReference notificationReference = firebase.getDatabaseReference("prescriptionNotification");
+        notificationReference.child(patientId).child("doctorID").setValue(doctorId);
     }
 
 

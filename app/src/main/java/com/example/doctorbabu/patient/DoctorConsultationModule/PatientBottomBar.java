@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -47,8 +48,9 @@ public class PatientBottomBar extends AppCompatActivity {
     String code = null;
     int count, fragmentId = -1;
     String fragmentName,doctorName = "";
+    int prescriptionCounter = 0;
     Bitmap image;
-    ExecutorService executorService,cancelledAppointmentNotifier,notificationExecutor;
+    ExecutorService executorService,cancelledAppointmentNotifier,notificationExecutor,prescriptionExecutor;
 
 
     @Override
@@ -60,6 +62,13 @@ public class PatientBottomBar extends AppCompatActivity {
         executorService = Executors.newSingleThreadExecutor();
         cancelledAppointmentNotifier = Executors.newSingleThreadExecutor();
         notificationExecutor = Executors.newSingleThreadExecutor();
+        prescriptionExecutor = Executors.newSingleThreadExecutor();
+        prescriptionExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                listenPrescription();
+            }
+        });
         cancelledAppointmentNotifier.execute(new Runnable() {
             @Override
             public void run() {
@@ -233,6 +242,30 @@ public class PatientBottomBar extends AppCompatActivity {
 
     }
 
+    public void listenPrescription(){
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("prescriptionNotification");
+        reference.child(user.getUid()).limitToFirst(1).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    AppointmentModel model = snapshot.getValue(AppointmentModel.class);
+                    reference.child(user.getUid()).removeValue();
+                    assert model != null;
+                    loadDoctorInfo(model,true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+        SharedPreferences preferences = getSharedPreferences("prescriptionCounter", MODE_PRIVATE);
+        int counter = preferences.getInt("counter",0);
+        bottomNavigation.showBadge(R.id.nav_history,counter);
+    }
     public void listenCancelledAppointment(){
         Firebase firebase = Firebase.getInstance();
         FirebaseUser user =  firebase.getUserID();
@@ -243,7 +276,8 @@ public class PatientBottomBar extends AppCompatActivity {
                 if(snapshot.exists()){
                     AppointmentModel model = snapshot.getValue(AppointmentModel.class);
                     reference.child(user.getUid()).removeValue();
-                    loadDoctorInfo(model);
+                    assert model != null;
+                    loadDoctorInfo(model,false);
                 }
             }
             @Override
@@ -253,7 +287,7 @@ public class PatientBottomBar extends AppCompatActivity {
         });
     }
 
-    public void loadDoctorInfo(AppointmentModel model){
+    public void loadDoctorInfo(AppointmentModel model,boolean isPrescription){
         Firebase firebase = Firebase.getInstance();
         DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
         reference.child(model.getDoctorID()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -263,7 +297,11 @@ public class PatientBottomBar extends AppCompatActivity {
                 notificationExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        notificationManager(String.valueOf(snapshot.child("photoUrl").getValue()));
+                        if (isPrescription){
+                            prescriptionNotificationManager();
+                        }else{
+                            cancelledAppointmentNotificationManager(String.valueOf(snapshot.child("photoUrl").getValue()));
+                        }
                     }
                 });
             }
@@ -275,9 +313,25 @@ public class PatientBottomBar extends AppCompatActivity {
         });
     }
 
-    public void notificationManager(String callerPicture) {
+    public void prescriptionNotificationManager(){
+        String notificationText = "You have just received an e-prescription from "+ doctorName;
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification.Builder(this).setSmallIcon(R.drawable.applogo).setContentText(notificationText).setSubText("Appointment Cancellation").setChannelId(CHANNEL_ID).build();
+        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, "Appointment Cancelled Channel", NotificationManager.IMPORTANCE_HIGH));
+        notificationManager.notify(NOTIFICATION_ID, notification);
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(1500, VibrationEffect.DEFAULT_AMPLITUDE));
+        prescriptionCounter +=1;
+        SharedPreferences preferences = getSharedPreferences("prescriptionCounter", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("counter",prescriptionCounter);
+        editor.apply();
+        bottomNavigation.showBadge(R.id.nav_history,prescriptionCounter);
+    }
+
+    public void cancelledAppointmentNotificationManager(String doctorPicture) {
         try {
-            URL url = new URL(callerPicture);
+            URL url = new URL(doctorPicture);
             image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 
         } catch (IOException e) {
@@ -296,5 +350,8 @@ public class PatientBottomBar extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         executorService.shutdown();
+        notificationExecutor.shutdown();
+        cancelledAppointmentNotifier.shutdown();
+        prescriptionExecutor.shutdown();
     }
 }
