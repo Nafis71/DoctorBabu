@@ -4,6 +4,8 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="Continue">চালিয়ে যান</string>
+    <string name="placeOrder">অর্ডার করুন</string>
     <string name="prescriptionNote">দ্রষ্টব্য: আপনি একবারে মাত্র তিনটি প্রেসক্রিপশন আপলোড করতে পারেন</string>
     <string name="Eliminatethechallenge">৪.প্রেসক্রিপশনে হাতের লেখা বোঝা যাচ্ছে না</string>
     <string name="EliminatethechallengeDesc">আমাদের ডিজিটাল প্ল্যাটফর্মে রূপান্তর করে প্রেসক্রিপশনে অযৌক্তিক হাতের লেখার পাঠোদ্ধার করার চ্যালেঞ্জ দূর করুন, স্বাস্থ্যসেবা প্রদানকারী এবং আমাদের ফার্মাসিস্টদের মধ্যে দক্ষতা, নির্ভুলতা এবং যোগাযোগ বাড়ায় এমন স্পষ্ট এবং মানসম্মত প্রেসক্রিপশন তথ্য নিশ্চিত করুন।</string>

@@ -45,8 +45,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/headerLayout"
         android:layout_above="@+id/placeOrder"
+        android:layout_below="@+id/headerLayout"
         android:scrollbars="none">
 
 
@@ -78,11 +78,11 @@
                 </TextView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/uploadCard"
                     style="@style/Widget.Material3.CardView.Elevated"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:layout_below="@+id/uploadHeader"
-                    android:id="@+id/uploadCard"
                     android:layout_margin="5dp"
                     app:cardCornerRadius="13dp"
                     app:cardElevation="4dp">
@@ -146,9 +146,7 @@
                                 android:layout_marginTop="3dp"
                                 android:text="Upload Pdf"
                                 android:textColor="@color/black"
-                                android:textSize="13sp">
-
-                            </TextView>
+                                android:textSize="13sp"></TextView>
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -164,9 +162,7 @@
                                 android:layout_height="45dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="20dp"
-                                android:src="@drawable/myprescription">
-
-                            </ImageView>
+                                android:src="@drawable/myprescription"></ImageView>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -176,43 +172,23 @@
                                 android:layout_marginTop="3dp"
                                 android:text="My Prescriptions"
                                 android:textColor="@color/black"
-                                android:textSize="13sp">
-
-                            </TextView>
+                                android:textSize="13sp"></TextView>
                         </RelativeLayout>
 
                     </RelativeLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
                 <TextView
                     android:id="@+id/noteHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/prescriptionNote"
                     android:layout_below="@+id/uploadCard"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto"
+                    android:text="@string/prescriptionNote"
                     android:textSize="12sp"
-                    android:textStyle="italic"
-                    >
-
-                </TextView>
-                <com.todkars.shimmer.ShimmerRecyclerView
-                    android:id="@+id/contentRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/noteHeader"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:shimmer_recycler_item_count="6"
-                    app:shimmer_recycler_layout="@layout/shimmer_layout_medicine">
-
-                </com.todkars.shimmer.ShimmerRecyclerView>
+                    android:textStyle="italic"></TextView>
 
             </RelativeLayout>
 
@@ -283,11 +259,217 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/infoLayout"
+                android:id="@+id/contentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_below="@+id/privacyLayout">
 
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/contentRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="6"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_medicine">
+                </com.todkars.shimmer.ShimmerRecyclerView>
+                <RelativeLayout
+                    android:id="@+id/customerNameSection"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/contentRecyclerView"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/customerNameHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Deliver to:"
+                        android:textColor="@color/blue"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/customerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toEndOf="@+id/customerNameHeader"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal|italic">
+
+                    </TextView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/customerNameHeader"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="20dp"
+                        android:animateLayoutChanges="true"
+                        app:cardBackgroundColor="#EDF6FD"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="5sp">
+
+                            <ImageView
+                                android:id="@+id/infoImages"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="8sp"
+                                android:src="@drawable/info">
+
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_toEndOf="@+id/infoImages"
+                                android:fontFamily="@font/roboto"
+                                android:text="Home"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="normal">
+
+                            </TextView>
+                        </RelativeLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/addressSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/customerNameSection"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/addressHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Delivery Address:"
+                        android:textColor="@color/blue"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/deliveryAddressTextLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/addressHeader"
+                        android:layout_marginStart="-13dp"
+                        android:layout_marginTop="-20dp"
+                        android:padding="5dp"
+                        app:boxBackgroundMode="none"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:boxStrokeWidth="1dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/deliveryAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/edit"
+                            android:inputType="textNoSuggestions|textMultiLine"
+                            android:justificationMode="inter_word"
+                            android:textSize="13sp">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/phoneNumberLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/addressSection"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/phoneNumberHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:fontFamily="@font/roboto"
+                        android:padding="2dp"
+                        android:text="Phone Number:"
+                        android:textColor="@color/blue"
+                        android:textSize="13sp"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phoneNumberTextLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/phoneNumberHeader"
+                        android:layout_marginStart="-13dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_marginBottom="-25dp"
+                        android:padding="5dp"
+                        app:boxBackgroundMode="none"
+                        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+                        app:boxStrokeWidth="1dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="11"
+                        app:counterTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/phoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/edit"
+                            android:inputType="number"
+                            android:justificationMode="inter_word"
+                            android:textSize="13sp">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -295,7 +477,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/privacyLayout"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/uploadPrescriptionImage"
@@ -415,6 +598,7 @@
                     android:textSize="12sp">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/fourthPointHeader"
                     android:layout_width="wrap_content"
@@ -430,6 +614,7 @@
                     android:textSize="13sp">
 
                 </TextView>
+
                 <TextView
                     android:id="@+id/fourthPoint"
                     android:layout_width="wrap_content"
@@ -448,6 +633,7 @@
             </RelativeLayout>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/placeOrder"
         android:layout_width="match_parent"
@@ -461,7 +647,7 @@
         android:fontFamily="@font/roboto"
         android:shadowColor="@color/black"
         android:shadowRadius="0.5"
-        android:text="Place Order"
+        android:text="@string/placeOrder"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp"

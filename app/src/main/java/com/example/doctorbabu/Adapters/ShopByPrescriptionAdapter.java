@@ -1,11 +1,15 @@
 package com.example.doctorbabu.Adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,13 +27,17 @@ public class ShopByPrescriptionAdapter extends RecyclerView.Adapter<ShopByPrescr
     ArrayList<String> fileNames;
     TextView noteHeader;
     MaterialButton placeOrder;
+    RelativeLayout checkoutLayout,contentLayout;
+    Dialog dialog;
 
-    public ShopByPrescriptionAdapter(Context context, ArrayList<PdfModel> model,ArrayList<String> fileNames,TextView noteHeader,MaterialButton placeOrder) {
+    public ShopByPrescriptionAdapter(Context context, ArrayList<PdfModel> model,ArrayList<String> fileNames,TextView noteHeader,MaterialButton placeOrder,RelativeLayout checkoutLayout,RelativeLayout contentLayout) {
         this.context = context;
         this.model = model;
         this.fileNames = fileNames;
         this.noteHeader = noteHeader;
         this.placeOrder = placeOrder;
+        this.checkoutLayout = checkoutLayout;
+        this.contentLayout = contentLayout;
     }
 
     @NonNull
@@ -42,7 +50,9 @@ public class ShopByPrescriptionAdapter extends RecyclerView.Adapter<ShopByPrescr
     @Override
     public void onBindViewHolder(@NonNull ShopByPrescriptionAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position) {
         PdfModel dbModel = model.get(position);
-        fileNames.add(dbModel.getFileName());
+        if(!fileNames.contains(dbModel.getFileName())){
+            fileNames.add(dbModel.getFileName());
+        }
         holder.fileName.setText(dbModel.getFileName());
         if(dbModel.getFileType().equalsIgnoreCase("pdf")){
             holder.contentImage.setImageResource(R.drawable.pdf);
@@ -53,18 +63,37 @@ public class ShopByPrescriptionAdapter extends RecyclerView.Adapter<ShopByPrescr
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
-                model.remove(position);
+                launchMiniDialog();
                 fileNames.remove(dbModel.getFileName());
-                notifyDataSetChanged();
+                model.remove(position);
                 if(model.size() == 0){
                     noteHeader.setVisibility(View.VISIBLE);
                     placeOrder.setVisibility(View.GONE);
+                    checkoutLayout.setVisibility(View.VISIBLE);
+                    contentLayout.setVisibility(View.GONE);
                 }
+                stopLoading();
+                notifyDataSetChanged();
             }
         });
-        placeOrder.setVisibility(View.VISIBLE);
-
     }
+    public void launchMiniDialog() {
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.cart_loading_screen);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+    public void stopLoading(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        },700);
+    }
+
     public static class myViewHolder extends RecyclerView.ViewHolder{
         ImageView contentImage,remove;
         TextView fileName;
