@@ -24,15 +24,6 @@
             app:shapeAppearanceOverlay="@style/circular"
             app:srcCompat="@drawable/profile_picture" />
 
-        <ImageView
-            android:id="@+id/signOut"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="330dp"
-            android:src="@drawable/signout" />
-
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"

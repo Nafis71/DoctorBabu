@@ -67,9 +67,9 @@
             >
         </item>
         <item
-            android:id="@+id/navFavouriteDoctor"
-            android:title="Favourite Doctor"
-            android:icon="@drawable/blanklove"
+            android:id="@+id/navSignOut"
+            android:title="Log Out"
+            android:icon="@drawable/signout"
             >
         </item>
 

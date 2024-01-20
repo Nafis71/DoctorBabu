@@ -103,16 +103,6 @@ public class Profile extends Fragment {
             startActivity(intent);
             requireActivity().finish();
         }
-        binding.signOut.setOnClickListener(view -> {
-            FirebaseAuth.getInstance().signOut();
-            SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("loginAs", "");
-            editor.apply();
-            Intent intent = new Intent(requireContext(), Login.class);
-            startActivity(intent);
-            requireActivity().finish();
-        });
         userAllergyHistory();
         userPastMedicalHistory();
         binding.userEmail.setText(user.getEmail());

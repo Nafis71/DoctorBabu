@@ -35,6 +35,7 @@ import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
+import com.example.doctorbabu.patient.AuthenticationModule.Login;
 import com.example.doctorbabu.patient.DiagnoseReportUploadModule.DiagnosisReportUploadList;
 import com.example.doctorbabu.patient.DoctorConsultationModule.DiagnosisTerms;
 import com.example.doctorbabu.patient.DoctorConsultationModule.ViewAllDoctor;
@@ -49,6 +50,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -170,6 +172,9 @@ public class Home extends Fragment {
                         } else if (item.getItemId() == R.id.navChangeLanguage) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START);
                             callLanguageChanger();
+                        }else if (item.getItemId() == R.id.navSignOut) {
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            signOut();
                         }
 
                         return false;
@@ -210,6 +215,17 @@ public class Home extends Fragment {
                 findNearbyEmergencyHospital();
             }
         });
+    }
+
+    public void signOut(){
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("loginAs", "");
+        editor.apply();
+        Intent intent = new Intent(requireContext(), Login.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
 
     public void findNearbyEmergencyHospital() {

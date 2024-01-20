@@ -193,7 +193,7 @@ public class DoctorProfile extends Fragment {
         pastExperienceEdit = requireView().findViewById(R.id.pastExperienceEdit);
         aboutYouEdit = requireView().findViewById(R.id.aboutYouEdit);
         about = requireView().findViewById(R.id.about);
-        signout = requireView().findViewById(R.id.signout);
+        signout = requireView().findViewById(R.id.signOut);
     }
 
     public void getData() {
