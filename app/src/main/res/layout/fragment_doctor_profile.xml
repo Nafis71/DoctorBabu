@@ -151,6 +151,7 @@
                                 android:layout_height="120dp"
                                 android:scaleType="center"
                                 android:layout_marginStart="20dp"
+                                android:background="#DDD"
                                 android:layout_marginTop="5dp"
                                 android:layout_below="@+id/profileDetails"
                                 app:layout_constraintDimensionRatio="1:1"
