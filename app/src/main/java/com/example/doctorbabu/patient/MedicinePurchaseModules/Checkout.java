@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -29,7 +30,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Clock;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -45,6 +49,7 @@ public class Checkout extends AppCompatActivity {
     ArrayList<CartModel> checkoutModels;
     int backupRewardPoint;
     boolean hasAppliedReward;
+    int quantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,12 @@ public class Checkout extends AppCompatActivity {
                         initiateRewardProcess();
                     }
                 });
+            }
+        });
+        binding.placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                placeOrder();
             }
         });
 
@@ -302,6 +313,87 @@ public class Checkout extends AppCompatActivity {
                     }
                 }).setCancelable(false);
         dialog.create().show();
+    }
+
+    public boolean validateDeliveryAddress(){
+        String deliveryAddress = binding.deliveryAddress.getText().toString().trim();
+        if(deliveryAddress.isEmpty()){
+            binding.deliveryAddressTextLayout.setError("Must provide with a delivery address");
+            return false;
+        }
+        return true;
+    }
+    public boolean validatePhoneNumber(){
+        String phoneNumber = binding.phoneNumber.getText().toString().trim();
+        if(phoneNumber.isEmpty()){
+            binding.phoneNumberTextLayout.setError("Must provide with a delivery address");
+            return false;
+        }
+        return true;
+    }
+
+    public void placeOrder(){
+        if(!validateDeliveryAddress() || !validatePhoneNumber()){
+            return;
+        }
+        DatabaseReference uploadReference = firebase.getDatabaseReference("medicineOrders");
+        DatabaseReference cartReference = firebase.getDatabaseReference("medicineCart");
+        String customerName = binding.customerName.getText().toString();
+        String deliveryAddress = binding.deliveryAddress.getText().toString();
+        String phoneNumber = binding.phoneNumber.getText().toString();
+        String totalPrice;
+        if(hasAppliedReward){
+            totalPrice = binding.discountedTotalPrice.getText().toString();
+        } else{
+            totalPrice = binding.totalPrice.getText().toString();
+        }
+        for(CartModel product: checkoutModels){
+            Clock clock = Clock.systemDefaultZone();
+            long milliSeconds=clock.millis();
+            String orderId = getOrderId();
+            HashMap<String,Object> data = new HashMap<>();
+            data.put("customerName",customerName);
+            data.put("deliveryAddress",deliveryAddress);
+            data.put("phoneNumber",phoneNumber);
+            data.put("totalPrice",totalPrice);
+            data.put("orderId",orderId);
+            data.put("orderTime",milliSeconds);
+            data.put("productId",product.getMedicineId());
+            data.put("productQuantity",product.getQuantity());
+            uploadReference.child(user.getUid()).child(orderId).setValue(data);
+            cartReference.child(user.getUid()).child(product.getMedicineId()).removeValue();
+            DatabaseReference medicineInfoReference;
+            if(product.getMedicineType().equalsIgnoreCase("tablet")){
+                medicineInfoReference = firebase.getDatabaseReference("medicineInfo");
+            } else if(product.getMedicineType().equalsIgnoreCase("syrup")){
+                medicineInfoReference = firebase.getDatabaseReference("syrup");
+            }else{
+                medicineInfoReference = firebase.getDatabaseReference("herbalSyrup");
+            }
+            // I have to fix this bug
+            medicineInfoReference.child(product.getMedicineId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if(task.isSuccessful() && task.getResult().exists()){
+                        DataSnapshot snapshot = task.getResult();
+                        quantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
+                        int orderQuantity = Integer.parseInt(product.getQuantity());
+                        int finalQuantity = quantity - orderQuantity;
+                        medicineInfoReference.child(product.getMedicineId()).child("medicineQuantity").setValue(String.valueOf(finalQuantity));
+                    }
+                }
+            });
+        }
+        launchActivity();
+
+    }
+    public void launchActivity(){
+        Intent intent = new Intent(this, PurchaseCompletion.class);
+        startActivity(intent);
+        finish();
+    }
+    public String getOrderId(){
+        return UUID.randomUUID().toString();
     }
 
     @Override
