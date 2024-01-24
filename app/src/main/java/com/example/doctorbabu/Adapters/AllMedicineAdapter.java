@@ -28,38 +28,39 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CatagorialMedicineAdapter extends RecyclerView.Adapter<CatagorialMedicineAdapter.myViewHolder> {
+public class AllMedicineAdapter extends RecyclerView.Adapter<AllMedicineAdapter.myViewHolder> {
     Context context;
     ArrayList<MedicineModel> model;
-    String medicineType;
     ExecutorService tracker;
 
-    public CatagorialMedicineAdapter(Context context, ArrayList<MedicineModel> model, String medicineType) {
+    public AllMedicineAdapter(Context context, ArrayList<MedicineModel> model) {
         this.context = context;
         this.model = model;
-        this.medicineType = medicineType;
     }
 
     @NonNull
     @Override
-    public CatagorialMedicineAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AllMedicineAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.single_row_design_categorial_medicine_layout, parent, false);
         return new myViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CatagorialMedicineAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AllMedicineAdapter.myViewHolder holder, int position) {
+        PushDownAnim.setPushDownAnimTo(holder.card)
+                .setScale(PushDownAnim.MODE_SCALE, 0.95f);
         tracker = Executors.newSingleThreadExecutor();
         MedicineModel dbModel = model.get(position);
         Glide.with(context).load(dbModel.getMedicinePicture()).into(holder.medicineImage);
         holder.medicineName.setText(dbModel.getMedicineName());
-        if (medicineType.equalsIgnoreCase("tablet")) {
+        if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
             holder.medicineDosage.setText(dbModel.getMedicineDosage());
             double perPiecePrice = Double.parseDouble(dbModel.getMedicinePerPiecePrice());
             double pataSize = Double.parseDouble(dbModel.getMedicinePataSize());

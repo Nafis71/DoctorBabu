@@ -3,6 +3,7 @@ package com.example.doctorbabu.patient.MedicinePurchaseModules;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
@@ -11,9 +12,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.doctorbabu.Adapters.AllMedicineAdapter;
 import com.example.doctorbabu.Adapters.MedicineSearchAdapter;
 import com.example.doctorbabu.Adapters.TabletAdapter;
 import com.example.doctorbabu.Adapters.SyrupAdapter;
@@ -23,6 +27,9 @@ import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivityMedicineShopBinding;
 import com.example.doctorbabu.patient.HomeModules.sliderAdapter;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,16 +50,19 @@ public class MedicineShop extends AppCompatActivity {
     SyrupAdapter syrupAdapter;
     SyrupAdapter herbalSyrupAdapter;
     MedicineSearchAdapter medicineSearchAdapter;
+    AllMedicineAdapter allMedicineAdapter;
     ArrayList<MedicineModel> octModel;
     ArrayList<MedicineModel> syrupModels;
     ArrayList<MedicineSearchModel> syrupList;
     ArrayList<MedicineSearchModel> tabletList;
     ArrayList<MedicineSearchModel> medicineList;
     ArrayList<MedicineModel> herbalSyrupModels;
+    ArrayList<MedicineModel> allMedicines;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor, imageSliderExecutor;
+    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor, imageSliderExecutor,allMedicineExecutor;
     Firebase firebase;
     int countedCart = 0;
+    int loadedMedicine = 0;
     boolean isSearchActive;
     Dialog dialog;
 
@@ -63,6 +73,7 @@ public class MedicineShop extends AppCompatActivity {
         setContentView(binding.getRoot());
         firebase = Firebase.getInstance();
         medicineList = new ArrayList<>();
+        allMedicines = new ArrayList<>();
         loadingScreen();
         imageSliderExecutor = Executors.newSingleThreadExecutor();
         octExecutor = Executors.newSingleThreadExecutor();
@@ -70,6 +81,7 @@ public class MedicineShop extends AppCompatActivity {
         syrupExecutor = Executors.newSingleThreadExecutor();
         herbalSyrupExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
+        allMedicineExecutor = Executors.newSingleThreadExecutor();
         imageSliderExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -106,9 +118,21 @@ public class MedicineShop extends AppCompatActivity {
                 setSearch();
             }
         });
+        allMedicineExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadAllMedicines();
+            }
+        });
         closeLoadingScreen();
         PushDownAnim.setPushDownAnimTo(binding.octAll, binding.cart,binding.syrupAll,binding.herbalAll,binding.uploadPrescription)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
     @Override
@@ -223,7 +247,6 @@ public class MedicineShop extends AppCompatActivity {
                             MedicineSearchModel model = snap.getValue(MedicineSearchModel.class);
                             syrupList.add(model);
                         }
-
                     }
                 }
                 @Override
@@ -233,6 +256,25 @@ public class MedicineShop extends AppCompatActivity {
             });
         }
 
+    }
+
+    public void loadAllMedicines(){
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(loadedMedicine == 3){
+                    allMedicines.addAll(syrupModels);
+                    allMedicines.addAll(herbalSyrupModels);
+                    Collections.shuffle(allMedicines);
+                    binding.allMedicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineShop.this, 3));
+                    allMedicineAdapter = new AllMedicineAdapter(MedicineShop.this,allMedicines);
+                    binding.allMedicineRecyclerView.setAdapter(allMedicineAdapter);
+                } else {
+                    loadAllMedicines();
+                }
+            }
+        },500);
     }
     public void getAllTabletData(){
         ArrayList<String> tabletReference = new ArrayList<>();
@@ -349,13 +391,17 @@ public class MedicineShop extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                MedicineModel model;
                 if(snapshot.exists()){
                     for(DataSnapshot snap : snapshot.getChildren()){
                         if(genericNames.contains(String.valueOf(snap.child("genericName").getValue()))){
-                            MedicineModel model = snap.getValue(MedicineModel.class);
-                            octModel.add(model);
+                            model = snap.getValue(MedicineModel.class);
+                            octModel.add(model); //for oct tablets
                         }
+                        model = snap.getValue(MedicineModel.class); //for all tablets
+                        allMedicines.add(model);
                     }
+                    loadedMedicine++;
                     Collections.shuffle(octModel);
                     octMedicineAdapter.notifyDataSetChanged();
                     binding.octMedicineRecyclerView.hideShimmer();
@@ -386,6 +432,7 @@ public class MedicineShop extends AppCompatActivity {
                        MedicineModel model = snap.getValue(MedicineModel.class);
                        syrupModels.add(model);
                     }
+                    loadedMedicine++;
                     Collections.shuffle(syrupModels);
                     syrupAdapter.notifyDataSetChanged();
                     binding.syrupRecyclerView.hideShimmer();
@@ -416,6 +463,7 @@ public class MedicineShop extends AppCompatActivity {
                         MedicineModel model = snap.getValue(MedicineModel.class);
                         herbalSyrupModels.add(model);
                     }
+                    loadedMedicine++;
                     Collections.shuffle(herbalSyrupModels);
                     herbalSyrupAdapter.notifyDataSetChanged();
                     binding.herbalRecyclerView.hideShimmer();
@@ -502,5 +550,6 @@ public class MedicineShop extends AppCompatActivity {
         imageSliderExecutor.shutdown();
         herbalSyrupExecutor.shutdown();
         searchExecutor.shutdown();
+        allMedicineExecutor.shutdown();
     }
 }

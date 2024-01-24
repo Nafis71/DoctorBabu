@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +53,8 @@ public class TabletAdapter extends RecyclerView.Adapter<TabletAdapter.myViewHold
 
     @Override
     public void onBindViewHolder(@NonNull TabletAdapter.myViewHolder holder, int position) {
+        PushDownAnim.setPushDownAnimTo(holder.card)
+                .setScale(PushDownAnim.MODE_SCALE, 0.95f);
         MedicineModel dbModel = model.get(position);
         holder.medicineName.setText(dbModel.getMedicineName());
         holder.medicineDosage.setText(dbModel.getMedicineDosage());

@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +52,8 @@ public class SyrupAdapter extends RecyclerView.Adapter<SyrupAdapter.myViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SyrupAdapter.myViewHolder holder, int position) {
+        PushDownAnim.setPushDownAnimTo(holder.card)
+                .setScale(PushDownAnim.MODE_SCALE, 0.95f);
         MedicineModel dbModel = model.get(position);
         Glide.with(context).load(dbModel.getMedicinePicture()).into(holder.syrupImage);
         holder.syrupName.setText(dbModel.getMedicineName());

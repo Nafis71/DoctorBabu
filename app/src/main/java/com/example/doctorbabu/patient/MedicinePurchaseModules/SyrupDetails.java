@@ -107,6 +107,12 @@ public class SyrupDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         PushDownAnim.setPushDownAnimTo(binding.addToCart, binding.cart)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
     }

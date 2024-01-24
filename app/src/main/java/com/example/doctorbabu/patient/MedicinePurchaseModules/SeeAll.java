@@ -16,15 +16,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.doctorbabu.Adapters.CatagorialMedicineAdapter;
+import com.example.doctorbabu.Adapters.AllMedicineAdapter;
 import com.example.doctorbabu.Adapters.MedicineSearchAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.DatabaseModels.MedicineSearchModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.ActivitySeeAllBinding;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +37,7 @@ import java.util.concurrent.Executors;
 public class SeeAll extends AppCompatActivity {
     ActivitySeeAllBinding binding;
     ExecutorService medicineDataExecutor, cartCounter, searchExecutor;
-    CatagorialMedicineAdapter adapter;
+    AllMedicineAdapter adapter;
     ArrayList<MedicineModel> medicineModels;
     ArrayList<MedicineSearchModel> medicineList;
     MedicineSearchAdapter medicineSearchAdapter;
@@ -231,7 +229,7 @@ public class SeeAll extends AppCompatActivity {
         medicineModels = new ArrayList<>();
         medicineList = new ArrayList<>();
         binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
-        adapter = new CatagorialMedicineAdapter(this, medicineModels, medicineType);
+        adapter = new AllMedicineAdapter(this, medicineModels);
         if (medicineType.equalsIgnoreCase("tablet")) {
             genericNames = new ArrayList<>();
             loadGenericNames(genericNames);

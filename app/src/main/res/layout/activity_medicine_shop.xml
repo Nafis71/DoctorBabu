@@ -10,17 +10,28 @@
 
     <RelativeLayout
         android:id="@+id/header"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="2dp"
+            android:id="@+id/back">
+
+        </ImageView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/back"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
@@ -479,6 +490,45 @@
                     android:layout_marginEnd="3dp"
                     android:layout_marginBottom="5dp"
                     android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:shimmer_recycler_item_count="6"
+                    app:shimmer_recycler_layout="@layout/shimmer_layout_recently_viewed">
+
+                </com.todkars.shimmer.ShimmerRecyclerView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/allMedicineLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_below="@+id/herbalLayout"
+                android:layout_marginTop="5dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/allMedicineHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:padding="5dp"
+                    android:text="All Products"
+                    android:textSize="14sp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/allMedicineRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/allMedicineHeader"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
                     android:visibility="visible"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:shimmer_recycler_item_count="6"
