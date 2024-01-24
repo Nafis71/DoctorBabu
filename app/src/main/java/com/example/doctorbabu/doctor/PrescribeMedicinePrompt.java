@@ -28,24 +28,29 @@ public class PrescribeMedicinePrompt extends AppCompatActivity {
         binding.skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Firebase firebase = Firebase.getInstance();
-                DatabaseReference reference = firebase.getDatabaseReference("callRoom");
-                reference.child(doctorId).child("connId").removeValue();
-                reference.child(doctorId).child("incoming").setValue("null");
-                reference.child(doctorId).child("isAvailable").setValue(false);
-                reference.child(doctorId).child("status").setValue(0);
+                clearCallRoom();
                 finish();
             }
         });
         binding.yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clearCallRoom();
                 Intent intent = new Intent(PrescribeMedicinePrompt.this, DoctorPrescribeMedicine.class);
                 intent.putExtra("patientId", patientId);
                 startActivity(intent);
                 finish();
             }
         });
+    }
+
+    public void clearCallRoom(){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("callRoom");
+        reference.child(doctorId).child("connId").removeValue();
+        reference.child(doctorId).child("incoming").setValue("null");
+        reference.child(doctorId).child("isAvailable").setValue(false);
+        reference.child(doctorId).child("status").setValue(0);
     }
 
     @Override

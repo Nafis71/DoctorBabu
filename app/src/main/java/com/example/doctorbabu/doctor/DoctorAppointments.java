@@ -74,7 +74,7 @@ public class DoctorAppointments extends Fragment {
             @Override
             public void run() {
                 binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_appointment);
-                adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels);
+                adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels,binding.recyclerLayout,binding.descriptionLayout,binding.noAppointmentLayout);
                 binding.appointmentRecyclerView.showShimmer();
             }
         });

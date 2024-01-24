@@ -25,7 +25,7 @@ public class CallDoctor extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
     FirebaseAuth auth;
     boolean isOkay = false;
-    boolean isIncomingSet = false;
+    boolean isIncomingSet = false,hasDestroyed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class CallDoctor extends AppCompatActivity {
         callReference.child(doctorId).child("isAvailable").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
+                if (snapshot.exists() && !hasDestroyed) {
                     if (String.valueOf(snapshot.getValue()).equals("true")) {
                         if (isOkay) {
                             return;
@@ -100,21 +100,25 @@ public class CallDoctor extends AppCompatActivity {
                         intent.putExtra("userId", user.getUid());
                         intent.putExtra("doctorId", doctorId);
                         startActivity(intent);
-                        finishAndRemoveTask();
+                        finish();
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                throw error.toException();
             }
         });
     }
 
     public void onBackPressed() {
-        DatabaseReference reference = database.getReference("callRoom");
-        reference.child(doctorId).child("incoming").setValue("null");
-        finishAndRemoveTask();
+        //blocking user from pressing back button
+    }
+
+    @Override
+    protected void onDestroy() {
+        hasDestroyed = true;
+        super.onDestroy();
     }
 }

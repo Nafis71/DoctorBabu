@@ -1,9 +1,11 @@
 package com.example.doctorbabu.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,10 +34,14 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
     Context context;
     ArrayList<AppointmentModel> model;
     ExecutorService cancelAppointmentExecutor;
+    RelativeLayout recyclerLayout,descriptionLayout,noAppointmentLayout;
 
-    public DoctorAppointmentAdapter(Context context, ArrayList<AppointmentModel> model) {
+    public DoctorAppointmentAdapter(Context context, ArrayList<AppointmentModel> model,RelativeLayout recyclerLayout,RelativeLayout descriptionLayout,RelativeLayout noAppointmentLayout) {
         this.context = context;
         this.model = model;
+        this.recyclerLayout = recyclerLayout;
+        this.descriptionLayout = descriptionLayout;
+        this.noAppointmentLayout = noAppointmentLayout;
     }
 
     @NonNull
@@ -46,7 +52,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DoctorAppointmentAdapter.myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DoctorAppointmentAdapter.myViewHolder holder, @SuppressLint("RecyclerView") int position) {
         cancelAppointmentExecutor = Executors.newSingleThreadExecutor();
         AppointmentModel dbModel = model.get(position);
         getAppointmentData(holder,dbModel);
@@ -55,9 +61,28 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
             @Override
             public void onClick(View view) {
                 cancelAppointmentExecutor.execute(new Runnable() {
+                    @SuppressLint("NotifyDataSetChanged")
                     @Override
                     public void run() {
+                        AppCompatActivity activity = (AppCompatActivity)context;
                         cancelAppointment(dbModel);
+                        model.remove(position);
+                        if(model.size() == 0){
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recyclerLayout.setVisibility(View.GONE);
+                                    descriptionLayout.setVisibility(View.GONE);
+                                    noAppointmentLayout.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyDataSetChanged();
+                            }
+                        });
                     }
                 });
             }

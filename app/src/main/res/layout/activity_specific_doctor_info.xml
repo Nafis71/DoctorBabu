@@ -116,7 +116,6 @@
                 android:layout_toEndOf="@id/profilePicture"
                 android:fontFamily="@font/roboto"
                 android:text="General Physician"
-                android:textColor="#4F5FDE"
                 android:textSize="12sp">
 
             </TextView>
@@ -207,7 +206,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/doctor_appointment_background_layout"
+            >
 
             <TextView
                 android:id="@+id/ratingTxt"
@@ -226,7 +227,9 @@
                 android:layout_height="20dp"
                 android:layout_below="@+id/ratingTxt"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                android:layout_marginBottom="5dp"
+                />
 
             <TextView
                 android:id="@+id/rating"
@@ -329,7 +332,7 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:background="#F7F9F9">
+            android:background="@drawable/doctor_appointment_background_layout">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

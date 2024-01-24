@@ -46,7 +46,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#F7F9F9">
+                        android:background="@drawable/doctor_appointment_background_layout">
 
                         <TextView
                             android:id="@+id/consultationTimeHeader"
@@ -110,7 +110,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#F7F9F9">
+                        android:background="@drawable/doctor_appointment_background_layout">
 
                         <TextView
                             android:id="@+id/consultationFeeHeader"
@@ -274,8 +274,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/aboutDoctorHeader"
-                    android:layout_margin="10dp"
-                    android:background="#F7F9F9">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/doctor_appointment_background_layout">
 
                     <TextView
                         android:id="@+id/about"
@@ -289,8 +292,7 @@
                         android:justificationMode="inter_word"
                         android:text="About Doctor info"
                         android:textColor="@color/black"
-                        android:textSize="13sp"
-                        />
+                        android:textSize="13sp" />
                 </RelativeLayout>
 
             </RelativeLayout>
