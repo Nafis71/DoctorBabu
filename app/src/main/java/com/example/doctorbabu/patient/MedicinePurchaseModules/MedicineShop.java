@@ -259,6 +259,8 @@ public class MedicineShop extends AppCompatActivity {
     }
 
     public void loadAllMedicines(){
+        binding.allMedicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineShop.this, 3));
+        binding.allMedicineRecyclerView.showShimmer();
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -270,11 +272,12 @@ public class MedicineShop extends AppCompatActivity {
                     binding.allMedicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineShop.this, 3));
                     allMedicineAdapter = new AllMedicineAdapter(MedicineShop.this,allMedicines);
                     binding.allMedicineRecyclerView.setAdapter(allMedicineAdapter);
+                    binding.allMedicineRecyclerView.hideShimmer();
                 } else {
                     loadAllMedicines();
                 }
             }
-        },500);
+        },1000);
     }
     public void getAllTabletData(){
         ArrayList<String> tabletReference = new ArrayList<>();
