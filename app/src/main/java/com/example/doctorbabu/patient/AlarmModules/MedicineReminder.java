@@ -80,8 +80,11 @@ public class MedicineReminder extends AppCompatActivity {
                 binding.nodataImage.setVisibility(View.GONE);
                 binding.nodataText.setVisibility(View.GONE);
                 binding.alarmListRecyclerView.setVisibility(View.VISIBLE);
+                binding.alarmHeaderSection.setVisibility(View.VISIBLE);
                 displayData();
             } else {
+                binding.alarmListRecyclerView.setVisibility(View.GONE);
+                binding.alarmHeaderSection.setVisibility(View.GONE);
                 binding.nodataImage.setVisibility(View.VISIBLE);
                 binding.nodataText.setVisibility(View.VISIBLE);
             }

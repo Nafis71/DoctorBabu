@@ -9,7 +9,10 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.doctor.PrescribeMedicinePrompt;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +27,7 @@ import java.net.URL;
 import java.util.UUID;
 
 public class PatientCall extends AppCompatActivity{
-    String uniqueId, userId, doctorId, photoUrl, name, email;
+    String uniqueId, userId, doctorId, photoUrl, name, email,callerIdFromDoctor;
 
     URL url;
 
@@ -34,6 +37,7 @@ public class PatientCall extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_call);
+        callerIdFromDoctor = getIntent().getStringExtra("callerIdFromDoctor");
         userId = getIntent().getStringExtra("userId");
         doctorId = getIntent().getStringExtra("doctorId");
         initializePeer();
@@ -132,6 +136,15 @@ public class PatientCall extends AppCompatActivity{
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .commitNow();
+            fragment.setLeaveVideoConferenceListener(new ZegoUIKitPrebuiltVideoConferenceFragment.LeaveVideoConferenceListener() {
+                @Override
+                public void onLeaveConference() {
+                    Intent intent = new Intent(PatientCall.this, PrescribeMedicinePrompt.class);
+                    intent.putExtra("patientId", callerIdFromDoctor); //callerIdFromDoctor is basically patient id which is coming from callRoom Doctor module.
+                    startActivity(intent);
+                    finish();
+                }
+            });
         } else {  //patient side
             long appID = 633349627;
             String appSign = "2f63d4608b7ba6ed887a37562e679b0e842ac4bef26d56ee88eb1474d8112f6b";

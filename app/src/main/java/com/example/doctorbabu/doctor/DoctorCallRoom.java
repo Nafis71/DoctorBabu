@@ -52,12 +52,6 @@ public class DoctorCallRoom extends Fragment {
         callDetector = Executors.newSingleThreadExecutor();
         callDetector.execute(this::loadData);
         binding.joinRoom.setOnClickListener(view13 -> joinRoom());
-        binding.disbandRoom.setOnClickListener(view12 -> disBandRoom());
-        binding.prescribeMedicine.setOnClickListener(view1 -> {
-            Intent intent = new Intent(requireActivity(), DoctorPrescribeMedicine.class);
-            intent.putExtra("patientId", callerId);
-            startActivity(intent);
-        });
     }
 
 
@@ -75,18 +69,14 @@ public class DoctorCallRoom extends Fragment {
                             binding.noCallInfo.setVisibility(View.GONE);
                             binding.profilePicture.setVisibility(View.VISIBLE);
                             binding.joinRoom.setVisibility(View.VISIBLE);
-                            binding.disbandRoom.setVisibility(View.VISIBLE);
                             binding.callBackground.setVisibility(View.VISIBLE);
-                            binding.prescribeMedicine.setVisibility(View.VISIBLE);
 
                         } else {
                             binding.profilePicture.setVisibility(View.GONE);
                             binding.joinRoom.setVisibility(View.GONE);
-                            binding.disbandRoom.setVisibility(View.GONE);
                             binding.callBackground.setVisibility(View.GONE);
                             binding.noCallBackground.setVisibility(View.VISIBLE);
                             binding.noCallInfo.setVisibility(View.VISIBLE);
-                            binding.prescribeMedicine.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -122,16 +112,9 @@ public class DoctorCallRoom extends Fragment {
         reference.child(doctorId).child("status").setValue(1);
         Intent intent = new Intent(requireActivity(), PatientCall.class);
         intent.putExtra("userId", "null");
+        intent.putExtra("callerIdFromDoctor",callerId);
         intent.putExtra("doctorId", doctorId);
         startActivity(intent);
-    }
-
-    public void disBandRoom() {
-        DatabaseReference reference = database.getReference("callRoom");
-        reference.child(doctorId).child("connId").removeValue();
-        reference.child(doctorId).child("incoming").setValue("null");
-        reference.child(doctorId).child("isAvailable").setValue(false);
-        reference.child(doctorId).child("status").setValue(0);
     }
 
     @Override

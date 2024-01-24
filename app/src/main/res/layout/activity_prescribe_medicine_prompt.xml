@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".doctor.PrescribeMedicinePrompt">
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:src="@drawable/doctorprescribemedicine"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+    </ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Do you want to write prescription for this patient?"
+        android:layout_below="@+id/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-60dp"
+        android:textSize="14sp"
+        android:textColor="@color/black">
+
+    </TextView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Skip"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:visibility="visible"
+        app:backgroundTint="#DDD"
+        app:cornerRadius="12dp"
+        app:elevation="10dp"
+        app:strokeColor="@color/white"
+        tools:ignore="NotSibling" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_back"
+        android:fontFamily="@font/roboto"
+        android:shadowColor="@color/black"
+        android:shadowRadius="0.5"
+        android:text="Yes"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:backgroundTint="#3C4DD8"
+        app:cornerRadius="12dp"
+        app:elevation="10dp"
+        app:strokeColor="@color/white"
+        tools:ignore="NotSibling" />
+
+
+
+</RelativeLayout>

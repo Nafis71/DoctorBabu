@@ -70,9 +70,14 @@ public class DoctorAppointments extends Fragment {
 
     public void loadData() {
         appointmentModels = new ArrayList<>();
-        binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_appointment);
-        adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels);
-        binding.appointmentRecyclerView.showShimmer();
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_appointment);
+                adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels);
+                binding.appointmentRecyclerView.showShimmer();
+            }
+        });
         DatabaseReference reference = firebase.getDatabaseReference("doctorAppointments");
         reference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -97,20 +102,35 @@ public class DoctorAppointments extends Fragment {
                         }
                     }
                     if(appointmentModels.isEmpty()){
-                        binding.descriptionLayout.setVisibility(View.GONE);
-                        binding.appointmentRecyclerView.setVisibility(View.GONE);
-                        binding.noAppointmentLayout.setVisibility(View.VISIBLE);
+                        requireActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.descriptionLayout.setVisibility(View.GONE);
+                                binding.appointmentRecyclerView.setVisibility(View.GONE);
+                                binding.noAppointmentLayout.setVisibility(View.VISIBLE);
+                            }
+                        });
                         return;
                     }
-                    binding.descriptionLayout.setVisibility(View.VISIBLE);
-                    binding.noAppointmentLayout.setVisibility(View.GONE);
-                    binding.appointmentRecyclerView.setVisibility(View.VISIBLE);
-                    binding.appointmentRecyclerView.setAdapter(adapter);
-                    binding.appointmentRecyclerView.hideShimmer();
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.descriptionLayout.setVisibility(View.VISIBLE);
+                            binding.noAppointmentLayout.setVisibility(View.GONE);
+                            binding.appointmentRecyclerView.setVisibility(View.VISIBLE);
+                            binding.appointmentRecyclerView.setAdapter(adapter);
+                            binding.appointmentRecyclerView.hideShimmer();
+                        }
+                    });
                 } else {
-                    binding.descriptionLayout.setVisibility(View.GONE);
-                    binding.appointmentRecyclerView.setVisibility(View.GONE);
-                    binding.noAppointmentLayout.setVisibility(View.VISIBLE);
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.descriptionLayout.setVisibility(View.GONE);
+                            binding.appointmentRecyclerView.setVisibility(View.GONE);
+                            binding.noAppointmentLayout.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }
             }
 

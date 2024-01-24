@@ -41,7 +41,9 @@ import java.util.concurrent.Executors;
 
 public class PatientBottomBar extends AppCompatActivity {
     private static final String CHANNEL_ID = "Appointment Cancelled Channel";
+    private static final String CHANNEL_ID_E_PRESCRIPTION = "E-Prescription Channel";
     private static final int NOTIFICATION_ID = 300;
+    private static final int NOTIFICATION_ID_PRESCRIPTION = 301;
     ChipNavigationBar bottomNavigation;
     FragmentManager fm;
     boolean isOpenDoctorVideo = false, isOpenHome = false, isOpenHistory = false, isOpenProfile = false, isBackPressed = false, isAdded;
@@ -316,9 +318,9 @@ public class PatientBottomBar extends AppCompatActivity {
     public void prescriptionNotificationManager(){
         String notificationText = "You have just received an e-prescription from "+ doctorName;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification notification = new Notification.Builder(this).setSmallIcon(R.drawable.applogo).setContentText(notificationText).setSubText("Appointment Cancellation").setChannelId(CHANNEL_ID).build();
-        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, "Appointment Cancelled Channel", NotificationManager.IMPORTANCE_HIGH));
-        notificationManager.notify(NOTIFICATION_ID, notification);
+        Notification notification = new Notification.Builder(this).setSmallIcon(R.drawable.applogo).setContentText(notificationText).setSubText("Received E-Prescription").setChannelId(CHANNEL_ID).build();
+        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID_E_PRESCRIPTION, "Received E-Prescription", NotificationManager.IMPORTANCE_HIGH));
+        notificationManager.notify(NOTIFICATION_ID_PRESCRIPTION, notification);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(VibrationEffect.createOneShot(1500, VibrationEffect.DEFAULT_AMPLITUDE));
         prescriptionCounter +=1;

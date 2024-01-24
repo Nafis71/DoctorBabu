@@ -369,7 +369,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
                     setResult(RESULT_OK, intent);
                     finish();
                 }
-            }, 3300);
+            }, 2300);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -398,7 +398,7 @@ public class MedicineAlarm extends AppCompatActivity {     //This activity does 
                         binding.setAlarmButton.setVisibility(View.VISIBLE);
 
                     }
-                }, 2000);
+                }, 1000);
 
             }
         }, 1100);

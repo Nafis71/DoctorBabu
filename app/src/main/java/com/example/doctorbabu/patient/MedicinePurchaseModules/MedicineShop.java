@@ -195,7 +195,7 @@ public class MedicineShop extends AppCompatActivity {
                 binding.mainBody.setVisibility(View.VISIBLE);
                 dialog.dismiss();
             }
-        }, 1200);
+        }, 2000);
     }
 
     public void setSearch(){
@@ -259,25 +259,17 @@ public class MedicineShop extends AppCompatActivity {
     }
 
     public void loadAllMedicines(){
-        binding.allMedicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineShop.this, 3));
-        binding.allMedicineRecyclerView.showShimmer();
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(loadedMedicine == 3){
-                    allMedicines.addAll(syrupModels);
-                    allMedicines.addAll(herbalSyrupModels);
-                    Collections.shuffle(allMedicines);
-                    binding.allMedicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineShop.this, 3));
-                    allMedicineAdapter = new AllMedicineAdapter(MedicineShop.this,allMedicines);
-                    binding.allMedicineRecyclerView.setAdapter(allMedicineAdapter);
-                    binding.allMedicineRecyclerView.hideShimmer();
-                } else {
-                    loadAllMedicines();
-                }
+        while (true){
+            if(loadedMedicine == 3){
+                allMedicines.addAll(syrupModels);
+                allMedicines.addAll(herbalSyrupModels);
+                Collections.shuffle(allMedicines);
+                binding.allMedicineRecyclerView.setLayoutManager(new GridLayoutManager(MedicineShop.this, 3));
+                allMedicineAdapter = new AllMedicineAdapter(MedicineShop.this,allMedicines);
+                binding.allMedicineRecyclerView.setAdapter(allMedicineAdapter);
+                break;
             }
-        },1000);
+        }
     }
     public void getAllTabletData(){
         ArrayList<String> tabletReference = new ArrayList<>();
@@ -533,6 +525,7 @@ public class MedicineShop extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -547,6 +540,7 @@ public class MedicineShop extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        loadedMedicine = 0;
         octExecutor.shutdown();
         cartCounter.shutdown();
         syrupExecutor.shutdown();

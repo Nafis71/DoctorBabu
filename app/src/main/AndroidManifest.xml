@@ -35,6 +35,9 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".doctor.PrescribeMedicinePrompt"
+            android:exported="false" />
+        <activity
             android:name=".patient.MedicinePurchaseModules.PurchaseCompletion"
             android:exported="false" />
         <activity
