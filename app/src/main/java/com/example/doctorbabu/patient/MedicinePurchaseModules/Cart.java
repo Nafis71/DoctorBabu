@@ -82,7 +82,7 @@ public class Cart extends AppCompatActivity {
         });
 
         DatabaseReference cartItemReference = firebase.getDatabaseReference("medicineCart");
-        cartItemReference.child(user.getUid()).orderByChild("medicineId").addListenerForSingleValueEvent(new ValueEventListener() {
+        cartItemReference.child(user.getUid()).orderByChild("medicineId").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 model.clear();

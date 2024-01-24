@@ -321,7 +321,21 @@
                                     android:text="1 Bottle "
                                     android:textSize="14sp" />
                             </com.google.android.material.textfield.TextInputLayout>
+                            <TextView
+                                android:id="@+id/outOfStock"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="Out of Stock"
+                                android:visibility="invisible"
+                                android:layout_marginEnd="30dp"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/dark_red"
+                                android:textStyle="bold|italic"
+                                android:textSize="13sp"
+                                android:fontFamily="@font/roboto">
 
+                            </TextView>
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/addToCart"
                                 android:layout_width="wrap_content"

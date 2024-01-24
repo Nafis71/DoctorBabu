@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
+import com.thekhaeng.pushdownanim.PushDownAnim;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ExecutorService;
@@ -105,6 +107,8 @@ public class MedicineShop extends AppCompatActivity {
             }
         });
         closeLoadingScreen();
+        PushDownAnim.setPushDownAnimTo(binding.octAll, binding.cart,binding.syrupAll,binding.herbalAll,binding.uploadPrescription)
+                .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
     }
     @Override

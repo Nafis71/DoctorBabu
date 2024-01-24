@@ -19,7 +19,7 @@ import com.example.doctorbabu.Adapters.TabletAdapter;
 import com.example.doctorbabu.DatabaseModels.MedicineModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
-import com.example.doctorbabu.databinding.ActivityMedicineDetailsBinding;
+import com.example.doctorbabu.databinding.ActivityTabletDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import org.aviran.cookiebar2.CookieBar;
 
@@ -39,7 +40,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TabletDetails extends AppCompatActivity {
-    ActivityMedicineDetailsBinding binding;
+    ActivityTabletDetailsBinding binding;
     String medicineId;
     ExecutorService medicineDataExecutor, relativeMedicineListExecutor, cartExecutor, countExecutor, cartCounterExecutor;
     Firebase firebase;
@@ -56,7 +57,7 @@ public class TabletDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadingScreen();
-        binding = ActivityMedicineDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivityTabletDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         medicineId = getIntent().getStringExtra("medicineId");
         firebase = Firebase.getInstance();
@@ -84,7 +85,6 @@ public class TabletDetails extends AppCompatActivity {
                 loadRelativeMedicines();
             }
         });
-        closeLoadingScreen();
         binding.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +109,8 @@ public class TabletDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        PushDownAnim.setPushDownAnimTo(binding.addToCart, binding.cart)
+                .setScale(PushDownAnim.MODE_SCALE, 0.95f);
     }
 
     public void countMedicineViewData() {
@@ -306,7 +308,6 @@ public class TabletDetails extends AppCompatActivity {
         });
     }
 
-
     public void closeLoadingScreen() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -318,10 +319,17 @@ public class TabletDetails extends AppCompatActivity {
                 binding.relativeBrandLayout.setVisibility(View.VISIBLE);
                 binding.descriptionLayout.setVisibility(View.VISIBLE);
                 binding.medicalOverViewLayout.setVisibility(View.VISIBLE);
-                binding.addToCart.setVisibility(View.VISIBLE);
+                if(medicineQuantity == 0){
+                    binding.addToCart.setVisibility(View.INVISIBLE);
+                    binding.outOfStock.setVisibility(View.VISIBLE);
+                    binding.sheet.setEnabled(false);
+                } else{
+                    binding.addToCart.setVisibility(View.VISIBLE);
+                    binding.outOfStock.setVisibility(View.INVISIBLE);
+                }
                 dialog.dismiss();
             }
-        }, 2000);
+        }, 1500);
     }
 
     public void loadMedicineData() {
@@ -388,6 +396,12 @@ public class TabletDetails extends AppCompatActivity {
         setKidneySafetyDescription(snapshot);
         setLiverSafetyDescription(snapshot);
         calculatePrice(snapshot);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                closeLoadingScreen();
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")

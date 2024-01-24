@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.thekhaeng.pushdownanim.PushDownAnim;
 
 import org.aviran.cookiebar2.CookieBar;
 
@@ -106,8 +107,8 @@ public class SyrupDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        closeLoadingScreen();
-
+        PushDownAnim.setPushDownAnimTo(binding.addToCart, binding.cart)
+                .setScale(PushDownAnim.MODE_SCALE, 0.95f);
     }
 
     public void loadingScreen() {
@@ -129,9 +130,17 @@ public class SyrupDetails extends AppCompatActivity {
                 binding.syrupDescriptionLayout.setVisibility(View.VISIBLE);
                 binding.medicalOverViewLayout.setVisibility(View.VISIBLE);
                 binding.addToCart.setVisibility(View.VISIBLE);
+                if(syrupQuantity == 0){
+                    binding.addToCart.setVisibility(View.INVISIBLE);
+                    binding.outOfStock.setVisibility(View.VISIBLE);
+                    binding.bottle.setEnabled(false);
+                } else{
+                    binding.addToCart.setVisibility(View.VISIBLE);
+                    binding.outOfStock.setVisibility(View.INVISIBLE);
+                }
                 dialog.dismiss();
             }
-        }, 2000);
+        }, 1500);
     }
 
     public void addtoCart() {
@@ -407,6 +416,12 @@ public class SyrupDetails extends AppCompatActivity {
         binding.storageCondition.setText(String.valueOf(snapshot.child("storageCondition").getValue()));
         syrupQuantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
         calculatePrice(snapshot);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                closeLoadingScreen();
+            }
+        });
     }
 
     public void calculatePrice(@NonNull DataSnapshot snapshot) {
