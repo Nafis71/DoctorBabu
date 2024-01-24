@@ -333,7 +333,6 @@ public class Checkout extends AppCompatActivity {
         }
         return true;
     }
-
     public void placeOrder(){
         if(!validateDeliveryAddress() || !validatePhoneNumber()){
             return;
@@ -349,6 +348,7 @@ public class Checkout extends AppCompatActivity {
         } else{
             totalPrice = binding.totalPrice.getText().toString();
         }
+        int index = 0;
         for(CartModel product: checkoutModels){
             Clock clock = Clock.systemDefaultZone();
             long milliSeconds=clock.millis();
@@ -366,13 +366,17 @@ public class Checkout extends AppCompatActivity {
             cartReference.child(user.getUid()).child(product.getMedicineId()).removeValue();
             DatabaseReference medicineInfoReference;
             if(product.getMedicineType().equalsIgnoreCase("tablet")){
-                medicineInfoReference = firebase.getDatabaseReference("medicineInfo");
+                medicineInfoReference = firebase.getDatabaseReference("tabletData");
             } else if(product.getMedicineType().equalsIgnoreCase("syrup")){
                 medicineInfoReference = firebase.getDatabaseReference("syrupData");
             }else{
                 medicineInfoReference = firebase.getDatabaseReference("herbalSyrupData");
             }
-            // I h
+            int purchasingQuantity = Integer.parseInt(product.getQuantity());
+            int productQuantity = Integer.parseInt(medicineQuantity.get(index));
+            int finalQuantity =  productQuantity - purchasingQuantity;
+            medicineInfoReference.child(product.getMedicineId()).child("medicineQuantity").setValue(String.valueOf(finalQuantity));
+            index++;
         }
         launchActivity();
 
