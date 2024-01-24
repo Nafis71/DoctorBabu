@@ -26,11 +26,13 @@ import java.util.concurrent.Executors;
 public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.myViewHolder> {
     Context context;
     ArrayList<CartModel> model;
+    ArrayList<String> medicineQuantity;
     ExecutorService medicineDataExecutor;
 
-    public CheckoutAdapter(Context context, ArrayList<CartModel> model) {
+    public CheckoutAdapter(Context context, ArrayList<CartModel> model,ArrayList<String> medicineQuantity) {
         this.context = context;
         this.model = model;
+        this.medicineQuantity = medicineQuantity;
     }
 
     @NonNull
@@ -49,68 +51,48 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.myView
         medicineDataExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                fetchMedicineData(holder, dbModel);
+                checkMedicineType(holder, dbModel);
             }
         });
 
     }
 
-    public void fetchMedicineData(CheckoutAdapter.myViewHolder holder, CartModel dbModel) {
-        Firebase firebase = Firebase.getInstance();
+    public void checkMedicineType(CheckoutAdapter.myViewHolder holder, CartModel dbModel) {
         if (dbModel.getMedicineType().equalsIgnoreCase("tablet")) {
-            DatabaseReference reference = firebase.getDatabaseReference("tabletData");
-            reference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
-                        holder.medicineDosageOrbottleSize.setText(String.valueOf(snapshot.child("medicineDosage").getValue()));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
-                }
-            });
+            fetchMedicineData(holder,dbModel,"tabletData");
         } else if (dbModel.getMedicineType().equalsIgnoreCase("syrup")) {
-            DatabaseReference reference = firebase.getDatabaseReference("syrupData");
-            reference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
-                        holder.medicineDosageOrbottleSize.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
-                }
-            });
+            fetchMedicineData(holder,dbModel,"syrupData");
         } else if (dbModel.getMedicineType().equalsIgnoreCase("herbalSyrup")) {
-            DatabaseReference reference = firebase.getDatabaseReference("herbalSyrupData");
-            reference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
-                        holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
+            fetchMedicineData(holder,dbModel,"herbalSyrupData");
+        }
+    }
+
+    public void fetchMedicineData(CheckoutAdapter.myViewHolder holder, CartModel dbModel, String databaseReference){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference(databaseReference);
+        reference.child(dbModel.getMedicineId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Glide.with(context).load(String.valueOf(snapshot.child("medicinePicture").getValue())).into(holder.medicineImage);
+                    holder.medicineName.setText(String.valueOf(snapshot.child("medicineName").getValue()));
+                    if(dbModel.getMedicineType().equalsIgnoreCase("tablet")){
+                        holder.medicineDosageOrbottleSize.setText(String.valueOf(snapshot.child("medicineDosage").getValue()));
+                    }else{
                         holder.medicineDosageOrbottleSize.setText(String.valueOf(snapshot.child("bottleSize").getValue()));
                     }
+                    medicineQuantity.add(String.valueOf(snapshot.child("medicineQuantity").getValue()));
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    throw error.toException();
-                }
-            });
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
         medicineDataExecutor.shutdown();
     }
+
 
     @Override
     public int getItemCount() {

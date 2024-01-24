@@ -47,6 +47,7 @@ public class Checkout extends AppCompatActivity {
     FirebaseUser user;
     CheckoutAdapter adapter;
     ArrayList<CartModel> checkoutModels;
+    ArrayList<String> medicineQuantity;
     int backupRewardPoint;
     boolean hasAppliedReward;
     int quantity;
@@ -169,8 +170,9 @@ public class Checkout extends AppCompatActivity {
 
     public void initializeCheckoutRecyclerView() {
         checkoutModels = new ArrayList<>();
+        medicineQuantity = new ArrayList<>();
         binding.checkoutMedicineRecyclerView.setLayoutManager(new LinearLayoutManager(Checkout.this, LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_medicine);
-        adapter = new CheckoutAdapter(this, checkoutModels);
+        adapter = new CheckoutAdapter(this, checkoutModels, medicineQuantity);
         binding.checkoutMedicineRecyclerView.showShimmer();
         checkCart();
     }
@@ -366,23 +368,11 @@ public class Checkout extends AppCompatActivity {
             if(product.getMedicineType().equalsIgnoreCase("tablet")){
                 medicineInfoReference = firebase.getDatabaseReference("medicineInfo");
             } else if(product.getMedicineType().equalsIgnoreCase("syrup")){
-                medicineInfoReference = firebase.getDatabaseReference("syrup");
+                medicineInfoReference = firebase.getDatabaseReference("syrupData");
             }else{
-                medicineInfoReference = firebase.getDatabaseReference("herbalSyrup");
+                medicineInfoReference = firebase.getDatabaseReference("herbalSyrupData");
             }
-            // I have to fix this bug
-            medicineInfoReference.child(product.getMedicineId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if(task.isSuccessful() && task.getResult().exists()){
-                        DataSnapshot snapshot = task.getResult();
-                        quantity = Integer.parseInt(String.valueOf(snapshot.child("medicineQuantity").getValue()));
-                        int orderQuantity = Integer.parseInt(product.getQuantity());
-                        int finalQuantity = quantity - orderQuantity;
-                        medicineInfoReference.child(product.getMedicineId()).child("medicineQuantity").setValue(String.valueOf(finalQuantity));
-                    }
-                }
-            });
+            // I h
         }
         launchActivity();
 
