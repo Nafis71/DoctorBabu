@@ -108,6 +108,7 @@
                 android:layout_below="@+id/calenderLayout">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/infoCard"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
@@ -150,6 +151,17 @@
                     </RelativeLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:id="@+id/appointmentImage"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:src="@drawable/doctorappointmentreminder"
+                    android:layout_below="@+id/infoCard"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="100dp"
+                    >
+
+                </ImageView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -275,6 +287,8 @@
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bookAppointment"

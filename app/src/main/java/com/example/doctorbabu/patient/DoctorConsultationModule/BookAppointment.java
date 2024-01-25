@@ -12,7 +12,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -57,8 +56,8 @@ public class BookAppointment extends AppCompatActivity {
     String chipName, appointmentHour, appointmentMinute, timePeriod, doctorID;
     ArrayList<String> databaseAppointmentTime = new ArrayList<>();
     AlarmManager alarmManager;
-    String appointmentID,currentDate,selectedDate;
-    ExecutorService appointmentTimeExecutor, appointmentDateExecutor, bookAppointmentExecutor,appointmentSettingExecutor;
+    String appointmentID, currentDate, selectedDate;
+    ExecutorService appointmentTimeExecutor, appointmentDateExecutor, bookAppointmentExecutor, appointmentSettingExecutor;
     Dialog dialog;
     boolean appointmentSettingStatus;
 
@@ -152,7 +151,7 @@ public class BookAppointment extends AppCompatActivity {
         appointmentData.put("appointmentDate", year + "-" + month + "-" + day);
         int broadcastCode = getBroadcastCode();
         appointmentData.put("broadcastCode", String.valueOf(broadcastCode));
-        setReminder(appointmentHour, appointmentMinute,broadcastCode);                        //setting alarm broadcast here
+        setReminder(appointmentHour, appointmentMinute, broadcastCode);                        //setting alarm broadcast here
         reference.child(doctorID).child(appointmentID).setValue(appointmentData);
         reference.child(user.getUid()).child(appointmentID).setValue(appointmentData);
         binding.mainBody.setVisibility(View.GONE);
@@ -175,7 +174,7 @@ public class BookAppointment extends AppCompatActivity {
                 .show();
     }
 
-    public void setReminder(String hour, String minute,int broadcastCode) {
+    public void setReminder(String hour, String minute, int broadcastCode) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.YEAR, year);
@@ -346,7 +345,7 @@ public class BookAppointment extends AppCompatActivity {
         int currentMinute = Integer.parseInt(currentTimeArray[1]);
         int generatedHour = Integer.parseInt(generatedTimeArray[0]);
         int generatedMinute = Integer.parseInt(generatedTimeArray[1]);
-        if(dayTime.equalsIgnoreCase("afternoon") | dayTime.equalsIgnoreCase("night")){
+        if (dayTime.equalsIgnoreCase("afternoon") | dayTime.equalsIgnoreCase("night")) {
             generatedHour += 12;
         }
         Random random = new Random();
@@ -356,14 +355,14 @@ public class BookAppointment extends AppCompatActivity {
         chip.setId(random.nextInt());
         chip.setHeight(80);
         chip.setClickable(clickable);
-        if(currentDate.equals(selectedDate)){
+        if (currentDate.equals(selectedDate)) {
             if (clickable && generatedHour >= currentHour) {
-                if(generatedHour == currentHour && generatedMinute > currentMinute || generatedHour > currentHour){
+                if (generatedHour == currentHour && generatedMinute > currentMinute || generatedHour > currentHour) {
                     chip.setEnabled(appointmentSettingStatus);
-                    if(!appointmentSettingStatus){
+                    if (!appointmentSettingStatus) {
                         chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
                     }
-                }else{
+                } else {
                     chip.setEnabled(false);
                     chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
                 }
@@ -374,7 +373,7 @@ public class BookAppointment extends AppCompatActivity {
         } else {
             if (clickable) {
                 chip.setEnabled(appointmentSettingStatus);
-                if(!appointmentSettingStatus){
+                if (!appointmentSettingStatus) {
                     chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
                 }
             } else {
@@ -392,12 +391,12 @@ public class BookAppointment extends AppCompatActivity {
         }
     }
 
-    public void loadAppointmentSetting(){
+    public void loadAppointmentSetting() {
         DatabaseReference reference = firebase.getDatabaseReference("appointmentSetting");
         reference.child(doctorID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     appointmentSettingStatus = Boolean.parseBoolean(String.valueOf(snapshot.child("status").getValue()));
                     return;
                 }
@@ -427,13 +426,14 @@ public class BookAppointment extends AppCompatActivity {
                     String currentYear = numberFormatter.format(Integer.parseInt(dateArray[0]));
                     String currentMonth = numberFormatter.format(Integer.parseInt(dateArray[1]));
                     String currentDay = numberFormatter.format(Integer.parseInt(dateArray[2]));
-                    currentDate = currentYear+"-"+currentMonth+"-"+currentDay;
+                    currentDate = currentYear + "-" + currentMonth + "-" + currentDay;
                     year = date.getYear();
                     month = date.getMonth();
                     day = date.getDay();
-                    selectedDate = year+"-"+month+"-"+day;
+                    selectedDate = year + "-" + month + "-" + day;
                     if (month == Integer.parseInt(currentMonth) && year == Integer.parseInt(currentYear)) {
                         if (day >= Integer.parseInt(currentDay) && month >= Integer.parseInt(currentMonth) && year >= Integer.parseInt(currentYear)) {
+                            binding.appointmentImage.setVisibility(View.GONE);
                             clearChipViews();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -448,6 +448,7 @@ public class BookAppointment extends AppCompatActivity {
                             clearChipViews();
                             binding.chipLayout.setVisibility(View.GONE);
                             binding.infoLayout.setVisibility(View.VISIBLE);
+                            binding.appointmentImage.setVisibility(View.VISIBLE);
                             errorMessage("Restricted", "You can't choose previous dates for booking");
                         }
 
@@ -455,11 +456,13 @@ public class BookAppointment extends AppCompatActivity {
                         clearChipViews();
                         binding.chipLayout.setVisibility(View.GONE);
                         binding.infoLayout.setVisibility(View.VISIBLE);
+                        binding.appointmentImage.setVisibility(View.VISIBLE);
                         errorMessage("Restricted", "You can't choose forwarding month for booking");
                     }
                 } else {
                     binding.chipLayout.setVisibility(View.GONE);
                     binding.infoLayout.setVisibility(View.VISIBLE);
+                    binding.appointmentImage.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -511,7 +514,7 @@ public class BookAppointment extends AppCompatActivity {
                         }
                     }
                 }
-                if(currentDate.equals(selectedDate)){
+                if (currentDate.equals(selectedDate)) {
                     String currentTime = getCurrentTime();
                     String[] currentTimeArray = currentTime.split(":");
                     int hour = Integer.parseInt(currentTimeArray[0]);
@@ -585,7 +588,7 @@ public class BookAppointment extends AppCompatActivity {
         });
     }
 
-    public String getCurrentTime(){
+    public String getCurrentTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
@@ -620,6 +623,7 @@ public class BookAppointment extends AppCompatActivity {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
+
     public void loadingScreen() {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.loading_screen);
