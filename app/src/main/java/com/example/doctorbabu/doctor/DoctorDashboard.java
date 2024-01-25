@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.patient.PatientProfileModule.PrescriptionHistory;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +44,7 @@ public class DoctorDashboard extends AppCompatActivity {
     FragmentManager fm;
     Bitmap image;
     int check = 0;
+    boolean showOnline;
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://prescription-bf7c7-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
@@ -176,5 +179,28 @@ public class DoctorDashboard extends AppCompatActivity {
         });
         dialog.create().show();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences preference = getSharedPreferences("onlinePreference",Context.MODE_PRIVATE);
+        showOnline = preference.getBoolean("showOnline",true);
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
+        if(showOnline){
+            reference.child(doctorId).child("onlineStatus").setValue(1);
+        }else{
+            reference.child(doctorId).child("onlineStatus").setValue(0);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
+        reference.child(doctorId).child("onlineStatus").setValue(0);
     }
 }

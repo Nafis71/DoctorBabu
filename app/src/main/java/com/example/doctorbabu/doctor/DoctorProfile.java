@@ -194,36 +194,38 @@ public class DoctorProfile extends Fragment {
         reference.child(doctorId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String fullName = snapshot.child("title").getValue() + " " + snapshot.child("fullName").getValue();
-                doctorName.setText(fullName);
-                bmdc.setText(String.valueOf(snapshot.child("bmdc").getValue()));
-                if (!String.valueOf(snapshot.child("degrees").getValue()).equals("null")) {
-                    doctorDegree.setVisibility(View.VISIBLE);
-                    doctorDegree.setText(String.valueOf(snapshot.child("degrees").getValue()));
-                    medicalDegree.setText(String.valueOf(snapshot.child("degrees").getValue()));
-                } else {
-                    doctorDegree.setVisibility(View.GONE);
-                    medicalDegree.setText("No information found");
+                if(snapshot.exists() && isAdded()){
+                    String fullName = snapshot.child("title").getValue() + " " + snapshot.child("fullName").getValue();
+                    doctorName.setText(fullName);
+                    bmdc.setText(String.valueOf(snapshot.child("bmdc").getValue()));
+                    if (!String.valueOf(snapshot.child("degrees").getValue()).equals("null")) {
+                        doctorDegree.setVisibility(View.VISIBLE);
+                        doctorDegree.setText(String.valueOf(snapshot.child("degrees").getValue()));
+                        medicalDegree.setText(String.valueOf(snapshot.child("degrees").getValue()));
+                    } else {
+                        doctorDegree.setVisibility(View.GONE);
+                        medicalDegree.setText("No information found");
+                    }
+                    if (!String.valueOf(snapshot.child("specialty").getValue()).equals("null")) {
+                        doctorSpecialties.setVisibility(View.VISIBLE);
+                        doctorSpecialties.setText(String.valueOf(snapshot.child("specialty").getValue()));
+                        doctorSpecialtiesDownField.setText(String.valueOf(snapshot.child("specialty").getValue()));
+                    } else {
+                        doctorSpecialties.setVisibility(View.GONE);
+                        doctorSpecialtiesDownField.setText("No information found");
+                    }
+                    if (!String.valueOf(snapshot.child("photoUrl").getValue()).equals("null")) {
+                        Glide.with(requireContext()).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(profilePicture);
+                    } else {
+                        profilePicture.setImageResource(R.drawable.profile_picture);
+                    }
+                    if (!String.valueOf(snapshot.child("about").getValue()).equals("null")) {
+                        about.setText(String.valueOf(snapshot.child("about").getValue()));
+                    } else {
+                        about.setText("Write something about you");
+                    }
+                    ratingBar.setRating(Float.parseFloat(String.valueOf(snapshot.child("rating").getValue())));
                 }
-                if (!String.valueOf(snapshot.child("specialty").getValue()).equals("null")) {
-                    doctorSpecialties.setVisibility(View.VISIBLE);
-                    doctorSpecialties.setText(String.valueOf(snapshot.child("specialty").getValue()));
-                    doctorSpecialtiesDownField.setText(String.valueOf(snapshot.child("specialty").getValue()));
-                } else {
-                    doctorSpecialties.setVisibility(View.GONE);
-                    doctorSpecialtiesDownField.setText("No information found");
-                }
-                if (!String.valueOf(snapshot.child("photoUrl").getValue()).equals("null")) {
-                    Glide.with(requireContext()).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(profilePicture);
-                } else {
-                    profilePicture.setImageResource(R.drawable.profile_picture);
-                }
-                if (!String.valueOf(snapshot.child("about").getValue()).equals("null")) {
-                    about.setText(String.valueOf(snapshot.child("about").getValue()));
-                } else {
-                    about.setText("Write something about you");
-                }
-                ratingBar.setRating(Float.parseFloat(String.valueOf(snapshot.child("rating").getValue())));
             }
 
             @Override
@@ -917,17 +919,6 @@ public class DoctorProfile extends Fragment {
 
             }
         });
-    }
-
-    public void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("loginAs", "");
-        editor.apply();
-        Intent intent = new Intent(requireContext(), DoctorLogin.class);
-        startActivity(intent);
-        requireActivity().finish();
     }
 
     @Override

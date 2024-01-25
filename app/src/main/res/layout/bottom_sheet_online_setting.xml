@@ -15,7 +15,7 @@
             android:id="@+id/headerTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Appointment Setting"
+            android:text="Online Status Setting"
             android:fontFamily="@font/roboto"
             android:textSize="16sp"
             android:padding="5dp"
@@ -42,7 +42,7 @@
             android:id="@+id/switchHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Turn on/off Appointment"
+            android:text="Show when you're active"
             android:fontFamily="@font/roboto"
             android:textSize="13sp"
             android:layout_marginTop="20dp"
@@ -53,7 +53,7 @@
 
         </TextView>
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/appointmentSettingSwitch"
+            android:id="@+id/onlineSettingSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -65,7 +65,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_below="@+id/appointmentSettingSwitch"
+            android:layout_below="@+id/onlineSettingSwitch"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
@@ -99,7 +99,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_toEndOf="@+id/infoImage"
                     android:fontFamily="@font/roboto"
-                    android:text="Note : If you turn it off, you will not receive any appointments."
+                    android:text="Note : If you turn it off, your online presence will not be visible."
                     android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="normal"></TextView>

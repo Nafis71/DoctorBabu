@@ -1,6 +1,7 @@
 package com.example.doctorbabu.doctor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.example.doctorbabu.databinding.FragmentDoctorHomeBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,9 +39,9 @@ public class DoctorHome extends Fragment {
     Firebase firebase;
     String doctorId;
     ExecutorService doctorDataExecutor, appointmentExecutor, doctorStatisticsExecutor,appointmentSettingExecutor;
-    boolean hasAppointment,appointmentSettingStatus;
-    BottomSheetDialog appointmentSetting;
-    SwitchMaterial appointmentSettingSwitch;
+    boolean hasAppointment,appointmentSettingStatus,showOnline;
+    BottomSheetDialog appointmentSetting,onlineStatusSetting;
+    SwitchMaterial appointmentSettingSwitch,onlineSettingSwitch;
 
     public DoctorHome() {
         // Required empty public constructor
@@ -91,7 +93,30 @@ public class DoctorHome extends Fragment {
                 launchAppointmentSettingDialog();
             }
         });
+        binding.onlineSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchOnlineSettingDialog();
+            }
+        });
+        binding.signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
 
+    }
+
+    public void signOut(){
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("loginAs", "");
+        editor.apply();
+        Intent intent = new Intent(requireContext(), DoctorLogin.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
 
     public void loadAppointmentSetting(){
@@ -131,6 +156,36 @@ public class DoctorHome extends Fragment {
         appointmentSettingSwitch.setChecked(appointmentSettingStatus);
         appointmentSetting.setContentView(view);
         appointmentSetting.show();
+    }
+
+    public void launchOnlineSettingDialog(){
+        onlineStatusSetting = new BottomSheetDialog(requireContext(), R.style.bottomSheetTheme);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_online_setting, null);
+        onlineSettingSwitch = view.findViewById(R.id.onlineSettingSwitch);
+        onlineSettingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                saveOnlinePreference(isChecked);
+            }
+        });
+        SharedPreferences preference = requireActivity().getSharedPreferences("onlinePreference",Context.MODE_PRIVATE);
+        showOnline = preference.getBoolean("showOnline",true);
+        onlineSettingSwitch.setChecked(showOnline);
+        onlineStatusSetting.setContentView(view);
+        onlineStatusSetting.show();
+    }
+
+    public void saveOnlinePreference(boolean setting){
+        SharedPreferences preference = requireActivity().getSharedPreferences("onlinePreference",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preference.edit();
+        editor.putBoolean("showOnline",setting);
+        editor.apply();
+        DatabaseReference reference = firebase.getDatabaseReference("doctorInfo");
+        if(setting){
+            reference.child(doctorId).child("onlineStatus").setValue(1);
+        }else{
+            reference.child(doctorId).child("onlineStatus").setValue(0);
+        }
     }
 
     public void turnOffAppointment(){
