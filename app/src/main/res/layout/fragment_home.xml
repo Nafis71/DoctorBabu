@@ -384,8 +384,8 @@
                             android:layout_height="85dp"
                             android:layout_below="@+id/medicineReminderDescription"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="20dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/pillremind" />
 
@@ -449,8 +449,8 @@
                             android:layout_height="90dp"
                             android:layout_below="@+id/medicalReportDescription"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/report" />
 
@@ -493,7 +493,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/pendingAppointment"
                     android:layout_width="175dp"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/reportCard"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
@@ -514,8 +514,8 @@
                             android:layout_height="90dp"
                             android:layout_below="@+id/appointmentHistoryDescription"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="25dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/appointmenthistory" />
 

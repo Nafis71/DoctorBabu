@@ -1,6 +1,7 @@
 package com.example.doctorbabu.doctor;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,15 +18,22 @@ import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorAppointmentsBinding;
+import com.example.doctorbabu.patient.DoctorConsultationModule.BookAppointment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import org.aviran.cookiebar2.CookieBar;
+
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,6 +45,7 @@ public class DoctorAppointments extends Fragment {
     String doctorId;
     DoctorAppointmentAdapter adapter;
     ArrayList<AppointmentModel> appointmentModels;
+
 
 
     public DoctorAppointments() {
@@ -61,8 +70,69 @@ public class DoctorAppointments extends Fragment {
                 loadData();
             }
         });
+        binding.cancelAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                warning("All appointment cancellation","Are you sure you want to cancel all appointments?");
+            }
+        });
     }
 
+    public void cancelAllAppointments(){
+        DatabaseReference deleteReference = firebase.getDatabaseReference("doctorAppointments");
+        DatabaseReference cancelledAppointments = firebase.getDatabaseReference("cancelledAppointments");
+        DatabaseReference notificationReference = firebase.getDatabaseReference("cancelledAppointmentNotification");
+        HashMap<String,String> data = new HashMap<>();
+
+        for(AppointmentModel dbModel: appointmentModels){
+            deleteReference.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).removeValue();
+            deleteReference.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).removeValue();
+            data.put("appointmentDate",dbModel.getAppointmentDate());
+            data.put("appointmentHour",dbModel.getAppointmentHour());
+            data.put("appointmentMinute", dbModel.getAppointmentMinute());
+            data.put("appointmentID",dbModel.getAppointmentID());
+            data.put("doctorID", dbModel.getDoctorID());
+            data.put("patientID",dbModel.getPatientID());
+            data.put("timePeriod",dbModel.getTimePeriod());
+            data.put("cancelledBy","doctor");
+            cancelledAppointments.child(dbModel.getDoctorID()).child(dbModel.getAppointmentID()).setValue(data);
+            cancelledAppointments.child(dbModel.getPatientID()).child(dbModel.getAppointmentID()).setValue(data);
+            notificationReference.child(dbModel.getPatientID()).child("doctorID").setValue(dbModel.getDoctorID());
+        }
+        CookieBar.build(requireActivity())
+                .setTitle("Appointment Cancelled")
+                .setMessage("All appointments have been cancelled successfully")
+                .setSwipeToDismiss(true)
+                .setDuration(3000)
+                .setTitleColor(R.color.white)
+                .setBackgroundColor(R.color.blue)
+                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+                .show();
+        loadDataExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+            }
+        });
+
+    }
+    public void warning(String title, String message) {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(requireActivity());
+        dialog.setTitle(title).setIcon(R.drawable.warning)
+                .setMessage(message)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        cancelAllAppointments();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setCancelable(false);
+        dialog.create().show();
+    }
     public void loadDoctorId() {
         SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         doctorId = preferences.getString("doctorId", "loginAs");
@@ -74,7 +144,7 @@ public class DoctorAppointments extends Fragment {
             @Override
             public void run() {
                 binding.appointmentRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false), R.layout.shimmer_layout_appointment);
-                adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels,binding.recyclerLayout,binding.descriptionLayout,binding.noAppointmentLayout);
+                adapter = new DoctorAppointmentAdapter(requireActivity(), appointmentModels,binding.recyclerLayout,binding.descriptionLayout,binding.noAppointmentLayout,binding.cancelAll);
                 binding.appointmentRecyclerView.showShimmer();
             }
         });
@@ -108,6 +178,7 @@ public class DoctorAppointments extends Fragment {
                                 binding.descriptionLayout.setVisibility(View.GONE);
                                 binding.appointmentRecyclerView.setVisibility(View.GONE);
                                 binding.noAppointmentLayout.setVisibility(View.VISIBLE);
+                                binding.cancelAll.setVisibility(View.GONE);
                             }
                         });
                         return;
@@ -118,6 +189,7 @@ public class DoctorAppointments extends Fragment {
                             binding.descriptionLayout.setVisibility(View.VISIBLE);
                             binding.noAppointmentLayout.setVisibility(View.GONE);
                             binding.appointmentRecyclerView.setVisibility(View.VISIBLE);
+                            binding.cancelAll.setVisibility(View.VISIBLE);
                             binding.appointmentRecyclerView.setAdapter(adapter);
                             binding.appointmentRecyclerView.hideShimmer();
                         }

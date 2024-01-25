@@ -34,14 +34,16 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
     Context context;
     ArrayList<AppointmentModel> model;
     ExecutorService cancelAppointmentExecutor;
+    MaterialButton cancelAll;
     RelativeLayout recyclerLayout,descriptionLayout,noAppointmentLayout;
 
-    public DoctorAppointmentAdapter(Context context, ArrayList<AppointmentModel> model,RelativeLayout recyclerLayout,RelativeLayout descriptionLayout,RelativeLayout noAppointmentLayout) {
+    public DoctorAppointmentAdapter(Context context, ArrayList<AppointmentModel> model,RelativeLayout recyclerLayout,RelativeLayout descriptionLayout,RelativeLayout noAppointmentLayout,MaterialButton cancelAll) {
         this.context = context;
         this.model = model;
         this.recyclerLayout = recyclerLayout;
         this.descriptionLayout = descriptionLayout;
         this.noAppointmentLayout = noAppointmentLayout;
+        this.cancelAll = cancelAll;
     }
 
     @NonNull
@@ -74,6 +76,7 @@ public class DoctorAppointmentAdapter extends RecyclerView.Adapter<DoctorAppoint
                                     recyclerLayout.setVisibility(View.GONE);
                                     descriptionLayout.setVisibility(View.GONE);
                                     noAppointmentLayout.setVisibility(View.VISIBLE);
+                                    cancelAll.setVisibility(View.GONE);
                                 }
                             });
                         }

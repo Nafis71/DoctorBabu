@@ -17,23 +17,14 @@
         android:background="#ffff"
         android:elevation="0dp">
 
-        <ImageView
-            android:id="@+id/doctorBabuLogo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="-2dp"
-            android:layout_marginEnd="20dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/doctorbabulogo" />
 
         <TextView
             android:id="@+id/headerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="-50dp"
-            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:layout_marginStart="15dp"
+            android:layout_alignParentStart="true"
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
@@ -52,53 +43,11 @@
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
-            android:text="Babu"
+            android:text="Profile"
             android:textColor="#4E5EDE"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="4dp"
-            android:layout_toEndOf="@+id/languageImage"
-            android:fontFamily="@font/roboto"
-            android:text="@string/languageName"
-            android:textSize="12sp"
-            android:textStyle="bold">
-
-        </TextView>
-
-        <ImageView
-            android:id="@+id/languageImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="22dp"
-            android:layout_toEndOf="@+id/headerText2"
-            android:src="@drawable/languages" />
-
-        <ImageView
-            android:id="@+id/toolBar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/navigationdrawericon">
-
-        </ImageView>
-        <ImageView
-            android:id="@+id/signOut"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_toStartOf="@+id/toolBar"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/signout">
-
-        </ImageView>
     </RelativeLayout>
 
     <ScrollView
@@ -115,9 +64,9 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Material3.CardView.Elevated"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.Material3.CardView.Elevated"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
@@ -145,20 +94,21 @@
 
 
                         </TextView>
-                            <com.google.android.material.imageview.ShapeableImageView
-                                android:id="@+id/profilePicture"
-                                android:layout_width="120dp"
-                                android:layout_height="120dp"
-                                android:scaleType="center"
-                                android:layout_marginStart="20dp"
-                                android:background="#DDD"
-                                android:layout_marginTop="5dp"
-                                android:layout_below="@+id/profileDetails"
-                                app:layout_constraintDimensionRatio="1:1"
-                                android:adjustViewBounds="true"
-                                app:shapeAppearanceOverlay="@style/minRoundedSquare">
 
-                            </com.google.android.material.imageview.ShapeableImageView>
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/profilePicture"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_below="@+id/profileDetails"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:adjustViewBounds="true"
+                            android:background="#DDD"
+                            android:scaleType="center"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:shapeAppearanceOverlay="@style/minRoundedSquare">
+
+                        </com.google.android.material.imageview.ShapeableImageView>
 
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -336,8 +286,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:ellipsize="end"
                         android:fontFamily="@font/roboto"
                         android:justificationMode="inter_word"
+                        android:maxLines="8"
                         android:padding="10dp"
                         android:textColor="#666666"
                         android:textSize="12sp"
@@ -572,8 +524,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/divider"
                                 android:layout_alignParentStart="true"
-                                android:layout_marginTop="3dp"
                                 android:layout_marginStart="218dp"
+                                android:layout_marginTop="3dp"
                                 android:fontFamily="@font/roboto"
                                 android:padding="5dp"
                                 android:text="Department"
@@ -656,8 +608,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/departmentName"
                                 android:layout_alignParentStart="true"
-                                android:layout_marginTop="3dp"
                                 android:layout_marginStart="218dp"
+                                android:layout_marginTop="3dp"
                                 android:fontFamily="@font/roboto"
                                 android:padding="5dp"
                                 android:text="Period"

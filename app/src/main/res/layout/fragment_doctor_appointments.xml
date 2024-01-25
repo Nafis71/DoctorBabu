@@ -56,6 +56,7 @@
             android:shadowColor="@color/black_shade_1"
             android:text="Cancel All"
             android:layout_centerVertical="true"
+            android:visibility="gone"
             android:textColor="#707B7C"
             android:textSize="11.5sp"
             app:cornerRadius="8dp" />

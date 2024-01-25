@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,5 +8,438 @@
     android:orientation="vertical"
     tools:context=".doctor.DoctorHome">
 
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="-8dp"
+        android:layout_marginEnd="-8dp"
+        android:background="#ffff"
+        android:elevation="0dp">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/doctorBabuLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="-2dp"
+            android:layout_marginEnd="20dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/doctorbabulogo" />
+
+        <TextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="-50dp"
+            android:layout_toEndOf="@+id/doctorBabuLogo"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Doctor"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2dp"
+            android:layout_toEndOf="@+id/headerText"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Babu"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/languageImage"
+            android:fontFamily="@font/roboto"
+            android:text="@string/languageName"
+            android:textSize="12sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/languageImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="22dp"
+            android:layout_toEndOf="@+id/headerText2"
+            android:src="@drawable/languages" />
+
+        <ImageView
+            android:id="@+id/toolBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/navigationdrawericon">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/welcomeSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="0dp"
+        android:animateLayoutChanges="true"
+        android:background="#fff"
+        android:padding="5dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/welcomeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/profilePicture"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.2"
+            android:text="Welcome"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcomeHeader"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@id/profilePicture"
+            android:fontFamily="@font/roboto"
+            android:textAlignment="textStart"
+            android:textSize="13sp"
+            android:textStyle="normal">
+
+        </TextView>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profilePicture"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="visible"
+            android:background="#DDD"
+            app:layout_constraintDimensionRatio="1:1"
+            app:shapeAppearanceOverlay="@style/circular"
+
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/statisticsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcomeSection"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/doctor_appointment_background_layout">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/patientTreatedSection"
+            android:layout_width="110dp"
+            android:layout_height="130dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="7dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/patientImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/patientbed" />
+
+                <TextView
+                    android:id="@+id/patientAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/patientImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="2222"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/patientAmount"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="Patient Treated"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/consultancyTakenSection"
+            android:layout_width="110dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="7dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/consultancyImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/consultancydone" />
+
+                <TextView
+                    android:id="@+id/consultancyAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/consultancyImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="2222"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/consultancyAmount"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="Consultation Done"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/appointmentTakenSection"
+            android:layout_width="110dp"
+            android:layout_height="130dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#FEFEFE"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="7dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/appointmentImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/appointment_done" />
+
+                <TextView
+                    android:id="@+id/appointmentAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appointmentImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="2222"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appointmentAmount"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="Appointment Done"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/appointmentNotiferLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_below="@+id/statisticsLayout">
+        <TextView
+            android:id="@+id/reminderHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Reminder"
+            android:padding="2dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+        <ImageView
+            android:id="@+id/reminderImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/reminderHeader"
+            android:src="@drawable/doctorappointmentreminder"
+            android:layout_marginStart="10dp">
+
+        </ImageView>
+        <TextView
+            android:id="@+id/appointmentReminder"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/reminderImage"
+            android:padding="2dp"
+            android:text="So far, no appointments have been scheduled for today."
+            android:fontFamily="@font/roboto"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            >
+
+        </TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/appointmentControlLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_below="@+id/appointmentNotiferLayout">
+        <TextView
+            android:id="@+id/switchAppointmentHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set up appointment settings"
+            android:padding="2dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+        <ImageView
+            android:id="@+id/switchAppointmentImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/switchAppointmentHeader"
+            android:src="@drawable/switchappointment"
+            android:layout_marginStart="10dp">
+
+        </ImageView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/viewAll"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10sp"
+            android:shadowColor="@color/black_shade_1"
+            android:text="Settings"
+            android:textColor="#4F5FDE"
+            android:textSize="12sp"
+            app:cornerRadius="8dp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
