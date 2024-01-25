@@ -375,6 +375,14 @@ public class DoctorPrescribeMedicine extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference deleteReference = firebase.getDatabaseReference("appointmentDocuments");
+        deleteReference.child(patientId).removeValue();
+        finish();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         loadPatientExecutor.shutdown();

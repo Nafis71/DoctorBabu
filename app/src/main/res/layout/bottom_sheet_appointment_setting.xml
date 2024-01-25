@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_sheet_design"
+    android:layout_margin="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:padding="5dp"
+        >
+        <TextView
+            android:id="@+id/headerTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Setting"
+            android:fontFamily="@font/roboto"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerTxt">
+
+        </com.google.android.material.divider.MaterialDivider>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingSection"
+        android:layout_below="@+id/header"
+        android:padding="5dp"
+        >
+        <TextView
+            android:id="@+id/switchHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Turn on/off Appointment"
+            android:fontFamily="@font/roboto"
+            android:textSize="13sp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/appointmentSettingSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:useMaterialThemeColors="true">
+
+        </com.google.android.material.switchmaterial.SwitchMaterial>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_below="@+id/appointmentSettingSwitch"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:animateLayoutChanges="true"
+            app:cardBackgroundColor="#EDF6FD"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5sp">
+
+                <ImageView
+                    android:id="@+id/infoImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8sp"
+                    android:src="@drawable/info">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@+id/infoImage"
+                    android:fontFamily="@font/roboto"
+                    android:text="Note : If you turn off, you will not receive any appointments."
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="normal"></TextView>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+</RelativeLayout>

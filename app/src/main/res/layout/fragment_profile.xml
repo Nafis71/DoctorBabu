@@ -113,8 +113,8 @@
 
                 <ImageView
                     android:id="@+id/rewardImg"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/reward" />
@@ -127,13 +127,13 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:includeFontPadding="false"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/rewardAmount"
                     android:layout_centerHorizontal="true"
@@ -141,8 +141,9 @@
                     android:includeFontPadding="false"
                     android:text="@string/rewardPoint"
                     android:textAlignment="center"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                     />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -161,8 +162,8 @@
 
                 <ImageView
                     android:id="@+id/appointmentDoneImg"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:src="@drawable/appointment_done" />
@@ -177,21 +178,26 @@
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/appointmentDone"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
                     android:text="@string/appointmentDone"
                     android:textAlignment="center"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                     />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -210,11 +216,11 @@
 
                 <ImageView
                     android:id="@+id/appointmentPendingImg"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/appointment_pending" />
+                    android:src="@drawable/consultancydone" />
 
                 <TextView
                     android:id="@+id/appointmentPending"
@@ -226,21 +232,26 @@
                     android:fontFamily="@font/roboto_medium"
                     android:includeFontPadding="false"
                     android:text=""
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/appointmentPending"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/roboto"
                     android:includeFontPadding="false"
                     android:text="@string/consultancyTaken"
                     android:textAlignment="center"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                     />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

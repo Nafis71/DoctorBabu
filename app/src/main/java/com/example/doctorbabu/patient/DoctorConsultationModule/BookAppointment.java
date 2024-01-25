@@ -58,8 +58,9 @@ public class BookAppointment extends AppCompatActivity {
     ArrayList<String> databaseAppointmentTime = new ArrayList<>();
     AlarmManager alarmManager;
     String appointmentID,currentDate,selectedDate;
-    ExecutorService appointmentTimeExecutor, appointmentDateExecutor, bookAppointmentExecutor;
+    ExecutorService appointmentTimeExecutor, appointmentDateExecutor, bookAppointmentExecutor,appointmentSettingExecutor;
     Dialog dialog;
+    boolean appointmentSettingStatus;
 
 
     @Override
@@ -73,6 +74,7 @@ public class BookAppointment extends AppCompatActivity {
         appointmentTimeExecutor = Executors.newSingleThreadExecutor();
         appointmentDateExecutor = Executors.newSingleThreadExecutor();
         bookAppointmentExecutor = Executors.newSingleThreadExecutor();
+        appointmentSettingExecutor = Executors.newSingleThreadExecutor();
         appointmentTimeExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -84,6 +86,12 @@ public class BookAppointment extends AppCompatActivity {
             @Override
             public void run() {
                 getAppointmentDate();
+            }
+        });
+        appointmentSettingExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadAppointmentSetting();
             }
         });
 
@@ -351,7 +359,10 @@ public class BookAppointment extends AppCompatActivity {
         if(currentDate.equals(selectedDate)){
             if (clickable && generatedHour >= currentHour) {
                 if(generatedHour == currentHour && generatedMinute > currentMinute || generatedHour > currentHour){
-                    chip.setEnabled(true);
+                    chip.setEnabled(appointmentSettingStatus);
+                    if(!appointmentSettingStatus){
+                        chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+                    }
                 }else{
                     chip.setEnabled(false);
                     chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
@@ -362,7 +373,10 @@ public class BookAppointment extends AppCompatActivity {
             }
         } else {
             if (clickable) {
-                chip.setEnabled(true);
+                chip.setEnabled(appointmentSettingStatus);
+                if(!appointmentSettingStatus){
+                    chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
+                }
             } else {
                 chip.setEnabled(false);
                 chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#D6DBDF")));
@@ -376,6 +390,25 @@ public class BookAppointment extends AppCompatActivity {
         } else {
             binding.nightChipGroup.addView(chip);
         }
+    }
+
+    public void loadAppointmentSetting(){
+        DatabaseReference reference = firebase.getDatabaseReference("appointmentSetting");
+        reference.child(doctorID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    appointmentSettingStatus = Boolean.parseBoolean(String.valueOf(snapshot.child("status").getValue()));
+                    return;
+                }
+                reference.child(doctorID).child("status").setValue(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
 
     public void getAppointmentDate() {
@@ -602,9 +635,9 @@ public class BookAppointment extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         appointmentTimeExecutor.shutdown();
         appointmentDateExecutor.shutdown();
         bookAppointmentExecutor.shutdown();
+        appointmentSettingExecutor.shutdown();
     }
 }

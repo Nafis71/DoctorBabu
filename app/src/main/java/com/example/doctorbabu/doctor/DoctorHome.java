@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +15,11 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
+import com.example.doctorbabu.R;
 import com.example.doctorbabu.databinding.FragmentDoctorHomeBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +36,10 @@ public class DoctorHome extends Fragment {
     FragmentDoctorHomeBinding binding;
     Firebase firebase;
     String doctorId;
-    ExecutorService doctorDataExecutor, appointmentExecutor, doctorStatisticsExecutor;
-    boolean hasAppointment;
+    ExecutorService doctorDataExecutor, appointmentExecutor, doctorStatisticsExecutor,appointmentSettingExecutor;
+    boolean hasAppointment,appointmentSettingStatus;
+    BottomSheetDialog appointmentSetting;
+    SwitchMaterial appointmentSettingSwitch;
 
     public DoctorHome() {
         // Required empty public constructor
@@ -48,6 +55,7 @@ public class DoctorHome extends Fragment {
         doctorDataExecutor = Executors.newSingleThreadExecutor();
         appointmentExecutor = Executors.newSingleThreadExecutor();
         doctorStatisticsExecutor = Executors.newSingleThreadExecutor();
+        appointmentSettingExecutor = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -71,7 +79,67 @@ public class DoctorHome extends Fragment {
                 loadDoctorStatistics();
             }
         });
+        appointmentSettingExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadAppointmentSetting();
+            }
+        });
+        binding.settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchAppointmentSettingDialog();
+            }
+        });
 
+    }
+
+    public void loadAppointmentSetting(){
+        DatabaseReference reference = firebase.getDatabaseReference("appointmentSetting");
+        reference.child(doctorId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists() && isAdded()){
+                    appointmentSettingStatus = Boolean.parseBoolean(String.valueOf(snapshot.child("status").getValue()));
+                    return;
+                }
+                reference.child(doctorId).child("status").setValue(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+    public void launchAppointmentSettingDialog(){
+        appointmentSetting = new BottomSheetDialog(requireContext(), R.style.bottomSheetTheme);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_appointment_setting, null);
+        appointmentSettingSwitch = view.findViewById(R.id.appointmentSettingSwitch);
+        appointmentSettingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    appointmentSettingStatus = true;
+                    turnOnAppointment();
+                } else{
+                    appointmentSettingStatus = false;
+                    turnOffAppointment();
+                }
+            }
+        });
+        appointmentSettingSwitch.setChecked(appointmentSettingStatus);
+        appointmentSetting.setContentView(view);
+        appointmentSetting.show();
+    }
+
+    public void turnOffAppointment(){
+        DatabaseReference reference = firebase.getDatabaseReference("appointmentSetting");
+        reference.child(doctorId).child("status").setValue(false);
+    }
+    public void turnOnAppointment(){
+        DatabaseReference reference = firebase.getDatabaseReference("appointmentSetting");
+        reference.child(doctorId).child("status").setValue(true);
     }
 
     public void loadDoctorData() {
@@ -144,6 +212,9 @@ public class DoctorHome extends Fragment {
                     binding.patientAmount.setText("0");
                     binding.consultancyAmount.setText("0");
                     binding.appointmentAmount.setText("0");
+                    reference.child(doctorId).child("patientTreated").setValue(0);
+                    reference.child(doctorId).child("consultancyDone").setValue(0);
+                    reference.child(doctorId).child("appointmentDone").setValue(0);
                 }
             }
 
@@ -162,6 +233,7 @@ public class DoctorHome extends Fragment {
         doctorDataExecutor.shutdown();
         appointmentExecutor.shutdown();
         doctorStatisticsExecutor.shutdown();
+        appointmentSettingExecutor.shutdown();
     }
 
     @Override
