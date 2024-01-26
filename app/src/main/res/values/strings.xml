@@ -22,8 +22,6 @@
     <string name="appointmentFinished">Appointment Finished</string>
     <string name="PatientCancelledBySelf">Cancelled by you</string>
     <string name="PatientCancelledByDoctor">Cancelled by doctor</string>
-    <string name="DoctorCancelledBySelf">Cancelled by you</string>
-    <string name="DoctorCancelledByOther">Cancelled by patient</string>
     <string name="favouriteDoctor">Your Favourite Doctor</string>
     <string name="checkout">Checkout</string>
     <string name="hospitalListHeader">Emergency Hospital Finder</string>
@@ -229,7 +227,6 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

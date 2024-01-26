@@ -106,7 +106,7 @@ public class Home extends Fragment {
         cartCounter = Executors.newSingleThreadExecutor();
         locationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         firebaseExecutor.execute(this::firebaseAuth);
-        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard,binding.hospitalListCard)
+        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard, binding.hospitalListCard)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
         imageSliderExecutor.execute(new Runnable() {
@@ -172,7 +172,7 @@ public class Home extends Fragment {
                         } else if (item.getItemId() == R.id.navChangeLanguage) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START);
                             callLanguageChanger();
-                        }else if (item.getItemId() == R.id.navSignOut) {
+                        } else if (item.getItemId() == R.id.navSignOut) {
                             binding.drawerLayout.closeDrawer(GravityCompat.START);
                             signOut();
                         }
@@ -217,7 +217,7 @@ public class Home extends Fragment {
         });
     }
 
-    public void signOut(){
+    public void signOut() {
         FirebaseAuth.getInstance().signOut();
         SharedPreferences preferences = requireActivity().getSharedPreferences("loginDetails", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

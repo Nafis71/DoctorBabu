@@ -154,7 +154,6 @@
         android:elevation="5dp"
         android:background="@color/white">
         <TextView
-            android:id="@+id/deliveryPriceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delivery Fee:"
@@ -194,7 +193,6 @@
             android:textColor="@color/blue">
         </TextView>
         <TextView
-            android:id="@+id/totalPriceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total Price:"

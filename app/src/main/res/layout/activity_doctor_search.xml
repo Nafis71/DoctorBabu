@@ -82,7 +82,6 @@
         android:visibility="visible"
         android:id="@+id/searchDataLayout">
         <ImageView
-            android:id="@+id/searchDataImage"
             android:layout_width="400dp"
             android:layout_height="400dp"
             android:src="@drawable/searchimage"

@@ -135,7 +135,6 @@
         android:visibility="gone"
         android:id="@+id/searchDataLayout">
         <ImageView
-            android:id="@+id/searchDataImage"
             android:layout_width="400dp"
             android:layout_height="400dp"
             android:src="@drawable/searchimage"
@@ -364,7 +363,6 @@
 
                 </TextView>
                 <ImageView
-                    android:id="@+id/prescriptionImage"
                     android:layout_width="130dp"
                     android:layout_height="120dp"
                     android:layout_below="@+id/prescriptionDescription"
@@ -498,7 +496,6 @@
                 </com.todkars.shimmer.ShimmerRecyclerView>
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/allMedicineLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"

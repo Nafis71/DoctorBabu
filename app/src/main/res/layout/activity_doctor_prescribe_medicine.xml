@@ -400,7 +400,6 @@
                         app:hintAnimationEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/diagnosisText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/diagnosis"

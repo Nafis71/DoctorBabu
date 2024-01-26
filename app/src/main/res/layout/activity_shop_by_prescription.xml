@@ -150,7 +150,6 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/myPrescription"
                             android:layout_width="120dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
@@ -418,7 +417,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/phoneNumberLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/addressSection"
@@ -618,7 +616,6 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/fourthPoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/fourthPointHeader"

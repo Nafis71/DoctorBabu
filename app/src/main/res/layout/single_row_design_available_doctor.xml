@@ -247,7 +247,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/amountDescription"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

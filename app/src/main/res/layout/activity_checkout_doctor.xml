@@ -286,7 +286,6 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/moneySign2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/moneySign"
@@ -334,7 +333,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/moneySign3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bar2"

@@ -216,7 +216,6 @@
                             </TextView>
 
                             <TextView
-                                android:id="@+id/viewingStatsDescription"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
@@ -307,7 +306,6 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/purchaseButtonLayout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/priceLayout"
@@ -315,7 +313,6 @@
                             android:layout_marginBottom="10dp">
 
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/sheetLayout"
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                                 android:layout_width="190dp"
                                 android:layout_height="wrap_content"
@@ -583,7 +580,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/liverSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/kidneySection"
@@ -786,7 +782,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/storageConditionSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/overdoseEffectSection"

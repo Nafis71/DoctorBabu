@@ -190,7 +190,6 @@
                 android:background="@drawable/doctor_appointment_background_layout">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/patientTreatedSection"
                     android:layout_width="110dp"
                     android:layout_height="130dp"
                     android:layout_alignParentStart="true"
@@ -248,7 +247,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/consultancyTakenSection"
                     android:layout_width="110dp"
                     android:layout_height="130dp"
                     android:layout_centerHorizontal="true"
@@ -306,7 +304,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/appointmentTakenSection"
                     android:layout_width="110dp"
                     android:layout_height="130dp"
                     android:layout_alignParentEnd="true"
@@ -442,7 +439,6 @@
                 </TextView>
 
                 <ImageView
-                    android:id="@+id/switchAppointmentImage"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_below="@+id/switchAppointmentHeader"
@@ -468,7 +464,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/onlineStatusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@+id/appointmentControlLayout"
@@ -492,7 +487,6 @@
                 </TextView>
 
                 <ImageView
-                    android:id="@+id/onlineStatusImage"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_below="@+id/onlineStatusHeader"

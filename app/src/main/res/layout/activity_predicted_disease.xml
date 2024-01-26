@@ -158,7 +158,6 @@
                     app:strokeWidth="0dp">
 
                     <RelativeLayout
-                        android:id="@+id/diseaseinfoFirstSection"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5sp">
@@ -270,7 +269,6 @@
                     app:strokeWidth="0dp">
 
                     <RelativeLayout
-                        android:id="@+id/doctorRecommendationCardFirstSection"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5sp">
@@ -319,7 +317,6 @@
 
                         </TextView>
                         <TextView
-                            android:id="@+id/doctorRecommendationCardSecondHeader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="0sp"

@@ -9,7 +9,6 @@
     tools:context=".patient.DoctorConsultationModule.Doctor">
 
     <RelativeLayout
-        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible">
@@ -54,7 +53,6 @@
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
@@ -191,7 +189,6 @@
                         </TextView>
 
                         <com.airbnb.lottie.LottieAnimationView
-                            android:id="@+id/diseaseIdentificationAnimation"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_below="@id/diseaseIdentificationBodyText"
@@ -222,7 +219,6 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/DepartmentCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/diseaseIdentificationCard"
@@ -381,7 +377,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/availableDoctorLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/recentlyViewedCard"

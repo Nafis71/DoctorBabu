@@ -22,8 +22,6 @@
     <string name="appointmentFinished">অ্যাপয়েন্টমেন্ট শেষ</string>
     <string name="PatientCancelledBySelf">আপনার দ্বারা বাতিল</string>
     <string name="PatientCancelledByDoctor">ডাক্তার দ্বারা বাতিল</string>
-    <string name="DoctorCancelledBySelf">আপনার দ্বারা বাতিল</string>
-    <string name="DoctorCancelledByOther">রোগীর দ্বারা বাতিল</string>
     <string name="favouriteDoctor">আপনার প্রিয় ডাক্তার</string>
     <string name="checkout">চেকআউট</string>
     <string name="hospitalListHeader">ইমার্জেন্সি হাসপাতাল ফাইন্ডার</string>

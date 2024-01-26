@@ -201,7 +201,6 @@
             >
         </TextView>
         <TextView
-            android:id="@+id/ageSuffix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" years old"
@@ -244,7 +243,6 @@
             >
         </TextView>
         <TextView
-            android:id="@+id/weightSuffix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="kgs"

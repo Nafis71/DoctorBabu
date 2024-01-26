@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="65dp"
     style="@style/Widget.MaterialComponents.Chip.Choice"
-    android:id="@+id/chip"
     app:chipBackgroundColor="#6472E8"
     app:chipIconTint="#3C4DD8"
     app:closeIconTint="#0B3D6D"

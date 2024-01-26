@@ -216,7 +216,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/phoneNumberLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/addressSection"
@@ -366,7 +365,6 @@
                         app:strokeWidth="1.4dp">
 
                         <RelativeLayout
-                            android:id="@+id/deliveryAmountHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="15dp">
@@ -428,7 +426,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/rewardPointLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/deliveryTimeSection"
@@ -556,7 +553,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/orderSummaryLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/productDetailsLayout"
@@ -639,7 +635,6 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/deliveryFee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/itemsTotalPriceTitle"
@@ -698,7 +693,6 @@
 
 
                 <TextView
-                    android:id="@+id/totalPaymentTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/discountAmountTitle"
@@ -802,7 +796,6 @@
         </TextView>
 
         <TextView
-            android:id="@+id/vatHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/totalPriceHeader"

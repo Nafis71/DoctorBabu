@@ -106,7 +106,6 @@
         </TextView>
 
         <TextView
-            android:id="@+id/rangeMaxAmountHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/consultationFeeRange"
@@ -269,7 +268,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/ratingLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/genderLayout"
