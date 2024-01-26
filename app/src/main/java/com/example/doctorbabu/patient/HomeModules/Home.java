@@ -504,7 +504,6 @@ public class Home extends Fragment {
         images.add(R.drawable.banner1);
         images.add(R.drawable.banner2);
         images.add(R.drawable.banner3);
-        images.add(R.drawable.medicine_delivery_banner);
         sliderView = (SliderView) requireView().findViewById(R.id.imageSlider);
         sliderAdapter adapter = new sliderAdapter(images);
         sliderView.setSliderAdapter(adapter);

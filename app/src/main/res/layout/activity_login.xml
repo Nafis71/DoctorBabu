@@ -10,7 +10,7 @@
     android:textColor="?android:textColorPrimary"
     tools:context=".patient.AuthenticationModule.Login">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -18,14 +18,17 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="29dp"
             android:layout_height="29dp"
-            android:layout_gravity="center"
             android:layout_marginStart="280dp"
             android:scaleType="centerCrop"
+            android:layout_toStartOf="@+id/languageSwitch"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
             android:src="@drawable/languages">
 
         </androidx.appcompat.widget.AppCompatImageView>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:layout_alignParentEnd="true"
             android:id="@+id/languageSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +43,7 @@
 
         </androidx.appcompat.widget.SwitchCompat>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +54,7 @@
             android:layout_width="260dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/loginimage"
@@ -68,7 +71,7 @@
         android:text="@string/signInText1"
         android:textAlignment="viewStart"
         android:textColor="#B7101010"
-        android:textSize="34sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:transitionName="textTransition1" />
 
@@ -81,7 +84,7 @@
         android:text="@string/signInText2"
         android:textAlignment="viewStart"
         android:textColor="#B7101010"
-        android:textSize="34sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:transitionName="textTransition2" />
 
@@ -94,7 +97,7 @@
         android:text="@string/signInText3"
         android:textAlignment="viewStart"
         android:textColor="#9A101010"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:transitionName="textTransition2" />
 
@@ -126,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/email"
                     android:drawablePadding="15dp"
+                    android:textSize="14sp"
                     android:inputType="textEmailAddress"
                     android:transitionName="usernameTransition" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -150,6 +154,7 @@
                     android:drawableStart="@drawable/password"
                     android:drawablePadding="15dp"
                     android:inputType="textPassword"
+                    android:textSize="14sp"
                     android:transitionName="passwordTransition" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,14 +176,14 @@
             <Button
                 android:id="@+id/signIn"
                 android:layout_width="match_parent"
-                android:layout_height="58dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/custom_button_back"
                 android:onClick="logIn"
                 android:text="@string/signIn"
                 android:textColor="#fff"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:transitionName="signinTransition"
                 app:backgroundTint="#273746" />
 
