@@ -2,8 +2,13 @@ package com.example.doctorbabu.DatabaseModels;
 
 public class recentlyViewedDoctorModel {
     String doctorId, photoUrl;
+    int onlineStatus;
 
     public recentlyViewedDoctorModel() {
+    }
+
+    public int getOnlineStatus() {
+        return onlineStatus;
     }
 
     public String getDoctorId() {
