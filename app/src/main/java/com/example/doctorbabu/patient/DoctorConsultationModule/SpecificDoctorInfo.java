@@ -519,7 +519,6 @@ public class SpecificDoctorInfo extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         doctorDataExecutor.shutdown();
         favouriteRecordExecutor.shutdown();
         doctorExperienceExecutor.shutdown();
