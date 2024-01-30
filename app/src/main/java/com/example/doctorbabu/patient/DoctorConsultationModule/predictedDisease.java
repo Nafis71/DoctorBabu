@@ -152,7 +152,6 @@ public class predictedDisease extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         firebaseExecutor.shutdown();
-        binding = null;
     }
 
     @Override
