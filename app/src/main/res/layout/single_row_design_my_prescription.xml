@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:padding="5dp"
+        android:background="@drawable/doctor_appointment_background_layout">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/checkBox"
+            app:checkedState="unchecked">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <TextView
+            android:id="@+id/fileName"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/checkBox"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/gallaryImage"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/gallary"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+</RelativeLayout>
