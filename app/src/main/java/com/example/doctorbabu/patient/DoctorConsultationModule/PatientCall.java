@@ -3,6 +3,7 @@ package com.example.doctorbabu.patient.DoctorConsultationModule;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -46,6 +47,7 @@ public class PatientCall extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_call);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         doctorStatisticsExecutor = Executors.newSingleThreadExecutor();
         appointmentExecutor = Executors.newSingleThreadExecutor();
         callerIdFromDoctor = getIntent().getStringExtra("callerIdFromDoctor");
@@ -207,8 +209,8 @@ public class PatientCall extends AppCompatActivity{
 
     public void callVideoScreen() {
         if (userId.equals("null")) {  //doctor side
-            long appID = 633349627;
-            String appSign = "2f63d4608b7ba6ed887a37562e679b0e842ac4bef26d56ee88eb1474d8112f6b";
+            long appID = 1144567169;
+            String appSign = "1b93ab06c902dfc5fe377b0013ddd0cfd11be1e9427298c65fc51b70ea65d527";
             String conferenceID = uniqueId;
             String userID = doctorId;
             String userName = name;
@@ -241,8 +243,8 @@ public class PatientCall extends AppCompatActivity{
                 }
             });
         } else {  //patient side
-            long appID = 633349627;
-            String appSign = "2f63d4608b7ba6ed887a37562e679b0e842ac4bef26d56ee88eb1474d8112f6b";
+            long appID = 1144567169;
+            String appSign = "1b93ab06c902dfc5fe377b0013ddd0cfd11be1e9427298c65fc51b70ea65d527";
             String conferenceID = uniqueId;
             String userID = userId;
             String userName = name;

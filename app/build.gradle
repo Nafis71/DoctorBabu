@@ -26,7 +26,7 @@ android {
         }
         python {
             version "3.8"
-            buildPython "C:/Program Files/Python38/python.exe"
+            buildPython "C:/Program Files (x86)/Python38/python.exe"
         }
         python {
             pip {
