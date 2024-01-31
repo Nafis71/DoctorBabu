@@ -51,26 +51,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/diseaseAnimation"
-                android:layout_width="230dp"
-                android:layout_height="230dp"
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/identifieddisease"
                 android:layout_gravity="center"
-                android:layout_marginTop="0sp"
-                app:lottie_autoPlay="true"
-                app:lottie_cacheComposition="true"
-                app:lottie_loop="false"
-                app:lottie_rawRes="@raw/disease"
-                app:lottie_renderMode="hardware"
-                app:lottie_speed="0.5">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/diseasePicture">
 
-            </com.airbnb.lottie.LottieAnimationView>
+            </ImageView>
 
             <RelativeLayout
                 android:id="@+id/diseaseResultCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/diseaseAnimation">
+                android:layout_below="@id/diseasePicture">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -111,7 +107,7 @@
                             android:justificationMode="inter_word"
                             android:text="Identified Disease: "
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
@@ -130,7 +126,7 @@
                             android:shadowRadius="0.2"
                             android:text=""
                             android:textColor="@color/dark_red"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
@@ -184,7 +180,7 @@
                             android:justificationMode="inter_word"
                             android:text="Overview of "
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
@@ -295,7 +291,7 @@
                             android:justificationMode="inter_word"
                             android:text="Want to see "
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
@@ -312,7 +308,7 @@
                             android:justificationMode="inter_word"
                             android:text=""
                             android:textColor="@color/blue"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
@@ -327,7 +323,7 @@
                             android:justificationMode="inter_word"
                             android:text="specialist?"
                             android:textColor="@color/black"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
