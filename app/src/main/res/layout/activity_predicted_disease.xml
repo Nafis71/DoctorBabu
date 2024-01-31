@@ -4,47 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10sp"
+    android:padding="10dp"
     tools:context=".patient.DoctorConsultationModule.predictedDisease">
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/headerText"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10sp"
-        android:layout_marginTop="10sp"
-        android:fontFamily="@font/roboto"
-        android:shadowColor="@color/black"
-        android:shadowRadius="0.5"
-        android:text="Diagnose"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:id="@+id/header">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back2"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/headerText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="3sp"
-        android:layout_marginTop="10sp"
-        android:layout_toEndOf="@+id/headerText"
-        android:fontFamily="@font/roboto"
-        android:shadowColor="@color/black"
-        android:shadowRadius="0.5"
-        android:text="Symptoms"
-        android:textColor="#4E5EDE"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        </ImageView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10sp"
+            android:layout_toEndOf="@+id/back"
+            android:layout_marginTop="10sp"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Diagnose"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/headerText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3sp"
+            android:layout_marginTop="10sp"
+            android:layout_toEndOf="@+id/headerText"
+            android:fontFamily="@font/roboto"
+            android:shadowColor="@color/black"
+            android:shadowRadius="0.5"
+            android:text="Symptoms"
+            android:textColor="#4E5EDE"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+   <RelativeLayout
+       android:id="@+id/noResultLayout"
+       android:visibility="gone"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <ImageView
+           android:layout_width="400dp"
+           android:layout_height="400dp"
+           android:src="@drawable/nodisease"
+           android:layout_centerVertical="true"
+           android:layout_centerHorizontal="true"
+           android:id="@+id/noDisease">
+
+       </ImageView>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:text="We couldn't identify the exact reason. Please try again\nwith more accurate symptoms."
+           android:layout_marginEnd="10dp"
+           android:layout_marginStart="10dp"
+           android:textSize="14sp"
+           android:layout_below="@+id/noDisease"
+           android:textColor="@color/black">
+
+       </TextView>
+       <com.google.android.material.button.MaterialButton
+           android:id="@+id/tryAgain"
+           android:layout_width="match_parent"
+           android:layout_height="53dp"
+           android:layout_alignParentBottom="true"
+           android:layout_marginStart="28dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginEnd="28dp"
+           android:layout_marginBottom="10dp"
+           android:background="@drawable/custom_button_back"
+           android:fontFamily="@font/roboto"
+           android:shadowColor="@color/black"
+           android:shadowRadius="0.5"
+           android:text="Try Again"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           android:textSize="17sp"
+           android:textStyle="bold"
+           app:backgroundTint="#3C4DD8"
+           app:cornerRadius="12dp"
+           app:elevation="500dp"
+           app:strokeColor="@color/white"
+           tools:ignore="NotSibling" />
+   </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:layout_below="@id/headerText2">
+        android:visibility="gone"
+        android:id="@+id/resultLayout"
+        android:layout_below="@id/header">
 
         <LinearLayout
             android:layout_width="match_parent"

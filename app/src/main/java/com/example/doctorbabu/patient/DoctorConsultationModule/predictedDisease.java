@@ -55,14 +55,34 @@ public class predictedDisease extends AppCompatActivity {
         super.onStart();
         firebaseExecutor = Executors.newSingleThreadExecutor();
         loadPreviousIntentData();
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        binding.tryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(predictedDisease.this, IdentifyDisease.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     public void loadPreviousIntentData() {
         predictedDisease = getIntent().getStringExtra("predictedDisease");
-        binding.identifiedDisease.setText(predictedDisease);
-        binding.diseaseInfoText.setText(predictedDisease);
-        firebaseExecutor.execute(this::loadDiseaseData);
+        assert predictedDisease != null;
+        if(!predictedDisease.equalsIgnoreCase("no result")){
+            binding.resultLayout.setVisibility(View.VISIBLE);
+            binding.identifiedDisease.setText(predictedDisease);
+            binding.diseaseInfoText.setText(predictedDisease);
+            firebaseExecutor.execute(this::loadDiseaseData);
+        } else {
+            binding.noResultLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void loadDiseaseData() {
