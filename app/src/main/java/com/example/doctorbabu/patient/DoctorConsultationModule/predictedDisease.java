@@ -66,6 +66,7 @@ public class predictedDisease extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(predictedDisease.this, IdentifyDisease.class);
                 startActivity(intent);
+                finish();
             }
         });
 
