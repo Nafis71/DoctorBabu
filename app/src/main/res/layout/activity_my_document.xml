@@ -42,11 +42,37 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerLayout"
+        android:visibility="gone"
+        android:id="@+id/noDocument">
+        <ImageView
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:id="@+id/noDocumentImage"
+            android:src="@drawable/nodocument"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            >
+
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your document drawer is currently empty"
+            android:layout_below="@+id/noDocumentImage"
+            android:layout_centerHorizontal="true">
+
+        </TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerLayout"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:padding="5dp"
+        android:visibility="gone"
         android:layout_below="@+id/headerLayout">
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/reportRecyclerView"

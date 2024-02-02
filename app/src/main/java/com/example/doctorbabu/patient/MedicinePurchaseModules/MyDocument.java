@@ -66,10 +66,12 @@ public class MyDocument extends AppCompatActivity {
                         diagnoseReportModel model = snap.getValue(diagnoseReportModel.class);
                         reportModels.add(model);
                     }
+                    binding.recyclerLayout.setVisibility(View.VISIBLE);
                     binding.reportRecyclerView.setAdapter(adapter);
+                }else{
+                    binding.noDocument.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 throw error.toException();
