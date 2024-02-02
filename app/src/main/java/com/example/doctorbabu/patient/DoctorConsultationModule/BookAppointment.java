@@ -50,8 +50,7 @@ import java.util.concurrent.Executors;
 public class BookAppointment extends AppCompatActivity {
     ActivityBookAppointmentBinding binding;
     Firebase firebase;
-    int morningStartHour = 8, morningStartMinute = 0, morningEndHour = 12, afternoonStartHour = 13,
-            afternoonEndHour = 18, afternoonStartMinute = 0, nightStartHour = 19, nightEndHour = 23, nightStartMinute = 0;
+    int morningStartHour = 8, morningStartMinute = 0, morningEndHour = 12, afternoonStartHour = 13, afternoonEndHour = 18, afternoonStartMinute = 0, nightStartHour = 19, nightEndHour = 23, nightStartMinute = 0;
     int year, month, day;
     String chipName, appointmentHour, appointmentMinute, timePeriod, doctorID;
     ArrayList<String> databaseAppointmentTime = new ArrayList<>();
@@ -163,14 +162,7 @@ public class BookAppointment extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        CookieBar.build(BookAppointment.this)
-                .setTitle("Appointment Booked")
-                .setMessage("Your appointment has been booked")
-                .setSwipeToDismiss(true)
-                .setDuration(3000)
-                .setTitleColor(R.color.white)
-                .setBackgroundColor(R.color.blue)
-                .setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
+        CookieBar.build(BookAppointment.this).setTitle("Appointment Booked").setMessage("Your appointment has been booked").setSwipeToDismiss(true).setDuration(3000).setTitleColor(R.color.white).setBackgroundColor(R.color.blue).setCookiePosition(CookieBar.TOP)  // Cookie will be displayed at the Top
                 .show();
     }
 
@@ -349,8 +341,7 @@ public class BookAppointment extends AppCompatActivity {
             generatedHour += 12;
         }
         Random random = new Random();
-        @SuppressLint("InflateParams")
-        Chip chip = (Chip) LayoutInflater.from(BookAppointment.this).inflate(R.layout.appointment_chip, null);
+        @SuppressLint("InflateParams") Chip chip = (Chip) LayoutInflater.from(BookAppointment.this).inflate(R.layout.appointment_chip, null);
         chip.setText(chipName);
         chip.setId(random.nextInt());
         chip.setHeight(80);
@@ -446,17 +437,35 @@ public class BookAppointment extends AppCompatActivity {
                             binding.infoLayout.setVisibility(View.GONE);
                         } else {
                             clearChipViews();
-                            binding.chipLayout.setVisibility(View.GONE);
-                            binding.infoLayout.setVisibility(View.VISIBLE);
-                            binding.appointmentImage.setVisibility(View.VISIBLE);
+                            setViews();
                             errorMessage("Restricted", "You can't choose previous dates for booking");
                         }
 
+                    } else if (month == Integer.parseInt(currentMonth) + 1 && year == Integer.parseInt(currentYear) && day == 30 || month == Integer.parseInt(currentMonth) + 1 && year == Integer.parseInt(currentYear) && day == 31) {
+                        if (day >= Integer.parseInt(currentDay) && month >= Integer.parseInt(currentMonth) && year >= Integer.parseInt(currentYear)) {
+                            binding.appointmentImage.setVisibility(View.GONE);
+                            clearChipViews();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    checkAppointmentDate();
+                                }
+                            }, 800);
+                            binding.chipLayout.setVisibility(View.VISIBLE);
+                            binding.infoLayout.setVisibility(View.GONE);
+                        } else {
+                            clearChipViews();
+                            setViews();
+                            errorMessage("Restricted", "You can't choose previous dates for booking");
+                        }
+                    } else if (month < Integer.parseInt(currentMonth) + 1 && year <= Integer.parseInt(currentYear)) {
+                        clearChipViews();
+                        setViews();
+                        errorMessage("Restricted", "You can't choose previous dates for booking");
                     } else {
                         clearChipViews();
-                        binding.chipLayout.setVisibility(View.GONE);
-                        binding.infoLayout.setVisibility(View.VISIBLE);
-                        binding.appointmentImage.setVisibility(View.VISIBLE);
+                        setViews();
                         errorMessage("Restricted", "You can't choose forwarding month for booking");
                     }
                 } else {
@@ -469,16 +478,20 @@ public class BookAppointment extends AppCompatActivity {
         });
     }
 
+    public void setViews() {
+        binding.chipLayout.setVisibility(View.GONE);
+        binding.infoLayout.setVisibility(View.VISIBLE);
+        binding.appointmentImage.setVisibility(View.VISIBLE);
+    }
+
     public void errorMessage(String title, String message) {
         MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(BookAppointment.this);
-        dialog.setTitle(title).setIcon(R.drawable.cross)
-                .setMessage(message)
-                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        dialog.setTitle(title).setIcon(R.drawable.cross).setMessage(message).setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                }).setCancelable(false);
+            }
+        }).setCancelable(false);
         dialog.create().show();
     }
 
