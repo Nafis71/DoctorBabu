@@ -1,6 +1,7 @@
 package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.diagnoseReportModel;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.patient.MedicinePurchaseModules.MyDocumentViewer;
 
 import java.util.ArrayList;
 
@@ -53,7 +56,14 @@ public class diagnoseReportAdapter extends RecyclerView.Adapter<diagnoseReportAd
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              singleClickAction(holder,dbmodel);
+                if(isChecked){
+                    singleClickAction(holder,dbmodel);
+                }else{
+                    AppCompatActivity activity = (AppCompatActivity) context;
+                    Intent intent = new Intent(context, MyDocumentViewer.class);
+                    intent.putExtra("imageUrl",dbmodel.getReportLink());
+                    activity.startActivity(intent);
+                }
             }
         });
 
