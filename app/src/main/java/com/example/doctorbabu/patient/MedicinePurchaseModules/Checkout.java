@@ -360,8 +360,10 @@ public class Checkout extends AppCompatActivity {
             data.put("totalPrice",totalPrice);
             data.put("orderId",orderId);
             data.put("orderTime",milliSeconds);
+            data.put("medicineType",product.getMedicineType());
             data.put("productId",product.getMedicineId());
             data.put("productQuantity",product.getQuantity());
+            data.put("trackOrder",0);
             uploadReference.child(user.getUid()).child(orderId).setValue(data);
             cartReference.child(user.getUid()).child(product.getMedicineId()).removeValue();
             DatabaseReference medicineInfoReference;

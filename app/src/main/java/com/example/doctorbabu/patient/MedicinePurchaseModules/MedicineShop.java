@@ -59,9 +59,9 @@ public class MedicineShop extends AppCompatActivity {
     ArrayList<MedicineModel> herbalSyrupModels;
     ArrayList<MedicineModel> allMedicines;
     ArrayList<String> genericNames;
-    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor, imageSliderExecutor,allMedicineExecutor;
+    ExecutorService octExecutor,cartCounter,syrupExecutor,herbalSyrupExecutor,searchExecutor, imageSliderExecutor,allMedicineExecutor,orderCounter;
     Firebase firebase;
-    int countedCart = 0;
+    int countedCart = 0,countedOrder=0;
     int loadedMedicine = 0;
     boolean isSearchActive;
     Dialog dialog;
@@ -82,6 +82,7 @@ public class MedicineShop extends AppCompatActivity {
         herbalSyrupExecutor = Executors.newSingleThreadExecutor();
         searchExecutor = Executors.newSingleThreadExecutor();
         allMedicineExecutor = Executors.newSingleThreadExecutor();
+        orderCounter = Executors.newSingleThreadExecutor();
         imageSliderExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -98,6 +99,12 @@ public class MedicineShop extends AppCompatActivity {
             @Override
             public void run() {
                 setCartCounter();
+            }
+        });
+        orderCounter.execute(new Runnable() {
+            @Override
+            public void run() {
+                setOrderCounter();
             }
         });
         syrupExecutor.execute(new Runnable() {
@@ -167,6 +174,13 @@ public class MedicineShop extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MedicineShop.this,ShopByPrescription.class);
+                startActivity(intent);
+            }
+        });
+        binding.orderList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MedicineShop.this, OrderList.class);
                 startActivity(intent);
             }
         });
@@ -347,6 +361,30 @@ public class MedicineShop extends AppCompatActivity {
                 binding.noDataLayout.setVisibility(View.GONE);
             }, 200);
         }
+    }
+
+    public void setOrderCounter(){
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference cartCounterReference = firebase.getDatabaseReference("medicineOrders");
+        cartCounterReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                countedOrder = 0;
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        countedOrder += 1;
+                    }
+                    binding.orderCounter.setText(String.valueOf(countedOrder));
+                    binding.orderCounter.setVisibility(View.VISIBLE);
+                } else {
+                    binding.orderCounter.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
     }
 
     public void setCartCounter(){
@@ -548,5 +586,6 @@ public class MedicineShop extends AppCompatActivity {
         herbalSyrupExecutor.shutdown();
         searchExecutor.shutdown();
         allMedicineExecutor.shutdown();
+        orderCounter.shutdown();
     }
 }

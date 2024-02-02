@@ -43,6 +43,7 @@ import com.thekhaeng.pushdownanim.PushDownAnim;
 import org.aviran.cookiebar2.CookieBar;
 
 import java.io.File;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -287,8 +288,10 @@ public class ShopByPrescription extends AppCompatActivity {
     public void saveToDatabase(Uri uri,String customerName, String phoneNumber,String address,int index){
         Firebase  firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
+        Clock clock = Clock.systemDefaultZone();
+        long milliSeconds=clock.millis();
         DatabaseReference reference = firebase.getDatabaseReference("shopByPrescription");
-        HashMap<String, String> hashData = new HashMap<>();
+        HashMap<String, Object> hashData = new HashMap<>();
         hashData.put("fileName", fileNames.get(index));
         hashData.put("fileUrl", uri.toString());
         hashData.put("fileType",contents.get(index).getFileType());
@@ -296,14 +299,18 @@ public class ShopByPrescription extends AppCompatActivity {
         hashData.put("customerName",customerName);
         hashData.put("customerPhone",phoneNumber);
         hashData.put("deliveryAddress",address);
+        hashData.put("orderTime",milliSeconds);
+        hashData.put("trackOrder",0);
         String uniqueKey = getUniqueKey();
         reference.child(user.getUid()).child(uniqueKey).setValue(hashData);
     }
     public void saveToDatabase(PdfModel model,String customerName, String phoneNumber,String address,int index){
         Firebase  firebase = Firebase.getInstance();
         FirebaseUser user = firebase.getUserID();
+        Clock clock = Clock.systemDefaultZone();
+        long milliSeconds=clock.millis();
         DatabaseReference reference = firebase.getDatabaseReference("shopByPrescription");
-        HashMap<String, String> hashData = new HashMap<>();
+        HashMap<String, Object> hashData = new HashMap<>();
         hashData.put("fileName", model.getFileName());
         hashData.put("fileUrl", model.getUri().toString());
         hashData.put("fileType",contents.get(index).getFileType());
@@ -311,6 +318,8 @@ public class ShopByPrescription extends AppCompatActivity {
         hashData.put("customerName",customerName);
         hashData.put("customerPhone",phoneNumber);
         hashData.put("deliveryAddress",address);
+        hashData.put("orderTime",milliSeconds);
+        hashData.put("trackOrder",0);
         String uniqueKey = getUniqueKey();
         reference.child(user.getUid()).child(uniqueKey).setValue(hashData);
     }

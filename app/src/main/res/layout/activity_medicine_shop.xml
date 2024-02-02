@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/header"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +59,41 @@
             android:textColor="#4E5EDE"
             android:textSize="20sp"
             android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="45dp"
+            android:layout_height="41dp"
+            android:layout_toStartOf="@+id/cart"
+            android:layout_marginEnd="6dp"
+            android:layout_centerVertical="true"
+            >
+            <ImageView
+                android:id="@+id/orderList"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:tooltipText="Press here to show order list"
+                android:src="@drawable/order">
+
+            </ImageView>
+            <TextView
+                android:id="@+id/orderCounter"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/badge_background"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:textStyle="bold"
+                android:elevation="1dp"
+                android:textSize="13sp"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cart"
