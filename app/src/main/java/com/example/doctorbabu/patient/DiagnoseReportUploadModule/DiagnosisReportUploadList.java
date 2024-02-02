@@ -103,6 +103,7 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
     public void showDiagnoseReports() {
         reportModel = new ArrayList<>();
         selectedCards = SelectedCard.getInstance();
+        selectedCards.resetCards();
         binding.diagnosisReportsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2), R.layout.shimmer_layout_diagnose_report);
         recyclerViewAdapter = new diagnoseReportAdapter(this, reportModel, selectedCards,binding.delete);
         binding.diagnosisReportsRecyclerView.setAdapter(recyclerViewAdapter);
@@ -164,7 +165,7 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
             public void onClick(View view) {
                 diagnoseReportName = reportName.getText().toString();
                 if (validateReportName(diagnoseReportName)) {
-                    choosePicture();
+                    selectPicture();
                 } else {
                     reportNameLayout.setError("Report name is required!");
                 }
@@ -205,19 +206,19 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
     }
 
 
-    public void choosePicture() {
-        ImagePicker.with(this)
-                .crop(1f, 1f)
-                .compress(1024)            //Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
-                .start();
+    public void selectPicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image files"), 102);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
+        if (requestCode == 102 && data != null && data.getData() != null) {
             imagePath = data.getData();
+            bottomSheetDialog.dismiss();
             uploadReport();
         }
     }
@@ -297,6 +298,5 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
     }
 }
