@@ -25,9 +25,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class MedicationOrderListAdapter extends RecyclerView.Adapter<MedicationOrderListAdapter.myViewHolder> {
     Context context;
     ArrayList<MedicationOrderListModel> model;
