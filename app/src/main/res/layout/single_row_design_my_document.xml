@@ -12,20 +12,10 @@
         android:padding="5dp"
         android:background="@drawable/doctor_appointment_background_layout">
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:id="@+id/checkBox"
-            app:checkedState="unchecked">
-
-        </com.google.android.material.checkbox.MaterialCheckBox>
-
         <TextView
             android:id="@+id/fileName"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/checkBox"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"
@@ -35,8 +25,8 @@
 
         <ImageView
             android:id="@+id/gallaryImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
             android:src="@drawable/gallary"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".patient.MedicinePurchaseModules.MyPrescription">
+    tools:context=".patient.MedicinePurchaseModules.MyDocument">
     <RelativeLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
@@ -39,5 +39,25 @@
             android:textStyle="bold">
 
         </TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerLayout"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:padding="5dp"
+        android:layout_below="@+id/headerLayout">
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/reportRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:animationCache="true"
+            android:orientation="vertical"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:shimmer_recycler_item_count="4"
+            app:shimmer_recycler_layout="@layout/shimmer_layout_available_doctor" />
     </RelativeLayout>
 </RelativeLayout>

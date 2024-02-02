@@ -319,7 +319,7 @@ public class Checkout extends AppCompatActivity {
 
     public boolean validateDeliveryAddress(){
         String deliveryAddress = binding.deliveryAddress.getText().toString().trim();
-        if(deliveryAddress.isEmpty()){
+        if(deliveryAddress.isEmpty() || deliveryAddress.equalsIgnoreCase("null")){
             binding.deliveryAddressTextLayout.setError("Must provide with a delivery address");
             return false;
         }

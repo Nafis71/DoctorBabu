@@ -6,6 +6,15 @@ public class PdfModel {
     Uri uri;
     String fileName;
     String fileType;
+    boolean fromMyDocuments;
+
+    public boolean isFromMyDocuments() {
+        return fromMyDocuments;
+    }
+
+    public void setFromMyDocuments(boolean fromMyDocuments) {
+        this.fromMyDocuments = fromMyDocuments;
+    }
 
     public String getFileType() {
         return fileType;

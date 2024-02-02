@@ -1,6 +1,7 @@
 package com.example.doctorbabu.patient.MedicinePurchaseModules;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +13,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +58,17 @@ public class ShopByPrescription extends AppCompatActivity {
     ExecutorService contentChooser,userDataExecutor,uploadExecutor;
     Dialog dialog;
     Uri uri;
+    int index;
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == Activity.RESULT_OK){
+                        importDocument();
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +134,30 @@ public class ShopByPrescription extends AppCompatActivity {
                 finish();
             }
         });
+        binding.myDocumentImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShopByPrescription.this, MyDocument.class);
+                activityResultLauncher.launch(intent);
+            }
+        });
         initiateTextWatcher();
-        PushDownAnim.setPushDownAnimTo(binding.camera, binding.pdf, binding.placeOrder)
+        PushDownAnim.setPushDownAnimTo(binding.camera, binding.pdf, binding.placeOrder,binding.myDocumentImage)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
+    }
+
+    public void importDocument(){
+        SelectedDocuments selectedDocuments = SelectedDocuments.getInstance();
+        PdfModel pdfModel = new PdfModel();
+        pdfModel.setFileType("image");
+        pdfModel.setFileName(selectedDocuments.documents.get("fileName"));
+        Uri fileLink = Uri.parse(selectedDocuments.documents.get("fileLink"));
+        pdfModel.setUri(fileLink);
+        pdfModel.setFromMyDocuments(true);
+        contents.add(pdfModel);
+        setRecyclerView();
+        setViews();
     }
 
     public void selectPdf() {
@@ -170,6 +206,7 @@ public class ShopByPrescription extends AppCompatActivity {
                 PdfModel model = new PdfModel();
                 model.setUri(uri);
                 model.setFileName(displayName);
+                model.setFromMyDocuments(false);
                 if (requestCode == 101) {
                     model.setFileType("pdf");
                 } else {
@@ -177,10 +214,7 @@ public class ShopByPrescription extends AppCompatActivity {
                 }
                 contents.add(model);
                 setRecyclerView();
-                binding.noteHeader.setVisibility(View.GONE);
-                binding.placeOrder.setVisibility(View.VISIBLE);
-                binding.checkoutLayout.setVisibility(View.GONE);
-                binding.contentLayout.setVisibility(View.VISIBLE);
+                setViews();
             }
         }
     }
@@ -227,35 +261,65 @@ public class ShopByPrescription extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference uploader = storage.getReference("shopByPrescription");
         for(int i =0; i<contents.size();i++){
-            int index = i;
-            uploader.child(user.getUid()).child(fileNames.get(index)).putFile(contents.get(index).getUri()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    uploader.child(user.getUid()).child(fileNames.get(index)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            DatabaseReference reference = firebase.getDatabaseReference("shopByPrescription");
-                            HashMap<String, String> hashData = new HashMap<>();
-                            hashData.put("fileName", fileNames.get(index));
-                            hashData.put("fileUrl", uri.toString());
-                            hashData.put("fileType",contents.get(index).getFileType());
-                            hashData.put("customerId,",user.getUid());
-                            hashData.put("customerName",customerName);
-                            hashData.put("customerPhone",phoneNumber);
-                            hashData.put("deliveryAddress",address);
-                            String uniqueKey = getUniqueKey();
-                            reference.child(user.getUid()).child(uniqueKey).setValue(hashData).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    closeLoadingScreen();
-                                    launchActivity();
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+            index = i;
+            PdfModel model = contents.get(index);
+            if(!model.isFromMyDocuments()){
+                uploader.child(user.getUid()).child(fileNames.get(index)).putFile(contents.get(index).getUri()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        uploader.child(user.getUid()).child(fileNames.get(index)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                saveToDatabase(uri,customerName,phoneNumber,address,index);
+                            }
+                        });
+                    }
+                });
+            }else{
+                saveToDatabase(model,customerName,phoneNumber,address,index);
+            }
+
         }
+        closeLoadingScreen();
+        launchActivity();
+    }
+
+    public void saveToDatabase(Uri uri,String customerName, String phoneNumber,String address,int index){
+        Firebase  firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("shopByPrescription");
+        HashMap<String, String> hashData = new HashMap<>();
+        hashData.put("fileName", fileNames.get(index));
+        hashData.put("fileUrl", uri.toString());
+        hashData.put("fileType",contents.get(index).getFileType());
+        hashData.put("customerId,",user.getUid());
+        hashData.put("customerName",customerName);
+        hashData.put("customerPhone",phoneNumber);
+        hashData.put("deliveryAddress",address);
+        String uniqueKey = getUniqueKey();
+        reference.child(user.getUid()).child(uniqueKey).setValue(hashData);
+    }
+    public void saveToDatabase(PdfModel model,String customerName, String phoneNumber,String address,int index){
+        Firebase  firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();
+        DatabaseReference reference = firebase.getDatabaseReference("shopByPrescription");
+        HashMap<String, String> hashData = new HashMap<>();
+        hashData.put("fileName", model.getFileName());
+        hashData.put("fileUrl", model.getUri().toString());
+        hashData.put("fileType",contents.get(index).getFileType());
+        hashData.put("customerId,",user.getUid());
+        hashData.put("customerName",customerName);
+        hashData.put("customerPhone",phoneNumber);
+        hashData.put("deliveryAddress",address);
+        String uniqueKey = getUniqueKey();
+        reference.child(user.getUid()).child(uniqueKey).setValue(hashData);
+    }
+
+    public void setViews(){
+        binding.noteHeader.setVisibility(View.GONE);
+        binding.placeOrder.setVisibility(View.VISIBLE);
+        binding.checkoutLayout.setVisibility(View.GONE);
+        binding.contentLayout.setVisibility(View.VISIBLE);
     }
 
     public void launchActivity(){
