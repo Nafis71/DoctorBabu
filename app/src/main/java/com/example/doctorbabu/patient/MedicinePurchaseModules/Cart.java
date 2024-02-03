@@ -171,6 +171,7 @@ public class Cart extends AppCompatActivity {
             @Override
             public void run() {
                 dialog.dismiss();
+                binding.checkoutLayout.setVisibility(View.GONE);
                 startActivity(intent);
             }
         },800);

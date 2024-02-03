@@ -226,6 +226,7 @@ public class MedicineShop extends AppCompatActivity {
                     binding.syrupLayout.setVisibility(View.GONE);
                     binding.herbalLayout.setVisibility(View.GONE);
                     binding.prescriptionLayout.setVisibility(View.GONE);
+                    binding.allMedicineLayout.setVisibility(View.GONE);
                     binding.searchDataLayout.setVisibility(View.VISIBLE);
                     binding.mainBody.setBackgroundColor(Color.parseColor("#ffffff"));
                     searchMedicine();
@@ -544,6 +545,7 @@ public class MedicineShop extends AppCompatActivity {
         binding.syrupLayout.setVisibility(View.VISIBLE);
         binding.herbalLayout.setVisibility(View.VISIBLE);
         binding.prescriptionLayout.setVisibility(View.VISIBLE);
+        binding.allMedicineLayout.setVisibility(View.VISIBLE);
         binding.mainBody.setBackgroundColor(Color.parseColor("#F8F9F9"));
         binding.searchRecyclerView.setVisibility(View.GONE);
         binding.searchDataLayout.setVisibility(View.GONE);

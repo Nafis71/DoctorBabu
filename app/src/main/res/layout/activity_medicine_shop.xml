@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/header"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -531,6 +531,7 @@
                 </com.todkars.shimmer.ShimmerRecyclerView>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/allMedicineLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"

@@ -55,9 +55,7 @@
         <activity
             android:name=".patient.DoctorConsultationModule.DocumentUpload"
             android:exported="false" />
-        <activity
-            android:name=".doctor.DoctorAppointments"
-            android:exported="false" />
+
         <activity
             android:name=".patient.DoctorConsultationModule.DoctorSearch"
             android:exported="false" />
