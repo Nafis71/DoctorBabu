@@ -12,6 +12,9 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -86,6 +89,7 @@ public class Home extends Fragment {
     ActionBarDrawerToggle toggle;
     FusedLocationProviderClient locationProviderClient;
     List<Address> addresses;
+    boolean isConnected;
 
     public Home() {
     }
@@ -93,12 +97,21 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (!isNetworkConnected()) {
+            binding.mainLayout.setVisibility(View.GONE);
+            binding.noInternetLayout.setVisibility(View.VISIBLE);
+        } else {
+            binding.mainLayout.setVisibility(View.VISIBLE);
+            binding.noInternetLayout.setVisibility(View.GONE);
+        }
+        startFragment();
+    }
+    public void startFragment(){
         firebaseExecutor = Executors.newSingleThreadExecutor();
         imageSliderExecutor = Executors.newSingleThreadExecutor();
         animationExecutor = Executors.newSingleThreadExecutor();
@@ -216,6 +229,7 @@ public class Home extends Fragment {
             }
         });
     }
+
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
@@ -567,6 +581,15 @@ public class Home extends Fragment {
         drawerExecutor.shutdown();
         cartCounter.shutdown();
         binding = null;
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (!(cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected())) {
+            //Do something
+            return false;
+        }
+        return true;
     }
 
     public void restart() {

@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -167,7 +170,6 @@ public class PatientBottomBar extends AppCompatActivity {
         loadFragment(new Home(),"home");
         isOpenHome = true;
     }
-
     public void loadFragment(Fragment fragment, String tag) {
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction().addToBackStack(tag);
