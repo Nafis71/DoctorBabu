@@ -44,10 +44,6 @@ def test_input(givenDisease):
     disease_counts = Counter(predicted)
     percentage_per_disease = {disease: (count / 5) * 100 for disease, count in disease_counts.items()}
     diseaseKey = list(percentage_per_disease.keys())
-    result = ""
     for i in range(len(diseaseKey)):
         if percentage_per_disease[diseaseKey[i]] > 50:
-            result = diseaseKey[i]
-            break
-
-    return percentage_per_disease
+            return diseaseKey[i]

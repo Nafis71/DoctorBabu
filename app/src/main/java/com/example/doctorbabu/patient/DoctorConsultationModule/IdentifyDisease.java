@@ -163,34 +163,10 @@ public class IdentifyDisease extends AppCompatActivity {
             if (prediction.toString().equals("")) {
                 predictedResult = "No Result";
             } else {
-                sanitizeResult(prediction.toString());
+                predictedResult = prediction.toString();
             }
-
+            launchResultActivity();
         });
-
-    }
-
-    public void sanitizeResult(String result){
-        // Remove all single quotes
-        String replaced = result.replaceAll("'", "").replaceAll("[{}]", "");
-
-        // Trim whitespace from the beginning and end of the string (but not between 'Reaction:' and '80.0')
-
-        // Split the string on " :"
-        String[] parts = replaced.split("[:,]");
-
-        // If you also want to remove spaces around the colon inside the string, you would use:
-        // String[] parts = trimmed.split("\\s*:\\s*");
-
-        // Print parts for demonstration
-        for(int i= 0; i<parts.length;i+=2)
-        {
-            diseaseHeader.add(parts[i].trim());
-            Double percentage = Double.parseDouble(parts[i+1].trim());
-            int value = Integer.parseInt(String.valueOf(Math.round(percentage)));
-            diseasePercentage.add(value);
-        }
-        launchResultActivity();
 
     }
     public void launchResultActivity(){
@@ -198,8 +174,7 @@ public class IdentifyDisease extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(() -> {
                 Intent intent = new Intent(IdentifyDisease.this, predictedDisease.class);
-                intent.putExtra("predictedDisease", diseaseHeader);
-                intent.putExtra("predictedDiseasePercentage", diseasePercentage);
+                intent.putExtra("predictedDisease", predictedResult);
                 startActivity(intent);
                 finish();
             }, 2000);

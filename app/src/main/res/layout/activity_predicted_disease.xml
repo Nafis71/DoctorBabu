@@ -183,7 +183,7 @@
                         </TextView>
 
                         <TextView
-                            android:id="@+id/identifiedDisease1"
+                            android:id="@+id/identifiedDisease"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -194,105 +194,10 @@
                             android:justificationMode="inter_word"
                             android:shadowColor="@color/black"
                             android:shadowRadius="0.2"
-                            android:text="Fungal Infection -"
+                            android:text="Fungal Infection"
                             android:textColor="@color/blue"
                             android:textSize="15sp"
                             android:visibility="gone"
-                            android:textStyle="bold">
-
-                        </TextView>
-                        <TextView
-                            android:id="@+id/identifiedDiseasePercentage1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_toEndOf="@+id/identifiedDisease1"
-                            android:layout_below="@+id/identifiedDiseaseHeader"
-                            android:fontFamily="@font/roboto"
-                            android:justificationMode="inter_word"
-                            android:shadowColor="@color/black"
-                            android:shadowRadius="0.2"
-                            android:text="80%"
-                            android:visibility="gone"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold">
-
-                        </TextView>
-                        <TextView
-                            android:id="@+id/identifiedDisease2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_below="@+id/identifiedDisease1"
-                            android:fontFamily="@font/roboto"
-                            android:justificationMode="inter_word"
-                            android:shadowColor="@color/black"
-                            android:shadowRadius="0.2"
-                            android:text="Fungal Infection -"
-                            android:textColor="@color/blue"
-                            android:visibility="gone"
-                            android:textSize="15sp"
-                            android:textStyle="bold">
-
-                        </TextView>
-                        <TextView
-                            android:id="@+id/identifiedDiseasePercentage2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_toEndOf="@+id/identifiedDisease2"
-                            android:layout_below="@+id/identifiedDisease1"
-                            android:fontFamily="@font/roboto"
-                            android:justificationMode="inter_word"
-                            android:shadowColor="@color/black"
-                            android:shadowRadius="0.2"
-                            android:text="80%"
-                            android:visibility="gone"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold">
-
-                        </TextView>
-                        <TextView
-                            android:id="@+id/identifiedDisease3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_below="@+id/identifiedDisease2"
-                            android:fontFamily="@font/roboto"
-                            android:justificationMode="inter_word"
-                            android:shadowColor="@color/black"
-                            android:shadowRadius="0.2"
-                            android:visibility="gone"
-                            android:text="Fungal Infection -"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp"
-                            android:textStyle="bold">
-
-                        </TextView>
-                        <TextView
-                            android:id="@+id/identifiedDiseasePercentage3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_toEndOf="@+id/identifiedDisease3"
-                            android:layout_below="@+id/identifiedDisease2"
-                            android:fontFamily="@font/roboto"
-                            android:justificationMode="inter_word"
-                            android:shadowColor="@color/black"
-                            android:shadowRadius="0.2"
-                            android:visibility="gone"
-                            android:text="80%"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
                             android:textStyle="bold">
 
                         </TextView>
