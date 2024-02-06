@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,6 +36,8 @@ public class IdentifyDisease extends AppCompatActivity {
     ActivityIdentifyDiseaseBinding binding;
     ArrayList<String> symptomsList = new ArrayList<>();
     ArrayList<String> transformedSymptomsList = new ArrayList<>();
+    ArrayList<String> diseaseHeader = new ArrayList<>();
+    ArrayList<Integer> diseasePercentage = new ArrayList<>();
     ExecutorService backgroundExecutor, scriptExecutor;
     String predictedResult;
     boolean isWarningCardShown;
@@ -153,7 +156,6 @@ public class IdentifyDisease extends AppCompatActivity {
         backgroundExecutor.shutdown();
         scriptExecutor.execute(() -> {
             String[] symptomsArrayList = transformedSymptomsList.toArray(new String[0]);
-            Log.w("ArrayList:", Arrays.toString(symptomsArrayList));
             startPython();
             Python python = Python.getInstance();
             PyObject module = python.getModule("predictor");
@@ -161,20 +163,47 @@ public class IdentifyDisease extends AppCompatActivity {
             if (prediction.toString().equals("")) {
                 predictedResult = "No Result";
             } else {
-                predictedResult = prediction.toString();
+                sanitizeResult(prediction.toString());
             }
-            runOnUiThread(() -> {
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    Intent intent = new Intent(IdentifyDisease.this, predictedDisease.class);
-                    intent.putExtra("predictedDisease", predictedResult);
-                    startActivity(intent);
-                    finish();
-                }, 2000);
-            });
 
         });
 
+    }
+
+    public void sanitizeResult(String result){
+        // Remove all single quotes
+        String replaced = result.replaceAll("'", "").replaceAll("[{}]", "");
+
+        // Trim whitespace from the beginning and end of the string (but not between 'Reaction:' and '80.0')
+
+        // Split the string on " :"
+        String[] parts = replaced.split("[:,]");
+
+        // If you also want to remove spaces around the colon inside the string, you would use:
+        // String[] parts = trimmed.split("\\s*:\\s*");
+
+        // Print parts for demonstration
+        for(int i= 0; i<parts.length;i+=2)
+        {
+            diseaseHeader.add(parts[i].trim());
+            Double percentage = Double.parseDouble(parts[i+1].trim());
+            int value = Integer.parseInt(String.valueOf(Math.round(percentage)));
+            diseasePercentage.add(value);
+        }
+        launchResultActivity();
+
+    }
+    public void launchResultActivity(){
+        runOnUiThread(() -> {
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                Intent intent = new Intent(IdentifyDisease.this, predictedDisease.class);
+                intent.putExtra("predictedDisease", diseaseHeader);
+                intent.putExtra("predictedDiseasePercentage", diseasePercentage);
+                startActivity(intent);
+                finish();
+            }, 2000);
+        });
     }
 
     public void startPython() {

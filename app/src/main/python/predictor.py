@@ -50,4 +50,4 @@ def test_input(givenDisease):
             result = diseaseKey[i]
             break
 
-    return result
+    return percentage_per_disease
