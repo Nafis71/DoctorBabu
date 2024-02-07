@@ -35,6 +35,15 @@
         android:theme="@style/Theme.DoctorBabu"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".doctor.chatRoomPrompt"
+            android:exported="false" />
+        <activity
+            android:name=".chatRoom.chatRoom"
+            android:exported="false" />
+        <activity
+            android:name=".chatRoom.chatList"
+            android:exported="false" />
+        <activity
             android:name=".patient.MedicinePurchaseModules.OrderList"
             android:exported="false" />
         <activity
@@ -55,7 +64,6 @@
         <activity
             android:name=".patient.DoctorConsultationModule.DocumentUpload"
             android:exported="false" />
-
         <activity
             android:name=".patient.DoctorConsultationModule.DoctorSearch"
             android:exported="false" />

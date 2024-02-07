@@ -301,7 +301,7 @@ public class Home extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int countedCart = 0;
-                if (snapshot.exists()) {
+                if (snapshot.exists() && isAdded()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         countedCart += 1;
                     }
@@ -312,7 +312,10 @@ public class Home extends Fragment {
                         System.out.println(e.getMessage());
                     }
                 } else {
-                    binding.cartCounter.setVisibility(View.INVISIBLE);
+                    if(isAdded())
+                    {
+                        binding.cartCounter.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 

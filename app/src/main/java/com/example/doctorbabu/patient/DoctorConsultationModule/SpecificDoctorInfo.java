@@ -17,6 +17,7 @@ import com.example.doctorbabu.DatabaseModels.joiningDates;
 import com.example.doctorbabu.DatabaseModels.leavingDates;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.chatRoom.chatRoom;
 import com.example.doctorbabu.databinding.ActivitySpecificDoctorInfoBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -50,8 +51,8 @@ public class SpecificDoctorInfo extends AppCompatActivity {
             removeBookingExecutor;
     boolean toggleButton;
     Dialog dialog;
-    String onlineStatus, currentlyWorking, appointmentId = "";
-    boolean hasBooked, hasBookedToday;
+    String onlineStatus, currentlyWorking, appointmentId = "", doctorName;
+    boolean hasBooked, hasBookedToday, hasChatRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,68 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 });
             }
         });
+        binding.message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkChatRoom();
+            }
+        });
+    }
+
+    public void checkChatRoom() {
+        DatabaseReference reference = firebase.getDatabaseReference("chatRoomRegister");
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        if (String.valueOf(snap.child("connectionId").getValue()).equalsIgnoreCase(doctorId)) {
+                            hasChatRoom = true;
+                        }
+                    }
+                    if (hasChatRoom) {
+                        launchCheckRoom();
+                    } else {
+                        chatRoomPrompt();
+                    }
+                    return;
+                }
+                chatRoomPrompt();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void chatRoomPrompt() {
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(SpecificDoctorInfo.this);
+        dialog.setTitle("Confirmation").setIcon(R.drawable.warning)
+                .setMessage("Do you wish to open a chat room?")
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        openCheckRoom();
+                    }
+                }).setCancelable(false);
+        dialog.create().show();
+    }
+
+    public void openCheckRoom() {
+        DatabaseReference reference = firebase.getDatabaseReference("chatRoomRegister");
+        reference.child(user.getUid()).push().child("connectionId").setValue(doctorId);
+        reference.child(doctorId).push().child("connectionId").setValue(user.getUid());
+        launchCheckRoom();
+    }
+
+    public void launchCheckRoom() {
+        Intent intent = new Intent(SpecificDoctorInfo.this, chatRoom.class);
+        intent.putExtra("userId", doctorId);
+        intent.putExtra("fullName", doctorName);
+        intent.putExtra("photoUrl", model.getPhotoUrl());
+        startActivity(intent);
     }
 
     public void loadingScreen() {
@@ -170,7 +233,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                             if (hour == Integer.parseInt(model.getAppointmentHour()) && minute == Integer.parseInt(model.getAppointmentMinute())) {
                                 proceedToVideoCall();
                                 return;
-                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && minute> Integer.parseInt(model.getAppointmentMinute()) && minute <= (Integer.parseInt(model.getAppointmentMinute()) + 10)) {
+                            } else if (hour == Integer.parseInt(model.getAppointmentHour()) && minute > Integer.parseInt(model.getAppointmentMinute()) && minute <= (Integer.parseInt(model.getAppointmentMinute()) + 10)) {
                                 proceedToVideoCall();
                                 return;
                             }
@@ -222,7 +285,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                             int appointedYear = Integer.parseInt(appointedDateArray[0]);
                             int appointedMonth = Integer.parseInt(appointedDateArray[1]);
                             int appointedDay = Integer.parseInt(appointedDateArray[2]);
-                            if(year >= appointedYear && month == appointedMonth && day > appointedDay){
+                            if (year >= appointedYear && month == appointedMonth && day > appointedDay) {
                                 reference.child(user.getUid()).child(model.getAppointmentID()).removeValue();
                                 reference.child(doctorId).child(model.getAppointmentID()).removeValue();
                             }
@@ -346,7 +409,7 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                 if (snapshot.exists()) {
                     model = snapshot.getValue(doctorInfoModel.class);
                     assert model != null;
-                    String doctorName = model.getTitle() + model.getFullName();
+                    doctorName = model.getTitle() + model.getFullName();
                     binding.doctorName.setText(doctorName);
                     binding.doctorDegree.setText(model.getDegrees());
                     binding.doctorSpecialties.setText(model.getSpecialty());

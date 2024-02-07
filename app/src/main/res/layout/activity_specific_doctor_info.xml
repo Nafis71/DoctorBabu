@@ -2,53 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parentLayout"
     tools:context=".patient.DoctorConsultationModule.SpecificDoctorInfo">
+
     <LinearLayout
         android:id="@+id/mainBody"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
+
             <RelativeLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/goback"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="10dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/back2" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/goback"
-                android:fontFamily="@font/rubik"
-                android:layout_centerVertical="true"
-                android:text="@string/profile"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_marginTop="10dp">
 
-            <ImageView
-                android:id="@+id/outlinedLove"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/blanklove" />
+                <ImageView
+                    android:id="@+id/goback"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/back2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/goback"
+                    android:fontFamily="@font/rubik"
+                    android:text="@string/profile"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/message"
+                    android:layout_width="31dp"
+                    android:layout_height="31dp"
+                    android:layout_toStartOf="@+id/outlinedLove"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/message" />
+
+                <ImageView
+                    android:id="@+id/outlinedLove"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/blanklove" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -207,8 +218,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/doctor_appointment_background_layout"
-            >
+            android:background="@drawable/doctor_appointment_background_layout">
 
             <TextView
                 android:id="@+id/ratingTxt"
@@ -227,9 +237,8 @@
                 android:layout_height="20dp"
                 android:layout_below="@+id/ratingTxt"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/star"
                 android:layout_marginBottom="5dp"
-                />
+                android:src="@drawable/star" />
 
             <TextView
                 android:id="@+id/rating"
@@ -368,10 +377,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/subBody"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:visibility="invisible"
         app:cardElevation="29dp">
 
         <RelativeLayout
@@ -476,6 +485,7 @@
                 app:cardCornerRadius="10dp"
                 app:strokeColor="#C2C2C2"
                 app:strokeWidth="1dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

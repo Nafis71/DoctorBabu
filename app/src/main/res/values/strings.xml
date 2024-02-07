@@ -5,6 +5,7 @@
         <item>3000</item>
     </string-array>
     <string name="Continue">Continue</string>
+    <string name="secretKey">/TRZ5tkDZzbtFn+DXh1hBFfYcFhR7pxdDVXGcLMuTao=</string>
     <string name="placeOrder">Place Order</string>
     <string name="prescriptionNote">Note : You can upload only three prescriptions at a time</string>
     <string name="Eliminatethechallenge">4.Not understanding the handwriting on prescriptions</string>

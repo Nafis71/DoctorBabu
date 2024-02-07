@@ -4,6 +4,7 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="secretKey">/TRZ5tkDZzbtFn+DXh1hBFfYcFhR7pxdDVXGcLMuTao=</string>
     <string name="Continue">চালিয়ে যান</string>
     <string name="placeOrder">অর্ডার করুন</string>
     <string name="prescriptionNote">দ্রষ্টব্য: আপনি একবারে মাত্র তিনটি প্রেসক্রিপশন আপলোড করতে পারেন</string>
