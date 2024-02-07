@@ -118,13 +118,15 @@ public class PrescriptionHistory extends Fragment {
                     });
                     binding.recyclerLayout.setVisibility(View.VISIBLE);
                 } else {
-                    requireActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            binding.prescriptionRecycler.hideShimmer();
-                        }
-                    });
-                    binding.noPrescriptionLayout.setVisibility(View.VISIBLE);
+                    if(isAdded()){
+                        requireActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.prescriptionRecycler.hideShimmer();
+                            }
+                        });
+                        binding.noPrescriptionLayout.setVisibility(View.VISIBLE);
+                    }
                 }
 
             }
