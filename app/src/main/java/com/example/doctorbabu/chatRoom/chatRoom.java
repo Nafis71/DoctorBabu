@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -98,9 +99,9 @@ public class chatRoom extends AppCompatActivity {
         });
         Firebase firebase = Firebase.getInstance();
         if(userType.equalsIgnoreCase("patient")){
-            onlineReference = firebase.getDatabaseReference("users");
-        } else {
             onlineReference = firebase.getDatabaseReference("doctorInfo");
+        } else {
+            onlineReference = firebase.getDatabaseReference("users");
         }
         onlineListener = onlineReference.child(receiverId).child("onlineStatus").addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -169,7 +170,7 @@ public class chatRoom extends AppCompatActivity {
                     } else if (model.getReceiverId().equals(senderId) && model.getSenderId().equals(receiverId)) {
                         String decryptedMessage = null;
                         try {
-                            decryptedMessage = aes.decryption(model.getMessage(), model.getSecretKey(), secretKey);
+                            decryptedMessage = aes.decryption(model.getMessage(), secretKey);
 
                         } catch (NoSuchPaddingException | NoSuchAlgorithmException e) {
                             throw new RuntimeException(e);
@@ -206,13 +207,16 @@ public class chatRoom extends AppCompatActivity {
             return;
         }
         String encryptedMessage = aes.encryption(message, secretKey);
-        HashMap<String, String> hashMap = new HashMap<>();
+        Clock clock = Clock.systemDefaultZone();
+        long milliSeconds=clock.millis();
+        HashMap<String, Object> hashMap = new HashMap<>();
         assert senderId != null;
         hashMap.put("receiverId", receiverId);
         hashMap.put("senderId", senderId);
         hashMap.put("message", encryptedMessage);
         hashMap.put("messageType", "text");
         hashMap.put("seenStatus", "unseen");
+        hashMap.put("time",milliSeconds);
         DatabaseReference reference = firebase.getDatabaseReference("chatRoom");
         reference.child(senderId).child(receiverId).push().setValue(hashMap);
         reference.child(receiverId).child(senderId).push().setValue(hashMap);

@@ -48,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:padding="10dp"
         >
 
         <androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,7 @@
 
     <RelativeLayout
         android:id="@+id/noChatLayout"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

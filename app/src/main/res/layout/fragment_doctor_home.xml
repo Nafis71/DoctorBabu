@@ -87,6 +87,14 @@
                     android:layout_marginStart="22dp"
                     android:layout_toEndOf="@+id/headerText2"
                     android:src="@drawable/languages" />
+                <ImageView
+                    android:id="@+id/message"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_toStartOf="@+id/toolBar"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/message" />
 
                 <ImageView
                     android:id="@+id/toolBar"

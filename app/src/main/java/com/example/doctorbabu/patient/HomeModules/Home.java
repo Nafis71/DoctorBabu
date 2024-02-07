@@ -13,8 +13,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkRequest;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.chatRoom.chatList;
 import com.example.doctorbabu.databinding.FragmentHomeBinding;
 import com.example.doctorbabu.patient.AlarmModules.MedicineReminder;
 import com.example.doctorbabu.patient.AuthenticationModule.Login;
@@ -81,7 +80,7 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english, bengali;
     Animation leftAnim, rightAnim;
-    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter;
+    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter, onlineStatusExecutor;
     ChipNavigationBar bottomNavigation;
     MaterialCardView generalPhysician, gynecologist, paediatrician, dermatologist, psychiatrist, cardiologist, nutritionist, ophthalmologist, neurologist;
     FragmentHomeBinding binding;
@@ -111,12 +110,14 @@ public class Home extends Fragment {
         }
         startFragment();
     }
-    public void startFragment(){
+
+    public void startFragment() {
         firebaseExecutor = Executors.newSingleThreadExecutor();
         imageSliderExecutor = Executors.newSingleThreadExecutor();
         animationExecutor = Executors.newSingleThreadExecutor();
         drawerExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
+        onlineStatusExecutor = Executors.newSingleThreadExecutor();
         locationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         firebaseExecutor.execute(this::firebaseAuth);
         PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard, binding.hospitalListCard)
@@ -132,6 +133,12 @@ public class Home extends Fragment {
             @Override
             public void run() {
                 setAnimations();
+            }
+        });
+        onlineStatusExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setUserOnline();
             }
         });
         drawerExecutor.execute(new Runnable() {
@@ -193,6 +200,13 @@ public class Home extends Fragment {
                         return false;
                     }
                 });
+            }
+        });
+        binding.message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(), chatList.class);
+                startActivity(intent);
             }
         });
     }
@@ -312,8 +326,7 @@ public class Home extends Fragment {
                         System.out.println(e.getMessage());
                     }
                 } else {
-                    if(isAdded())
-                    {
+                    if (isAdded()) {
                         binding.cartCounter.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -583,6 +596,7 @@ public class Home extends Fragment {
         animationExecutor.shutdown();
         drawerExecutor.shutdown();
         cartCounter.shutdown();
+        onlineStatusExecutor.shutdown();
         binding = null;
     }
 
@@ -593,6 +607,22 @@ public class Home extends Fragment {
             return false;
         }
         return true;
+    }
+
+
+    public void setUserOnline() {
+        SharedPreferences preferences = requireActivity().getSharedPreferences("userModification", Context.MODE_PRIVATE);
+        String code = preferences.getString("code", "null");
+        if (code.equalsIgnoreCase("null")) {
+            Firebase firebase = Firebase.getInstance();
+            FirebaseUser user = firebase.getUserID();
+            DatabaseReference reference = firebase.getDatabaseReference("users");
+            reference.child(user.getUid()).child("onlineStatus").setValue(1);
+            reference.child(user.getUid()).child("userId").setValue(user.getUid());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("code", "1");
+            editor.apply();
+        }
     }
 
     public void restart() {

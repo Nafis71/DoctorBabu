@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.chatRoom.chatList;
 import com.example.doctorbabu.databinding.FragmentDoctorHomeBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.materialswitch.MaterialSwitch;
@@ -103,6 +104,13 @@ public class DoctorHome extends Fragment {
             @Override
             public void onClick(View view) {
                 signOut();
+            }
+        });
+        binding.message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(requireActivity(), chatList.class);
+                startActivity(intent);
             }
         });
 

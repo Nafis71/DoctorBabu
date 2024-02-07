@@ -2,6 +2,7 @@ package com.example.doctorbabu.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -60,15 +62,17 @@ public class messageAdapter extends RecyclerView.Adapter<messageAdapter.myViewHo
         String userType = preferences.getString("loginAs","null");
         DatabaseReference reference;
         if(userType.equalsIgnoreCase("patient")){
-            reference = firebase.getDatabaseReference("users");
-        } else {
             reference = firebase.getDatabaseReference("doctorInfo");
+
+        } else {
+            reference = firebase.getDatabaseReference("users");
         }
 
-        reference.child(dbmodel.getSenderId()).child("photoUrl").addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(dbmodel.getSenderId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Glide.with(context).load(String.valueOf(snapshot.getValue())).into(holder.profilePicture);
+                Glide.with(context).load(String.valueOf(snapshot.child("photoUrl").getValue())).into(holder.profilePicture);
+                Log.w("profilePictureLink",String.valueOf(snapshot.child("photoUrl").getValue()));
             }
 
             @Override
@@ -94,8 +98,17 @@ public class messageAdapter extends RecyclerView.Adapter<messageAdapter.myViewHo
     @Override
     public int getItemViewType(int position) {
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        String userId;
         assert fuser != null;
-        if(model.get(position).getSenderId().equals(fuser.getUid()))
+        AppCompatActivity activity = (AppCompatActivity) context;
+        SharedPreferences preferences = activity.getSharedPreferences("loginDetails",Context.MODE_PRIVATE);
+        String userType = preferences.getString("loginAs","null");
+        if(userType.equalsIgnoreCase("patient")){
+            userId = fuser.getUid();
+        } else {
+            userId = preferences.getString("doctorId","null");
+        }
+        if(model.get(position).getSenderId().equals(userId))
         {
             return RIGHT_CHAT;
         }
