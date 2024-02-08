@@ -252,7 +252,11 @@ public class Checkout extends AppCompatActivity {
     public void applyReward(int rewardPoint) {
         launchMiniDialog();
         double rewardedPrice = Math.round(Double.parseDouble(totalPrice) - ((double) (5 * rewardPoint) / 100));
-        binding.discountedTotalPrice.setText(moneyIcon + Math.round(rewardedPrice + 60));
+        if (rewardedPrice < 0) {
+            binding.discountedTotalPrice.setText(moneyIcon + (60));
+        } else {
+            binding.discountedTotalPrice.setText(moneyIcon + Math.round(rewardedPrice + 60));
+        }
         binding.totalPayment.setText(moneyIcon + Math.round(rewardedPrice + 60));
         binding.discountAmount.setText(moneyIcon + Math.round(((double) (5 * rewardPoint) / 100)));
         binding.discountAmount.setVisibility(View.VISIBLE);
@@ -317,24 +321,26 @@ public class Checkout extends AppCompatActivity {
         dialog.create().show();
     }
 
-    public boolean validateDeliveryAddress(){
+    public boolean validateDeliveryAddress() {
         String deliveryAddress = binding.deliveryAddress.getText().toString().trim();
-        if(deliveryAddress.isEmpty() || deliveryAddress.equalsIgnoreCase("null")){
+        if (deliveryAddress.isEmpty() || deliveryAddress.equalsIgnoreCase("null")) {
             binding.deliveryAddressTextLayout.setError("Must provide with a delivery address");
             return false;
         }
         return true;
     }
-    public boolean validatePhoneNumber(){
+
+    public boolean validatePhoneNumber() {
         String phoneNumber = binding.phoneNumber.getText().toString().trim();
-        if(phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             binding.phoneNumberTextLayout.setError("Must provide with a delivery address");
             return false;
         }
         return true;
     }
-    public void placeOrder(){
-        if(!validateDeliveryAddress() || !validatePhoneNumber()){
+
+    public void placeOrder() {
+        if (!validateDeliveryAddress() || !validatePhoneNumber()) {
             return;
         }
         DatabaseReference uploadReference = firebase.getDatabaseReference("medicineOrders");
@@ -343,52 +349,54 @@ public class Checkout extends AppCompatActivity {
         String deliveryAddress = binding.deliveryAddress.getText().toString();
         String phoneNumber = binding.phoneNumber.getText().toString();
         String totalPrice;
-        if(hasAppliedReward){
+        if (hasAppliedReward) {
             totalPrice = binding.discountedTotalPrice.getText().toString();
-        } else{
+        } else {
             totalPrice = binding.totalPrice.getText().toString();
         }
         int index = 0;
-        for(CartModel product: checkoutModels){
+        for (CartModel product : checkoutModels) {
             Clock clock = Clock.systemDefaultZone();
-            long milliSeconds=clock.millis();
+            long milliSeconds = clock.millis();
             String orderId = getOrderId();
-            HashMap<String,Object> data = new HashMap<>();
-            data.put("customerName",customerName);
-            data.put("deliveryAddress",deliveryAddress);
-            data.put("phoneNumber",phoneNumber);
-            data.put("totalPrice",totalPrice);
-            data.put("orderId",orderId);
-            data.put("orderTime",milliSeconds);
-            data.put("medicineType",product.getMedicineType());
-            data.put("productId",product.getMedicineId());
-            data.put("productQuantity",product.getQuantity());
-            data.put("trackOrder",0);
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("customerName", customerName);
+            data.put("deliveryAddress", deliveryAddress);
+            data.put("phoneNumber", phoneNumber);
+            data.put("totalPrice", totalPrice);
+            data.put("orderId", orderId);
+            data.put("orderTime", milliSeconds);
+            data.put("medicineType", product.getMedicineType());
+            data.put("productId", product.getMedicineId());
+            data.put("productQuantity", product.getQuantity());
+            data.put("trackOrder", 0);
             uploadReference.child(user.getUid()).child(orderId).setValue(data);
             cartReference.child(user.getUid()).child(product.getMedicineId()).removeValue();
             DatabaseReference medicineInfoReference;
-            if(product.getMedicineType().equalsIgnoreCase("tablet")){
+            if (product.getMedicineType().equalsIgnoreCase("tablet")) {
                 medicineInfoReference = firebase.getDatabaseReference("tabletData");
-            } else if(product.getMedicineType().equalsIgnoreCase("syrup")){
+            } else if (product.getMedicineType().equalsIgnoreCase("syrup")) {
                 medicineInfoReference = firebase.getDatabaseReference("syrupData");
-            }else{
+            } else {
                 medicineInfoReference = firebase.getDatabaseReference("herbalSyrupData");
             }
             int purchasingQuantity = Integer.parseInt(product.getQuantity());
             int productQuantity = Integer.parseInt(medicineQuantity.get(index));
-            int finalQuantity =  productQuantity - purchasingQuantity;
+            int finalQuantity = productQuantity - purchasingQuantity;
             medicineInfoReference.child(product.getMedicineId()).child("medicineQuantity").setValue(String.valueOf(finalQuantity));
             index++;
         }
         launchActivity();
 
     }
-    public void launchActivity(){
+
+    public void launchActivity() {
         Intent intent = new Intent(this, PurchaseCompletion.class);
         startActivity(intent);
         finish();
     }
-    public String getOrderId(){
+
+    public String getOrderId() {
         return UUID.randomUUID().toString();
     }
 

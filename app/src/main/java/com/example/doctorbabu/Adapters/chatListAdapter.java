@@ -123,8 +123,13 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.myView
                             }
                             if (decryptedMessage != null) {
                                 if (model.getSeenStatus().equals("unseen")) {
+                                    String message;
+                                    if(model.getMessageType().equalsIgnoreCase("image")){
+                                        message = "Sent a photo" + " - New message";
+                                    } else{
+                                        message = decryptedMessage + " - New message";
+                                    }
                                     holder.message.setTypeface(Typeface.DEFAULT_BOLD);
-                                    String message = decryptedMessage + " - New message";
                                     holder.message.setText(message);
                                 } else {
                                     holder.message.setTypeface(Typeface.DEFAULT);
@@ -143,7 +148,12 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.myView
                                 throw new RuntimeException(e);
                             }
                             if (decryptedMessage != null) {
-                                String message = "You: " + decryptedMessage;
+                                String message;
+                                if(model.getMessageType().equalsIgnoreCase("image")){
+                                    message = "You: " + " Sent a photo";
+                                } else{
+                                    message = "You: " + decryptedMessage;
+                                }
                                 holder.message.setText(message);
                             } else {
                                 holder.message.setText("No messages");

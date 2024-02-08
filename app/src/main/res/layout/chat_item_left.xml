@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="130dp"
         android:layout_toEndOf="@+id/profilePicture"
         style="@style/Widget.Material3.CardView.Outlined"
         app:strokeWidth="0dp"
@@ -31,6 +31,7 @@
         android:layout_marginBottom="0dp">
 
         <RelativeLayout
+            android:id="@+id/layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/doctor_appointment_background_layout"
@@ -47,6 +48,16 @@
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@android:color/black" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/show_image"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:visibility="gone">
+
+            </ImageView>
 
         </RelativeLayout>
 

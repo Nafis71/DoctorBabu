@@ -23,8 +23,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.doctorbabu.DatabaseModels.AppointmentModel;
+import com.example.doctorbabu.DatabaseModels.messageModel;
 import com.example.doctorbabu.FirebaseDatabase.Firebase;
 import com.example.doctorbabu.R;
+import com.example.doctorbabu.encryption.AES;
 import com.example.doctorbabu.patient.HomeModules.Home;
 import com.example.doctorbabu.patient.PatientProfileModule.PrescriptionHistory;
 import com.example.doctorbabu.patient.PatientProfileModule.Profile;
@@ -37,14 +39,20 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.crypto.NoSuchPaddingException;
 
 
 public class PatientBottomBar extends AppCompatActivity {
     private static final String CHANNEL_ID = "Appointment Cancelled Channel";
     private static final String CHANNEL_ID_E_PRESCRIPTION = "E-Prescription Channel";
+    private static final String CHANNEL_ID_E_CHATS = "Chat Channel";
     private static final int NOTIFICATION_ID = 300;
     private static final int NOTIFICATION_ID_PRESCRIPTION = 301;
     ChipNavigationBar bottomNavigation;
@@ -55,7 +63,7 @@ public class PatientBottomBar extends AppCompatActivity {
     String fragmentName,doctorName = "";
     int prescriptionCounter = 0;
     Bitmap image;
-    ExecutorService executorService,cancelledAppointmentNotifier,notificationExecutor,prescriptionExecutor;
+    ExecutorService executorService,cancelledAppointmentNotifier,notificationExecutor,prescriptionExecutor,chatNotificationExecutor;
 
 
     @Override
@@ -68,6 +76,13 @@ public class PatientBottomBar extends AppCompatActivity {
         cancelledAppointmentNotifier = Executors.newSingleThreadExecutor();
         notificationExecutor = Executors.newSingleThreadExecutor();
         prescriptionExecutor = Executors.newSingleThreadExecutor();
+        chatNotificationExecutor = Executors.newSingleThreadExecutor();
+        chatNotificationExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                loadIncomingMessage();
+            }
+        });
         prescriptionExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -243,6 +258,137 @@ public class PatientBottomBar extends AppCompatActivity {
                 isBackPressed = false;
                 break;
         }
+
+    }
+
+    public void loadIncomingMessage(){
+        Firebase firebase = Firebase.getInstance();
+        FirebaseUser user = firebase.getUserID();;
+        DatabaseReference reference = firebase.getDatabaseReference("chatRoom");
+        SharedPreferences preferences = getSharedPreferences("loginDetails",MODE_PRIVATE);
+        String userType = preferences.getString("loginAs","null");
+        String userId;
+        if(userType.equalsIgnoreCase("patient")){
+            userId = user.getUid();
+        } else{
+            userId = preferences.getString("doctorId","null");
+        }
+        reference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    for(DataSnapshot snap: snapshot.getChildren())
+                    {
+                        loadSenderMessage(snap.getKey(),userId,userType);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+    public void loadSenderMessage(String senderId,String userId,String userType){
+        Firebase firebase = Firebase.getInstance();
+        //firebase
+        DatabaseReference reference = firebase.getDatabaseReference("chatRoom");
+        reference.child(userId).child(senderId).limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    for(DataSnapshot snap : snapshot.getChildren())
+                    {
+                        messageModel messageModel = snap.getValue(messageModel.class);
+                        assert messageModel != null;
+                        Log.w("Message Model",messageModel.getSeenStatus());
+                        if(!messageModel.getSenderId().equals(userId) && messageModel.getSeenStatus().equalsIgnoreCase("unseen"))
+                        {
+                            loadSenderData(senderId,messageModel.getMessage(),getString(R.string.secretKey),userType);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //
+            }
+        });
+    }
+    public void loadSenderData(String senderId,String message, String secretKey,String userType){
+        Firebase firebase = Firebase.getInstance();
+        DatabaseReference userReference;
+        if(userType.equalsIgnoreCase("patient")){
+            userReference = firebase.getDatabaseReference("doctorInfo");
+        }else{
+            userReference = firebase.getDatabaseReference("users");
+        }
+        userReference.child(senderId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    String profilePicture = String.valueOf(snapshot.child("photoUrl").getValue());
+                    String userName;
+                    if(userType.equalsIgnoreCase("patient")){
+                        String fullName = String.valueOf(snapshot.child("title").getValue()) + String.valueOf(snapshot.child("fullName").getValue());
+                        userName = fullName;
+                    }else{
+                        userName = String.valueOf(snapshot.child("fullName").getValue());
+                    }
+
+                    processData(userName,profilePicture,message,secretKey);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void processData(String userName, String profilePicture, String message, String secretKey) {
+        AES aes = new AES();
+        String decryptedMessage;
+        try {
+            decryptedMessage = aes.decryption(message,Base64.getDecoder().decode(secretKey));
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        Thread notificationThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                notificationManager(userName,profilePicture,decryptedMessage);
+            }
+        });
+        notificationThread.start();
+
+    }
+    public void notificationManager(String userName,String profilePicture,String message) {
+        try {
+            URL url = new URL(profilePicture);
+            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification.Builder(this)
+                .setLargeIcon(image)
+                .setSmallIcon(R.drawable.applogo)
+                .setContentText(message)
+                .setSubText(userName + " sent you a message")
+                .setChannelId(CHANNEL_ID_E_CHATS)
+                .build();
+        notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID_E_CHATS,"Messaging Channel",NotificationManager.IMPORTANCE_HIGH));
+        notificationManager.notify(667,notification);
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(1500, VibrationEffect.DEFAULT_AMPLITUDE));
 
     }
 

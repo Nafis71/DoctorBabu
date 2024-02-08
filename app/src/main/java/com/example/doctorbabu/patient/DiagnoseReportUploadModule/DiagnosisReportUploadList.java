@@ -227,11 +227,12 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference("diagnoseReports");
         Snackbar uploadProgressbar = initializeUploadProgressbar();
-        storageReference.child(userId).putFile(imagePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        String uniqueKey = getUniqueKey();
+        storageReference.child(userId).child(uniqueKey).putFile(imagePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 uploadProgressbar.dismiss();
-                getDownloadUrl(storageReference);
+                getDownloadUrl(storageReference,uniqueKey);
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -255,9 +256,8 @@ public class DiagnosisReportUploadList extends AppCompatActivity {
             }
         });
     }
-
-    public void getDownloadUrl(StorageReference storageReference) {
-        storageReference.child(userId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+    public void getDownloadUrl(StorageReference storageReference, String uniqueKey) {
+        storageReference.child(userId).child(uniqueKey).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             String reportLink;
 
             @Override

@@ -98,7 +98,7 @@
             android:layout_below="@+id/desc"
             android:layout_centerHorizontal="true"
             android:text="end to end encrypted"
-            android:textColor="@color/green_shade_1"
+            android:textColor="@color/blue"
             android:textSize="13sp" />
         <TextView
             android:id="@+id/desc3"

@@ -178,7 +178,12 @@ public class SpecificDoctorInfo extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         openCheckRoom();
                     }
-                }).setCancelable(false);
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //
+                    }
+                }).setCancelable(true);
         dialog.create().show();
     }
 

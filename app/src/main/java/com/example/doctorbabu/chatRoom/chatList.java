@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -128,6 +129,7 @@ public class chatList extends AppCompatActivity {
                         model.setPhotoUrl(String.valueOf(snapshot.child("photoUrl").getValue()));
                         model.setOnlineStatus(Integer.parseInt(String.valueOf(snapshot.child("onlineStatus").getValue())));
                         list.add(model);
+                        Collections.reverse(list);
                         adapter.notifyDataSetChanged();
                     }
                 }

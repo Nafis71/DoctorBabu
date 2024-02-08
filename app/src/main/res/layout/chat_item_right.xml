@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="0dp"
@@ -19,6 +19,7 @@
         >
 
         <RelativeLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#6271E8">
@@ -44,12 +45,21 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="5dp"
-                android:text="My name is Tonmoy"
                 android:fontFamily="@font/roboto"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="5dp"
                 android:textColor="@color/white" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/show_image"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:visibility="gone">
+
+            </ImageView>
 
         </RelativeLayout>
 
