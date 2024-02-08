@@ -275,6 +275,7 @@ public class MedicineShop extends AppCompatActivity {
 
     public void loadAllMedicines(){
         while (true){
+            Log.w("Loaded Medicine",String.valueOf(loadedMedicine));
             if(loadedMedicine == 3){
                 allMedicines.addAll(syrupModels);
                 allMedicines.addAll(herbalSyrupModels);
@@ -561,6 +562,7 @@ public class MedicineShop extends AppCompatActivity {
             isSearchActive = false;
             restoreView();
         }else{
+            loadedMedicine = 0;
             finish();
         }
     }
