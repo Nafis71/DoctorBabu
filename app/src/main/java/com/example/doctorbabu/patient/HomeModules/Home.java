@@ -626,7 +626,6 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists() && isAdded()) {
                     countedMessage = 0;
-                    Log.w("Entered","Entered");
                     for(DataSnapshot snap: snapshot.getChildren()){
                         if (String.valueOf(snap.child("seenStatus").getValue()).equalsIgnoreCase("unseen")) {
                             countedMessage += 1;
@@ -649,11 +648,9 @@ public class Home extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.w("Resumed","Resumed");
         messageCounterExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                Log.w("Entered","Resumed");
                 messageCounter();
             }
         });
