@@ -389,17 +389,18 @@ public class EditProfile extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        assert data != null;
-        filepath = data.getData();
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(filepath);
-            bitmap = BitmapFactory.decodeStream(inputStream);
-            profileImage.setImageBitmap(bitmap);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        if(data != null && data.getData() != null){
+            filepath = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(filepath);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                profileImage.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
-        super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     public void firebaseUpdateData(View view) {

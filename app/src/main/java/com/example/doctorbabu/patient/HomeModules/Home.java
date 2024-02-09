@@ -81,7 +81,7 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english, bengali;
     Animation leftAnim, rightAnim;
-    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter, onlineStatusExecutor,messageCounterExecutor;
+    ExecutorService firebaseExecutor, animationExecutor, drawerExecutor, cartCounter, onlineStatusExecutor,messageCounterExecutor;
     ChipNavigationBar bottomNavigation;
     MaterialCardView generalPhysician, gynecologist, paediatrician, dermatologist, psychiatrist, cardiologist, nutritionist, ophthalmologist, neurologist;
     FragmentHomeBinding binding;
@@ -89,7 +89,6 @@ public class Home extends Fragment {
     ActionBarDrawerToggle toggle;
     FusedLocationProviderClient locationProviderClient;
     List<Address> addresses;
-    boolean isConnected;
     int countedMessage =0;
 
     public Home() {
@@ -116,7 +115,6 @@ public class Home extends Fragment {
 
     public void startFragment() {
         firebaseExecutor = Executors.newSingleThreadExecutor();
-        imageSliderExecutor = Executors.newSingleThreadExecutor();
         animationExecutor = Executors.newSingleThreadExecutor();
         drawerExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
@@ -124,15 +122,10 @@ public class Home extends Fragment {
         messageCounterExecutor = Executors.newSingleThreadExecutor();
         locationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         firebaseExecutor.execute(this::firebaseAuth);
-        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard, binding.hospitalListCard)
+        PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard, binding.hospitalListCard,binding.message)
                 .setScale(PushDownAnim.MODE_SCALE, 0.95f);
 
-        imageSliderExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                loadImageSlider();
-            }
-        });
+        loadImageSlider();
         animationExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -659,7 +652,6 @@ public class Home extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         firebaseExecutor.shutdown();
-        imageSliderExecutor.shutdown();
         animationExecutor.shutdown();
         drawerExecutor.shutdown();
         cartCounter.shutdown();
