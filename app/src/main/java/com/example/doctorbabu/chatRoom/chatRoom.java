@@ -62,7 +62,7 @@ public class chatRoom extends AppCompatActivity {
     ExecutorService messageReader,userDataLoader;
     SharedPreferences preferences;
     Uri imagePath;
-    boolean isImage;
+    boolean isImage,hasBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +194,7 @@ public class chatRoom extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new messageAdapter(chatRoom.this, list);
+        DatabaseReference seenReference = firebase.getDatabaseReference("chatRoom");
         listener = reference.child(senderId).child(receiverId).addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -214,10 +215,8 @@ public class chatRoom extends AppCompatActivity {
                         }
                         model.setMessage(decryptedMessage);
                         list.add(model);
-                        DatabaseReference seenReference = firebase.getDatabaseReference("chatRoom");
-                        seenReference.child(senderId).child(receiverId).child(Objects.requireNonNull(snap.getKey())).child("seenStatus").setValue("seen");
                         if (model.getSeenStatus().equals("seen")) {
-                            binding.seenStatus.setVisibility(View.VISIBLE);
+                            binding.seenStatus.setVisibility(View.GONE);
                         } else {
                             binding.seenStatus.setVisibility(View.GONE);
                         }
@@ -232,10 +231,12 @@ public class chatRoom extends AppCompatActivity {
 
                         model.setMessage(decryptedMessage);
                         list.add(model);
-                        DatabaseReference seenReference = firebase.getDatabaseReference("chatRoom");
-                        seenReference.child(senderId).child(receiverId).child(Objects.requireNonNull(snap.getKey())).child("seenStatus").setValue("seen");
+                        if(!hasBackPressed){
+                            seenReference.child(senderId).child(receiverId).child(Objects.requireNonNull(snap.getKey())).child("seenStatus").setValue("seen");
+                        }
                         if (model.getSeenStatus().equals("seen")) {
                             binding.seenStatus.setVisibility(View.GONE);
+                            binding.seenStatus.setText("This is me");
                         } else {
                             binding.seenStatus.setVisibility(View.GONE);
                         }
@@ -297,6 +298,7 @@ public class chatRoom extends AppCompatActivity {
         hashMap.put("time",milliSeconds);
         DatabaseReference reference = firebase.getDatabaseReference("chatRoom");
         reference.child(senderId).child(receiverId).push().setValue(hashMap);
+        hashMap.put("seenStatus", "seen");
         reference.child(receiverId).child(senderId).push().setValue(hashMap);
         isImage = false;
         binding.textBox.setEnabled(true);
@@ -336,6 +338,7 @@ public class chatRoom extends AppCompatActivity {
     public void onBackPressed() {
         reference.removeEventListener(listener);
         onlineReference.removeEventListener(onlineListener);
+        hasBackPressed = true;
         finish();
     }
 

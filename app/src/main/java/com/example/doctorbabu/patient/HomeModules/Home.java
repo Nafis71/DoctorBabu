@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +81,7 @@ public class Home extends Fragment {
     Button buttonDialog;
     RadioButton english, bengali;
     Animation leftAnim, rightAnim;
-    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter, onlineStatusExecutor;
+    ExecutorService firebaseExecutor, imageSliderExecutor, animationExecutor, drawerExecutor, cartCounter, onlineStatusExecutor,messageCounterExecutor;
     ChipNavigationBar bottomNavigation;
     MaterialCardView generalPhysician, gynecologist, paediatrician, dermatologist, psychiatrist, cardiologist, nutritionist, ophthalmologist, neurologist;
     FragmentHomeBinding binding;
@@ -89,6 +90,7 @@ public class Home extends Fragment {
     FusedLocationProviderClient locationProviderClient;
     List<Address> addresses;
     boolean isConnected;
+    int countedMessage =0;
 
     public Home() {
     }
@@ -101,6 +103,7 @@ public class Home extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        firebase = Firebase.getInstance();
         if (!isNetworkConnected()) {
             binding.mainLayout.setVisibility(View.GONE);
             binding.noInternetLayout.setVisibility(View.VISIBLE);
@@ -118,6 +121,7 @@ public class Home extends Fragment {
         drawerExecutor = Executors.newSingleThreadExecutor();
         cartCounter = Executors.newSingleThreadExecutor();
         onlineStatusExecutor = Executors.newSingleThreadExecutor();
+        messageCounterExecutor = Executors.newSingleThreadExecutor();
         locationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         firebaseExecutor.execute(this::firebaseAuth);
         PushDownAnim.setPushDownAnimTo(binding.consultantCard, binding.appointmentCard, binding.medicineReminderCard, binding.reportCard, binding.pendingAppointment, binding.medicineCard, binding.hospitalListCard)
@@ -240,6 +244,13 @@ public class Home extends Fragment {
             @Override
             public void onClick(View view) {
                 findNearbyEmergencyHospital();
+            }
+        });
+        messageCounterExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                countedMessage = 0;
+                messageCounter();
             }
         });
     }
@@ -588,6 +599,65 @@ public class Home extends Fragment {
         });
         dialog.show();
     }
+    public void messageCounter() {
+        DatabaseReference reference = firebase.getDatabaseReference("chatRoom");
+        FirebaseUser user = firebase.getUserID();
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && isAdded()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        countMessage(String.valueOf(snap.getKey()), user.getUid());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    public void countMessage(String key, String userId) {
+        DatabaseReference reference = firebase.getDatabaseReference("chatRoom");
+        reference.child(userId).child(key).limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && isAdded()) {
+                    countedMessage = 0;
+                    Log.w("Entered","Entered");
+                    for(DataSnapshot snap: snapshot.getChildren()){
+                        if (String.valueOf(snap.child("seenStatus").getValue()).equalsIgnoreCase("unseen")) {
+                            countedMessage += 1;
+                            binding.msgCounter.setText(String.valueOf(countedMessage));
+                            binding.msgCounter.setVisibility(View.VISIBLE);
+                        }else{
+                            binding.msgCounter.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                throw error.toException();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.w("Resumed","Resumed");
+        messageCounterExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.w("Entered","Resumed");
+                messageCounter();
+            }
+        });
+    }
 
     public void onDestroyView() {
         super.onDestroyView();
@@ -597,7 +667,14 @@ public class Home extends Fragment {
         drawerExecutor.shutdown();
         cartCounter.shutdown();
         onlineStatusExecutor.shutdown();
+        messageCounterExecutor.shutdown();
         binding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 
     private boolean isNetworkConnected() {

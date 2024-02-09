@@ -59,6 +59,14 @@ public class Profile extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(getActivity(), Login.class);
+            startActivity(intent);
+            requireActivity().finish();
+        }
         if (isAdded()) {
             dataThread = new Thread(this::getData);
             dataThread.start();
@@ -95,14 +103,6 @@ public class Profile extends Fragment {
 
 
     public void getData() {
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser == null) {
-            Intent intent = new Intent(getActivity(), Login.class);
-            startActivity(intent);
-            requireActivity().finish();
-        }
         userAllergyHistory();
         userPastMedicalHistory();
         binding.userEmail.setText(user.getEmail());

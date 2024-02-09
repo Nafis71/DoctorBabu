@@ -114,7 +114,6 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.myView
                         assert model != null;
                         senderId = model.getSenderId();
                         if (model.getSenderId().equals(dbmodel.getUserId()) && model.getReceiverId().equals(userId)) {
-                            counter[0] = 0;
                             String decryptedMessage = null;
                             try {
                                 decryptedMessage = aes.decryption(model.getMessage(), secretKey);
@@ -177,7 +176,7 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.myView
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchChatRoom(dbmodel);
+               launchChatRoom(dbmodel);
             }
         });
 
