@@ -627,7 +627,7 @@ public class Home extends Fragment {
                 if (snapshot.exists() && isAdded()) {
                     countedMessage = 0;
                     for(DataSnapshot snap: snapshot.getChildren()){
-                        if (String.valueOf(snap.child("seenStatus").getValue()).equalsIgnoreCase("unseen")) {
+                        if (String.valueOf(snap.child("seenStatus").getValue()).equalsIgnoreCase("unseen") && String.valueOf(snap.child("receiverId").getValue()).equalsIgnoreCase(userId)) {
                             countedMessage += 1;
                             binding.msgCounter.setText(String.valueOf(countedMessage));
                             binding.msgCounter.setVisibility(View.VISIBLE);
