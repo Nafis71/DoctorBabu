@@ -71,7 +71,6 @@ To begin a video consultation, users must first select a certain doctor and then
 <img alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/41b5ea25-a111-4166-85f1-1de8833061c9"></img>
 <img alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/77582362-0bb1-4c64-bfdc-0f0e3af6d539"></img>
 
-<br />
 
 ## Booking Appointment <br />
 Users can schedule appointments by choosing a specific date and time.
@@ -83,3 +82,10 @@ Some limits exist while arranging appointments, including-
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/3230c9ba-5e86-4ae1-a7b8-ed76022dd3ec"></img>
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/306b6f32-7966-4a20-a57e-a86502856405"></img>
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/0d83ba89-6773-4582-9ed9-6ed631dc7618"></img>
+
+## Booking Appointment <br />
+<br />
+
+<img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/17691af9-f290-41c2-9842-4e6c5dfbd69d"></img>
+<img alt ="Chaquopy" width ="250" src="(https://github.com/Nafis71/DoctorBabu/assets/57575805/09310b29-8fc6-403f-8e06-a8d5e4416852"></img>
+<img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/4485036f-b6e0-4373-820c-7cebd296349a"></img>
