@@ -20,6 +20,7 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 + Doctors can enable/disable appointment setting through the app
 + Doctors can enable/disable online status setting through the app
 + Chat module for doctor and patient for continuous engagement without any cost
++ Supports both bangla and english to decorate UI as per user needs
 ---
 # Tech Stack-
 Doctor Babu is exclusively available on Android. It is written in **Android Native**.
