@@ -18,4 +18,5 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 + Doctors can enable/disable online status setting through the app
 + Chat module for doctor and patient for continuous engagement without any cost
 ---
-# Installation-
+# Tech Stack-
+- __[Java](https://nodeca.github.io/pica/demo/)__ - Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.
