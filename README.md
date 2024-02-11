@@ -41,8 +41,6 @@ The IDE (Integrated Development Environment) that was used is `Android studio`.<
 + **Dash Board** <br />
 The Dashboard gives users access to the app's most important modules, making it easy to navigate. <br />
 It provides access to
-<br />
-
   - BookAppointment
   - Consultancy
   - Medicine Reminder
