@@ -19,7 +19,7 @@
 + Users can attach any kind of document before going into consultation
 + Doctors can enable/disable appointment setting through the app
 + Doctors can enable/disable online status setting through the app
-+ Chat module for doctor and patient for continuous engagement without any cost
++ AES encrypted chat module for doctor and patient for continuous engagement without any cost
 + Supports both bangla and english to decorate UI as per user needs
 ---
 # Tech Stack-
