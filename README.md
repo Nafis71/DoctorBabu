@@ -6,9 +6,7 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 + Users can take consultations through video call
 + Users can make consultation appointments through the app
 + App will let users know about their pending appointment
-+ More accurate disease prediction
-  - Models -
-  * ![Minion](https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/KNN_logo.svg/640px-KNN_logo.svg.png)
++ Aritificaial Intelligence based Disease prediction using only symptoms and doctor suggestion based on predicted disease
 + Users will be able to purchase medicine from the app
 + Users will be able to set medication reminder through the app
 + Users can upload their diagnosis report for future use-cases
