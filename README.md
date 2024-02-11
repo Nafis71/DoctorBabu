@@ -14,6 +14,7 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 + Users will be able to set medication reminder through the app
 + Users can upload their diagnosis report for future use-cases
 + Users can give rating and review to the doctor after every successful consultation
++ Users can find nearby hospitals with emergency ward from the app
 + Doctor's can prescribe e-prescription to the patient and users can download it through the app
 + Users can attach any kind of document before going into consultation
 + Doctors can enable/disable appointment setting through the app
