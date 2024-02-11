@@ -41,4 +41,4 @@ The IDE (Integrated Development Environment) that was used is `Android studio`.<
 + **Dash Board** <br />
 
   <img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/13776164-9e5e-40bd-b008-daa85a2bc8cd"></img>
-  <img align="center" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/88f4bda4-9096-431e-aa09-4418d0a81dab"></img>
+  <img align="right" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/88f4bda4-9096-431e-aa09-4418d0a81dab"></img>
