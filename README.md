@@ -114,6 +114,7 @@ Patients can seek rapid guidance from any health professional at any time via th
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/94e661b5-6a6b-4f7f-9315-fc1af738cd64"></img>
 
 ## E-Prescription <br />
+Users can obtain an `E-prescription` from Doctor Babu if the consulting doctor writes one for the patient. This digital prescription can be downloaded for future use cases. It will be downloaded in `PDF format`.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/24174b5d-4880-41d8-bbc3-74f4ac17cf64"></img>
