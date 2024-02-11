@@ -8,12 +8,12 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 + App will let users know about their pending appointment
 + Aritificaial Intelligence based Disease prediction using only symptoms and doctor suggestion based on predicted disease
 + Users will be able to purchase medicine from the app
++ Users can also purchase medication via uploading their prescription as pdf/image file
 + Users will be able to set medication reminder through the app
 + Users can upload their diagnosis report for future use-cases
-+ Users can also purchase medication via uploading their prescription as pdf/image file
 + Users can give rating and review to the doctor after every successful consultation
 + Doctor's can prescribe e-prescription to the patient and users can download it through the app
 + Users can attach any kind of document before going into consultation
 + Doctors can enable/disable appointment setting through the app
 + Doctors can enable/disable online status setting through the app
-+ Chat module for doctor and patient
++ Chat module for doctor and patient for continuous engagement without anycost
