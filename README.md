@@ -96,9 +96,9 @@ Under the hood, `five distinct classification models` were utilised to forecast 
 ## Medicine Shop <br />
 <br />
 
-<img align="left" alt ="Chaquopy" width ="200" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/951bb2de-6fa3-49e1-876c-6e93a9863dda"></img>
-<img alt ="Chaquopy" width ="200" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/8baeb9f2-a5f8-4e92-a28c-b64b61cbd8e8"></img>
-<img alt ="Chaquopy" width ="200" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/10c1229f-cb74-4147-87fd-6060324da032"></img>
+<img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/951bb2de-6fa3-49e1-876c-6e93a9863dda"></img>
+<img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/8baeb9f2-a5f8-4e92-a28c-b64b61cbd8e8"></img>
+<img align="right" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/10c1229f-cb74-4147-87fd-6060324da032"></img>
 <br/>
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/0a387ac1-a47b-4d0b-9cb6-79e09440d984"></img>
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/c3510057-e2a0-4eb9-a5ed-f5b80bb4adf5"></img>
