@@ -84,6 +84,9 @@ Some limits exist while arranging appointments, including-
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/0d83ba89-6773-4582-9ed9-6ed631dc7618"></img>
 
 ## Diagnose Symptoms <br />
+Diagnose Symptoms uses AI to predict disease based on specific symptoms. Users can enter symptoms and receive the corresponding diagnosis, along with a disease synopsis and specialised doctor recommendations based on the disease.
+The Predictor is around 97% accurate in prediction.
+Under the hood, five distinct categorization models were utilised to forecast the disease using ensemble modelling.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/17691af9-f290-41c2-9842-4e6c5dfbd69d"></img>
