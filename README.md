@@ -24,3 +24,4 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 # Tech Stack-
 Doctor Babu is exclusively available on Android. It is written in **Android Native**.
 - __[Java](https://www.java.com/en/)__ - Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.
+- __[XML](https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction)__ - Extensible Markup Language is a markup language and file format for storing, transmitting, and reconstructing arbitrary data. It defines a set of rules for encoding documents in a format that is both human-readable and machine-readable
