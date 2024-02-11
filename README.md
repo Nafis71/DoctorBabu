@@ -77,7 +77,7 @@ To begin a video consultation, users must first select a certain doctor and then
 Users can schedule appointments by choosing a specific date and time.
 Some limits exist while arranging appointments, including-
  + The inability to reserve previous dates.
- + Second, customers are unable to reserve the next month's date unless it is 30/31.
+ + Second, users are unable to reserve the next month's date unless it is 30/31.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/3230c9ba-5e86-4ae1-a7b8-ed76022dd3ec"></img>
