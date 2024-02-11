@@ -42,7 +42,7 @@ The IDE (Integrated Development Environment) that was used is `Android studio`.<
 The Dashboard gives users access to the app's most important modules, making it easy to navigate. <br />
 <br />
 
-<img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/13776164-9e5e-40bd-b008-daa85a2bc8cd"></img>&nbsp;
+<img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/13776164-9e5e-40bd-b008-daa85a2bc8cd"></img>
 <img align="center" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/88f4bda4-9096-431e-aa09-4418d0a81dab"></img>
 
 
@@ -51,4 +51,4 @@ The Dashboard gives users access to the app's most important modules, making it 
 <br />
 
 <img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/5bd1414f-9f46-4b9c-8b7e-494ac161ced5"></img>
-<img align="right" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/732fadb8-e2cf-42c5-96b4-f25624972952"></img>
+<img align="center" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/732fadb8-e2cf-42c5-96b4-f25624972952"></img>
