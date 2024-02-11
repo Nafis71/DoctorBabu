@@ -30,6 +30,7 @@ Doctor Babu is exclusively available on Android. It is written in **Android Nati
 - <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a> </a> __[SQLite](https://firebase.google.com/)__ - SQLite is a database engine written in the C programming language. It is not a standalone app; rather, it is a library that software developers embed in their apps. As such, it belongs to the family of embedded databases.
 - __[XML](https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction)__ - Extensible Markup Language is a markup language and file format for storing, transmitting, and reconstructing arbitrary data. It defines a set of rules for encoding documents in a format that is both human-readable and machine-readable
 - __[Chaquopy](https://chaquo.com/chaquopy/)__ - Chaquopy: the Python SDK for Android
+- __[ZEGOCLOUD](https://www.zegocloud.com/)__ - Quickly embed video, voice & chat API/SDK to add video conferencing and interactive live streaming to mobile and web app.
 # Tools- 
 The IDE (Integrated Development Environment) that was used is `Android studio`.<br /> 
 <img align="left" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img>
