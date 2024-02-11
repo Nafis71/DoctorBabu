@@ -39,7 +39,7 @@ The IDE (Integrated Development Environment) that was used is `Android studio`.<
 ---
 # Screen Shots-
 
-## Dash Board <br />
+## Dashboard <br />
 The Dashboard gives users access to the app's most important modules, making it easy to navigate. <br />
 <br />
 
