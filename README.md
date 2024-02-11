@@ -1,8 +1,6 @@
-<img align="center" alt ="Doctor Babu" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/8240befa-a0ed-42fc-aa83-737b1ca22eef"></img>
-
 ---
 # Doctor Babu
-Doctor Babu allows medical professionals and patients to schedule appointments and communicate one-on-one via online video calls with a robust UI. Users can also purchase prescriptions online by selecting a specific pharmaceutical from a large database of medications, uploading a prescription, or using doctorBabu's saved prescription.  Obtain e-prescriptions and set medication alerts. This telemedicine software uses AI to help users identify a disease based on the symptoms they describe.
+<img align="center" alt ="Doctor Babu" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/8240befa-a0ed-42fc-aa83-737b1ca22eef"></img> Doctor Babu allows medical professionals and patients to schedule appointments and communicate one-on-one via online video calls with a robust UI. Users can also purchase prescriptions online by selecting a specific pharmaceutical from a large database of medications, uploading a prescription, or using doctorBabu's saved prescription.  Obtain e-prescriptions and set medication alerts. This telemedicine software uses AI to help users identify a disease based on the symptoms they describe.
 
 # Modules/Functionalities
 + Users can take consultations through video call
