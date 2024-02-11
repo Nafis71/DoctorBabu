@@ -72,6 +72,7 @@ To begin a video consultation, users must first select a certain doctor and then
 <img alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/77582362-0bb1-4c64-bfdc-0f0e3af6d539"></img>
 
 <br />
+
 ## Booking Appointment <br />
 <br />
 
