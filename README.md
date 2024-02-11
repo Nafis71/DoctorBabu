@@ -33,6 +33,6 @@ Doctor Babu is exclusively available on Android. It is written in **Android Nati
 - <img align="left" alt ="zegoCloud" width ="40" src="https://www.zegocloud.com/_nuxt/img/icon_kit_1on1@2x.c45f7b6.png"></img> __[ZEGOCLOUD](https://www.zegocloud.com/)__ - Quickly embed video, voice & chat API/SDK to add video conferencing and interactive live streaming to mobile and web app.
 # Tools- 
 The IDE (Integrated Development Environment) that was used is `Android studio`.<br /> 
-<img align="left" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img> <br />
+<img align="center" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img> <br />
 
 ---
