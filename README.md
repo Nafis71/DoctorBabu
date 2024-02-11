@@ -61,3 +61,11 @@ This module allows the user to view all doctors, including their information and
 
 <img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/a519d7cf-1ba0-4409-8936-e2e25e795e63"></img>
 <img align="center" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/5600ae70-8664-4c67-a6f5-7de20ce1e0b1"></img>
+
+## Video Consultation <br />
+
+<br />
+
+<img align="left" alt ="Chaquopy" width ="200" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/eee49cae-683a-446f-9815-781fcf7a63bc"></img>
+<img alt ="Chaquopy" width ="200" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/f8223b59-6aa4-4b32-82b2-0b4f750bd69f"></img>
+<img alt ="Chaquopy" width ="200" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/41b5ea25-a111-4166-85f1-1de8833061c9"></img>
