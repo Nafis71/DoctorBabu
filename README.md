@@ -36,3 +36,5 @@ The IDE (Integrated Development Environment) that was used is `Android studio`.<
 <img align="center" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img> <br />
 
 ---
+# Screen Shots-
++ **Dash Board**
