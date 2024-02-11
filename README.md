@@ -31,4 +31,4 @@ Doctor Babu is exclusively available on Android. It is written in **Android Nati
 - __[XML](https://developer.mozilla.org/en-US/docs/Web/XML/XML_introduction)__ - Extensible Markup Language is a markup language and file format for storing, transmitting, and reconstructing arbitrary data. It defines a set of rules for encoding documents in a format that is both human-readable and machine-readable
 # Tools-
 The IDE (Integrated Development Environment) that was used is `Android studio`.
-<img align="center" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img>
+<img align="left" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img>
