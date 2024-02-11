@@ -17,3 +17,5 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 + Doctors can enable/disable appointment setting through the app
 + Doctors can enable/disable online status setting through the app
 + Chat module for doctor and patient for continuous engagement without any cost
+---
+# Installation-
