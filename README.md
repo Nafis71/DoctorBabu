@@ -59,5 +59,5 @@ Users can utilise the Doctor Consultations Module to schedule `consultations/app
 This module allows the user to view all doctors, including their information and consultation fees. Users can fine-tune these details by selecting the filter option above.
 <br />
 
-<img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/a519d7cf-1ba0-4409-8936-e2e25e795e63"></img> &nbsp;
+<img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/a519d7cf-1ba0-4409-8936-e2e25e795e63"></img> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/5600ae70-8664-4c67-a6f5-7de20ce1e0b1"></img>
