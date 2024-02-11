@@ -53,3 +53,10 @@ Users can utilise the Doctor Consultations Module to schedule `consultations/app
 
 <img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/5bd1414f-9f46-4b9c-8b7e-494ac161ced5"></img>
 <img align="center" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/732fadb8-e2cf-42c5-96b4-f25624972952"></img>
+
+
+## View All Doctor <br />
+<br />
+
+<img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/a519d7cf-1ba0-4409-8936-e2e25e795e63"></img>
+<img align="center" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/5600ae70-8664-4c67-a6f5-7de20ce1e0b1"></img>
