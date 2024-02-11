@@ -107,7 +107,7 @@ During the shopping process, consumers can utilise their `reward points` to rece
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/1ebc66c1-070e-4f73-8a03-7ac46532fbe8"></img>
 
 ## Chat Room <br />
-Patients can seek rapid guidance from any health professional at any time via the chat room. Users can send both text messages and photos.
+Patients can seek rapid guidance from any health professional at any time via the `chat room`. Users can send both text messages and photos.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/edfbc02a-3e58-44fa-93ae-92b7006bf24c"></img>
