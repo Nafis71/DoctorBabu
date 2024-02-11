@@ -85,8 +85,8 @@ Some limits exist while arranging appointments, including-
 
 ## Diagnose Symptoms <br />
 Diagnose Symptoms uses AI to predict disease based on specific symptoms. Users can enter symptoms and receive the corresponding diagnosis, along with a disease synopsis and specialised doctor recommendations based on the disease.
-The Predictor is around 97% accurate in prediction.
-Under the hood, five distinct categorization models were utilised to forecast the disease using ensemble modelling.
+The Predictor is around `97%` accurate in prediction.
+Under the hood, `five distinct classification models` were utilised to forecast the disease using `ensemble modelling`.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/17691af9-f290-41c2-9842-4e6c5dfbd69d"></img>
