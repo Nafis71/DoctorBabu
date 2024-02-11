@@ -105,3 +105,9 @@ During the shopping process, consumers can utilise their `reward points` to rece
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/0a387ac1-a47b-4d0b-9cb6-79e09440d984"></img>
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/c3510057-e2a0-4eb9-a5ed-f5b80bb4adf5"></img>
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/1ebc66c1-070e-4f73-8a03-7ac46532fbe8"></img>
+
+## Chat Room <br />
+<br />
+
+<img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/edfbc02a-3e58-44fa-93ae-92b7006bf24c"></img>
+<img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/94e661b5-6a6b-4f7f-9315-fc1af738cd64"></img>
