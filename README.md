@@ -1,3 +1,3 @@
 ---
 # Doctor Babu
-Doctor Babu is an Android telemedicine software that allows you to make video calls, schedule consultations, and set prescription reminders. You can upload your reports and medications. You can buy medication from Doctor Babu, upload a prescription, or use Doctor Babu's saved prescription. You can also identify your symptoms, and the app will utilise AI to tell you what's causing them and which doctor you should see.
+Doctor Babu allows medical professionals and patients to schedule appointments and communicate one-on-one via online video calls. Users can also purchase prescriptions online by selecting a specific pharmaceutical from a large database of medications, uploading a prescription, or using doctorBabu's saved prescription.  Obtain e-prescriptions and set medication alerts. This telemedicine software uses AI to help users identify an ailment based on the symptoms they describe.
