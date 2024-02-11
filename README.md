@@ -34,4 +34,5 @@ Doctor Babu is exclusively available on Android. It is written in **Android Nati
 # Tools- 
 The IDE (Integrated Development Environment) that was used is `Android studio`.<br /> 
 <img align="left" alt ="coding" width ="400" src="https://miro.medium.com/v2/resize:fit:960/1*Q_yLmmRtdYWlDqWJ80ceUw.gif"></img> <br />
-**
+
+---
