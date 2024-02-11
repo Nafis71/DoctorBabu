@@ -38,7 +38,7 @@ The IDE (Integrated Development Environment) that was used is `Android studio`.<
 
 ---
 # Screen Shots-
-+ **Dash Board** <br />
+## Dash Board <br />
 The Dashboard gives users access to the app's most important modules, making it easy to navigate. <br />
 <br />
   <img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/13776164-9e5e-40bd-b008-daa85a2bc8cd"></img>
