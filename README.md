@@ -5,7 +5,8 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 # Modules/Functionalities
 + Users can take consultations through video call
 + Users can make consultation appointments through the app
-+ App will let users know about their pending appointment
++ App will let users know about their pending appointment via notification just before the appointment or they can track their pending appointment list via appointment list module
++ Users can view all doctors, search for a specific doctor or can filter their search according to their needs.
 + Aritificaial Intelligence based disease prediction using only symptoms and doctor suggestion based on predicted disease
 + Users will be able to purchase medicine from the app
 + Users can also purchase medication via uploading their prescription as pdf/image file
