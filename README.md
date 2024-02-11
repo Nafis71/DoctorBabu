@@ -94,6 +94,8 @@ Under the hood, `five distinct classification models` were utilised to forecast 
 <img alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/4485036f-b6e0-4373-820c-7cebd296349a"></img>
 
 ## Medicine Shop <br />
+Users can purchase medications from Doctor Babu, search for a certain medicine, and examine information about it before purchasing.
+During the shopping process, consumers can utilise their `reward points` to receive a discount on their order. Users can purchase medications from the cart section after adding them to the cart. They can also `shop by prescription` for hassle-free purchases.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="250" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/951bb2de-6fa3-49e1-876c-6e93a9863dda"></img>
