@@ -23,4 +23,4 @@ Doctor Babu allows medical professionals and patients to schedule appointments a
 ---
 # Tech Stack-
 Doctor Babu is exclusively available on Android. It is written in **Android Native**.
-- __[Java](https://nodeca.github.io/pica/demo/)__ - Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.
+- __[Java](https://www.java.com/en/)__ - Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.
