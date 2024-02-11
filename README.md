@@ -47,7 +47,7 @@ The Dashboard gives users access to the app's most important modules, making it 
 
 
 ## Doctor Consultation <br />
-Users can utilise the Doctor Consultations Module to schedule consultations/appointments with highly rated available doctors or to view all doctors by hitting the view all button. They can also choose a doctor based on their department or symptoms. This module also provides a function called `"Diagnose your symptoms"` which helps a patient find out what's wrong with his body and which doctor she/he should consult for that specific condition.
+Users can utilise the Doctor Consultations Module to schedule `consultations/appointments` with highly rated `available doctors` or to view all doctors by hitting the `view all` button. They can also choose a doctor based on their department or symptoms. This module also provides a function called `"Diagnose your symptoms"` which helps a patient find out what's wrong with his body and which doctor she/he should consult for that specific condition.
 <br />
 
 <img align="left" alt ="Chaquopy" width ="300" src="https://github.com/Nafis71/DoctorBabu/assets/57575805/5bd1414f-9f46-4b9c-8b7e-494ac161ced5"></img>
