@@ -8,7 +8,7 @@
 + App will let users know about their pending appointment via notification just before the appointment or they can track their pending appointment list via appointment list module
 + Users can cancel their pending appointment before the scheduled time.
 + Users can view all doctors, search for a specific doctor or can filter their search according to their needs.
-+ Aritificaial Intelligence based disease prediction using only symptoms and doctor suggestion based on predicted disease
++ Artificial Intelligence based disease prediction using only symptoms and doctor suggestion based on predicted disease
 + Users will be able to purchase medicine from the app
 + Users can also purchase medication via uploading their prescription as pdf/image file
 + Users will be able to set medication reminder through the app
