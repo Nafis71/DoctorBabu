@@ -26,7 +26,7 @@
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
-            android:text="Diagnosis"
+            android:text="@string/medical"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -36,12 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="4dp"
             android:layout_toEndOf="@+id/headerText"
             android:fontFamily="@font/roboto"
             android:shadowColor="@color/black"
             android:shadowRadius="0.5"
-            android:text="Reports"
+            android:text="@string/documents"
             android:textColor="#4E5EDE"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -80,7 +80,7 @@
                 android:fontFamily="@font/roboto"
                 android:shadowColor="@color/black"
                 android:shadowRadius="0.5"
-                android:text="Diagnosis Reports"
+                android:text="@string/medicalDocuments"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold">

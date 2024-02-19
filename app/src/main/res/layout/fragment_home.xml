@@ -525,7 +525,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="15dp"
                             android:fontFamily="@font/roboto"
-                            android:text="@string/medicalReport"
+                            android:text="@string/medicalDocuments"
                             android:textColor="#666666"
                             android:textSize="13sp"
                             android:textStyle="bold">

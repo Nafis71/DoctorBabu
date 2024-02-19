@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class CallDoctor extends AppCompatActivity {
     ImageView profilePicture;
     TextView callingWhomText;
@@ -72,6 +74,12 @@ public class CallDoctor extends AppCompatActivity {
                         ring();
                         callingWhomText.setText("Ringing");
                     }
+                } else{
+                    HashMap<String, Object> roomSetup = new HashMap<>();
+                    roomSetup.put("incoming", "null");
+                    roomSetup.put("isAvailable", false);
+                    roomSetup.put("status", 0);
+                    reference.child(doctorId).setValue(roomSetup);
                 }
             }
 

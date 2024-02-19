@@ -4,6 +4,9 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="medical">Medical</string>
+    <string name="documents">Documents</string>
+    <string name="medicalDocuments">Medical Documents</string>
     <string name="Continue">Continue</string>
     <string name="secretKey">/TRZ5tkDZzbtFn+DXh1hBFfYcFhR7pxdDVXGcLMuTao=</string>
     <string name="placeOrder">Place Order</string>

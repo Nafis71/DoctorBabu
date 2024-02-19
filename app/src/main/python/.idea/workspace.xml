@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec2ee961-45a3-4132-896a-38eea9addda8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/DoctorConsultationModule/IdentifyDisease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/DoctorConsultationModule/IdentifyDisease.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/DoctorConsultationModule/predictedDisease.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/DoctorConsultationModule/predictedDisease.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predictor.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../res/layout/activity_predicted_disease.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/layout/activity_predicted_disease.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../release/output-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../release/output-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/DoctorConsultationModule/CallDoctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../java/com/example/doctorbabu/patient/DoctorConsultationModule/CallDoctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../res/layout/activity_diagnosis_report_upload_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/layout/activity_diagnosis_report_upload_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../res/values-bn/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/values-bn/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

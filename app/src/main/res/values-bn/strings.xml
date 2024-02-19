@@ -4,6 +4,9 @@
         <item>100</item>
         <item>3000</item>
     </string-array>
+    <string name="medical">চিকিৎসা</string>
+    <string name="documents">নথিপত্র</string>
+    <string name="medicalDocuments">চিকিৎসা নথিপত্র</string>
     <string name="secretKey">/TRZ5tkDZzbtFn+DXh1hBFfYcFhR7pxdDVXGcLMuTao=</string>
     <string name="Continue">চালিয়ে যান</string>
     <string name="placeOrder">অর্ডার করুন</string>
